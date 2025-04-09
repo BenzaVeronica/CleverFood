@@ -8,8 +8,8 @@ import { RouterProvider } from 'react-router';
 
 import { store } from '~/store/configure-store.ts';
 
-import { router } from './router';
-import theme from './theme';
+import { router } from '../router';
+import theme from '../theme';
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
