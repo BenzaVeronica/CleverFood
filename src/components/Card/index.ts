@@ -1,2 +1,2 @@
-import Card from './Card';
+import Card from './CardVertical';
 export default Card;

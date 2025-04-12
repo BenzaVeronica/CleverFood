@@ -20,22 +20,16 @@ export const router = createBrowserRouter([
                 element: <TheMostPage />,
             },
             {
-                path: 'categories',
-                // element: <CategoriesLayout />,
+                index: true,
+                element: <CategoryPage />,
+            },
+            {
+                path: ':categoryId',
+                element: <CategoryPage />,
                 children: [
                     {
-                        index: true,
+                        path: ':subcategoryId',
                         element: <CategoryPage />,
-                    },
-                    {
-                        path: ':categoryId',
-                        element: <CategoryPage />,
-                        children: [
-                            {
-                                path: ':subcategoryId',
-                                element: <CategoryPage />,
-                            },
-                        ],
                     },
                 ],
             },

@@ -1,7 +1,126 @@
-import React from 'react';
+import {
+    Box,
+    Button,
+    Grid,
+    GridItem,
+    Icon,
+    Tab,
+    TabList,
+    TabPanel,
+    TabPanels,
+    Tabs,
+} from '@chakra-ui/react';
+import { useEffect } from 'react';
+import { useParams } from 'react-router';
+
+import CardList from '~/components/CardList';
+import CategoryTopFilter from '~/components/CategoryTopFilter';
+import SectionAbout from '~/components/SectionAbout';
+import { desert } from '~/components/SectionAbout/recipes.constants';
+import { masDishCategories, masItems } from '~/store/recipe/recipe.constants';
+
+import ArrowLongRight from '../assets/iconArrowLongRight.svg?react';
 
 function CategoryPage() {
-    return <div></div>;
+    const { categoryId, subcategoryId } = useParams();
+    const currentCategory = masDishCategories.find((cat) => cat.url === categoryId);
+    // console.log(masItems);
+
+    // const currentSubcategory = currentCategory?.subcategories?.find(sub => sub.url === subcategoryId);
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [subcategoryId]);
+
+    return (
+        <Grid
+            templateColumns='repeat(12, 1fr)'
+            ml={{ base: 4, md: 5, lg: 6 }}
+            mr={{ base: 4, md: 5, lg: '72px' }}
+        >
+            <GridItem colStart={3} colSpan={8}>
+                {currentCategory && (
+                    <CategoryTopFilter title={currentCategory.title} text={currentCategory.text} />
+                )}
+            </GridItem>
+            <GridItem colSpan={12}>
+                <Tabs
+                    // mt={4}
+                    isLazy
+                    defaultIndex={
+                        currentCategory?.subcategories.findIndex(
+                            (el) => el.url === subcategoryId,
+                        ) || 0
+                    }
+                    // border={'none'}
+                >
+                    <Box
+                        overflowX='auto'
+                        css={{
+                            '&::-webkit-scrollbar': {
+                                width: '0',
+                            },
+                        }}
+                    >
+                        <TabList
+                            width='fit-content'
+                            margin='0 auto'
+                            overflowY='hidden'
+                            pb={0}
+                            whiteSpace='nowrap'
+                            border='none'
+                        >
+                            {currentCategory?.subcategories.map((el, _index) => (
+                                <Tab
+                                    key={`CategoryPage_Tab_${el.id}`}
+                                    color='lime.800'
+                                    borderColor='blackAlpha.200'
+                                    borderBottomWidth='1px'
+                                    marginBottom='1px'
+                                    _selected={{
+                                        color: 'lime.600',
+                                        borderColor: 'lime.600',
+                                        // marginBottom: '-2px',
+                                        marginBottom: '0',
+                                        borderBottomWidth: '2px',
+                                    }}
+                                >
+                                    {el.title}
+                                </Tab>
+                            ))}
+                        </TabList>
+                    </Box>
+                    <TabPanels>
+                        {currentCategory?.subcategories.map((el, _index) => (
+                            <TabPanel pt={3} pb={0} px={0} key={`CategoryPage_TabPanel_${el.id}`}>
+                                <CardList item={el} list={masItems.slice(7)} />
+                                <Button
+                                    display='block'
+                                    mx='auto'
+                                    mt={4}
+                                    rightIcon={<Icon as={ArrowLongRight} />}
+                                    bg='lime.300'
+                                    _hover={{
+                                        bg: 'lime.500',
+                                        color: 'white',
+                                        '& path': {
+                                            fill: 'white',
+                                        },
+                                    }}
+                                    fontSize='lg'
+                                    fontWeight='semibold'
+                                >
+                                    Загрузить еще
+                                </Button>
+                            </TabPanel>
+                        ))}
+                    </TabPanels>
+                </Tabs>
+            </GridItem>
+            <GridItem colSpan={12}>
+                <SectionAbout item={desert} />
+            </GridItem>
+        </Grid>
+    );
 }
 
 export default CategoryPage;

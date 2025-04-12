@@ -1,8 +1,17 @@
-import { Flex, Image, Text } from '@chakra-ui/react';
-import { Accordion, AccordionButton, AccordionItem, AccordionPanel, Box } from '@chakra-ui/react';
-import React from 'react';
+import {
+    Accordion,
+    AccordionButton,
+    AccordionItem,
+    AccordionPanel,
+    Box,
+    Flex,
+    Image,
+    Text,
+} from '@chakra-ui/react';
+import { useLocation, useNavigate } from 'react-router';
 
-import { masDishCategories } from '~/store/receipt/recipe.constants';
+import { masDishCategories } from '~/store/recipe/recipe.constants';
+import { dishCategory } from '~/store/recipe/recipe.types';
 
 import { IconExit } from '../Icons/IconExit';
 import { SubCategoryListItem } from './SubCategoryListItem';
@@ -12,6 +21,17 @@ type Props = {
 };
 
 function LeftNavMenu(_props: Props) {
+    const location = useLocation();
+    const navigate = useNavigate();
+    const isHomePage = location.pathname === '/';
+
+    const handleAccordionClick = (item: dishCategory) => {
+        if (item.subcategories && item.subcategories.length > 0) {
+            navigate(`${item.url}/${item.subcategories[0].url}`);
+        } else {
+            navigate(item.url);
+        }
+    };
     return (
         <Flex flexDirection='column' height='100%' justifyContent='space-between'>
             <Box
@@ -34,10 +54,14 @@ function LeftNavMenu(_props: Props) {
                     },
                 }}
             >
-                <Accordion allowToggle allowMultiple={false}>
+                <Accordion allowToggle allowMultiple={false} index={isHomePage ? [] : undefined}>
                     {masDishCategories.map((item, index) => (
                         <AccordionItem key={`LeftNavMenu_${item.url}${index}`}>
                             <AccordionButton
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleAccordionClick(item);
+                                }}
                                 data-test-id={item.url === 'vegan-cuisine' ? 'vegan-cuisine' : ''}
                                 fontWeight='500'
                                 py={3}
@@ -61,9 +85,18 @@ function LeftNavMenu(_props: Props) {
                                 </Box>
                                 {/* <IconArrowDown/> */}
                             </AccordionButton>
-                            <AccordionPanel p={0}>
+                            <AccordionPanel
+                                p={0}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                }}
+                            >
                                 {item.subcategories.map((el, j) => (
-                                    <SubCategoryListItem key={`${el.url}${j}`} el={el} />
+                                    <SubCategoryListItem
+                                        key={`${el.url}${j}`}
+                                        el={el}
+                                        onClick={() => navigate(`${item.url}/${el.url}`)}
+                                    />
                                 ))}
                             </AccordionPanel>
                         </AccordionItem>
@@ -81,7 +114,7 @@ function LeftNavMenu(_props: Props) {
                 {/* <Button leftIcon={<IconExit />} variant={'ghost'} size='xs'>Выйти</Button> */}
                 <Flex alignItems='center' as='button'>
                     <IconExit boxSize={3} mr='6px' />
-                    <Text fontSize='12px' lineHeight='16px' fontWeight='600'>
+                    <Text fontSize='xs' fontWeight='600'>
                         Выйти
                     </Text>
                 </Flex>

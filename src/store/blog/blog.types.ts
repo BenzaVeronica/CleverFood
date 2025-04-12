@@ -1,4 +1,5 @@
 export type blogItem = {
+    id: number;
     text: string;
     profile: profile;
     // like: number | null,
@@ -9,8 +10,8 @@ export type profile = {
     name: string;
     surname: string;
     username: string;
-    img: string;
-    statistics: statistics;
+    img?: string;
+    statistics?: statistics;
 };
 export type statistics = {
     like: number | null;

@@ -11,13 +11,30 @@ import salads from '../../assets/icons/salads.svg';
 import sauces from '../../assets/icons/sauces.svg';
 import snacks from '../../assets/icons/snacks.svg';
 import veganCuisine from '../../assets/icons/veganCuisine.svg';
+import img1 from '../../assets/imgRecipes/.image.jpg';
+import img2 from '../../assets/imgRecipes/.image-1.jpg';
+import img3 from '../../assets/imgRecipes/.image-2.jpg';
+import img4 from '../../assets/imgRecipes/.image-3.jpg';
+import img5 from '../../assets/imgRecipes/.image-4.jpg';
+import img6 from '../../assets/imgRecipes/.image-5.jpg';
+import img7 from '../../assets/imgRecipes/.image-6.jpg';
+import img8 from '../../assets/imgRecipes/.image-7.jpg';
+import img9 from '../../assets/imgRecipes/.image-8.jpg';
+import img10 from '../../assets/imgRecipes/.image-9.jpg';
+import img11 from '../../assets/imgRecipes/.image-10.jpg';
+import img12 from '../../assets/imgRecipes/.image-11.jpg';
+import img13 from '../../assets/imgRecipes/.image-12.jpg';
+import img14 from '../../assets/imgRecipes/.image-13.jpg';
+import img15 from '../../assets/imgRecipes/.image-14.jpg';
+import { masProfiles } from '../blog/blog.constants';
 import { addIdToArray } from '../utils';
-import { dishCategory, item, itemWithoutId } from './recipe.types';
+import { dishCategory, recipe, recipeWithoutId } from './recipe.types';
 
 export const masDishCategories: dishCategory[] = [
     {
         id: 1,
         title: 'Салаты',
+        text: 'Интересны не только убеждённым вегетарианцам, но и тем, кто хочет  попробовать вегетарианскую диету и готовить вкусные  вегетарианские блюда.',
         url: 'salads',
         icon: salads,
         subcategories: [
@@ -30,6 +47,7 @@ export const masDishCategories: dishCategory[] = [
     {
         id: 2,
         title: 'Закуски',
+        text: 'Интересны не только убеждённым вегетарианцам, но и тем, кто хочет  попробовать вегетарианскую диету и готовить вкусные  вегетарианские блюда.',
         url: 'snacks',
         icon: snacks,
         subcategories: [
@@ -44,6 +62,7 @@ export const masDishCategories: dishCategory[] = [
     {
         id: 3,
         title: 'Первые блюда',
+        text: 'Интересны не только убеждённым вегетарианцам, но и тем, кто хочет  попробовать вегетарианскую диету и готовить вкусные  вегетарианские блюда.',
         url: 'first-courses',
         icon: firstCourses,
         subcategories: [
@@ -57,6 +76,7 @@ export const masDishCategories: dishCategory[] = [
     {
         id: 4,
         title: 'Вторые блюда',
+        text: 'Интересны не только убеждённым вегетарианцам, но и тем, кто хочет  попробовать вегетарианскую диету и готовить вкусные  вегетарианские блюда.',
         url: 'main-courses',
         icon: mainCourses,
         subcategories: [
@@ -76,7 +96,8 @@ export const masDishCategories: dishCategory[] = [
     },
     {
         id: 5,
-        title: 'Десерты и выпечка',
+        title: 'Десерты, выпечка',
+        text: 'Интересны не только убеждённым вегетарианцам, но и тем, кто хочет  попробовать вегетарианскую диету и готовить вкусные  вегетарианские блюда.',
         url: 'desserts',
         icon: desserts,
         subcategories: [
@@ -98,6 +119,7 @@ export const masDishCategories: dishCategory[] = [
     {
         id: 6,
         title: 'Блюда на гриле',
+        text: 'Интересны не только убеждённым вегетарианцам, но и тем, кто хочет  попробовать вегетарианскую диету и готовить вкусные  вегетарианские блюда.',
         url: 'grilled-dishes',
         icon: grilledDishes,
         subcategories: [
@@ -112,6 +134,7 @@ export const masDishCategories: dishCategory[] = [
     {
         id: 7,
         title: 'Веганская кухня',
+        text: 'Интересны не только убеждённым вегетарианцам, но и тем, кто хочет  попробовать вегетарианскую диету и готовить вкусные  вегетарианские блюда.',
         url: 'vegan-cuisine',
         icon: veganCuisine,
         subcategories: [
@@ -128,6 +151,7 @@ export const masDishCategories: dishCategory[] = [
     {
         id: 8,
         title: 'Детские блюда',
+        text: 'Интересны не только убеждённым вегетарианцам, но и тем, кто хочет  попробовать вегетарианскую диету и готовить вкусные  вегетарианские блюда.',
         url: 'children-dishes',
         icon: childrenDishes,
         subcategories: [
@@ -144,6 +168,7 @@ export const masDishCategories: dishCategory[] = [
     {
         id: 9,
         title: 'Лечебное питание',
+        text: 'Интересны не только убеждённым вегетарианцам, но и тем, кто хочет  попробовать вегетарианскую диету и готовить вкусные  вегетарианские блюда.',
         url: 'health-nutrition',
         icon: healthNutrition,
         subcategories: [
@@ -168,6 +193,7 @@ export const masDishCategories: dishCategory[] = [
     {
         id: 10,
         title: 'Национальные блюда',
+        text: 'Интересны не только убеждённым вегетарианцам, но и тем, кто хочет  попробовать вегетарианскую диету и готовить вкусные  вегетарианские блюда.',
         url: 'national-cuisine',
         icon: national,
         subcategories: [
@@ -191,6 +217,7 @@ export const masDishCategories: dishCategory[] = [
     {
         id: 11,
         title: 'Соусы',
+        text: 'Интересны не только убеждённым вегетарианцам, но и тем, кто хочет  попробовать вегетарианскую диету и готовить вкусные  вегетарианские блюда.',
         url: 'sauces',
         icon: sauces,
         subcategories: [
@@ -202,6 +229,7 @@ export const masDishCategories: dishCategory[] = [
     {
         id: 12,
         title: 'Домашние заготовки',
+        text: 'Интересны не только убеждённым вегетарианцам, но и тем, кто хочет  попробовать вегетарианскую диету и готовить вкусные  вегетарианские блюда.',
         url: 'home-preparations',
         icon: preparations,
         subcategories: [
@@ -218,6 +246,7 @@ export const masDishCategories: dishCategory[] = [
     {
         id: 13,
         title: 'Напитки',
+        text: 'Интересны не только убеждённым вегетарианцам, но и тем, кто хочет  попробовать вегетарианскую диету и готовить вкусные  вегетарианские блюда.',
         url: 'drinks',
         icon: drinks,
         subcategories: [
@@ -234,63 +263,131 @@ export const masDishCategories: dishCategory[] = [
     },
 ];
 
-const masItemsWithoutId: itemWithoutId[] = [
+const masItemsWithoutId: recipeWithoutId[] = [
     {
+        img: img9,
         title: `Солянка с грибами`,
         text: 'Как раз после праздников, когда мясные продукты еще остались, но никто их уже не хочет, время варить солянку.',
         category: masDishCategories.find((el) => el.title === 'Первые блюда') as dishCategory,
-        like: null,
         bookmarks: 1,
+        like: null,
+        recommend: masProfiles[0],
     },
     {
+        img: img10,
         title: `Капустные котлеты`,
         text: 'Капустные котлеты по этому рецепту получаются необычайно пышными и  невероятно вкусными. Мягкий вкус и лёгкая пряная нотка наверняка помогут сделать эти чудесные котлеты из капусты одним из ваших любимых овощных  блюд.',
-        category: masDishCategories.find((el) => el.title === 'Веганские блюда') as dishCategory,
-        like: null,
-        bookmarks: null,
+        category: masDishCategories.find((el) => el.title === 'Вторые блюда') as dishCategory,
+        bookmarks: 2,
+        like: 1,
+        recommend: masProfiles[0],
     },
     {
+        img: img11,
         title: `Оладьи на кефире "Пышные"`,
         text: 'Очень вкусные и нежные оладьи на кефире. Настоятельно рекомендую пышные кефирные оладьи на завтрак.',
         category: masDishCategories.find((el) => el.title === 'Десерты, выпечка') as dishCategory,
-        like: 1,
         bookmarks: null,
+        like: 1,
     },
     {
+        img: img12,
         title: `Салат "Здоровье"`,
         text: 'Сельдерей очень полезен для здоровья, пора набираться витаминов. Не  салат, а сплошное удовольствие:) Вкусный, необычный, а главное быстрый.',
         category: masDishCategories.find((el) => el.title === 'Салаты') as dishCategory,
-        like: 2,
         bookmarks: 1,
+        like: 2,
+        recommend: masProfiles[0],
     },
     {
+        img: img13,
         title: `Кнели со спагетти`,
         text: 'Как раз после праздников, когда мясные продукты еще остались, но никто их уже не хочет, время варить солянку.',
         category: masDishCategories.find((el) => el.title === 'Вторые блюда') as dishCategory,
-        like: 85,
         bookmarks: 152,
+        like: 85,
     },
     {
+        img: img14,
         title: `Пряная ветчина по итальянски`,
         text: 'Как раз после праздников, когда мясные продукты еще остались, но никто их уже не хочет, время варить солянку.',
         category: masDishCategories.find((el) => el.title === 'Вторые блюда') as dishCategory,
-        like: 159,
         bookmarks: 257,
+        like: 159,
+        recommend: masProfiles[1],
     },
     {
+        img: img15,
         title: `Лапша с курицей и шафраном`,
         text: 'Как раз после праздников, когда мясные продукты еще остались, но никто их уже не хочет, время варить солянку.',
         category: masDishCategories.find((el) => el.title === 'Вторые блюда') as dishCategory,
-        like: 258,
         bookmarks: 342,
+        like: 258,
     },
     {
+        img: img1,
+        title: `Картошка, тушенная с болгарским перцем и фасолью в томатном соусе`,
+        text: 'Картошка, тушенная с болгарским перцем, фасолью, морковью и луком, -  вариант сытного блюда на каждый день. Фасоль в данном случае заменяет  мясо, делая рагу сытным и питательным. Чтобы сократить время  приготовления, возьмём консервированную фасоль. Блюдо хоть и простое, но в полной мере наполнено ароматами и имеет выразительный вкус за счёт  добавления томатной пасты.',
+        category: masDishCategories.find((el) => el.title === 'Национальные блюда') as dishCategory,
+        bookmarks: 85,
+        like: 152,
+    },
+    {
+        img: img2,
+        title: `Картофельные рулетики с грибами`,
+        text: 'Рекомендую всем приготовить постное блюдо из картофеля и грибов.  Готовится это блюдо без яиц, без мяса и без сыра, из самых простых  ингредиентов, а получается очень вкусно и сытно. Постный рецепт  картофельных рулетиков с грибами, в томатном соусе, - на обед, ужин и  даже на праздничный стол!',
+        category: masDishCategories.find((el) => el.title === 'Детские блюда') as dishCategory,
+        bookmarks: 85,
+        like: 152,
+    },
+    {
+        img: img3,
         title: `Том-ям с капустой кимчи`,
         text: 'Как раз после праздников, когда мясные продукты еще остались, но никто их уже не хочет, время варить солянку.',
-        category: masDishCategories.find((el) => el.title === 'Национальные') as dishCategory,
-        like: 124,
-        bookmarks: 324,
+        category: masDishCategories.find((el) => el.title === 'Национальные блюда') as dishCategory,
+        bookmarks: 124,
+        like: 324,
+    },
+    {
+        img: img4,
+        title: `Овощная лазанья из лаваша`,
+        text: 'Большое, сытное блюдо для ценителей блюд без мяса! Такая лазанья  готовится с овощным соусом и соусом бешамель, а вместо листов для  лазаньи используется тонкий лаваш.',
+        category: masDishCategories.find((el) => el.title === 'Блюда на гриле') as dishCategory,
+        bookmarks: 85,
+        like: 152,
+    },
+    {
+        img: img5,
+        title: `Тефтели из булгура и чечевицы, запечённые в томатном соусе`,
+        text: 'Тефтели из булгура и чечевицы – яркие и питательные, отлично подходят  для постного и вегетарианского меню. Тефтели получаются нежными, а также сочными и ароматными благодаря использованию томатного соуса и душистых пряностей.',
+        category: masDishCategories.find((el) => el.title === 'Вторые блюда') as dishCategory,
+        bookmarks: 85,
+        like: 152,
+    },
+    {
+        img: img6,
+        title: `Тефтели из булгура и чечевицы, запечённые в томатном соусе`,
+        text: 'Тефтели из булгура и чечевицы – яркие и питательные, отлично подходят  для постного и вегетарианского меню. Тефтели получаются нежными, а также сочными и ароматными благодаря использованию томатного соуса и душистых пряностей.',
+        category: masDishCategories.find((el) => el.title === 'Вторые блюда') as dishCategory,
+        bookmarks: 85,
+        like: 152,
+    },
+    {
+        img: img7,
+        title: `Чесночная картошка`,
+        text: 'Такая картошечка украсит любой семейный обед! Все будут в полном  восторге, очень вкусно! Аромат чеснока, хрустящая корочка на картошечке - просто объедение! Отличная идея для обеда или ужина, готовится просто!',
+        category: masDishCategories.find((el) => el.title === 'Национальные блюда') as dishCategory,
+        bookmarks: 124,
+        like: 324,
+    },
+    {
+        img: img8,
+        title: `Пури`,
+        text: 'Пури - это индийские жареные лепешки, которые готовятся из пресного  теста. Рецепт лепешек пури требует самых доступных ингредиентов, и  времени на приготовление хрустящих лепешек уйдет мало.',
+        category: masDishCategories.find((el) => el.title === 'Национальные блюда') as dishCategory,
+        bookmarks: 124,
+        like: 324,
     },
 ];
-export const masItems: item[] = addIdToArray(masItemsWithoutId);
-console.log(masItems);
+export const masItems: recipe[] = addIdToArray(masItemsWithoutId);
+// console.log(masItems);

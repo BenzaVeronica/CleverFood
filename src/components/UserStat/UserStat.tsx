@@ -12,16 +12,16 @@ type Props = {
 function UserStat(_props: Props) {
     return (
         <Flex
-            pt={{ base: 0, md: 4 }}
-            px={{ base: 0, md: 12 }}
-            gap={{ base: 0, md: 6 }}
-            flexDirection={{ base: 'row', md: 'column' }}
+            pt={{ base: 0, lg: 4 }}
+            px={{ base: 0, lg: 12 }}
+            gap={{ base: 0, lg: 6 }}
+            flexDirection={{ base: 'row', lg: 'column' }}
             alignItems='center'
         >
             <Button
                 px={[2, 4]}
-                fontSize={{ base: '12px', md: '16px' }}
-                leftIcon={<Icon as={Bookmark} boxSize={{ base: 3, md: 4 }} />}
+                fontSize={{ base: '12px', lg: '16px' }}
+                leftIcon={<Icon as={Bookmark} boxSize={{ base: 3, lg: 4 }} />}
                 colorScheme='lime'
                 variant='ghost'
             >
@@ -29,8 +29,8 @@ function UserStat(_props: Props) {
             </Button>
             <Button
                 px={[2, 4]}
-                fontSize={{ base: '12px', md: '16px' }}
-                leftIcon={<Icon as={Like} boxSize={{ base: 3, md: 4 }} />}
+                fontSize={{ base: '12px', lg: '16px' }}
+                leftIcon={<Icon as={Like} boxSize={{ base: 3, lg: 4 }} />}
                 colorScheme='lime'
                 variant='ghost'
             >
@@ -38,8 +38,8 @@ function UserStat(_props: Props) {
             </Button>
             <Button
                 px={[2, 4]}
-                fontSize={{ base: '12px', md: '16px' }}
-                leftIcon={<Icon as={People} boxSize={{ base: 3, md: 4 }} />}
+                fontSize={{ base: '12px', lg: '16px' }}
+                leftIcon={<Icon as={People} boxSize={{ base: 3, lg: 4 }} />}
                 colorScheme='lime'
                 variant='ghost'
             >

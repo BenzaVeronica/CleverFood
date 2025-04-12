@@ -1,7 +1,7 @@
-import profile0 from '../assets/profile/profile0.jpg';
-import profile1 from '../assets/profile/profile1.png';
-import profile2 from '../assets/profile/profile2.png';
-import profile3 from '../assets/profile/profile3.png';
+import profile0 from '../../assets/profile/profile0.jpg';
+import profile1 from '../../assets/profile/profile1.jpg';
+import profile2 from '../../assets/profile/profile2.jpg';
+import profile3 from '../../assets/profile/profile3.jpg';
 import { addIdToArray } from '../utils';
 import { blogItem, blogItemWithoutId, profile, profileWithoutId } from './blog.types';
 
@@ -53,7 +53,7 @@ const masProfilesWithoutId: profileWithoutId[] = [
 ];
 
 export const masProfiles: profile[] = addIdToArray(masProfilesWithoutId);
-console.log(masProfiles);
+// console.log(masProfiles);
 
 const masBlogItemWithoutId: blogItemWithoutId[] = [
     {
@@ -76,4 +76,4 @@ const masBlogItemWithoutId: blogItemWithoutId[] = [
     },
 ];
 export const masBlogItems: blogItem[] = addIdToArray(masBlogItemWithoutId);
-console.log(masProfiles);
+// console.log(masProfiles);

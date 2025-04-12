@@ -1,8 +1,11 @@
-import { Box, Flex, SimpleGrid, Text } from '@chakra-ui/react';
+import { Avatar, Box, Flex, SimpleGrid, Text } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useLocation } from 'react-router';
 
+import { masProfiles } from '~/store/blog/blog.constants';
+
 import { IconHomeCircle } from '../Icons/IconHomeCircle';
+import { IconSearchCircle } from '../Icons/IconSearchCircle';
 import { IconWriteCircle } from '../Icons/IconWriteCircle';
 import { FooterMenuItem } from './Footer.types';
 
@@ -12,18 +15,18 @@ type Props = {
 
 function Footer(_props: Props) {
     const location = useLocation();
-    console.log(location);
+    // console.log(location);
 
     const mas: FooterMenuItem[] = [
         {
             text: 'Главная',
-            link: '/the-most',
-            icon: (props) => <IconWriteCircle {...props} />,
+            link: '/',
+            icon: (props) => <IconHomeCircle {...props} />,
         },
         {
             text: 'Поиск',
             link: '/search',
-            icon: (props) => <IconHomeCircle {...props} />,
+            icon: (props) => <IconSearchCircle {...props} />,
         },
         {
             text: 'Записать',
@@ -33,7 +36,7 @@ function Footer(_props: Props) {
         {
             text: 'Мой профиль',
             link: '/profile',
-            icon: (props) => <IconHomeCircle {...props} />,
+            icon: () => <Avatar boxSize='40px' src={masProfiles[0].img} />,
         },
     ];
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -47,7 +50,7 @@ function Footer(_props: Props) {
             left='0'
             right='0'
             height='24'
-            display={{ base: 'block', md: 'none' }}
+            display={{ base: 'block', lg: 'none' }}
         >
             <SimpleGrid
                 // columns={[4, 12]}
@@ -61,7 +64,7 @@ function Footer(_props: Props) {
                     const isActive = location.pathname.startsWith(el.link) || isHovered;
                     return (
                         <Flex
-                            bg={isActive ? 'limeGradient.70' : ''}
+                            // bg={isActive ? 'limeGradient.70' : ''}
                             key={`Footer_${el.text}${index}`}
                             onMouseEnter={() => setHoveredIndex(index)}
                             onMouseLeave={() => setHoveredIndex(null)}
@@ -74,7 +77,7 @@ function Footer(_props: Props) {
                             gap={1}
                         >
                             {el.icon({ isActive: isActive, boxSize: 10 })}
-                            <Text>{el.text}</Text>
+                            <Text fontSize='xs'>{el.text}</Text>
                         </Flex>
                     );
                 })}

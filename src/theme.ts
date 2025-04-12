@@ -41,9 +41,16 @@ const theme = extendTheme({
         //   color: "lime.600",
         // },
         h1: {
-            fontSize: ['4xl', '5xl'],
-            fontWeight: 'bold',
-            lineHeight: 'none',
+            // fontSize: ['4xl', '5xl'],
+            // fontSize: '48px',
+            fontSize: { base: '2xl', lg: '5xl' },
+            fontWeight: '700',
+            // lineHeight: '48px',
+        },
+        h2: {
+            fontSize: '48px',
+            fontWeight: '500',
+            lineHeight: '48px',
         },
         subtitle: {
             fontSize: ['lg', 'xl'],
@@ -59,6 +66,12 @@ const theme = extendTheme({
         xl: '1920px',
     },
     colors: {
+        white: {
+            500: '#ffffff',
+        },
+        black: {
+            500: '#000000',
+        },
         limeGradient: {
             70: 'radial-gradient(50% 50% at 50% 45%, rgba(196, 255, 97, 0.7) 0%, rgba(255, 255, 255, 0) 70%)',
         },
