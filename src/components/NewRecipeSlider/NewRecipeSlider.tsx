@@ -20,6 +20,7 @@ function NewRecipeSlider(_props: Props) {
     };
     return (
         <Box
+            position='relative'
             as='section'
             mt={{ base: 0, lg: 6 }}
             mb={{ base: 8, lg: 10 }}
@@ -34,7 +35,7 @@ function NewRecipeSlider(_props: Props) {
                 Новые рецепты
             </Text>
 
-            <Box position='relative'>
+            <Box>
                 <IconButton
                     aria-label='prev'
                     bg='black'

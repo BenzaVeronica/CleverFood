@@ -22,7 +22,13 @@ function CardVertical({ el }: Props) {
             width={{ base: '158px', lg: '278px', xl: '322px' }}
             flexShrink={0}
         >
-            <Box width='100%' flexShrink={0} position='relative' overflow='hidden'>
+            <Box
+                width='100%'
+                flexShrink={0}
+                position='relative'
+                overflow='hidden'
+                h={{ base: '128px', lg: '230px' }}
+            >
                 <Tag
                     position='absolute'
                     display={{ base: 'flex', lg: 'none' }}
@@ -55,12 +61,12 @@ function CardVertical({ el }: Props) {
                     {el.title}
                 </Text>
                 <Text
+                    pt={1}
                     fontSize='sm'
                     hidden={isHidden}
                     // display={{base: 'none', md: 'block'}}
                     noOfLines={{ base: undefined, md: 3 }}
-                    mt={2}
-                    mb={6}
+                    // mb={6}
                 >
                     {el.text}
                 </Text>
