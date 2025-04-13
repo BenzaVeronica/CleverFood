@@ -21,7 +21,7 @@ function SectionTheMost(_props: Props) {
                     as={Link}
                     to='/the-most'
                     data-test-id='juiciest-link'
-                    display={{ base: 'none', md: 'inline' }}
+                    display={{ base: 'none', md: 'flex' }}
                     rightIcon={<Icon as={ArrowLongRight} />}
                     bg='lime.300'
                     _hover={{

@@ -37,7 +37,7 @@ function Header(_props: Props) {
             <Flex alignItems='end' px={{ base: 5, lg: 4 }} py={{ base: 4, lg: 6 }} as={Link} to='/'>
                 <LogoIcon boxSize={8} color='lime.500' />
                 <LogoText
-                    display={{ base: 'none', sm: 'block' }}
+                    display={{ base: 'none', md: 'block' }}
                     ml={2}
                     width='auto'
                     height='25px'

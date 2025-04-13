@@ -109,14 +109,19 @@ function CardHorizontal({ el, colSpan }: Props) {
                     <CardStat bookmarks={el.bookmarks} like={el.like} />
                 </Flex>
                 <Stack spacing={1}>
-                    <Text fontSize='xl' fontWeight={500} noOfLines={{ base: 2, lg: 1 }}>
+                    <Text
+                        fontSize={{ base: 'md', lg: 'xl' }}
+                        fontWeight={500}
+                        noOfLines={{ base: 2, lg: 1 }}
+                        h={{ base: 12, lg: 'auto' }}
+                    >
                         {el.title}
                     </Text>
                     <Text fontSize='sm' noOfLines={{ base: undefined, lg: 3 }} hidden={isHidden}>
                         {el.text}
                     </Text>
                 </Stack>
-                <Flex gap={2} justifyContent='flex-end'>
+                <Flex gap={2} justifyContent='flex-end' mt={{ base: 5, lg: 0 }}>
                     <Button
                         display={{ base: 'none', lg: 'flex' }}
                         size='sm'

@@ -20,10 +20,9 @@ function CardVertical({ el }: Props) {
             borderWidth={1}
             borderRadius='8px'
             width={{ base: '158px', lg: '278px', xl: '322px' }}
-            overflow='hidden'
             flexShrink={0}
         >
-            <Box width='100%' flexShrink={0} position='relative'>
+            <Box width='100%' flexShrink={0} position='relative' overflow='hidden'>
                 <Tag
                     position='absolute'
                     display={{ base: 'flex', lg: 'none' }}
@@ -49,8 +48,8 @@ function CardVertical({ el }: Props) {
                     fontSize={{ base: 'md', lg: 'lg', xl: 'xl' }}
                     fontWeight={500}
                     whiteSpace={{ base: 'normal', md: 'normal', lg: 'nowrap' }}
-                    // noOfLines={{ base: 2, lg: 1}}
-                    noOfLines={2}
+                    noOfLines={{ base: 2, lg: 1 }}
+                    // noOfLines={2}
                     isTruncated
                 >
                     {el.title}
@@ -66,7 +65,7 @@ function CardVertical({ el }: Props) {
                     {el.text}
                 </Text>
 
-                <Flex justifyContent='space-between' maxH={6} mt={{ base: 6, md: 1 }}>
+                <Flex justifyContent='space-between' maxH={6} mt={{ base: 1, lg: 6 }}>
                     <Tag
                         display={{ base: 'none', lg: 'flex' }}
                         leftElement={<Image src={el.category.icon} alt={el.category.title} />}

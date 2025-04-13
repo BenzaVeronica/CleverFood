@@ -35,12 +35,19 @@ function CategoryTopFilter({ title, text }: Props) {
                 color='blackAlpha.600'
                 as='p'
                 mt={3}
-                maxW='690px'
+                w={{ base: '298px', md: '727px', lg: '696px' }}
+                noOfLines={4}
             >
                 {text}
             </Text>
 
-            <Flex gap={3} mt={{ base: 4, lg: 8 }} maxW='520px' marginX='auto'>
+            <Flex
+                gap={3}
+                mt={{ base: 4, lg: 8 }}
+                maxW='520px'
+                marginX='auto'
+                w={{ base: '328px', md: 'auto' }}
+            >
                 <IconButton
                     variant='outline'
                     aria-label='Фильтр'
@@ -65,8 +72,6 @@ function CategoryTopFilter({ title, text }: Props) {
                     </InputRightElement>
                 </InputGroup>
             </Flex>
-            {/* <Button rightIcon={<IconSearch />} variant='outline'>
-</Button> */}
             <Flex
                 mt={4}
                 maxW='520px'

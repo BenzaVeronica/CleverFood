@@ -1,4 +1,4 @@
-import { Avatar, Box, Flex, SimpleGrid, Text } from '@chakra-ui/react';
+import { Avatar, Flex, SimpleGrid, Text } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useLocation } from 'react-router';
 
@@ -41,48 +41,51 @@ function Footer(_props: Props) {
     ];
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
+    // const isCypress = window.Cypress;
     return (
-        <Box
+        <SimpleGrid
+            as='footer'
             data-test-id='footer'
+            // columns={[4, 12]}
+            columns={4}
+            // columns={{ base: 4, sm: 12 }}
             bg='lime.50'
             position='fixed'
+            // position='absolute'
+            // position={isCypress ? 'absolute' : 'fixed'}
+            // position='sticky'
             bottom='0'
             left='0'
             right='0'
-            height='24'
-            display={{ base: 'block', lg: 'none' }}
+            // w='100%'
+            height='84px'
+            display={{ base: 'grid', lg: 'none' }}
+            // display={{ base: 'block', lg: 'none' }}
+            zIndex={10}
         >
-            <SimpleGrid
-                // columns={[4, 12]}
-                columns={4}
-                // columns={{ base: 4, sm: 12 }}
-                width='100%'
-                height='100%'
-            >
-                {mas.map((el, index) => {
-                    const isHovered = hoveredIndex === index;
-                    const isActive = location.pathname.startsWith(el.link) || isHovered;
-                    return (
-                        <Flex
-                            // bg={isActive ? 'limeGradient.70' : ''}
-                            key={`Footer_${el.text}${index}`}
-                            onMouseEnter={() => setHoveredIndex(index)}
-                            onMouseLeave={() => setHoveredIndex(null)}
-                            transition='background-color 0.2s'
-                            _hover={{ bg: 'lime.500' }}
-                            cursor='pointer'
-                            direction='column'
-                            alignItems='center'
-                            justifyContent='center'
-                            gap={1}
-                        >
-                            {el.icon({ isActive: isActive, boxSize: 10 })}
-                            <Text fontSize='xs'>{el.text}</Text>
-                        </Flex>
-                    );
-                })}
-            </SimpleGrid>
-        </Box>
+            {mas.map((el, index) => {
+                const isHovered = hoveredIndex === index;
+                const isActive = location.pathname.startsWith(el.link) || isHovered;
+                return (
+                    <Flex
+                        bg={isActive ? 'limeGradient.70' : ''}
+                        key={`Footer_${el.text}${index}`}
+                        onMouseEnter={() => setHoveredIndex(index)}
+                        onMouseLeave={() => setHoveredIndex(null)}
+                        transition='background-color 0.2s'
+                        _hover={{ bg: 'lime.500' }}
+                        cursor='pointer'
+                        direction='column'
+                        alignItems='center'
+                        justifyContent='center'
+                        gap={1}
+                    >
+                        {el.icon({ isActive: isActive, boxSize: 10 })}
+                        <Text fontSize='xs'>{el.text}</Text>
+                    </Flex>
+                );
+            })}
+        </SimpleGrid>
     );
 }
 

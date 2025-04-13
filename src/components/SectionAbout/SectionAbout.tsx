@@ -11,13 +11,16 @@ type Props = {
 
 function SectionAbout({ item }: Props) {
     return (
-        <Box as='section' pt={{ base: 8, lg: 10 }} pb={3}>
+        <Box
+            pt={{ base: 8, lg: 10 }}
+            // pb={3}
+        >
             <Grid
                 templateColumns={{
                     base: 'repeat(4, 1fr)',
                     md: 'repeat(12, 1fr)',
                 }}
-                gap={{ base: 3, lg: 4 }}
+                gap={{ base: 3, lg: 4, xl: 6 }}
                 mt={{ base: 1, lg: 0 }}
                 pt={{ base: 1, lg: 6 }}
                 pb={6}
@@ -30,7 +33,13 @@ function SectionAbout({ item }: Props) {
                     </Text>
                 </GridItem>
                 <GridItem colSpan={{ base: 12, lg: 8, xl: 6 }}>
-                    <Text fontSize='md' fontWeight={500} color='blackAlpha.600'>
+                    <Text
+                        fontSize={{ base: 'sm', lg: 'md' }}
+                        noOfLines={4}
+                        fontWeight={500}
+                        color='blackAlpha.600'
+                        ml={{ base: 0, lg: 2, xl: 0 }}
+                    >
                         {item.text}
                     </Text>
                 </GridItem>
@@ -40,32 +49,37 @@ function SectionAbout({ item }: Props) {
                     base: 'repeat(4, 1fr)',
                     md: 'repeat(12, 1fr)',
                 }}
-                gap={{ base: 3, lg: 4 }}
+                gap={{ base: 3, lg: 4, xl: 6 }}
                 mb={4}
             >
                 <CardWithoutImg el={masItems[8]} colSpan={{ base: 4, md: 4, xl: 3 }} />
                 <CardWithoutImg el={masItems[1]} colSpan={{ base: 4, md: 4, xl: 3 }} />
                 <GridItem colSpan={{ base: 4, sm: 4, md: 4, xl: 6 }}>
-                    <Stack spacing={{ base: 5, lg: 3 }}>
+                    <Stack spacing={{ base: 3, lg: 3 }} margin='auto 0'>
                         {item.recipts.map((el) => (
                             <Flex
                                 key={`SectionAbout_${el.id}`}
                                 borderColor='blackAlpha.200'
                                 borderWidth='1px'
                                 borderRadius='8px'
-                                px={{ base: 1, lg: 6 }}
-                                py={{ base: 1, lg: 3 }}
-                                gap={3}
+                                px={{ base: 3 }}
+                                py={{ base: 3 }}
+                                gap={1}
                                 alignItems='center'
                                 justifyContent='space-between'
                             >
                                 <Image src={el.category.icon} alt={el.category.title} />
-                                <Text flex='1' isTruncated fontWeight={500} fontSize='xl'>
+                                <Text
+                                    flex='1'
+                                    isTruncated
+                                    fontWeight={500}
+                                    fontSize={{ base: 'md', lg: 'xl' }}
+                                >
                                     {' '}
                                     {el.title}
                                 </Text>
                                 <Button
-                                    size='sm'
+                                    size={{ base: 'sm', md: 'xs', lg: 'sm' }}
                                     color='lime.600'
                                     variant='outline'
                                     colorScheme='lime'

@@ -38,7 +38,6 @@ function LeftNavMenu(_props: Props) {
                 overflowY='scroll'
                 flex='1'
                 mr={1}
-                boxShadow='0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 4px 6px -1px rgba(0, 0, 0, 0.1)'
                 css={{
                     '&::-webkit-scrollbar': {
                         background: 'rgba(0, 0, 0, 0.04)',
@@ -56,7 +55,7 @@ function LeftNavMenu(_props: Props) {
             >
                 <Accordion allowToggle allowMultiple={false} index={isHomePage ? [] : undefined}>
                     {masDishCategories.map((item, index) => (
-                        <AccordionItem key={`LeftNavMenu_${item.url}${index}`}>
+                        <AccordionItem key={`LeftNavMenu_${item.url}${index}`} border='none'>
                             <AccordionButton
                                 onClick={(e) => {
                                     e.stopPropagation();
@@ -104,7 +103,7 @@ function LeftNavMenu(_props: Props) {
                 </Accordion>
             </Box>
             <Flex flexDirection='column' gap={4} mb={8} px={6} maxWidth='210px'>
-                <Text fontSize='xs' fontWeight='medium' color='blackAlpha.400'>
+                <Text mt={2} fontSize='xs' fontWeight='medium' color='blackAlpha.400'>
                     Версия программы 03.25
                 </Text>
                 <Text fontSize='xs' fontWeight='normal' color='blackAlpha.700'>

@@ -10,9 +10,10 @@ import RightAside from '~/components/RightAside';
 
 function App() {
     return (
-        <Box>
+        <Box
+        // position='relative' maxH={{ base: 'calc(100vh - 64px)', lg: 'auto' }}
+        >
             <Header />
-            {/* <Flex> */}
             <Box
                 position='fixed'
                 top={20}
@@ -24,35 +25,30 @@ function App() {
                 pt={6}
                 boxShadow='0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12)'
                 display={{ base: 'none', lg: 'block' }}
-                // display={{ base: 'none' }}
             >
                 <LeftNavMenu />
             </Box>
             <Box
-                // overflow={'auto'}
-                // height={{ base: 'calc(100vh - 80px - 96px)', lg: 'calc(100vh - 80px)' }}
                 ml={{ base: 0, lg: 64 }}
-                // mr={{ base: 0, lg: 52 }}
-                // height='calc(100vh - 80px)'
-                mt={{ base: 14, lg: 20 }}
-                mb={{ base: '96px', lg: '0' }}
+                mt={{ base: 16, lg: 20 }}
+                pb={{ base: '84px', lg: '0' }}
                 width={{ base: '100vw', lg: 'calc(100vw - 256px - 208px)' }}
-                // flex={1}
+                // position='relative'
+                // maxH={{ base: 'calc(100vh - 64px)', lg: 'auto' }}
+                // background='white'
             >
                 <Outlet />
+                <Box
+                    background='white'
+                    w={52}
+                    display={{ base: 'none', lg: 'block' }}
+                    position='fixed'
+                    right={0}
+                    top={20}
+                >
+                    <RightAside />
+                </Box>
             </Box>
-            <Box
-                background='white'
-                w={52}
-                display={{ base: 'none', lg: 'block' }}
-                position='fixed'
-                right={0}
-                top={20}
-            >
-                {/* <Box w={52} display={{ base: 'none' }}> */}
-                <RightAside />
-            </Box>
-            {/* </Flex> */}
             <Footer />
         </Box>
     );

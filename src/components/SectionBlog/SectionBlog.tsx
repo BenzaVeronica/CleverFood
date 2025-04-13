@@ -11,7 +11,7 @@ type Props = {
 
 function SectionBlog(_props: Props) {
     return (
-        <Box as='section' bg='lime.300' borderRadius={4} p={{ base: 3, lg: 6 }}>
+        <Box as='section' bg='lime.300' borderRadius='16px' p={{ base: 3, lg: 6 }}>
             <Flex mb={6} justifyContent='space-between'>
                 <Text
                     as='h2'

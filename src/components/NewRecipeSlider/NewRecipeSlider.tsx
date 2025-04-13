@@ -19,7 +19,12 @@ function NewRecipeSlider(_props: Props) {
         //   sliderRef.current?.slickPrev();
     };
     return (
-        <Box as='section' mt={{ base: 0, lg: 6 }} mb={{ base: 8, lg: 10 }}>
+        <Box
+            as='section'
+            mt={{ base: 0, lg: 6 }}
+            mb={{ base: 8, lg: 10 }}
+            w={{ base: 'calc(100% + 16px)', sm: 'calc(100% + 16px)', md: 'auto' }}
+        >
             <Text
                 as='h2'
                 fontSize={{ base: '2xl', lg: '4xl', xl: '4xl' }}
