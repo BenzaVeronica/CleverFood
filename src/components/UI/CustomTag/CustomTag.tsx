@@ -6,7 +6,7 @@ type Props = {
     leftElement?: React.ReactNode;
 } & FlexProps;
 
-function Tag({ color, text, leftElement, ...flexProps }: Props) {
+function CustomTag({ color, text, leftElement, ...flexProps }: Props) {
     return (
         <Flex
             as='button'
@@ -20,9 +20,11 @@ function Tag({ color, text, leftElement, ...flexProps }: Props) {
             {...flexProps}
         >
             {leftElement}
-            <Text fontSize='sm'>{text}</Text>
+            <Text fontSize='sm' isTruncated>
+                {text}
+            </Text>
         </Flex>
     );
 }
 
-export default Tag;
+export default CustomTag;

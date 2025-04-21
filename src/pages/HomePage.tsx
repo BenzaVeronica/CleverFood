@@ -1,23 +1,31 @@
-import { Box, Flex } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
+import { useSelector } from 'react-redux';
 
+import { ContainerBoxLayout } from '~/app/ContainerAppLayout';
+import CardList from '~/components/CardList';
 import CategoryTopFilter from '~/components/CategoryTopFilter';
 import NewRecipeSlider from '~/components/NewRecipeSlider';
 import SectionAbout from '~/components/SectionAbout';
 import { vegan } from '~/components/SectionAbout/recipes.constants';
 import SectionBlog from '~/components/SectionBlog';
 import SectionTheMost from '~/components/SectionTheMost';
+import { selectFilteredRecipes } from '~/store/recipe/recipe-filter-selector';
 
 function HomePage() {
+    const { isFilter, filteredList } = useSelector(selectFilteredRecipes);
     return (
-        <Box ml={{ base: 4, md: 5, lg: 6 }} mr={{ base: 4, md: 5, lg: '72px' }}>
+        <ContainerBoxLayout>
             <Flex direction='column' alignItems='center'>
                 <CategoryTopFilter title='Приятного аппетита!' />
             </Flex>
-            <NewRecipeSlider />
-            <SectionTheMost />
+            {/* <CustomMultiSelect /> */}
+            {isFilter && <CardList list={filteredList} mb={{ base: 4, lg: 8 }} />}
+            {/* {searchQuery || filter && <CardList list={MAS_RECIPES.filter(el=>el.title)}/>} */}
+            {!isFilter && <NewRecipeSlider />}
+            {!isFilter && <SectionTheMost />}
             <SectionBlog />
             <SectionAbout item={vegan} />
-        </Box>
+        </ContainerBoxLayout>
     );
 }
 

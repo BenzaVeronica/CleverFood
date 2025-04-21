@@ -1,0 +1,28 @@
+import { Button, Icon } from '@chakra-ui/react';
+
+import { useAuth } from '~/store/user/useAuth';
+
+import IconLogin from '../../assets/iconLogin.svg?react';
+
+type Props = {
+    // title?: string;
+};
+
+function LoginButton(_props: Props) {
+    const { isAuthenticated } = useAuth();
+    const onClickLogin = () => {};
+    if (isAuthenticated) return null;
+    return (
+        <Button
+            onClick={onClickLogin}
+            rightIcon={<Icon as={IconLogin} />}
+            variant='ghost'
+            size='sm'
+            mr={{ base: 0, lg: 14 }}
+        >
+            Log in
+        </Button>
+    );
+}
+
+export default LoginButton;

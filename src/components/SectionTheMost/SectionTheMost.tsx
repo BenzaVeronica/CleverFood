@@ -1,7 +1,8 @@
 import { Box, Button, Flex, Icon, Text } from '@chakra-ui/react';
 import { Link } from 'react-router';
 
-import { masItems } from '~/store/recipe/recipe.constants';
+import { MAS_RECIPES } from '~/store/recipe/recipe.constants';
+import { sortByField } from '~/store/recipe/utils';
 
 import ArrowLongRight from '../../assets/iconArrowLongRight.svg?react';
 import CardList from '../CardList';
@@ -11,6 +12,7 @@ type Props = {
 };
 
 function SectionTheMost(_props: Props) {
+    const list = sortByField(MAS_RECIPES, 'likes', 'desc').slice(0, 4);
     return (
         <Box as='section'>
             <Flex mb={6} justifyContent='space-between'>
@@ -43,7 +45,7 @@ function SectionTheMost(_props: Props) {
                     title: 'Самое сочное',
                     url: 'the-most',
                 }}
-                list={masItems.slice(3, 7)}
+                list={list}
                 mb={{ base: 0, md: 10 }}
             />
             <Button

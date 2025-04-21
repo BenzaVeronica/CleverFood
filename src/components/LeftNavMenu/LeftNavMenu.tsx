@@ -8,12 +8,16 @@ import {
     Image,
     Text,
 } from '@chakra-ui/react';
-import { useLocation, useNavigate } from 'react-router';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router';
 
-import { masDishCategories } from '~/store/recipe/recipe.constants';
-import { dishCategory } from '~/store/recipe/recipe.types';
+import { masDishCategories } from '~/store/category/category.constants';
+import { dishCategory } from '~/store/category/category.types';
+import useBreakpoints from '~/utils/useBreakpoints';
 
 import { IconExit } from '../Icons/IconExit';
+import CustomBreadcrumb from '../UI/Breadcrumb';
+import LeftNavMenuWrapper from './LeftNavMenuWrapper';
 import { SubCategoryListItem } from './SubCategoryListItem';
 
 type Props = {
@@ -21,9 +25,7 @@ type Props = {
 };
 
 function LeftNavMenu(_props: Props) {
-    const location = useLocation();
     const navigate = useNavigate();
-    const isHomePage = location.pathname === '/';
 
     const handleAccordionClick = (item: dishCategory) => {
         if (item.subcategories && item.subcategories.length > 0) {
@@ -32,8 +34,29 @@ function LeftNavMenu(_props: Props) {
             navigate(item.url);
         }
     };
+    const { isTablet } = useBreakpoints();
+    const { categoryId, subcategoryId } = useParams();
+    const [activeTabIndex, setActiveTabIndex] = useState<number | null>(null);
+    useEffect(() => {
+        window.scrollTo(0, 0);
+        if (categoryId) {
+            const foundIndex = masDishCategories.findIndex((el) => el.url === categoryId);
+            setActiveTabIndex(foundIndex >= 0 ? foundIndex : null);
+        } else {
+            setActiveTabIndex(null);
+        }
+    }, [categoryId, subcategoryId]);
+
+    // const { recipeId } = useParams();
+    // const [currentRecipe, setCurrentRecipe] = useState<recipe | null>(
+    //     MAS_RECIPES.find((el) => el.id == recipeId) || null,
+    // );
+    // useEffect(() => {
+    //     setCurrentRecipe(MAS_RECIPES.find((el) => el.id == recipeId) || null);
+    // }, [recipeId]);
     return (
-        <Flex flexDirection='column' height='100%' justifyContent='space-between'>
+        <LeftNavMenuWrapper isMobile={isTablet}>
+            {isTablet && <CustomBreadcrumb />}
             <Box
                 overflowY='scroll'
                 flex='1'
@@ -53,15 +76,24 @@ function LeftNavMenu(_props: Props) {
                     },
                 }}
             >
-                <Accordion allowToggle allowMultiple={false} index={isHomePage ? [] : undefined}>
+                <Accordion
+                    allowToggle
+                    allowMultiple={false}
+                    index={activeTabIndex !== null ? [activeTabIndex] : []}
+                >
                     {masDishCategories.map((item, index) => (
-                        <AccordionItem key={`LeftNavMenu_${item.url}${index}`} border='none'>
+                        <AccordionItem
+                            key={`LeftNavMenu_${item.url}${index}`}
+                            border='none'
+                            // data-test-id={`${item.url}`}
+                            data-test-id={item.url === 'vegan' ? 'vegan-cuisine' : item.url}
+                        >
                             <AccordionButton
                                 onClick={(e) => {
                                     e.stopPropagation();
                                     handleAccordionClick(item);
                                 }}
-                                data-test-id={item.url === 'vegan-cuisine' ? 'vegan-cuisine' : ''}
+                                // data-test-id={item.url === 'vegan' ? 'vegan-cuisine' : ''}
                                 fontWeight='500'
                                 py={3}
                                 px={2}
@@ -94,6 +126,7 @@ function LeftNavMenu(_props: Props) {
                                     <SubCategoryListItem
                                         key={`${el.url}${j}`}
                                         el={el}
+                                        // index={j}
                                         onClick={() => navigate(`${item.url}/${el.url}`)}
                                     />
                                 ))}
@@ -102,8 +135,19 @@ function LeftNavMenu(_props: Props) {
                     ))}
                 </Accordion>
             </Box>
-            <Flex flexDirection='column' gap={4} mb={8} px={6} maxWidth='210px'>
-                <Text mt={2} fontSize='xs' fontWeight='medium' color='blackAlpha.400'>
+            <Flex
+                flexDirection='column'
+                gap={4}
+                mb={{ base: 0, lg: 8 }}
+                px={6}
+                maxWidth={{ base: '100%', lg: '210px' }}
+            >
+                <Text
+                    mt={{ base: 0, lg: 4 }}
+                    fontSize='xs'
+                    fontWeight='medium'
+                    color='blackAlpha.400'
+                >
                     Версия программы 03.25
                 </Text>
                 <Text fontSize='xs' fontWeight='normal' color='blackAlpha.700'>
@@ -118,7 +162,7 @@ function LeftNavMenu(_props: Props) {
                     </Text>
                 </Flex>
             </Flex>
-        </Flex>
+        </LeftNavMenuWrapper>
     );
 }
 

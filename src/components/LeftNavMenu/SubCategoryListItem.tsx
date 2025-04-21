@@ -1,10 +1,11 @@
 import { Flex, Text } from '@chakra-ui/react';
 import { useParams } from 'react-router';
 
-import { dishSubcategory } from '~/store/recipe/recipe.types';
+import { dishSubcategory } from '~/store/category/category.types';
 
 type Props = {
     el: dishSubcategory;
+    // index: number;
     onClick: () => void;
 };
 
@@ -15,6 +16,7 @@ export function SubCategoryListItem({ el, onClick }: Props) {
     const isActive = subcategoryId === el.url;
     return (
         <Flex
+            data-test-id={isActive ? `${el.url}-active` : ''}
             onClick={onClick}
             p='6px 8px 6px 40px'
             height={10}
@@ -40,7 +42,7 @@ export function SubCategoryListItem({ el, onClick }: Props) {
                 // },
             }}
         >
-            <Text ml={3} textStyle='main' fontWeight={isActive ? 'bold' : 'normal'}>
+            <Text ml={3} fontSize='md' fontWeight={isActive ? 'bold' : 'normal'}>
                 {el.title}
             </Text>
         </Flex>

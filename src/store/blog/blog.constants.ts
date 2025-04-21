@@ -50,6 +50,17 @@ const masProfilesWithoutId: profileWithoutId[] = [
             views: null,
         },
     },
+    {
+        name: 'Сергей',
+        surname: 'Разумов',
+        username: '@serge25',
+        img: profile3,
+        statistics: {
+            like: null,
+            bookmarks: null,
+            views: 125,
+        },
+    },
 ];
 
 export const masProfiles: profile[] = addIdToArray(masProfilesWithoutId);

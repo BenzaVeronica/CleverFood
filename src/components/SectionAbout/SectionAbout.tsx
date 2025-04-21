@@ -1,6 +1,6 @@
 import { Box, Button, Flex, Grid, GridItem, Image, Stack, Text } from '@chakra-ui/react';
 
-import { masItems } from '~/store/recipe/recipe.constants';
+import { chooseIconCategory } from '~/store/category/utils';
 
 import CardWithoutImg from '../Card/CardWithoutImg';
 import { recipes } from './recipes.constants';
@@ -52,8 +52,8 @@ function SectionAbout({ item }: Props) {
                 gap={{ base: 3, lg: 4, xl: 6 }}
                 mb={4}
             >
-                <CardWithoutImg el={masItems[8]} colSpan={{ base: 4, md: 4, xl: 3 }} />
-                <CardWithoutImg el={masItems[1]} colSpan={{ base: 4, md: 4, xl: 3 }} />
+                <CardWithoutImg el={item.cards[0]} colSpan={{ base: 4, md: 4, xl: 3 }} />
+                <CardWithoutImg el={item.cards[1]} colSpan={{ base: 4, md: 4, xl: 3 }} />
                 <GridItem colSpan={{ base: 4, sm: 4, md: 4, xl: 6 }}>
                     <Stack spacing={{ base: 3, lg: 3 }} margin='auto 0'>
                         {item.recipts.map((el) => (
@@ -68,7 +68,10 @@ function SectionAbout({ item }: Props) {
                                 alignItems='center'
                                 justifyContent='space-between'
                             >
-                                <Image src={el.category.icon} alt={el.category.title} />
+                                <Image
+                                    src={chooseIconCategory(el.category[0])}
+                                    alt={el.category[0]}
+                                />
                                 <Text
                                     flex='1'
                                     isTruncated

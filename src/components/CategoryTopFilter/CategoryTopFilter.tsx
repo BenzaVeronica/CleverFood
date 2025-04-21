@@ -5,16 +5,16 @@ import {
     FormLabel,
     Icon,
     IconButton,
-    Input,
-    InputGroup,
-    InputRightElement,
     Select,
     Switch,
     Text,
+    useDisclosure,
 } from '@chakra-ui/react';
+import { useRef } from 'react';
 
 import IconFilter from '../../assets/iconfilter.svg?react';
-import IconSearch from '../../assets/IconSearch.svg?react';
+import DrawerFilter from '../DrawerFilter';
+import SearchBox from './SearchBox';
 
 type Props = {
     title: string;
@@ -23,8 +23,31 @@ type Props = {
 };
 
 function CategoryTopFilter({ title, text }: Props) {
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    // data-test-id={`food-card-${i}`}
+    const boxRef = useRef<HTMLDivElement>(null);
+
+    const handleFocus = () => {
+        if (boxRef.current) {
+            boxRef.current.style.boxShadow = 'var(--chakra-shadows-xl)';
+        }
+    };
+
+    const handleBlur = () => {
+        if (boxRef.current) {
+            boxRef.current.style.boxShadow = 'none';
+        }
+    };
+
     return (
-        <Box mb={8}>
+        <Box
+            ref={boxRef}
+            boxShadow='none'
+            // boxShadow='xl'
+            borderRadius='0 0 24px 24px'
+            w={{ base: '360px', xs: '480px', md: '578px', xl: '898px' }}
+            pb={8}
+        >
             <Text textAlign='center' textStyle='h1' as='h1' mt={{ base: 4, lg: 8 }}>
                 {title}
             </Text>
@@ -35,12 +58,12 @@ function CategoryTopFilter({ title, text }: Props) {
                 color='blackAlpha.600'
                 as='p'
                 mt={3}
-                w={{ base: '298px', md: '727px', lg: '696px' }}
+                w={{ base: '298px', md: '727px', lg: '898px' }}
                 noOfLines={4}
             >
                 {text}
             </Text>
-
+            <DrawerFilter isOpen={isOpen} onClose={onClose} />
             <Flex
                 gap={3}
                 mt={{ base: 4, lg: 8 }}
@@ -49,6 +72,7 @@ function CategoryTopFilter({ title, text }: Props) {
                 w={{ base: '328px', md: 'auto' }}
             >
                 <IconButton
+                    data-test-id='filter-button'
                     variant='outline'
                     aria-label='Фильтр'
                     // size='lg'
@@ -58,19 +82,9 @@ function CategoryTopFilter({ title, text }: Props) {
                     size={{ base: '32px', lg: '48px' }}
                     p={{ base: 2, lg: '11px' }}
                     icon={<Icon as={IconFilter} boxSize={{ base: '14px', lg: '24px' }} />}
+                    onClick={onOpen}
                 />
-                <InputGroup>
-                    <Input
-                        size={{ base: 'sm', lg: 'lg' }}
-                        placeholder='Название или ингредиент...'
-                        _placeholder={{
-                            color: 'lime.800',
-                        }}
-                    />
-                    <InputRightElement w={{ base: 8, lg: 12 }} h={{ base: 8, lg: 12 }}>
-                        <Icon as={IconSearch} w={{ base: 6, lg: 10 }} h={{ base: 6, lg: 10 }} />
-                    </InputRightElement>
-                </InputGroup>
+                <SearchBox onFocus={handleFocus} onBlur={handleBlur} />
             </Flex>
             <Flex
                 mt={4}

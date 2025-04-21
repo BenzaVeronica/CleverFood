@@ -1,6 +1,11 @@
 import { extendTheme } from '@chakra-ui/react';
 
 const theme = extendTheme({
+    global: {
+        '.search-container:has(input:focus)': {
+            boxShadow: 'xl',
+        },
+    },
     shadows: {
         'radial-70': '0 0 15px 5px lime.50',
     },
@@ -80,12 +85,45 @@ const theme = extendTheme({
             100: '#EAFFC7',
             150: '#D7FF94',
             300: '#C4FF61',
+            400: '#B1FF2E',
             500: '#2B823F',
             600: '#2DB100',
             700: '#207E00',
             800: '#134B00',
         },
     },
+    components: {
+        Breadcrumb: {
+            baseStyle: {
+                list: {
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: 1,
+                },
+            },
+        },
+        // Grid: {
+        //     baseStyle: {
+        //         responsiveLayout: {
+        //             templateColumns: {
+        //                 base: 'repeat(4, 1fr)',
+        //                 md: 'repeat(12, 1fr)',
+        //             },
+        //             ml: { base: 4, md: 5, lg: 6 },
+        //             mr: { base: 4, md: 5, lg: '72px' },
+        //             gap: { base: 4, lg: 4, xl: 6 },
+        //         },
+        //     },
+        // },
+    },
+    // grid: {
+    //     templateColumns: {
+    //         responsive: {
+    //             base: 'repeat(4, 1fr)',
+    //             md: 'repeat(12, 1fr)',
+    //         },
+    //     },
+    // },
 });
 
 export default theme;
