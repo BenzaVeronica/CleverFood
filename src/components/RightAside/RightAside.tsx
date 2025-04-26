@@ -1,5 +1,6 @@
 import { Flex, Text } from '@chakra-ui/react';
-import React from 'react';
+
+import { useAuth } from '~/store/user/useAuth';
 
 import { IconWriteCircle } from '../Icons/IconWriteCircle';
 import UserStat from '../UserStat';
@@ -9,6 +10,9 @@ type Props = {
 };
 
 function RightAside(_props: Props) {
+    const { isAuthenticated } = useAuth();
+
+    if (!isAuthenticated) return null;
     return (
         <Flex flexDirection='column' justifyContent='space-between' h='calc(100vh - 80px)'>
             <UserStat />

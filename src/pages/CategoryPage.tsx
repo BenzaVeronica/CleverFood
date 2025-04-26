@@ -2,7 +2,6 @@ import {
     Box,
     Button,
     Flex,
-    Grid,
     GridItem,
     Tab,
     TabList,
@@ -11,13 +10,19 @@ import {
     Tabs,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router';
 
+import { ContainerGridLayout } from '~/app/ContainerAppLayout';
 import CardList from '~/components/CardList';
 import CategoryTopFilter from '~/components/CategoryTopFilter';
 import SectionAbout from '~/components/SectionAbout';
 import { desert } from '~/components/SectionAbout/recipes.constants';
-import { masDishCategories, masItems } from '~/store/recipe/recipe.constants';
+import { masDishCategories } from '~/store/category/category.constants';
+import { useAppDispatch } from '~/store/hooks';
+import { selectFilteredRecipes } from '~/store/recipe/recipe-filter-selector';
+import { resetFilters, setCurrentCategory } from '~/store/recipe/recipe-filter-slice';
+import { filterBySubCategory } from '~/store/recipe/utils';
 
 function CategoryPage() {
     const { categoryId, subcategoryId } = useParams();
@@ -41,19 +46,25 @@ function CategoryPage() {
             const activeTabIndex =
                 currentCategory?.subcategories.findIndex((el) => el.url === subcategoryId) || 0;
             setActiveTabIndex(activeTabIndex);
+            // console.log(activeTabIndex);
         }
     }, [currentCategory, subcategoryId]);
 
+    const dispatch = useAppDispatch();
+    const { isFilter, filteredList, filters } = useSelector(selectFilteredRecipes);
+
+    useEffect(() => {
+        dispatch(resetFilters());
+        if (categoryId) {
+            if (!filters.categories.includes(categoryId)) {
+                dispatch(setCurrentCategory(categoryId));
+                // dispatch(setCategory([...currentCategory.url, ...filters.categories]));
+            }
+        }
+    }, [dispatch, categoryId, subcategoryId]);
+
     return (
-        <Grid
-            templateColumns={{
-                base: 'repeat(4, 1fr)',
-                md: 'repeat(12, 1fr)',
-            }}
-            ml={{ base: 4, md: 5, lg: 6 }}
-            mr={{ base: 4, md: 5, lg: '72px' }}
-            gap={{ base: 4, lg: 4, xl: 6 }}
-        >
+        <ContainerGridLayout>
             <GridItem colSpan={{ base: 4, md: 12 }}>
                 <Flex direction='column' alignItems='center'>
                     {currentCategory && (
@@ -65,81 +76,106 @@ function CategoryPage() {
                 </Flex>
             </GridItem>
             <GridItem colSpan={{ base: 4, md: 12 }}>
-                <Tabs
-                    // mt={4}
-                    isLazy
-                    defaultIndex={activeTabIndex}
-                    onChange={(index) => handleTabChange(index)}
-                    // border={'none'}
-                >
-                    <Box
-                        overflowX='auto'
-                        css={{
-                            '&::-webkit-scrollbar': {
-                                width: '0',
-                            },
-                        }}
+                {isFilter && (
+                    <CardList
+                        list={filterBySubCategory(filteredList, categoryId, subcategoryId)}
+                        mb={{ base: 4, lg: 8 }}
+                    />
+                )}
+                {!isFilter && (
+                    <Tabs
+                        // mt={4}
+                        isLazy
+                        index={activeTabIndex}
+                        defaultIndex={activeTabIndex}
+                        onChange={(index) => handleTabChange(index)}
+                        // border={'none'}
                     >
-                        <TabList
-                            width='fit-content'
-                            margin='0 auto'
-                            overflowY='hidden'
-                            pb={0}
-                            whiteSpace='nowrap'
-                            border='none'
+                        <Box
+                            overflowX='auto'
+                            css={{
+                                '&::-webkit-scrollbar': {
+                                    width: '0',
+                                },
+                            }}
                         >
-                            {currentCategory?.subcategories.map((el, _index) => (
-                                // console.log(el.id);
+                            <TabList
+                                width='fit-content'
+                                margin='0 auto'
+                                flexWrap={{ base: 'nowrap', lg: 'wrap' }}
+                                justifyContent='center'
+                                overflowY='hidden'
+                                pb={0}
+                                whiteSpace='nowrap'
+                                border='none'
+                            >
+                                {currentCategory?.subcategories.map((el, index) => (
+                                    // console.log(el.id);
 
-                                <Tab
-                                    key={`CategoryPage_Tab_${el.id}`}
-                                    color='lime.800'
-                                    borderColor='blackAlpha.200'
-                                    borderBottomWidth='1px'
-                                    marginBottom='1px'
-                                    _selected={{
-                                        color: 'lime.600',
-                                        borderColor: 'lime.600',
-                                        // marginBottom: '-2px',
-                                        marginBottom: '0',
-                                        borderBottomWidth: '2px',
-                                    }}
+                                    <Tab
+                                        data-test-id={`tab-${el.url}-${index}`}
+                                        key={`CategoryPage_Tab_${el.id}`}
+                                        color='lime.800'
+                                        borderColor='blackAlpha.200'
+                                        borderBottomWidth='1px'
+                                        marginBottom='1px'
+                                        aria-selected={activeTabIndex === index}
+                                        _selected={{
+                                            color: 'lime.600',
+                                            borderColor: 'lime.600',
+                                            // marginBottom: '-2px',
+                                            marginBottom: '0',
+                                            borderBottomWidth: '2px',
+                                        }}
+                                    >
+                                        {el.title}
+                                    </Tab>
+                                ))}
+                            </TabList>
+                        </Box>
+                        <TabPanels>
+                            {currentCategory?.subcategories.map((el, _index) => (
+                                <TabPanel
+                                    pt={3}
+                                    pb={0}
+                                    px={0}
+                                    key={`CategoryPage_TabPanel_${el.id}`}
                                 >
-                                    {el.title}
-                                </Tab>
+                                    <CardList
+                                        item={el}
+                                        list={filterBySubCategory(
+                                            filteredList,
+                                            categoryId,
+                                            subcategoryId,
+                                        )}
+                                    />
+                                    <Button
+                                        display='block'
+                                        mx='auto'
+                                        mt={4}
+                                        bg='lime.300'
+                                        _hover={{
+                                            bg: 'lime.500',
+                                            color: 'white',
+                                            '& path': {
+                                                fill: 'white',
+                                            },
+                                        }}
+                                        fontSize='lg'
+                                        fontWeight='semibold'
+                                    >
+                                        Загрузить еще
+                                    </Button>
+                                </TabPanel>
                             ))}
-                        </TabList>
-                    </Box>
-                    <TabPanels>
-                        {currentCategory?.subcategories.map((el, _index) => (
-                            <TabPanel pt={3} pb={0} px={0} key={`CategoryPage_TabPanel_${el.id}`}>
-                                <CardList item={el} list={masItems.slice(7)} />
-                                <Button
-                                    display='block'
-                                    mx='auto'
-                                    mt={4}
-                                    bg='lime.300'
-                                    _hover={{
-                                        bg: 'lime.500',
-                                        color: 'white',
-                                        '& path': {
-                                            fill: 'white',
-                                        },
-                                    }}
-                                    fontSize='lg'
-                                    fontWeight='semibold'
-                                >
-                                    Загрузить еще
-                                </Button>
-                            </TabPanel>
-                        ))}
-                    </TabPanels>
-                </Tabs>
+                        </TabPanels>
+                    </Tabs>
+                )}
             </GridItem>
             <GridItem colSpan={{ base: 4, md: 12 }}>
                 <SectionAbout item={desert} />
             </GridItem>
-        </Grid>
+        </ContainerGridLayout>
     );
 }
 

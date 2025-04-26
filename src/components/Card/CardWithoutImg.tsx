@@ -1,9 +1,11 @@
 import { Box, Flex, GridItem, GridItemProps, Image, Text } from '@chakra-ui/react';
+import { Link } from 'react-router';
 
+import { chooseIconCategory, chooseTextCategory } from '~/store/category/utils';
 import { recipe } from '~/store/recipe/recipe.types';
 
 import CardStat from '../CardStat';
-import Tag from '../Tag';
+import Tag from '../UI/CustomTag';
 
 type Props = {
     el: recipe;
@@ -19,23 +21,39 @@ function CardWithoutImg({ el, colSpan }: Props) {
             borderRadius='8px'
         >
             <Flex>
-                <Box py={{ base: 3, lg: 5 }} px={{ base: 3, lg: 6 }} overflow='hidden'>
+                <Box
+                    py={{ base: 3, lg: 5 }}
+                    px={{ base: 3, lg: 6 }}
+                    overflow='hidden'
+                    as={Link}
+                    to={`/${el.category[0]}/${el.subcategory[0]}/${el.id}`}
+                >
                     <Text fontSize='xl' fontWeight={500} isTruncated>
                         {el.title}
                     </Text>
                     <Text fontSize='sm' noOfLines={3} mt={2} mb={6}>
-                        {el.text}
+                        {el.description}
                     </Text>
 
-                    <Flex justifyContent='space-between' maxH={6}>
-                        <Tag
-                            leftElement={<Image src={el.category.icon} alt={el.category.title} />}
-                            text={el.category.title}
-                            color='lime.50'
-                            maxH={6}
-                            isTruncated
-                        />
-                        <CardStat bookmarks={el.bookmarks} like={el.like} />
+                    <Flex justifyContent='space-between'>
+                        <Flex flexWrap='wrap' gap={1} flex='1' minWidth={0}>
+                            {el.category.map((categoryItem) => (
+                                <Tag
+                                    key={`CardWithoutImg_${categoryItem}`}
+                                    leftElement={
+                                        <Image
+                                            src={chooseIconCategory(categoryItem)}
+                                            alt={categoryItem}
+                                        />
+                                    }
+                                    text={chooseTextCategory(categoryItem)}
+                                    color='lime.50'
+                                    maxH={6}
+                                    isTruncated
+                                />
+                            ))}
+                        </Flex>
+                        <CardStat bookmarks={el.bookmarks} like={el.likes} />
                     </Flex>
                 </Box>
             </Flex>

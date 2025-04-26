@@ -10,9 +10,10 @@ type Props = {
 
 function CardStat(props: Props) {
     return (
-        <Flex gap={{ base: 0, lg: 2 }} alignItems='center'>
+        <Flex gap={{ base: 0, lg: 2 }} flexShrink={0}>
             {props.bookmarks && (
                 <Button
+                    lineHeight='1'
                     p={1}
                     size='xs'
                     leftIcon={<Icon as={Bookmark} boxSize={3} />}
@@ -24,6 +25,7 @@ function CardStat(props: Props) {
             )}
             {props.like && (
                 <Button
+                    lineHeight='1'
                     p={1}
                     size='xs'
                     leftIcon={<Icon as={Like} boxSize={3} />}

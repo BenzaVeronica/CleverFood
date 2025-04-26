@@ -1,5 +1,4 @@
 import { Button, Flex, Icon } from '@chakra-ui/react';
-import React from 'react';
 
 import Bookmark from '../../assets/iconSMBookmark.svg?react';
 import Like from '../../assets/iconSMLike.svg?react';

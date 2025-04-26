@@ -61,7 +61,7 @@ function Footer(_props: Props) {
             height='84px'
             display={{ base: 'grid', lg: 'none' }}
             // display={{ base: 'block', lg: 'none' }}
-            zIndex={10}
+            zIndex={7}
         >
             {mas.map((el, index) => {
                 const isHovered = hoveredIndex === index;
