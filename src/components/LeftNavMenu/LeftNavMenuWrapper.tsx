@@ -21,26 +21,24 @@ function LeftNavMenuWrapper({ isMobile, children }: Props) {
     if (isMobile)
         return (
             <>
-                {isOpen && (
-                    <Box
-                        display={{ base: 'block', lg: 'none' }}
-                        position='fixed'
-                        top='64px'
-                        left='0'
-                        w='100vw'
-                        h='100vh'
-                        backdropBlur='4px'
-                        bg='blackAlpha.300'
-                        zIndex={-1}
-                        onClick={closeMenu}
-                    />
-                )}
+                <Box
+                    display={{ base: isOpen ? 'block' : 'none', lg: 'none' }}
+                    position='fixed'
+                    top='64px'
+                    left='0'
+                    w='100vw'
+                    h='100vh'
+                    backdropBlur='4px'
+                    bg='blackAlpha.300'
+                    zIndex={-1}
+                    onClick={closeMenu}
+                />
                 <Flex
-                    display={{ base: 'flex', lg: 'none' }}
+                    display={{ base: isOpen ? 'flex' : 'none', lg: 'none' }}
                     data-test-id='nav'
                     flexDirection='column'
                     position='absolute'
-                    bg='red'
+                    bg='white'
                     top='64px'
                     height={{ base: '662px', md: '868px' }}
                     right={2}
@@ -54,19 +52,11 @@ function LeftNavMenuWrapper({ isMobile, children }: Props) {
                 >
                     {children}
                 </Flex>
-                {/* <Flex
-                display={{ base: 'none', lg: 'flex' }}
-                flexDirection='column'
-                height='100%'
-                gap={{ base: 3, lg: 0 }}
-                justifyContent='space-between'
-            >
-                {children}
-            </Flex> */}
             </>
         );
     return (
         <Flex
+            data-test-id='nav'
             flexDirection='column'
             height='100%'
             gap={{ base: 3, lg: 0 }}

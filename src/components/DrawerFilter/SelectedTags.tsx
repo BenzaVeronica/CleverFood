@@ -1,27 +1,45 @@
 import { Flex, Tag, TagCloseButton, TagLabel } from '@chakra-ui/react';
 
-type SelectedTagsProps = {
-    selectedMeatLabels: string[];
-    removeMeatType: (value: string) => void;
-    selectedSideDishLabels: string[];
-    removeSideDish: (value: string) => void;
+import { filterConfig } from './DrawerFilter.config';
+import { FilterOptionType } from './DrawerFilter.constants';
+import { FormValues } from './DrawerFilterForm';
+
+// type SelectedTagsProps = {
+//     selectedValuesMap: FormValues;
+//     removeHandlers: Partial<Record<keyof FormValues, (labelToRemove: string) => void>>;
+// };
+type SelectedTagsProps<Key extends keyof FormValues = keyof FormValues> = {
+    selectedValuesMap: Pick<FormValues, Key>;
+    removeHandlers: {
+        [K in Key]?: (labelToRemove: string) => void;
+    };
 };
 
-const SelectedTags = ({
-    selectedMeatLabels,
-    removeMeatType,
-    selectedSideDishLabels,
-    removeSideDish,
+const getFilterLabels = (values: string[], options: FilterOptionType[]) =>
+    values.map((value) => {
+        const option = options.find((opt) => opt.id.toLowerCase() === value);
+        return option ? option.label : value;
+    });
+
+const SelectedTags = <Key extends keyof FormValues>({
+    selectedValuesMap,
+    removeHandlers,
 }: SelectedTagsProps) => {
-    if (selectedMeatLabels.length === 0 && selectedSideDishLabels.length === 0) return null;
+    const hasFilters = Object.values(selectedValuesMap).some((values) => values?.length > 0);
+    if (!hasFilters) return null;
 
     return (
         <Flex gap={2} mt={3} wrap='wrap'>
-            {selectedMeatLabels.length > 0 &&
-                selectedMeatLabels.map((label) => (
+            {(Object.keys(selectedValuesMap) as Key[]).map((type) => {
+                const values = selectedValuesMap[type] || [];
+                if (values.length === 0) return null;
+
+                const labels = getFilterLabels(values, filterConfig[type]);
+
+                return labels.map((label, index) => (
                     <Tag
                         data-test-id='filter-tag'
-                        key={label}
+                        key={`${type}-${values[index]}`}
                         size='md'
                         borderRadius='full'
                         variant='solid'
@@ -31,26 +49,10 @@ const SelectedTags = ({
                         color='lime.600'
                     >
                         <TagLabel>{label}</TagLabel>
-                        <TagCloseButton onClick={() => removeMeatType(label)} />
+                        <TagCloseButton onClick={() => removeHandlers[type]?.(values[index])} />
                     </Tag>
-                ))}
-            {selectedSideDishLabels.length > 0 &&
-                selectedSideDishLabels.map((label) => (
-                    <Tag
-                        data-test-id='filter-tag'
-                        key={label}
-                        size='md'
-                        borderRadius='full'
-                        variant='solid'
-                        borderWidth='1px'
-                        borderColor='lime.400'
-                        bg='lime.100'
-                        color='lime.600'
-                    >
-                        <TagLabel>{label}</TagLabel>
-                        <TagCloseButton onClick={() => removeSideDish(label)} />
-                    </Tag>
-                ))}
+                ));
+            })}
         </Flex>
     );
 };

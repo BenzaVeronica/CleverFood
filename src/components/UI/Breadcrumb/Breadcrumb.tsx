@@ -2,13 +2,14 @@ import { ChevronRightIcon } from '@chakra-ui/icons';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@chakra-ui/react';
 import { Link, useLocation } from 'react-router';
 
+import { PageRoutes } from '~/routes/PageRoutes.constants';
 import useCurrentCategories from '~/store/category/utils';
 
 type Props = {
-    // currentRecipe: recipe | null;
+    closeMenu: () => void;
 };
 
-function CustomBreadcrumb(_props: Props) {
+function CustomBreadcrumb({ closeMenu = () => {} }: Props) {
     const location = useLocation();
     const { currentCategory, currentSubcategory, currentRecipe } = useCurrentCategories();
     // console.log(props.currentRecipe);
@@ -32,7 +33,7 @@ function CustomBreadcrumb(_props: Props) {
                 </BreadcrumbLink>
             </BreadcrumbItem>
 
-            {location.pathname === '/the-most' && (
+            {location.pathname === `/${PageRoutes.MOST}` && (
                 <BreadcrumbItem isCurrentPage>
                     <BreadcrumbLink as='span'>Самое сочное</BreadcrumbLink>
                 </BreadcrumbItem>
@@ -43,6 +44,7 @@ function CustomBreadcrumb(_props: Props) {
                     <BreadcrumbLink
                         as={Link}
                         to={`/${currentCategory.url}/${currentCategory.subcategories[0].url}`}
+                        onClick={closeMenu}
                     >
                         {currentCategory.title}
                     </BreadcrumbLink>
@@ -54,6 +56,7 @@ function CustomBreadcrumb(_props: Props) {
                     <BreadcrumbLink
                         as={Link}
                         to={`/${currentCategory.url}/${currentSubcategory.url}`}
+                        onClick={closeMenu}
                     >
                         {currentSubcategory.title}
                     </BreadcrumbLink>

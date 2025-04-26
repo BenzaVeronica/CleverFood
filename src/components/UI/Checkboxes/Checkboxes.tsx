@@ -7,8 +7,9 @@ type CheckboxesProps = {
     onChange: (value: string[]) => void;
     title?: string;
     list: FilterOptionType[];
+    disabledItems?: string[];
 };
-function Checkboxes({ value, onChange, title, list }: CheckboxesProps) {
+function Checkboxes({ value, onChange, title, list, disabledItems }: CheckboxesProps) {
     return (
         <Box>
             {title && (
@@ -20,8 +21,12 @@ function Checkboxes({ value, onChange, title, list }: CheckboxesProps) {
                 <CheckboxGroup value={value} onChange={onChange}>
                     {list.map((option) => (
                         <Checkbox
-                            key={option.id}
-                            value={option.id}
+                            data-test-id={option.label === 'Картошка' && 'checkbox-картошка'}
+                            isDisabled={
+                                disabledItems && disabledItems.includes(option.id.toLowerCase())
+                            }
+                            key={option.id.toLowerCase()}
+                            value={option.id.toLowerCase()}
                             fontSize='sm'
                             colorScheme='lime'
                             borderColor='lime.150'

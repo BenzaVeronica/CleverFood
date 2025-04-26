@@ -28,7 +28,7 @@ import img14 from '../../assets/imgRecipes/.image-13.jpg';
 import img15 from '../../assets/imgRecipes/.image-14.jpg';
 import { masProfiles } from '../blog/blog.constants';
 import { addIdToArray } from '../utils';
-import { dishCategory, recipe, recipeWithoutId } from './category.types';
+import { dishCategory, recipeItem, recipeWithoutId } from './category.types';
 
 export const masDishCategories: dishCategory[] = [
     {
@@ -389,5 +389,5 @@ const masItemsWithoutId: recipeWithoutId[] = [
         like: 324,
     },
 ];
-export const masItems: recipe[] = addIdToArray(masItemsWithoutId);
+export const masItems: recipeItem[] = addIdToArray(masItemsWithoutId);
 // console.log(masItems);

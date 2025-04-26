@@ -1,19 +1,15 @@
-import {
-    Box,
-    Flex,
-    FormControl,
-    FormLabel,
-    Icon,
-    IconButton,
-    Select,
-    Switch,
-    Text,
-    useDisclosure,
-} from '@chakra-ui/react';
-import { useRef } from 'react';
+import { Box, Flex, Icon, IconButton, Text } from '@chakra-ui/react';
+import { useRef, useState } from 'react';
+import { useParams } from 'react-router';
+
+import { useDrawers } from '~/context/DrawerContext';
+import { useAppDispatch } from '~/store/hooks';
+import { setAllergens, setSearchActive, setSearchQuery } from '~/store/recipe/recipe-filter-slice';
 
 import IconFilter from '../../assets/iconfilter.svg?react';
-import DrawerFilter from '../DrawerFilter';
+import AlergenSwitch from '../AlergenSwitch';
+import DrawerFilterForm from '../DrawerFilter';
+import { filterAlergens } from '../DrawerFilter/DrawerFilter.constants';
 import SearchBox from './SearchBox';
 
 type Props = {
@@ -23,8 +19,8 @@ type Props = {
 };
 
 function CategoryTopFilter({ title, text }: Props) {
-    const { isOpen, onOpen, onClose } = useDisclosure();
-    // data-test-id={`food-card-${i}`}
+    const { categoryId } = useParams();
+    const { formDrawer } = useDrawers();
     const boxRef = useRef<HTMLDivElement>(null);
 
     const handleFocus = () => {
@@ -32,13 +28,28 @@ function CategoryTopFilter({ title, text }: Props) {
             boxRef.current.style.boxShadow = 'var(--chakra-shadows-xl)';
         }
     };
-
     const handleBlur = () => {
         if (boxRef.current) {
             boxRef.current.style.boxShadow = 'none';
         }
     };
+    const dispatch = useAppDispatch();
+    const handleClear = () => {
+        dispatch(setSearchQuery(''));
+        dispatch(setSearchActive(false));
+    };
+    const handleSubmit = (inputValue: string) => {
+        dispatch(setSearchQuery(inputValue));
+        dispatch(setSearchActive(true));
+    };
 
+    const [value, setValue] = useState<string[] | null>(null);
+    const onAlergenSubmit = (allergens: string[]) => {
+        dispatch(setAllergens(allergens));
+    };
+    const onChangeAlergen = (allergens: string[]) => {
+        setValue(allergens);
+    };
     return (
         <Box
             ref={boxRef}
@@ -63,7 +74,9 @@ function CategoryTopFilter({ title, text }: Props) {
             >
                 {text}
             </Text>
-            <DrawerFilter isOpen={isOpen} onClose={onClose} />
+            {formDrawer.isOpen && (
+                <DrawerFilterForm isOpen={formDrawer.isOpen} onClose={formDrawer.onClose} />
+            )}
             <Flex
                 gap={3}
                 mt={{ base: 4, lg: 8 }}
@@ -82,9 +95,15 @@ function CategoryTopFilter({ title, text }: Props) {
                     size={{ base: '32px', lg: '48px' }}
                     p={{ base: 2, lg: '11px' }}
                     icon={<Icon as={IconFilter} boxSize={{ base: '14px', lg: '24px' }} />}
-                    onClick={onOpen}
+                    onClick={formDrawer.onOpen}
                 />
-                <SearchBox onFocus={handleFocus} onBlur={handleBlur} />
+                <SearchBox
+                    key={categoryId}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                    onClear={handleClear}
+                    onSubmit={handleSubmit}
+                />
             </Flex>
             <Flex
                 mt={4}
@@ -94,46 +113,14 @@ function CategoryTopFilter({ title, text }: Props) {
                 alignItems='center'
                 display={{ base: 'none', lg: 'flex' }}
             >
-                <FormControl
-                    display='flex'
-                    alignItems='center'
-                    gap={3}
-                    // w={'100%'}
-                >
-                    <FormLabel
-                        htmlFor='allergens-alerts'
-                        m='0'
-                        fontSize='md'
-                        fontWeight={500}
-                        w='100%'
-                        //  flex='1'
-                        // flexShrink={0}
-                    >
-                        Исключить мои аллергены
-                    </FormLabel>
-                    <Switch id='allergens-alerts' colorScheme='lime' />
-                </FormControl>
-                <Select
-                    // maxW={'234px'}
-                    w='90%'
-                    color='blackAlpha.700'
-                    borderColor='blackAlpha.200'
-                    size='md'
-                    placeholder='Выберите из списка...'
-                    _placeholder={{
-                        color: 'rgba(0, 0, 0, 0.2)',
-                        fontSize: 'md',
-                    }}
-                    sx={{
-                        '& option': {
-                            fontSize: 'md !important',
-                        },
-                    }}
-                >
-                    <option value='option1'>Option 1</option>
-                    <option value='option2'>Option 2</option>
-                    <option value='option3'>Option 3</option>
-                </Select>
+                <AlergenSwitch
+                    isFilterDataTestId={!formDrawer.isOpen}
+                    dataTestId='allergens-menu-button'
+                    value={value || []}
+                    onChangeOption={onChangeAlergen}
+                    onAlergenSubmit={onAlergenSubmit}
+                    list={filterAlergens}
+                />
             </Flex>
         </Box>
     );

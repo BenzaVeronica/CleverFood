@@ -30,13 +30,7 @@ function NewRecipeSlider(_props: Props) {
         sliderRef.current?.slidePrev();
     };
     return (
-        <Box
-            position='relative'
-            as='section'
-            mt={{ base: 0, lg: 6 }}
-            mb={{ base: 8, lg: 10 }}
-            w={{ base: 'calc(100% + 16px)', sm: 'calc(100% + 16px)', md: 'auto' }}
-        >
+        <Box position='relative' as='section' mt={{ base: 0, lg: 6 }} mb={{ base: 8, lg: 10 }}>
             <Text
                 as='h2'
                 fontSize={{ base: '2xl', lg: '4xl', xl: '4xl' }}
@@ -46,7 +40,7 @@ function NewRecipeSlider(_props: Props) {
                 Новые рецепты
             </Text>
 
-            <Box>
+            <Box w={{ base: 'calc(100% + 15px)', md: 'auto' }}>
                 <IconButton
                     data-test-id='carousel-back'
                     aria-label='prev'
@@ -68,13 +62,34 @@ function NewRecipeSlider(_props: Props) {
                     modules={[Navigation]}
                     loop={true}
                     spaceBetween={12}
+                    // slidesPerView={2}
                     slidesPerView='auto'
                     onSwiper={(swiper) => (sliderRef.current = swiper)}
+                    grabCursor={true}
+                    // speed={200}
+                    // breakpoints={{
+                    //     320: {
+                    //         slidesPerView: 2.1,
+                    //         spaceBetween: 12,
+                    //     },
+                    //     768: {
+                    //         slidesPerView: 4.5,
+                    //         spaceBetween: 12,
+                    //     },
+                    //     1440: {
+                    //         slidesPerView: 3.1,
+                    //         spaceBetween: 12,
+                    //     },
+                    //     1920: {
+                    //         slidesPerView: 4,
+                    //         spaceBetween: 24,
+                    //     },
+                    // }}
                 >
                     {list.map((recipe, i) => (
                         <SwiperSlide
                             key={`new-recipe-${recipe.id}`}
-                            style={{ width: 'auto' }}
+                            style={{ width: 'auto', height: 'initial' }}
                             data-test-id={`carousel-card-${i}`}
                         >
                             <CardVertical el={recipe} />

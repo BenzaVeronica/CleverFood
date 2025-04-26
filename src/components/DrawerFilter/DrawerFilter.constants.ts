@@ -1,50 +1,62 @@
 import { masDishCategories } from '~/store/category/category.constants';
-import { MAS_RECIPES } from '~/store/recipe/recipe.constants';
 import { addIdToArray } from '~/store/utils';
 export type FilterOptionType = {
     id: string;
     label: string;
 };
-const filterMeatWithoutId: { label: string }[] = [
+export const filterMeatTypes: FilterOptionType[] = [
     {
+        id: 'Chicken',
         label: 'Курица',
     },
     {
+        id: 'Pork',
         label: 'Свинина',
     },
     {
+        id: 'Beef',
         label: 'Говядина',
     },
     {
+        id: 'Turkey',
         label: 'Индейка',
     },
     {
+        id: 'Duck',
         label: 'Утка',
     },
 ];
-const filterSideDishWithoutId: { label: string }[] = [
+export const filterSideDish: FilterOptionType[] = [
     {
+        id: 'Potatoes',
         label: 'Картошка',
     },
     {
+        id: 'Buckwheat',
         label: 'Гречка',
     },
     {
+        id: 'Pasta',
         label: 'Паста',
     },
     {
+        id: 'Spaghetti',
         label: 'Спагетти',
     },
     {
+        id: 'Rice',
         label: 'Рис',
     },
     {
+        id: 'Cabbage',
         label: 'Капуста',
     },
     {
+        id: 'Beans',
         label: 'Фасоль',
     },
     {
+        id: 'Others',
         label: 'Другие овощи',
     },
 ];
@@ -59,16 +71,33 @@ const filterAuthorWithoutId: { label: string }[] = [
         label: 'Иванова Екатерина',
     },
 ];
-export const filterMeatTypes: FilterOptionType[] = addIdToArray(filterMeatWithoutId);
-export const filterSideDish: FilterOptionType[] = addIdToArray(filterSideDishWithoutId);
+const filterAlergensWithoutId: string[] = [
+    'Молочные продукты',
+    // 'Молоко',
+    'Яйцо',
+    // 'болгарский перец',
+    // 'Рыба',
+    'Моллюски',
+    'Орехи',
+    'Цитрусовые',
+    'Томат (помидор)',
+    'Клубника (ягоды)',
+    'Шоколад',
+];
 // export const filterCategory: FilterOptionType[] = addIdToArray(filterMeatWithoutId);
 export const filterCategory: FilterOptionType[] = masDishCategories.map((category) => ({
-    id: category.id,
+    id: category.url,
     label: category.title,
 }));
 export const filterAuthor: FilterOptionType[] = addIdToArray(filterAuthorWithoutId);
-export const filterAlergens: FilterOptionType[] = addIdToArray(
-    Array.from(
-        new Set(MAS_RECIPES.flatMap((category) => category.ingredients.map((ingr) => ingr.title))),
-    ).map((label) => ({ label })),
-);
+export const filterAlergens: FilterOptionType[] = filterAlergensWithoutId.map((item) => ({
+    id: item,
+    label: item,
+}));
+// export const filterAlergens: FilterOptionType[] = Array.from(
+//     new Set(
+//         MAS_RECIPES.flatMap((category) =>
+//             category.ingredients.map((ingr) => (ingr.title !== 'специи' ? ingr.title : 'Лук')),
+//         ),
+//     ),
+// ).map((label) => ({ id: label, label }));

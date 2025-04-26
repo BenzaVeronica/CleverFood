@@ -1,115 +1,213 @@
-import { AddIcon } from '@chakra-ui/icons';
+import { ChevronDownIcon, ChevronUpIcon, CloseIcon } from '@chakra-ui/icons';
 import {
     Box,
     Button,
     Checkbox,
-    Input,
+    Flex,
+    IconButton,
     InputGroup,
     InputRightElement,
     Menu,
     MenuButton,
     MenuItem,
     MenuList as ChakraMenuList,
-    Stack,
     Text,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 
-type Option = {
-    value: string;
-    label: string;
-};
+import { FilterOptionType } from '~/components/DrawerFilter/DrawerFilter.constants';
+
+import CustomAddBox from './CustomAddBox';
 
 type Props = {
-    selectedOptions: Option[];
-    options: Option[];
+    value: string[];
+    onChange: (value: string[]) => void;
+    options: FilterOptionType[];
+    placeholder?: string;
+    isDisabled?: boolean;
+    dataTestId?: string;
+    isFilterDataTestId: boolean;
 };
 
-const CustomMultiSelectWithAdd = (_props: Props) => {
-    const [selectedOptions, setSelectedOptions] = useState<Option[]>([]);
-    const [customAllergen, setCustomAllergen] = useState<string>('');
+const CustomMultiSelectWithAdd = ({
+    value: selectedOptions = [],
+    onChange,
+    options: initialOptions,
+    placeholder = 'Выберите из списка...',
+    isDisabled,
+    dataTestId,
+    isFilterDataTestId,
+}: Props) => {
+    // console.log(selectedOptions);
+
+    const [options, setOptions] = useState<FilterOptionType[]>(initialOptions);
+    // const [selectedOptions, setSelectedOptions] = useState<FilterOptionType[]>([]);
     const [isOpen, setIsOpen] = useState<boolean>(false);
 
-    const options: Option[] = [
-        { value: 'peanuts', label: 'Арахис' },
-        { value: 'milk', label: 'Молоко' },
-        { value: 'eggs', label: 'Яйца' },
-    ];
-
-    const handleAddCustom = (): void => {
-        if (!customAllergen.trim()) return;
-        const newOption: Option = {
-            value: customAllergen.toLowerCase().replace(/\s+/g, '_'),
-            label: customAllergen,
-        };
-        setSelectedOptions([...selectedOptions, newOption]);
-        setCustomAllergen('');
+    const onClear = (): void => {
+        // setSelectedOptions([]);
+        onChange([]);
     };
 
-    const toggleOption = (option: Option): void => {
-        if (selectedOptions.some((o) => o.value === option.value)) {
-            setSelectedOptions(selectedOptions.filter((o) => o.value !== option.value));
-        } else {
-            setSelectedOptions([...selectedOptions, option]);
-        }
+    // const toggleOption = (option: FilterOptionType): void => {
+    //     console.log(value);
+
+    //     const isSelected = value.includes(option.label);
+    //     let newValue: string[];
+
+    //     if (isSelected) {
+    //         newValue = value.filter((label) => label !== option.label);
+    //         setSelectedOptions(selectedOptions.filter((o) => o.label !== option.label));
+    //     } else {
+    //         newValue = [...value, option.label];
+    //         setSelectedOptions([...selectedOptions, option]);
+    //     }
+
+    //     onChange(newValue);
+    // };
+
+    const toggleOption = (option: FilterOptionType) => {
+        const isSelected = selectedOptions.includes(option.label);
+        const newValue = isSelected
+            ? selectedOptions.filter((label) => label !== option.label)
+            : [...selectedOptions, option.label];
+
+        onChange(newValue);
     };
 
     return (
         <Menu isOpen={isOpen} onOpen={() => setIsOpen(true)} onClose={() => setIsOpen(false)}>
-            <MenuButton
-                as={Button}
-                rightIcon={<AddIcon />}
-                w='100%'
-                textAlign='left'
-                fontWeight='normal'
-                variant='outline'
+            <InputGroup>
+                <MenuButton
+                    data-test-id={dataTestId && dataTestId}
+                    as={Button}
+                    rightIcon={
+                        isOpen ? (
+                            <ChevronUpIcon boxSize='18px' />
+                        ) : (
+                            <ChevronDownIcon boxSize='18px' />
+                        )
+                    }
+                    w='100%'
+                    // h='100%'
+                    textAlign='left'
+                    fontWeight='normal'
+                    variant='outline'
+                    isDisabled={isDisabled}
+                    // overflowY='hidden'
+                >
+                    {selectedOptions.length > 0 ? (
+                        <Flex
+                            //  mt={4}
+                            gap={1}
+                            flexWrap='wrap'
+                            maxW='100%'
+                            maxH={{ base: 8, md: 10 }}
+                            overflowY='hidden'
+                        >
+                            {selectedOptions.map((el, index) => (
+                                <Flex
+                                    key={index}
+                                    borderColor='lime.300'
+                                    borderRadius='6px'
+                                    borderWidth='1px'
+                                    alignItems='center'
+                                >
+                                    <Text color='lime.600' px={2} py='2px'>
+                                        {/* {el.label} */}
+                                        {el}
+                                    </Text>
+                                </Flex>
+                            ))}
+                        </Flex>
+                    ) : (
+                        placeholder
+                    )}
+                </MenuButton>
+                {selectedOptions.length > 0 && (
+                    <InputRightElement>
+                        <IconButton
+                            aria-label='clear'
+                            icon={<CloseIcon boxSize='10px' />}
+                            size='md'
+                            variant='ghost'
+                            position='absolute'
+                            right={8}
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                onClear();
+                            }}
+                        />
+                    </InputRightElement>
+                )}
+            </InputGroup>
+            <ChakraMenuList
+                data-test-id='allergens-menu'
+                maxH='300px'
+                zIndex={10}
+                display='flex'
+                flexDirection='column'
+                py={0}
             >
-                {selectedOptions.length > 0
-                    ? selectedOptions.map((o) => o.label).join(', ')
-                    : 'Выберите аллергены...'}
-            </MenuButton>
-            <ChakraMenuList maxH='300px' overflowY='auto'>
-                <Stack spacing={1} p={2}>
-                    {options.map((option) => (
+                <Box
+                    flex='1'
+                    overflowY='auto'
+                    css={{
+                        '&::-webkit-scrollbar': {
+                            background: 'rgba(0, 0, 0, 0.04)',
+                            width: '8px',
+                            height: '8px',
+                        },
+                        '&::-webkit-scrollbar-thumb': {
+                            background: 'rgba(0, 0, 0, 0.16)',
+                            borderRadius: '8px',
+                            width: '8px',
+                            height: '8px',
+                            border: '4px solid transparent',
+                        },
+                    }}
+                >
+                    {options.map((option, index) => (
                         <MenuItem
-                            key={option.value}
+                            key={option.id}
                             closeOnSelect={false}
-                            onClick={(e) => e.preventDefault()}
+                            px={4}
+                            bg={index % 2 === 1 ? 'white' : 'blackAlpha.100'}
+                            _hover={{ bg: 'blackAlpha.200' }}
+                            justifyContent='flex-start'
+                            onMouseDown={(e) => e.preventDefault()}
                         >
                             <Checkbox
-                                isChecked={selectedOptions.some((o) => o.value === option.value)}
-                                onChange={() => toggleOption(option)}
+                                // data-test-id={`allergen-${index}`}
+                                data-test-id={isFilterDataTestId ? `allergen-${index}` : ''}
+                                isChecked={selectedOptions.includes(option.label)}
+                                onChange={(e) => {
+                                    e.stopPropagation();
+                                    toggleOption(option);
+                                }}
+                                fontSize='sm'
+                                colorScheme='lime'
+                                borderColor='lime.150'
+                                color='gray.800'
                                 mr={2}
-                            />
-                            <Text>{option.label}</Text>
+                                isFocusable={false}
+                                onMouseDown={(e) => e.preventDefault()}
+                                // pointerEvents='none'
+                            >
+                                {option.label}
+                            </Checkbox>
                         </MenuItem>
                     ))}
-                </Stack>
-
-                <Box p={2}>
-                    <InputGroup size='sm'>
-                        <Input
-                            value={customAllergen}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                                setCustomAllergen(e.target.value)
-                            }
-                            placeholder='Введите аллерген...'
-                            onKeyPress={(e: React.KeyboardEvent) =>
-                                e.key === 'Enter' && handleAddCustom()
-                            }
-                        />
-                        <InputRightElement width='4.5rem'>
-                            <Button
-                                h='1.75rem'
-                                size='sm'
-                                onClick={handleAddCustom}
-                                isDisabled={!customAllergen.trim()}
-                            >
-                                Добавить
-                            </Button>
-                        </InputRightElement>
-                    </InputGroup>
                 </Box>
+
+                <CustomAddBox
+                    isFilterDataTestId={isFilterDataTestId}
+                    options={options}
+                    setOptions={setOptions}
+                    // onChange={onChange}
+                    selectedOptions={selectedOptions}
+                    toggleOption={toggleOption}
+                />
             </ChakraMenuList>
         </Menu>
     );

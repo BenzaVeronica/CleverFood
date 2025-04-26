@@ -8,8 +8,10 @@ import Header from '~/components/Header/Header.tsx';
 import LeftNavMenu from '~/components/LeftNavMenu';
 import RightAside from '~/components/RightAside';
 import { AppProviders } from '~/context/AppContext';
+import useBreakpoints from '~/utils/useBreakpoints';
 
 function App() {
+    const { isTablet } = useBreakpoints();
     return (
         <AppProviders>
             <Box
@@ -29,7 +31,7 @@ function App() {
                     boxShadow='0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12)'
                     display={{ base: 'none', lg: 'block' }}
                 >
-                    <LeftNavMenu />
+                    {!isTablet && <LeftNavMenu />}
                 </Box>
                 <Box
                     ml={{ base: 0, lg: 64 }}

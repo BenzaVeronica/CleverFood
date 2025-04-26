@@ -1,5 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+import { FormValues } from '~/components/DrawerFilter/DrawerFilterForm';
+
 import { ApplicationState } from '../configure-store';
 export type AppState = typeof initialState;
 
@@ -12,10 +14,13 @@ export type RecipeFilterState = {
     isFilter: boolean;
     isSearchActive: boolean;
     searchQuery: string;
-    category: string[];
+    categories: string[];
+    author: string[];
     allergens: string[];
-    meat: string[];
-    side: string[];
+    meatTypes: string[];
+    sideDishes: string[];
+    currentCategory: string;
+    // currentSubCategory: string;
 };
 const initialState: RecipeFilterState = {
     // search: {
@@ -27,10 +32,13 @@ const initialState: RecipeFilterState = {
     isSearchActive: false,
     // searchQuery: 'карт',
     // isSearchActive: true,
-    category: [],
+    categories: [],
+    author: [],
     allergens: [],
-    meat: [],
-    side: [],
+    meatTypes: [],
+    sideDishes: [],
+    currentCategory: '',
+    // currentSubCategory: '',
 };
 export const recipeFilterSlice = createSlice({
     name: 'recipeFilter',
@@ -41,40 +49,58 @@ export const recipeFilterSlice = createSlice({
         // },
         setSearchQuery: (state, { payload }: PayloadAction<string>) => {
             state.searchQuery = payload.toLowerCase();
+            // state.searchQuery = payload;
             state.isFilter = true;
         },
         setSearchActive: (state, { payload }: PayloadAction<boolean>) => {
             state.isSearchActive = payload;
         },
         setCategory: (state, action: PayloadAction<string[]>) => {
-            state.category = action.payload;
+            if (state.currentCategory) {
+                state.categories = [state.currentCategory, ...action.payload];
+            } else {
+                state.categories = action.payload;
+            }
             state.isFilter = true;
+        },
+        setCurrentCategory: (state, action: PayloadAction<string>) => {
+            const category = action.payload;
+
+            if (!category) {
+                state.currentCategory = '';
+                return;
+            }
+            // if (state.categories.indexOf(category) !== -1) {
+            //   state.categories = state.categories.filter((c) => c !== category);
+            // } else {
+            //   state.categories = [...state.categories, category];
+            // }
+
+            state.categories = [...state.categories, category];
+            state.currentCategory = category;
         },
         setAllergens: (state, action: PayloadAction<string[]>) => {
             state.allergens = action.payload;
             state.isFilter = true;
         },
-        setAllFilter: (state, action: PayloadAction<Omit<RecipeFilterState, 'search'>>) => {
-            state.category = action.payload.category;
+        setAllFilter: (state, action: PayloadAction<FormValues>) => {
+            state.categories = action.payload.categories;
+            state.author = action.payload.author;
             state.allergens = action.payload.allergens;
-            state.meat = action.payload.meat;
-            state.side = action.payload.side;
+            state.meatTypes = action.payload.meatTypes;
+            state.sideDishes = action.payload.sideDishes;
             state.isFilter = true;
         },
         // setMeat: (state, action: PayloadAction<string[]>) => {
-        //     state.meat = action.payload;
+        //     state.meatTypes = action.payload;
         // },
         // setSide: (state, action: PayloadAction<string[]>) => {
-        //     state.side = action.payload;
+        //     state.sideDishes = action.payload;
         // },
-        resetFilters: () => initialState,
-
-        // setAppError(state, { payload: error }: PayloadAction<string | null>) {
-        //     state.error = error;
-        // },
-        // setAppLoader(state, { payload: isLoading }: PayloadAction<boolean>) {
-        //     state.isLoading = isLoading;
-        // },
+        resetFilters: (state) => ({
+            ...initialState,
+            currentCategory: state.currentCategory,
+        }),
     },
 });
 export const userLoadingSelector = (state: ApplicationState) => state.app.isLoading;
@@ -84,6 +110,7 @@ export const {
     setSearchQuery,
     setSearchActive,
     setCategory,
+    setCurrentCategory,
     setAllergens,
     setAllFilter,
     resetFilters,

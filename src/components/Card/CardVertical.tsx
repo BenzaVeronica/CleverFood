@@ -19,6 +19,7 @@ function CardVertical({ el }: Props) {
     return (
         <Box
             h='100%'
+            // h={{ base: '222px', lg: '462px' }}
             borderColor='blackAlpha.200'
             borderWidth={1}
             borderRadius='8px'
@@ -69,7 +70,7 @@ function CardVertical({ el }: Props) {
                 <Text
                     fontSize={{ base: 'md', lg: 'lg', xl: 'xl' }}
                     fontWeight={500}
-                    whiteSpace={{ base: 'normal', md: 'normal', lg: 'nowrap' }}
+                    whiteSpace={{ base: 'normal', md: 'normal', lg: 'normal' }}
                     noOfLines={{ base: 2, lg: 1 }}
                     // noOfLines={2}
                     isTruncated

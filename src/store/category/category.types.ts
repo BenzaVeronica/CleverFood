@@ -1,7 +1,7 @@
 import { profile } from '../blog/blog.types';
 
 export type recipeItem = {
-    id: number;
+    id: string;
     img: string;
     title: string;
     text: string;

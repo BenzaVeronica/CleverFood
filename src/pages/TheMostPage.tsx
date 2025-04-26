@@ -8,6 +8,7 @@ import CardList from '~/components/CardList';
 import CategoryTopFilter from '~/components/CategoryTopFilter';
 import SectionAbout from '~/components/SectionAbout';
 import { vegan } from '~/components/SectionAbout/recipes.constants';
+import { PageRoutes } from '~/routes/PageRoutes.constants';
 import { MAS_RECIPES } from '~/store/recipe/recipe.constants';
 import { sortByField } from '~/store/recipe/utils';
 
@@ -22,7 +23,7 @@ function TheMostPage() {
                 item={{
                     id: 1,
                     title: 'Самое сочное',
-                    url: 'the-most',
+                    url: PageRoutes.MOST,
                 }}
                 list={list}
             />

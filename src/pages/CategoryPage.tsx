@@ -19,8 +19,10 @@ import CategoryTopFilter from '~/components/CategoryTopFilter';
 import SectionAbout from '~/components/SectionAbout';
 import { desert } from '~/components/SectionAbout/recipes.constants';
 import { masDishCategories } from '~/store/category/category.constants';
-import { MAS_RECIPES } from '~/store/recipe/recipe.constants';
+import { useAppDispatch } from '~/store/hooks';
 import { selectFilteredRecipes } from '~/store/recipe/recipe-filter-selector';
+import { resetFilters, setCurrentCategory } from '~/store/recipe/recipe-filter-slice';
+import { filterBySubCategory } from '~/store/recipe/utils';
 
 function CategoryPage() {
     const { categoryId, subcategoryId } = useParams();
@@ -48,7 +50,20 @@ function CategoryPage() {
         }
     }, [currentCategory, subcategoryId]);
 
-    const { isFilter, filteredList } = useSelector(selectFilteredRecipes);
+    const dispatch = useAppDispatch();
+    const { isFilter, filteredList, filters } = useSelector(selectFilteredRecipes);
+
+    useEffect(() => {
+        dispatch(resetFilters());
+        if (categoryId) {
+            if (!filters.categories.includes(categoryId)) {
+                dispatch(setCurrentCategory(categoryId));
+                // dispatch(setCategory([...currentCategory.url, ...filters.categories]));
+            }
+        }
+    }, [dispatch, categoryId, subcategoryId]);
+    console.log(filteredList);
+
     return (
         <ContainerGridLayout>
             <GridItem colSpan={{ base: 4, md: 12 }}>
@@ -62,7 +77,12 @@ function CategoryPage() {
                 </Flex>
             </GridItem>
             <GridItem colSpan={{ base: 4, md: 12 }}>
-                {isFilter && <CardList list={filteredList} mb={{ base: 4, lg: 8 }} />}
+                {isFilter && (
+                    <CardList
+                        list={filterBySubCategory(filteredList, categoryId, subcategoryId)}
+                        mb={{ base: 4, lg: 8 }}
+                    />
+                )}
                 {!isFilter && (
                     <Tabs
                         // mt={4}
@@ -124,20 +144,11 @@ function CategoryPage() {
                                 >
                                     <CardList
                                         item={el}
-                                        list={
-                                            MAS_RECIPES.filter((recipe) => {
-                                                if (!categoryId) return false;
-                                                const categoryIndex = recipe.category.findIndex(
-                                                    (cat) => cat === categoryId,
-                                                );
-                                                if (categoryIndex === -1) return false;
-
-                                                return (
-                                                    recipe.subcategory[categoryIndex] ===
-                                                    subcategoryId
-                                                );
-                                            }) || []
-                                        }
+                                        list={filterBySubCategory(
+                                            filteredList,
+                                            categoryId,
+                                            subcategoryId,
+                                        )}
                                     />
                                     <Button
                                         display='block'

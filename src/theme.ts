@@ -93,6 +93,19 @@ const theme = extendTheme({
         },
     },
     components: {
+        Switch: {
+            baseStyle: {
+                track: {
+                    bg: 'gray.200',
+                    _checked: {
+                        bg: 'lime.400',
+                    },
+                },
+                thumb: {
+                    bg: 'white',
+                },
+            },
+        },
         Breadcrumb: {
             baseStyle: {
                 list: {

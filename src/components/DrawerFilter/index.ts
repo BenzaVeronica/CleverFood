@@ -1,2 +1,2 @@
-import DrawerFilter from './DrawerFilter';
+import DrawerFilter from './DrawerFilterForm';
 export default DrawerFilter;

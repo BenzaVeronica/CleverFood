@@ -35,13 +35,13 @@ function useCurrentCategories() {
 
 export default useCurrentCategories;
 
-type CategoryMap = {
-    // [key: string]: string ;
-    [key: string]: {
-        icon: string;
-        text: string;
-    };
-};
+// type CategoryMap = {
+//     [key: string]: {
+//         icon: string;
+//         text: string;
+//     };
+// };
+type CategoryMap = Record<string, { icon: string; text: string }>;
 const CATEGORIES: CategoryMap = {
     unknown: {
         icon: drinks,

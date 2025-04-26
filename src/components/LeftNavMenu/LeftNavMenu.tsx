@@ -11,6 +11,7 @@ import {
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 
+import { useMobileMenu } from '~/context/MobileMenuContext';
 import { masDishCategories } from '~/store/category/category.constants';
 import { dishCategory } from '~/store/category/category.types';
 import useBreakpoints from '~/utils/useBreakpoints';
@@ -54,9 +55,10 @@ function LeftNavMenu(_props: Props) {
     // useEffect(() => {
     //     setCurrentRecipe(MAS_RECIPES.find((el) => el.id == recipeId) || null);
     // }, [recipeId]);
+    const { closeMenu } = useMobileMenu();
     return (
         <LeftNavMenuWrapper isMobile={isTablet}>
-            {isTablet && <CustomBreadcrumb />}
+            {isTablet && <CustomBreadcrumb closeMenu={closeMenu} />}
             <Box
                 overflowY='scroll'
                 flex='1'

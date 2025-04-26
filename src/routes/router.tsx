@@ -7,6 +7,7 @@ import CategoryPage from '../pages/CategoryPage';
 import ErrorPage from '../pages/ErrorPage';
 import HomePage from '../pages/HomePage';
 import RecipePage from '../pages/RecipePage';
+import { PageRoutes } from './PageRoutes.constants';
 // import ProtectedRoute from './ProtectedRoute.tsx';
 
 export const router = createBrowserRouter([
@@ -24,7 +25,7 @@ export const router = createBrowserRouter([
                 ),
             },
             {
-                path: 'the-most',
+                path: PageRoutes.MOST,
                 element: <TheMostPage />,
             },
             {

@@ -18,6 +18,8 @@ type CustomMultiSelectProps = {
     onChange: (value: string[]) => void;
     options: FilterOptionType[];
     placeholder?: string;
+    disabledItems?: string[];
+    dataTestId?: string;
 };
 
 const CustomMultiSelect = ({
@@ -25,11 +27,14 @@ const CustomMultiSelect = ({
     onChange,
     options,
     placeholder = 'Выберите...',
+    disabledItems = [],
+    dataTestId,
 }: CustomMultiSelectProps) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleOption = (optionValue: string): void => {
         // console.log(optionValue);
+        if (disabledItems.includes(optionValue)) return;
         const newValue = value.includes(optionValue)
             ? value.filter((v) => v !== optionValue)
             : [...value, optionValue];
@@ -44,6 +49,7 @@ const CustomMultiSelect = ({
     return (
         <Menu isOpen={isOpen} onOpen={() => setIsOpen(true)} onClose={() => setIsOpen(false)}>
             <MenuButton
+                data-test-id={dataTestId && dataTestId}
                 as={Button}
                 rightIcon={isOpen ? <ChevronUpIcon /> : <ChevronDownIcon />}
                 color='blackAlpha.700'
@@ -86,22 +92,27 @@ const CustomMultiSelect = ({
                         //     e.stopPropagation();
                         //     toggleOption(option.id);
                         // }}
-                        onClick={() => toggleOption(option.id)}
+                        // onClick={() => toggleOption(option.id)}
                         px={4}
                         bg={index % 2 === 1 ? 'white' : 'blackAlpha.100'}
                         _hover={{ bg: 'blackAlpha.200' }}
                         justifyContent='flex-start'
                     >
                         <Checkbox
+                            data-test-id={option.id === 'vegan' && 'checkbox-веганская кухня'}
                             isChecked={value.includes(option.id)}
                             // onChange={() => toggleOption(option.id)}
+                            onChange={(e) => {
+                                e.stopPropagation();
+                                toggleOption(option.id);
+                            }}
                             fontSize='sm'
                             colorScheme='lime'
                             borderColor='lime.150'
                             color='gray.800'
                             mr={2}
                             isFocusable={false}
-                            pointerEvents='none'
+                            // pointerEvents='none'
                         >
                             {option.label}
                         </Checkbox>

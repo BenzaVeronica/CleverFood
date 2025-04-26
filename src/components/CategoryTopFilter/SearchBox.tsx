@@ -7,32 +7,44 @@ import {
     InputRightElement,
 } from '@chakra-ui/react';
 import { KeyboardEvent, useState } from 'react';
+import { useSelector } from 'react-redux';
 
-import { useAppDispatch } from '~/store/hooks';
-import { setSearchActive, setSearchQuery } from '~/store/recipe/recipe-filter-slice';
+import { selectFilteredRecipes } from '~/store/recipe/recipe-filter-selector';
 
 import IconSearch from '../../assets/IconSearch.svg?react';
 
 type Props = {
     onBlur: () => void;
     onFocus: () => void;
+    onSubmit: (inputValue: string) => void;
+    onClear: () => void;
+    initValue?: string;
 };
 function SearchBox(props: Props) {
-    const dispatch = useAppDispatch();
     // const { setSearchQuery, setIsSearchActive } = useSearch();
-    const [inputValue, setInputValue] = useState('');
+    const [inputValue, setInputValue] = useState(props.initValue || '');
     const isSearchDisabled = inputValue.length < 3;
+
+    // const location = useLocation();
+    // useEffect(() => {
+    // setInputValue('');
+    // props.onClear();
+    // }, [location.pathname]);
+    // useEffect(() => {
+    //     setInputValue(props.initValue);
+    // }, [props.initValue]);
 
     const handleSearch = () => {
         if (!isSearchDisabled) {
-            dispatch(setSearchQuery(inputValue));
-            dispatch(setSearchActive(true));
+            props.onSubmit(inputValue);
+            // dispatch(setSearchQuery(inputValue));
+            // dispatch(setSearchActive(true));
         }
     };
 
     const handleKeyDown = (e: KeyboardEvent) => {
         if (e.key === 'Enter' && !isSearchDisabled) {
-            handleSearch();
+            props.onSubmit(inputValue);
         }
         if (e.key === 'Escape') {
             handleClear();
@@ -41,10 +53,14 @@ function SearchBox(props: Props) {
 
     const handleClear = () => {
         setInputValue('');
-        dispatch(setSearchQuery(''));
-        dispatch(setSearchActive(false));
+        props.onClear();
+        // dispatch(setSearchQuery(''));
+        // dispatch(setSearchActive(false));
     };
 
+    const { isFilter, filteredList } = useSelector(selectFilteredRecipes);
+    const isValidNotEmpty = isFilter && filteredList.length === 0;
+    const validColor = isValidNotEmpty ? 'red' : 'blue';
     return (
         <InputGroup>
             <Input
@@ -59,6 +75,11 @@ function SearchBox(props: Props) {
                 _placeholder={{
                     color: 'lime.800',
                 }}
+                _focus={{
+                    borderColor: validColor,
+                    boxShadow: `0 0 0 1px ${validColor}`,
+                }}
+                borderColor={isValidNotEmpty ? 'red' : 'init'}
             />
             <InputRightElement w={{ base: '64px', lg: '76px' }} h={{ base: 8, lg: 12 }}>
                 <CloseButton size='sm' onClick={handleClear} mr={1} aria-label='Очистить поиск' />
