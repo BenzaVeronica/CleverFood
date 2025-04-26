@@ -61,8 +61,7 @@ function CategoryPage() {
                 // dispatch(setCategory([...currentCategory.url, ...filters.categories]));
             }
         }
-    }, [dispatch, categoryId, subcategoryId]);
-    console.log(filteredList);
+    }, [dispatch, categoryId, subcategoryId, filters.categories]);
 
     return (
         <ContainerGridLayout>

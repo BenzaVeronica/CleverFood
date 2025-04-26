@@ -107,8 +107,6 @@ const CustomMultiSelect = ({
                                 toggleOption(option.id);
                             }}
                             fontSize='sm'
-                            colorScheme='lime'
-                            borderColor='lime.150'
                             color='gray.800'
                             mr={2}
                             isFocusable={false}

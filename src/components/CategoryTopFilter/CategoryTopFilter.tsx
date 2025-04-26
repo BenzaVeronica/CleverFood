@@ -4,7 +4,12 @@ import { useParams } from 'react-router';
 
 import { useDrawers } from '~/context/DrawerContext';
 import { useAppDispatch } from '~/store/hooks';
-import { setAllergens, setSearchActive, setSearchQuery } from '~/store/recipe/recipe-filter-slice';
+import {
+    setAllergens,
+    setIsFilter,
+    setSearchActive,
+    setSearchQuery,
+} from '~/store/recipe/recipe-filter-slice';
 
 import IconFilter from '../../assets/iconfilter.svg?react';
 import AlergenSwitch from '../AlergenSwitch';
@@ -35,6 +40,7 @@ function CategoryTopFilter({ title, text }: Props) {
     };
     const dispatch = useAppDispatch();
     const handleClear = () => {
+        dispatch(setIsFilter(false));
         dispatch(setSearchQuery(''));
         dispatch(setSearchActive(false));
     };

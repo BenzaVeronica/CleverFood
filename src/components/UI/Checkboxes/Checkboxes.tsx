@@ -28,8 +28,6 @@ function Checkboxes({ value, onChange, title, list, disabledItems }: CheckboxesP
                             key={option.id.toLowerCase()}
                             value={option.id.toLowerCase()}
                             fontSize='sm'
-                            colorScheme='lime'
-                            borderColor='lime.150'
                         >
                             {option.label}
                         </Checkbox>

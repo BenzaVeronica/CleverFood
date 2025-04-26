@@ -50,7 +50,9 @@ export const recipeFilterSlice = createSlice({
         setSearchQuery: (state, { payload }: PayloadAction<string>) => {
             state.searchQuery = payload.toLowerCase();
             // state.searchQuery = payload;
-            state.isFilter = true;
+            if (state.searchQuery) {
+                state.isFilter = true;
+            }
         },
         setSearchActive: (state, { payload }: PayloadAction<boolean>) => {
             state.isSearchActive = payload;
@@ -97,6 +99,9 @@ export const recipeFilterSlice = createSlice({
         // setSide: (state, action: PayloadAction<string[]>) => {
         //     state.sideDishes = action.payload;
         // },
+        setIsFilter: (state, { payload }: PayloadAction<boolean>) => {
+            state.isFilter = payload;
+        },
         resetFilters: (state) => ({
             ...initialState,
             currentCategory: state.currentCategory,
@@ -113,6 +118,7 @@ export const {
     setCurrentCategory,
     setAllergens,
     setAllFilter,
+    setIsFilter,
     resetFilters,
 } = recipeFilterSlice.actions;
 export default recipeFilterSlice.reducer;

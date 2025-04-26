@@ -1,6 +1,22 @@
 import { extendTheme } from '@chakra-ui/react';
 
 const theme = extendTheme({
+    layerStyles: {
+        customScroll: {
+            '&::-webkit-scrollbar': {
+                background: 'rgba(0, 0, 0, 0.04)',
+                width: '8px',
+                height: '8px',
+            },
+            '::-webkit-scrollbar-thumb': {
+                background: 'rgba(0, 0, 0, 0.16)',
+                borderRadius: '8px',
+                width: '8px',
+                height: '8px',
+                border: '4px solid transparent',
+            },
+        },
+    },
     global: {
         '.search-container:has(input:focus)': {
             boxShadow: 'xl',
@@ -112,6 +128,19 @@ const theme = extendTheme({
                     display: 'flex',
                     flexWrap: 'wrap',
                     gap: 1,
+                },
+            },
+        },
+        Checkbox: {
+            baseStyle: {
+                control: {
+                    borderColor: 'lime.150',
+                    borderWidth: '2px',
+                    _checked: {
+                        color: 'black',
+                        bg: 'lime.400',
+                        borderColor: 'lime.400',
+                    },
                 },
             },
         },

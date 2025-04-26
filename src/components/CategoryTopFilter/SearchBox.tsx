@@ -60,7 +60,8 @@ function SearchBox(props: Props) {
 
     const { isFilter, filteredList } = useSelector(selectFilteredRecipes);
     const isValidNotEmpty = isFilter && filteredList.length === 0;
-    const validColor = isValidNotEmpty ? 'red' : 'blue';
+    const validColor = isValidNotEmpty ? 'red' : 'black';
+
     return (
         <InputGroup>
             <Input
@@ -79,7 +80,7 @@ function SearchBox(props: Props) {
                     borderColor: validColor,
                     boxShadow: `0 0 0 1px ${validColor}`,
                 }}
-                borderColor={isValidNotEmpty ? 'red' : 'init'}
+                borderColor={isFilter ? (isValidNotEmpty ? 'red' : 'lime.600') : 'gray.200'}
             />
             <InputRightElement w={{ base: '64px', lg: '76px' }} h={{ base: 8, lg: 12 }}>
                 <CloseButton size='sm' onClick={handleClear} mr={1} aria-label='Очистить поиск' />

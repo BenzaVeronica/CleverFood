@@ -143,30 +143,13 @@ const CustomMultiSelectWithAdd = ({
             </InputGroup>
             <ChakraMenuList
                 data-test-id='allergens-menu'
-                maxH='300px'
+                maxH='500px'
                 zIndex={10}
                 display='flex'
                 flexDirection='column'
                 py={0}
             >
-                <Box
-                    flex='1'
-                    overflowY='auto'
-                    css={{
-                        '&::-webkit-scrollbar': {
-                            background: 'rgba(0, 0, 0, 0.04)',
-                            width: '8px',
-                            height: '8px',
-                        },
-                        '&::-webkit-scrollbar-thumb': {
-                            background: 'rgba(0, 0, 0, 0.16)',
-                            borderRadius: '8px',
-                            width: '8px',
-                            height: '8px',
-                            border: '4px solid transparent',
-                        },
-                    }}
-                >
+                <Box flex='1' overflowY='auto' layerStyle='customScroll'>
                     {options.map((option, index) => (
                         <MenuItem
                             key={option.id}
@@ -186,8 +169,6 @@ const CustomMultiSelectWithAdd = ({
                                     toggleOption(option);
                                 }}
                                 fontSize='sm'
-                                colorScheme='lime'
-                                borderColor='lime.150'
                                 color='gray.800'
                                 mr={2}
                                 isFocusable={false}

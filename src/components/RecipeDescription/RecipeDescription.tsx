@@ -73,7 +73,12 @@ function RecipeDescription(props: Props) {
                         <CardStat bookmarks={props.item.bookmarks} like={props.item.likes} />
                     </Flex>
                     <Stack spacing={{ base: 4, md: 1 }} mt={8}>
-                        <Text fontSize={{ base: '2xl', lg: '5xl' }} fontWeight={600} color='black'>
+                        <Text
+                            fontSize={{ base: '2xl', lg: '5xl' }}
+                            fontWeight='bold'
+                            color='black'
+                            w={{ base: '100%', md: '437px' }}
+                        >
                             {props.item.title}
                         </Text>
                         <Text fontSize='sm' noOfLines={{ base: 3, lg: 3 }}>
@@ -86,7 +91,7 @@ function RecipeDescription(props: Props) {
                     alignItems={{ base: 'start', md: 'end' }}
                     direction={{ base: 'column', md: 'row' }}
                     gap={3}
-                    mt={{ base: 6, md: 0 }}
+                    mt={{ base: 6, lg: 0 }}
                 >
                     <Tag size='xs' py='3px' px={2}>
                         <TagLeftIcon boxSize='16px' as={BsAlarm} />

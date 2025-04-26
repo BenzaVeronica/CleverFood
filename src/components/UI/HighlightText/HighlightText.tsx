@@ -14,7 +14,7 @@ function HighlightText(props: Props) {
         <>
             {parts.map((part, i) =>
                 part.toLowerCase() === props.highlight.toLowerCase() ? (
-                    <Text as='span' key={i} bg='lime.150' color='black'>
+                    <Text as='span' key={i} color='lime.600'>
                         {part}
                     </Text>
                 ) : (

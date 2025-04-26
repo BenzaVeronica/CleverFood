@@ -77,7 +77,7 @@ function DrawerFilterForm(props: Props) {
         dispatch(resetFilters());
     };
 
-    const createRemoveHandlers = () => {
+    const createRemoveHandlers = useMemo(() => {
         const handlers: Partial<Record<keyof FormValues, (labelToRemove: string) => void>> = {};
         (Object.keys(filterConfig) as Array<keyof FormValues>).forEach((type) => {
             handlers[type] = (labelToRemove: string) => {
@@ -95,8 +95,8 @@ function DrawerFilterForm(props: Props) {
         });
 
         return handlers;
-    };
-    const removeHandlers = useMemo(() => createRemoveHandlers(), [filterConfig, setValue, watch]);
+    }, [setValue, watch]);
+
     return (
         <Drawer
             isOpen={props.isOpen}
@@ -134,20 +134,7 @@ function DrawerFilterForm(props: Props) {
                         pt={{ base: 4, lg: 2 }}
                         pb={{ base: 4, lg: 0 }}
                         flex={1}
-                        css={{
-                            '&::-webkit-scrollbar': {
-                                background: 'rgba(0, 0, 0, 0.04)',
-                                width: '8px',
-                                height: '8px',
-                            },
-                            '&::-webkit-scrollbar-thumb': {
-                                background: 'rgba(0, 0, 0, 0.16)',
-                                borderRadius: '8px',
-                                width: '8px',
-                                height: '8px',
-                                border: '4px solid transparent',
-                            },
-                        }}
+                        layerStyle='customScroll'
                     >
                         <DrawerFilterFields control={control} categoryId={categoryId} />
                     </DrawerBody>
@@ -155,7 +142,8 @@ function DrawerFilterForm(props: Props) {
                     <DrawerFooter display='flex' flexDirection='column' alignItems='start' gap={3}>
                         <SelectedTags
                             selectedValuesMap={selectedValuesMap}
-                            removeHandlers={removeHandlers}
+                            removeHandlers={createRemoveHandlers}
+                            // removeHandlers={removeHandlers}
                         />
                         <Box alignSelf='end'>
                             <Button
