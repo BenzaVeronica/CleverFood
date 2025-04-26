@@ -61,7 +61,7 @@ function CategoryPage() {
                 // dispatch(setCategory([...currentCategory.url, ...filters.categories]));
             }
         }
-    }, [dispatch, categoryId, subcategoryId, filters.categories]);
+    }, [dispatch, categoryId, subcategoryId]);
 
     return (
         <ContainerGridLayout>

@@ -77,7 +77,7 @@ function DrawerFilterForm(props: Props) {
         dispatch(resetFilters());
     };
 
-    const createRemoveHandlers = useMemo(() => {
+    const createRemoveHandlers = () => {
         const handlers: Partial<Record<keyof FormValues, (labelToRemove: string) => void>> = {};
         (Object.keys(filterConfig) as Array<keyof FormValues>).forEach((type) => {
             handlers[type] = (labelToRemove: string) => {
@@ -95,8 +95,8 @@ function DrawerFilterForm(props: Props) {
         });
 
         return handlers;
-    }, [setValue, watch]);
-
+    };
+    const removeHandlers = useMemo(() => createRemoveHandlers(), [filterConfig, setValue, watch]);
     return (
         <Drawer
             isOpen={props.isOpen}
@@ -142,8 +142,7 @@ function DrawerFilterForm(props: Props) {
                     <DrawerFooter display='flex' flexDirection='column' alignItems='start' gap={3}>
                         <SelectedTags
                             selectedValuesMap={selectedValuesMap}
-                            removeHandlers={createRemoveHandlers}
-                            // removeHandlers={removeHandlers}
+                            removeHandlers={removeHandlers}
                         />
                         <Box alignSelf='end'>
                             <Button

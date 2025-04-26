@@ -66,7 +66,7 @@ function NewRecipeSlider(_props: Props) {
                     slidesPerView='auto'
                     onSwiper={(swiper) => (sliderRef.current = swiper)}
                     grabCursor={true}
-                    speed={200}
+                    speed={0}
                     // breakpoints={{
                     //     320: {
                     //         slidesPerView: 2.1,
