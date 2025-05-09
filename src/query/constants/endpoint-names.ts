@@ -1,3 +1,15 @@
 export enum EndpointNames {
-    GET_POSTS = 'getPosts',
+    // HEALTH = 'health',
+    GET_RECIPES = 'getRecipes',
+    GET_RECIPE = 'getRecipeById',
+    GET_RECIPES_BY_SUBCATEGORY = 'getRecipesBySubcategoryId',
+    // GET_THE_MOST_RECIPE = 'getTheMostRecipes',
+    // GET_RECIPE = 'recipe',
+    // GET_ALL_RECIPE = 'getAllRecipes',
+    GET_NAV_TREE = 'getNavTree',
+    // GET_ALL_CATEGORY = 'getAllCategories',
+    // FILE = 'file',
+    // AUTH = 'auth',
+    // USERS = 'users',
+    // MEASURE_UNITS = 'measure-units',
 }

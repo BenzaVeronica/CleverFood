@@ -4,11 +4,7 @@ import Bookmark from '../../assets/iconSMBookmark.svg?react';
 import Like from '../../assets/iconSMLike.svg?react';
 import People from '../../assets/iconSMPeople.svg?react';
 
-type Props = {
-    // title?: string;
-};
-
-function UserStat(_props: Props) {
+function UserStat() {
     return (
         <Flex
             pt={{ base: 0, lg: 4 }}

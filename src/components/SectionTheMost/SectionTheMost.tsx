@@ -2,18 +2,16 @@ import { Box, Button, Flex, Icon, Text } from '@chakra-ui/react';
 import { Link } from 'react-router';
 
 import { PageRoutes } from '~/routes/PageRoutes.constants';
-import { MAS_RECIPES } from '~/store/recipe/recipe.constants';
-import { sortByField } from '~/store/recipe/utils';
+import { recipe } from '~/store/recipe/recipe.types';
 
 import ArrowLongRight from '../../assets/iconArrowLongRight.svg?react';
 import CardList from '../CardList';
 
 type Props = {
-    // title?: string;
+    items: recipe[];
 };
 
-function SectionTheMost(_props: Props) {
-    const list = sortByField(MAS_RECIPES, 'likes', 'desc').slice(0, 4);
+function SectionTheMost({ items }: Props) {
     return (
         <Box as='section'>
             <Flex mb={6} justifyContent='space-between'>
@@ -40,15 +38,7 @@ function SectionTheMost(_props: Props) {
                     Вся подборка
                 </Button>
             </Flex>
-            <CardList
-                item={{
-                    id: 1,
-                    title: 'Самое сочное',
-                    url: PageRoutes.MOST,
-                }}
-                list={list}
-                mb={{ base: 0, md: 10 }}
-            />
+            <CardList list={items} withButton={false} mb={{ base: 0, md: 10 }} />
             <Button
                 as={Link}
                 to={`/${PageRoutes.MOST}`}

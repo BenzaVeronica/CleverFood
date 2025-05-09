@@ -16,8 +16,7 @@ type Props = {
 };
 
 function IngridientsTable(props: Props) {
-    const [portions, setPortions] = useState(props.item.portions || 2);
-
+    const [portions, setPortions] = useState(props.item.portions || 1);
     return (
         <Flex direction='column' alignItems='center' justifyContent='space-between'>
             <Flex w='100%' py={5} fontWeight={600} alignItems='center'>
@@ -39,9 +38,8 @@ function IngridientsTable(props: Props) {
                         w='90px'
                         defaultValue={props.item.portions || 2}
                         min={1}
-                        max={10}
                         value={portions}
-                        onChange={(valueString) => setPortions(parseInt(valueString) || 0)}
+                        onChange={(valueString) => setPortions(parseInt(valueString) || 1)}
                     >
                         <NumberInputField />
                         <NumberInputStepper>
@@ -72,7 +70,11 @@ function IngridientsTable(props: Props) {
                             data-test-id={`ingredient-quantity-${index}`}
                         >
                             {Number(el.count)
-                                ? (Number(el.count) / props.item.portions || 2) * portions
+                                ? Math.round(
+                                      (Number(el.count) / (props.item.portions || 2)) *
+                                          portions *
+                                          100,
+                                  ) / 100
                                 : ''}
                         </Text>
                         <Text

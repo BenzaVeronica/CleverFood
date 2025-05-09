@@ -1,10 +1,10 @@
-import { createBrowserRouter } from 'react-router';
+import { createBrowserRouter, Navigate } from 'react-router';
 
+import NotFoundPage from '~/pages/NotFoundPage';
 import TheMostPage from '~/pages/TheMostPage';
 
 import AppLayout from '../app/App';
 import CategoryPage from '../pages/CategoryPage';
-import ErrorPage from '../pages/ErrorPage';
 import HomePage from '../pages/HomePage';
 import RecipePage from '../pages/RecipePage';
 import { PageRoutes } from './PageRoutes.constants';
@@ -14,7 +14,7 @@ export const router = createBrowserRouter([
     {
         path: '/',
         element: <AppLayout />,
-        errorElement: <ErrorPage />,
+        // errorElement: <ErrorPage />,
         children: [
             {
                 index: true,
@@ -34,6 +34,7 @@ export const router = createBrowserRouter([
                 children: [
                     {
                         path: ':subcategoryId',
+                        errorElement: <Navigate to={PageRoutes.NOT_FOUND} replace />,
                         element: <CategoryPage />,
                     },
                 ],
@@ -43,5 +44,9 @@ export const router = createBrowserRouter([
                 element: <RecipePage />,
             },
         ],
+    },
+    {
+        path: PageRoutes.NOT_FOUND,
+        element: <NotFoundPage />,
     },
 ]);

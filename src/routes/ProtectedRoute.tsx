@@ -11,7 +11,6 @@ type Props = {
 
 export default function ProtectedRoute({ children, requiredRole = 'guest' }: Props) {
     const { user, isAuthenticated } = useAuth();
-    // const isAuthenticated = true;
     const location = useLocation();
 
     if (!isAuthenticated) {

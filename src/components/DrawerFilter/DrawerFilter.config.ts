@@ -1,8 +1,10 @@
+import { selectCategoriesWithSubs } from '~/store/category/category-selector';
+import { useAppSelector } from '~/store/hooks';
+
 import { FilterOptionType } from './DrawerFilter.constants';
 import {
     filterAlergens,
     filterAuthor,
-    filterCategory,
     filterMeatTypes,
     filterSideDish,
 } from './DrawerFilter.constants';
@@ -15,10 +17,19 @@ export type FilterConfigType = {
     allergens: FilterOptionType[];
 };
 
-export const filterConfig: FilterConfigType = {
-    categories: filterCategory,
-    author: filterAuthor,
-    meatTypes: filterMeatTypes,
-    sideDishes: filterSideDish,
-    allergens: filterAlergens,
-};
+export function useFilterConfig(): FilterConfigType {
+    const { categories } = useAppSelector(selectCategoriesWithSubs);
+
+    const filterCategory: FilterOptionType[] = categories.map((cat) => ({
+        id: cat.category,
+        label: cat.title,
+    }));
+
+    return {
+        categories: filterCategory,
+        author: filterAuthor,
+        meatTypes: filterMeatTypes,
+        sideDishes: filterSideDish,
+        allergens: filterAlergens,
+    };
+}

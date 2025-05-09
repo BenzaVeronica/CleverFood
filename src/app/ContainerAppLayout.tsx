@@ -3,7 +3,6 @@ import { Children, cloneElement, isValidElement, ReactNode } from 'react';
 
 type Props = {
     children: ReactNode;
-    // children: ReactElement<GridItemProps>| ReactElement<GridItemProps>[];
 } & GridProps;
 
 export const ContainerGridLayout = ({ children, ...gridProps }: Props) => {

@@ -1,2 +1,2 @@
-// import CustomMultiSelect from './CustomMultiSelect';
-// export default CustomMultiSelect;
+import CustomMultiSelect from './CustomMultiSelect';
+export default CustomMultiSelect;

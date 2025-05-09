@@ -12,20 +12,19 @@ import {
 } from '@chakra-ui/react';
 import { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
-import { useParams } from 'react-router';
 
-import { useAppDispatch } from '~/store/hooks';
+import SelectedTags from '~/components/SelectedTags';
+import { useAppDispatch, useAppSelector } from '~/store/hooks';
+import { selectRecipeFilter } from '~/store/recipe/recipe-filter-selector';
 import { resetFilters, setAllFilter } from '~/store/recipe/recipe-filter-slice';
 
 import BsFillXCircleFill from '../../assets/BsFillXCircleFill.svg?react';
-import { filterConfig } from './DrawerFilter.config';
+import { useFilterConfig } from './DrawerFilter.config';
 import DrawerFilterFields from './DrawerFilterFields';
-import SelectedTags from './SelectedTags';
 
 type Props = {
     isOpen: boolean;
     onClose: () => void;
-    // item: blogItem;
 };
 
 export type FormValues = {
@@ -35,27 +34,29 @@ export type FormValues = {
     sideDishes: string[];
     allergens: string[];
 };
+
+const getEmptyFilterValues = (): FormValues => ({
+    categories: [],
+    author: [],
+    meatTypes: [],
+    sideDishes: [],
+    allergens: [],
+});
+
 function DrawerFilterForm(props: Props) {
-    // const { isOpen, onOpen, onClose } = useDisclosure();
-    // const btnRef = useRef();
-    const { categoryId } = useParams();
+    const filters = useAppSelector(selectRecipeFilter);
 
     const {
-        // register,
         handleSubmit,
         control,
         reset,
-        // formState: { errors },
         watch,
         setValue,
         formState: { isDirty },
     } = useForm<FormValues>({
         defaultValues: {
-            categories: categoryId ? [categoryId] : [],
-            author: [],
-            meatTypes: [],
-            sideDishes: [],
-            allergens: [],
+            ...getEmptyFilterValues(),
+            ...filters,
         },
     });
     const selectedValuesMap = {
@@ -68,15 +69,15 @@ function DrawerFilterForm(props: Props) {
 
     const dispatch = useAppDispatch();
     const handleFormSubmit = (data: FormValues) => {
-        // console.log(data);
         props.onClose();
         dispatch(setAllFilter(data));
     };
     const handleClear = () => {
-        reset();
+        reset(getEmptyFilterValues());
         dispatch(resetFilters());
     };
 
+    const filterConfig = useFilterConfig();
     const createRemoveHandlers = () => {
         const handlers: Partial<Record<keyof FormValues, (labelToRemove: string) => void>> = {};
         (Object.keys(filterConfig) as Array<keyof FormValues>).forEach((type) => {
@@ -98,21 +99,13 @@ function DrawerFilterForm(props: Props) {
     };
     const removeHandlers = useMemo(() => createRemoveHandlers(), [filterConfig, setValue, watch]);
     return (
-        <Drawer
-            isOpen={props.isOpen}
-            placement='right'
-            onClose={props.onClose}
-            size='md'
-            // size={{base: 'sm', lg: 'md'}}
-            // finalFocusRef={btnRef}
-        >
+        <Drawer isOpen={props.isOpen} placement='right' onClose={props.onClose} size='md'>
             <DrawerOverlay />
             <form onSubmit={handleSubmit(handleFormSubmit)}>
                 <DrawerContent
                     bg='white'
                     w={{ base: '344px', lg: '453px' }}
                     data-test-id='filter-drawer'
-                    // justifyContent="space-between"
                 >
                     <DrawerHeader
                         p={{ base: 4, lg: 8 }}
@@ -136,7 +129,7 @@ function DrawerFilterForm(props: Props) {
                         flex={1}
                         layerStyle='customScroll'
                     >
-                        <DrawerFilterFields control={control} categoryId={categoryId} />
+                        <DrawerFilterFields control={control} />
                     </DrawerBody>
 
                     <DrawerFooter display='flex' flexDirection='column' alignItems='start' gap={3}>

@@ -1,5 +1,8 @@
 import { FormControl, FormControlProps, FormLabel, Switch } from '@chakra-ui/react';
-import { useState } from 'react';
+
+import { useAppDispatch, useAppSelector } from '~/store/hooks';
+import { selectDisabledAllergenSwitch } from '~/store/recipe/recipe-filter-selector';
+import { toggleSearchDisabledAllergenSwitch } from '~/store/recipe/recipe-filter-slice';
 
 import { filterAlergens, FilterOptionType } from '../DrawerFilter/DrawerFilter.constants';
 import CustomMultiSelectWithAdd from '../UI/CustomMultiSelect/CustomMultiSelectWithAdd';
@@ -26,15 +29,11 @@ function AlergenSwitch({
     isFilterDataTestId,
     ...otherProps
 }: Props) {
-    const [isDisabledSelect, setDisabledSelect] = useState(true);
-    // const [values, setValues] = useState<string[] | null>(null);
-    // const onChange = (newValues: string[]) => {
-    //     setValues(newValues);
-    // };
+    const isDisabledAllergenSwitch = useAppSelector(selectDisabledAllergenSwitch);
+    const dispatch = useAppDispatch();
+
     const onSwitchChange = () => {
-        setDisabledSelect(!isDisabledSelect);
-        onChangeOption([]);
-        onAlergenSubmit && onAlergenSubmit([]);
+        dispatch(toggleSearchDisabledAllergenSwitch());
     };
     const onSelectChange = (options: string[]) => {
         onChangeOption(options);
@@ -58,7 +57,7 @@ function AlergenSwitch({
                 <Switch
                     data-test-id={isDrawer ? 'allergens-switcher-filter' : 'allergens-switcher'}
                     id='allergens-alerts'
-                    isChecked={!isDisabledSelect}
+                    isChecked={!isDisabledAllergenSwitch}
                     onChange={onSwitchChange}
                 />
             </FormControl>
@@ -68,7 +67,7 @@ function AlergenSwitch({
                 value={value || []}
                 onChange={onSelectChange}
                 options={filterAlergens}
-                isDisabled={isDisabledSelect}
+                isDisabled={isDisabledAllergenSwitch}
             />
         </>
     );

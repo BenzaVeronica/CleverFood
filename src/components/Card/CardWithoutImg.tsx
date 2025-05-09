@@ -1,11 +1,11 @@
-import { Box, Flex, GridItem, GridItemProps, Image, Text } from '@chakra-ui/react';
+import { Box, Flex, GridItem, GridItemProps, Text } from '@chakra-ui/react';
 import { Link } from 'react-router';
 
-import { chooseIconCategory, chooseTextCategory } from '~/store/category/utils';
+import { useCategoryBySubCategoryId } from '~/query/category/category.utils';
 import { recipe } from '~/store/recipe/recipe.types';
 
 import CardStat from '../CardStat';
-import Tag from '../UI/CustomTag';
+import CategoriesTags from '../CategoriesTags';
 
 type Props = {
     el: recipe;
@@ -13,6 +13,8 @@ type Props = {
 };
 
 function CardWithoutImg({ el, colSpan }: Props) {
+    const firstSubCategoryId = el.categoriesIds?.[0];
+    const categs = useCategoryBySubCategoryId(firstSubCategoryId);
     return (
         <GridItem
             colSpan={colSpan}
@@ -26,7 +28,7 @@ function CardWithoutImg({ el, colSpan }: Props) {
                     px={{ base: 3, lg: 6 }}
                     overflow='hidden'
                     as={Link}
-                    to={`/${el.category[0]}/${el.subcategory[0]}/${el.id}`}
+                    to={`/${categs?.category?.category}/${categs?.subCategory?.category}/${el._id}`}
                 >
                     <Text fontSize='xl' fontWeight={500} isTruncated>
                         {el.title}
@@ -36,23 +38,11 @@ function CardWithoutImg({ el, colSpan }: Props) {
                     </Text>
 
                     <Flex justifyContent='space-between'>
-                        <Flex flexWrap='wrap' gap={1} flex='1' minWidth={0}>
-                            {el.category.map((categoryItem) => (
-                                <Tag
-                                    key={`CardWithoutImg_${categoryItem}`}
-                                    leftElement={
-                                        <Image
-                                            src={chooseIconCategory(categoryItem)}
-                                            alt={categoryItem}
-                                        />
-                                    }
-                                    text={chooseTextCategory(categoryItem)}
-                                    color='lime.50'
-                                    maxH={6}
-                                    isTruncated
-                                />
-                            ))}
-                        </Flex>
+                        <CategoriesTags
+                            subCategoriesIds={el.categoriesIds}
+                            keyId='CardWithoutImg'
+                            color='lime.50'
+                        />
                         <CardStat bookmarks={el.bookmarks} like={el.likes} />
                     </Flex>
                 </Box>

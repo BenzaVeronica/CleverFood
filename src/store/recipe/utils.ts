@@ -1,8 +1,10 @@
-import { masDishCategories } from '../category/category.constants';
 import { recipe } from './recipe.types';
+import { RecipeFilterState } from './recipe-filter-slice';
 
 export function sortByNewest(recipes: recipe[]): recipe[] {
-    return [...recipes].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    return [...recipes].sort(
+        (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+    );
 }
 
 export function sortByField<T>(items: T[], path: string, direction: 'asc' | 'desc' = 'asc'): T[] {
@@ -31,40 +33,12 @@ export function sortByField<T>(items: T[], path: string, direction: 'asc' | 'des
     });
 }
 
-// export function filterBySubCategory(
-//     items: recipe[],
-//     categoryId: string | undefined,
-//     subcategoryId: string | undefined,
-// ): recipe[] {
-//     if (!categoryId || !subcategoryId) return [];
-
-//     return items.filter((recipe) => {
-//         const categoryIndex = recipe.category.findIndex((cat) => cat === categoryId);
-//         if (categoryIndex === -1) return false;
-
-//         return recipe.subcategory[categoryIndex] === subcategoryId;
-//     });
-// }
-const categoryToSubcategories: Record<string, string[]> = {};
-masDishCategories.forEach((category) => {
-    categoryToSubcategories[category.url] = category.subcategories.map((sub) => sub.url);
-});
-export function filterBySubCategory(
-    items: recipe[],
-    categoryUrl: string | undefined,
-    subcategoryUrl: string | undefined,
-): recipe[] {
-    if (!categoryUrl || !subcategoryUrl) return [];
-
-    const allowedSubcategories = categoryToSubcategories[categoryUrl] || [];
-
-    return items.filter((recipe) => {
-        const isInCategory = recipe.category.includes(categoryUrl);
-        if (!isInCategory) return false;
-
-        return (
-            recipe.subcategory.includes(subcategoryUrl) &&
-            allowedSubcategories.includes(subcategoryUrl)
-        );
-    });
-}
+export const hasAnyFilter = (state: RecipeFilterState): boolean =>
+    Boolean(
+        state.searchQuery ||
+            state.categories.length ||
+            state.author.length ||
+            state.allergens.length ||
+            state.meatTypes.length ||
+            state.sideDishes.length,
+    );

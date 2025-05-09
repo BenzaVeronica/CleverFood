@@ -20,13 +20,6 @@ type DrawerProviderProps = {
 };
 
 export const DrawerProvider: FC<DrawerProviderProps> = ({ children }) => {
-    // const [isOpen, setIsOpen] = useState(false);
-    // const value = {
-    //   isOpen,
-    //   onOpen: () => setIsOpen(true),
-    //   onClose: () => setIsOpen(false),
-    // };
-
     const [formDrawer, setFormDrawer] = useState(false);
     const [newRecipeDrawer, setNewRecipeDrawer] = useState(false);
     const value = {

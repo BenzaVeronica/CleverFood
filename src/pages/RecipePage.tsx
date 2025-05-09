@@ -1,5 +1,5 @@
 import { Flex, GridItem, Stack, Text } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router';
 
 import { ContainerGridLayout } from '~/app/ContainerAppLayout';
@@ -9,22 +9,22 @@ import NewRecipeSlider from '~/components/NewRecipeSlider';
 import NutritionBox from '~/components/NutritionBox';
 import RecipeDescription from '~/components/RecipeDescription';
 import RecipeSteps from '~/components/RecipeSteps';
+import LoaderScreen from '~/components/UI/Loader/LoaderScreen';
+import { useGetRecipeByIdQuery } from '~/query/recipe/recipe.api';
+import { useValidateDataOrRedirect } from '~/routes/useValidateDataOrRedirect';
 import { masProfiles } from '~/store/blog/blog.constants';
-import { MAS_RECIPES } from '~/store/recipe/recipe.constants';
-import { recipe } from '~/store/recipe/recipe.types';
 
 function RecipePage() {
     const { categoryId, subcategoryId, recipeId } = useParams();
+    useValidateDataOrRedirect();
 
-    const [currentRecipe, setCurrentRecipe] = useState<recipe | null>(
-        MAS_RECIPES.find((el) => el.id == recipeId) || null,
-    );
+    const { data: currentRecipe, isLoading } = useGetRecipeByIdQuery(recipeId);
+
     useEffect(() => {
         window.scrollTo(0, 0);
-        setCurrentRecipe(MAS_RECIPES.find((el) => el.id == recipeId) || null);
     }, [categoryId, subcategoryId, recipeId]);
 
-    if (!currentRecipe) return null;
+    if (isLoading || !currentRecipe) return <LoaderScreen />;
     return (
         <ContainerGridLayout gap={6}>
             <GridItem colSpan={{ base: 4, md: 12 }}>
@@ -53,7 +53,7 @@ function RecipePage() {
                         />
                         <NutritionBox
                             title='белки'
-                            number={currentRecipe.nutritionValue.proteins}
+                            number={currentRecipe.nutritionValue.proteins!}
                             text='ГРАММ'
                         />
                         <NutritionBox

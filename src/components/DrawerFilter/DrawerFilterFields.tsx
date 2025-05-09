@@ -6,10 +6,10 @@ import { useDrawers } from '~/context/DrawerContext';
 import AlergenSwitch from '../AlergenSwitch';
 import Checkboxes from '../UI/Checkboxes';
 import CustomMultiSelect from '../UI/CustomMultiSelect/CustomMultiSelect';
+import { useFilterConfig } from './DrawerFilter.config';
 import {
     filterAlergens,
     filterAuthor,
-    filterCategory,
     filterMeatTypes,
     filterSideDish,
 } from './DrawerFilter.constants';
@@ -17,11 +17,11 @@ import { FormValues } from './DrawerFilterForm';
 
 type Props = {
     control: Control<FormValues>;
-    categoryId?: string;
 };
 
-function DrawerFilterFields({ control, categoryId }: Props) {
+function DrawerFilterFields({ control }: Props) {
     const { formDrawer } = useDrawers();
+    const filterConfig = useFilterConfig();
 
     return (
         <Stack spacing={{ base: 4, lg: 6 }}>
@@ -33,9 +33,8 @@ function DrawerFilterFields({ control, categoryId }: Props) {
                         dataTestId='filter-menu-button-категория'
                         value={field.value || []}
                         onChange={field.onChange}
-                        options={filterCategory}
+                        options={filterConfig.categories}
                         placeholder='Категория'
-                        disabledItems={categoryId ? [categoryId] : []}
                     />
                 )}
             />
