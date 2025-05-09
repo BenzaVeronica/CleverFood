@@ -1,7 +1,4 @@
 import { extendTheme } from '@chakra-ui/react';
-// const buttonStyle = defineStyle({
-//     display: 'flex',
-// });
 const theme = extendTheme({
     layerStyles: {
         customScroll: {
@@ -28,8 +25,6 @@ const theme = extendTheme({
         'radial-70': '0 0 15px 5px lime.50',
     },
     fonts: {
-        // --font-family: "Inter", sans-serif;
-        // --second-family: "Roboto", sans-serif;
         heading: `'Inter', -apple-system, sans-serif`,
         body: `'Inter', -apple-system, sans-serif`,
         mono: `'Menlo', monospace`,
@@ -45,30 +40,15 @@ const theme = extendTheme({
         md: '16px',
         lg: '18px',
     },
-    //  textStyle="h1"
     textStyles: {
         main: {
             fontSize: { base: 'xs', md: 'md' },
             lineHeight: { base: '16px', md: '24px' },
             fontWeight: '500',
         },
-        // textxs: {
-        //   fontSize: "12px",
-        //   lineHeight: "16px",
-        //   fontWeight: "600",
-        // },
-        // limetext: {
-        //   fontSize: { base: "xs", lg: "md" },
-        //   lineHeight: { base: "16px", lg: "24px" },
-        //   fontWeight: "600",
-        //   color: "lime.600",
-        // },
         h1: {
-            // fontSize: ['4xl', '5xl'],
-            // fontSize: '48px',
             fontSize: { base: '2xl', lg: '5xl' },
             fontWeight: '700',
-            // lineHeight: '48px',
         },
         h2: {
             fontSize: '48px',
@@ -144,28 +124,7 @@ const theme = extendTheme({
                 },
             },
         },
-        // Grid: {
-        //     baseStyle: {
-        //         responsiveLayout: {
-        //             templateColumns: {
-        //                 base: 'repeat(4, 1fr)',
-        //                 md: 'repeat(12, 1fr)',
-        //             },
-        //             ml: { base: 4, md: 5, lg: 6 },
-        //             mr: { base: 4, md: 5, lg: '72px' },
-        //             gap: { base: 4, lg: 4, xl: 6 },
-        //         },
-        //     },
-        // },
     },
-    // grid: {
-    //     templateColumns: {
-    //         responsive: {
-    //             base: 'repeat(4, 1fr)',
-    //             md: 'repeat(12, 1fr)',
-    //         },
-    //     },
-    // },
 });
 
 export default theme;

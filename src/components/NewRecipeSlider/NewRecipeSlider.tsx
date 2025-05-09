@@ -14,19 +14,9 @@ import ArrowLongRight from '../../assets/iconArrowLongRight.svg?react';
 import CardVertical from '../Card/CardVertical';
 import WithLoadingError from '../WithLoadingError';
 
-type Props = {
-    // items: recipe[];
-};
-
-function NewRecipeSlider(_props: Props) {
+function NewRecipeSlider() {
     const { data, isLoading, isError } = useGetRecipesQuery(SLIDER_PARAMS);
     const modifiedData = data?.data ? [...sortByNewest(data.data)] : [];
-
-    // useErrorNotification(isError, error);
-    // useErrorNotification(isError, error, {
-    //     title: ErrorDescEnum.SLIDER,
-    //     desc: ErrorDescEnum.LATER,
-    // });
 
     const sliderRef = useRef<SwiperType | null>(null);
     const next = () => {
@@ -36,8 +26,6 @@ function NewRecipeSlider(_props: Props) {
         sliderRef.current?.slidePrev();
     };
 
-    // if (isLoading) return <Loader />;
-    // if (isError) return <ErrorNotification />;
     return (
         <WithLoadingError isLoading={isLoading} isError={isError} isExist={!!data?.data.length}>
             <Box position='relative' as='section' mt={{ base: 0, lg: 6 }} mb={{ base: 8, lg: 10 }}>

@@ -5,11 +5,7 @@ import { masBlogItems } from '~/store/blog/blog.constants';
 import ArrowLongRight from '../../assets/iconArrowLongRight.svg?react';
 import Article from '../Article';
 
-type Props = {
-    // title?: string;
-};
-
-function SectionBlog(_props: Props) {
+function SectionBlog() {
     return (
         <Box as='section' bg='lime.300' borderRadius='16px' p={{ base: 3, lg: 6 }}>
             <Flex mb={6} justifyContent='space-between'>

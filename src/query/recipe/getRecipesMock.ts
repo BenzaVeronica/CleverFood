@@ -12,8 +12,6 @@ import { RecipesResponse } from './recipe.types';
 export const getRecipesMock = async (
     _arg: ResponseParamsOrNull,
     _api: BaseQueryApi,
-    // _extraOptions: {},
-    // _baseQuery: any
 ): Promise<QueryReturnValue<RecipesResponse, FetchBaseQueryError, FetchBaseQueryMeta>> => {
     try {
         const response = {

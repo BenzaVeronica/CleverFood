@@ -9,11 +9,7 @@ import { IconSearchCircle } from '../../Icons/IconSearchCircle';
 import { IconWriteCircle } from '../../Icons/IconWriteCircle';
 import { FooterMenuItem } from './Footer.types';
 
-type Props = {
-    // title?: string;
-};
-
-function Footer(_props: Props) {
+function Footer() {
     const location = useLocation();
 
     const mas: FooterMenuItem[] = [

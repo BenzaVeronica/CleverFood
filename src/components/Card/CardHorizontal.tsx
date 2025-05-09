@@ -15,7 +15,6 @@ import { useCategoryBySubCategoryId } from '~/query/category/category.utils';
 import { useAppSelector } from '~/store/hooks';
 import { recipe } from '~/store/recipe/recipe.types';
 import { selectSearch } from '~/store/recipe/recipe-filter-selector';
-// import { recipeItem } from '~/store/category/category.types';
 import useBreakpoints from '~/utils/useBreakpoints';
 
 import Bookmark from '../../assets/iconSMBookmark.svg?react';
@@ -32,7 +31,6 @@ type Props = {
 
 function CardHorizontal({ el, index, colSpan }: Props) {
     const { isTablet } = useBreakpoints();
-    // const { isSearchActive, searchQuery } = useSearch();
     const { isSearchActive, searchQuery } = useAppSelector(selectSearch);
     const firstSubCategoryId = el.categoriesIds[0];
     const categs = useCategoryBySubCategoryId(firstSubCategoryId);
@@ -50,7 +48,6 @@ function CardHorizontal({ el, index, colSpan }: Props) {
         >
             <Box
                 maxW={{ base: '158px', lg: '345px' }}
-                // width="55%"
                 flexShrink={0}
                 overflow='hidden'
                 position='relative'

@@ -5,10 +5,6 @@ import { FormValues } from '~/components/DrawerFilter/DrawerFilterForm';
 
 import { useFilterConfig } from '../DrawerFilter/DrawerFilter.config';
 
-// type SelectedTagsProps = {
-//     selectedValuesMap: FormValues;
-//     removeHandlers: Partial<Record<keyof FormValues, (labelToRemove: string) => void>>;
-// };
 type SelectedTagsProps<Key extends keyof FormValues = keyof FormValues> = {
     isFromTopFilterBox?: boolean;
     selectedValuesMap: Pick<FormValues, Key>;

@@ -58,6 +58,7 @@ function CardList({
                         }}
                         fontSize='lg'
                         fontWeight='semibold'
+                        isDisabled={isLoading}
                     >
                         {isLoading ? 'Загрузка...' : 'Загрузить еще'}
                     </Button>

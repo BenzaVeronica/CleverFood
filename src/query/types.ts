@@ -11,18 +11,11 @@ export interface ItemResponse<T> {
     data: T;
     meta: MetaType;
 }
-// const transformResponseItems = (response, error, options) => {
-//     // if (options.includeCount === 0) {
-//         return response.data;
-// };
-// export default transformResponseItems;
 
 export interface ResponseParams {
     page?: number;
     limit: number;
     sortBy?: string;
-    // sortBy?: keyof recipe;
-    // sortBy?: 'createdAt' | 'likes';
     sortOrder?: 'asc' | 'desc';
     allergens?: string;
     meat?: string;
@@ -37,7 +30,6 @@ export type ResponseParamsWithId = {
 export type ResponseParamsWithOptionalId = {
     id?: string;
 } & ResponseParams;
-// export type ResponseParamsOptional = Partial<ResponseParams> | void;
 
 export type ErrorQuery = FetchBaseQueryError | SerializedError | undefined;
 export type CustomErrorResponse = {

@@ -13,11 +13,7 @@ import { masProfiles } from '~/store/blog/blog.constants';
 import { useAuth } from '~/store/user/useAuth';
 import useBreakpoints from '~/utils/useBreakpoints';
 
-type Props = {
-    // title?: string;
-};
-
-function Header(_props: Props) {
+function Header() {
     const { isTablet } = useBreakpoints();
     const { isAuthenticated } = useAuth();
     const { isOpen, toggleMenu } = useMobileMenu();

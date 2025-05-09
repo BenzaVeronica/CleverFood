@@ -17,8 +17,7 @@ export type RecipeFilterState = {
     meatTypes: string[];
     sideDishes: string[];
     isLoadingQuery: boolean;
-    resultLength: number | null;
-    // isLoaderSearch: boolean;
+    isExistResult: boolean | null;
 };
 const initialState: RecipeFilterState = {
     isLoadingQuery: false,
@@ -31,8 +30,7 @@ const initialState: RecipeFilterState = {
     allergens: [],
     meatTypes: [],
     sideDishes: [],
-    resultLength: null,
-    // isLoaderSearch: false,
+    isExistResult: null,
 };
 export const recipeFilterSlice = createSlice({
     name: 'recipeFilter',
@@ -64,9 +62,6 @@ export const recipeFilterSlice = createSlice({
                 // state.isFilter = hasAnyFilter(state);
             }
         },
-        // setLoaderSearch: (state, { payload }: PayloadAction<boolean>) => {
-        // state.isLoaderSearch = payload;
-        // },
         setAllFilter: (state, action: PayloadAction<FormValues>) => {
             const { categories, author, allergens, meatTypes, sideDishes } = action.payload;
             state.categories = categories;
@@ -82,11 +77,11 @@ export const recipeFilterSlice = createSlice({
         setIsLoadingQuery: (state, { payload }: PayloadAction<boolean>) => {
             state.isLoadingQuery = payload;
         },
-        setResultLength: (state, { payload }: PayloadAction<number>) => {
-            state.resultLength = payload;
+        setExistResult: (state, { payload }: PayloadAction<number>) => {
             if (payload === 0) {
-                state.isFilter = false;
-                state.searchQuery = '';
+                state.isExistResult = false;
+            } else {
+                state.isExistResult = true;
             }
         },
         resetFilters: (_state) => ({
@@ -127,7 +122,7 @@ export const {
     setIsFilter,
     resetFilters,
     setIsLoadingQuery,
-    setResultLength,
+    setExistResult,
     setSearchDisabledAllergenSwitch,
     toggleSearchDisabledAllergenSwitch,
 } = recipeFilterSlice.actions;

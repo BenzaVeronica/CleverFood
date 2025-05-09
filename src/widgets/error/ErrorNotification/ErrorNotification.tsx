@@ -34,10 +34,10 @@ function ErrorNotification() {
                         key={err.id}
                         variant='solid'
                         status='error'
+                        // status={err.status || 'error'}
                         bg='red.500'
                         position='relative'
                     >
-                        {/* <Alert key={err.id}  variant='solid' status={err.status || 'error'} > */}
                         <AlertIcon />
                         <Box flex='1'>
                             <AlertTitle>{err.title}</AlertTitle>
@@ -45,13 +45,9 @@ function ErrorNotification() {
                         </Box>
                         <CloseButton
                             data-test-id='close-alert-button'
-                            //  alignContent="start"
                             alignSelf='flex-start'
                             mt='-10px'
                             mr='-16px'
-                            //   position="absolute"
-                            //   right="8px"
-                            //   top="8px"
                             onClick={() => dispatch(removeError(err.id))}
                         />
                     </Alert>

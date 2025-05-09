@@ -48,8 +48,5 @@ export const router = createBrowserRouter([
     {
         path: PageRoutes.NOT_FOUND,
         element: <NotFoundPage />,
-        //   element: <OnlyHeaderLayout>
-        //     <NotFoundPage />
-        //   </OnlyHeaderLayout>
     },
 ]);

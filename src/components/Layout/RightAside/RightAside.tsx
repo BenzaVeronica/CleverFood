@@ -5,11 +5,7 @@ import { useAuth } from '~/store/user/useAuth';
 import { IconWriteCircle } from '../../Icons/IconWriteCircle';
 import UserStat from '../../UserStat';
 
-type Props = {
-    // title?: string;
-};
-
-function RightAside(_props: Props) {
+function RightAside() {
     const { isAuthenticated } = useAuth();
 
     if (!isAuthenticated) return null;

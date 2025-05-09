@@ -72,10 +72,7 @@ const filterAuthorWithoutId: { label: string }[] = [
 ];
 const filterAlergensWithoutId: string[] = [
     'Молочные продукты',
-    // 'Молоко',
     'Яйцо',
-    // 'болгарский перец',
-    // 'Рыба',
     'Моллюски',
     'Орехи',
     'Цитрусовые',

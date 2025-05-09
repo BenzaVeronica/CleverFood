@@ -25,18 +25,13 @@ import { addError } from '~/widgets/error/error-slice';
 
 function HomePage() {
     const dispatch = useAppDispatch();
-    // useEffect(() => {
-    //     dispatch(resetFilters());
-    // }, [dispatch]);
     const navTree = useGetNavTreeQuery();
     const slider = useGetRecipesQuery(SLIDER_PARAMS);
     const popular = useGetRecipesQuery(POPULAR_MAIN_PARAMS);
 
     const { subCategories } = useAppSelector(selectCategoriesWithSubs);
-    // const randomSubCategoryId = subCategories.length ? getRandomSubCategoryId(subCategories) : null;
     const hasSubCategories = subCategories.length > 0;
     const randomSubCategoryId = useMemo(() => {
-        // if (subCategories.length) return null;
         if (!hasSubCategories) return null;
         return getRandomSubCategoryId(subCategories);
     }, [hasSubCategories, subCategories]);
@@ -59,32 +54,20 @@ function HomePage() {
                     addError({
                         title: err.title,
                         description: ErrorDescEnum.SEARCH,
-                        // description: err.message,
                     }),
                 );
             });
         }
-        // if (navTree.isError || slider.isError || popular.isError || about.isError) {
-        //     dispatch(
-        //         addError({
-        //             title: error.title,
-        //             description: error.message,
-        //         }),
-        //     );
-        // }
     }, [isAllLoaded, navTree, slider, popular, about]);
     if (!isAllLoaded) {
         return <LoaderScreen />;
     }
-    // console.log(subCategories);
-    // console.log(randomSubCategoryId);
+
     return (
         <ContainerBoxLayout>
             <Flex direction='column' alignItems='center'>
                 <CategoryTopFilter title='Приятного аппетита!' />
             </Flex>
-            {/* TODO: сделать 2 разные загрузки по кнопке и фильтру */}
-            {/* {isLoadingQuery && <LoaderScreen />} */}
             {isLoadingQuery || !isFilter ? (
                 <>
                     <WithLoadingError

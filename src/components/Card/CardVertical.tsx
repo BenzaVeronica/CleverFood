@@ -14,15 +14,12 @@ type Props = {
 };
 
 function CardVertical({ el }: Props) {
-    // const isHidden = useBreakpointValue({ base: true, md: false });
     const { isTablet } = useBreakpoints();
-    // console.log(el);
 
     const firstSubCategoryId = el.categoriesIds[0];
     const categs = useCategoryBySubCategoryId(firstSubCategoryId);
     return (
         <Flex
-            // h='100%'
             minH={{ base: '222px', lg: '414px' }}
             borderColor='blackAlpha.200'
             borderWidth={1}
@@ -33,7 +30,6 @@ function CardVertical({ el }: Props) {
             flexDirection='column'
             as={Link}
             to={`/${categs?.category?.category}/${categs?.subCategory?.category}/${el._id}`}
-            // to={getFullPathBySubCategoryId(categories, subCategories, el.categoriesIds[0], el._id)}
         >
             <Box
                 width='100%'
@@ -69,7 +65,6 @@ function CardVertical({ el }: Props) {
                         isTruncated
                         whiteSpace={{ base: 'normal!important', md: 'normal', lg: 'nowrap' }}
                         noOfLines={{ base: 2, lg: 1 }}
-                        // noOfLines={2}
                     >
                         {el.title}
                     </Text>
@@ -78,23 +73,14 @@ function CardVertical({ el }: Props) {
                         pt={1}
                         fontSize='sm'
                         hidden={isTablet}
-                        // display={{base: 'none', md: 'block'}}
                         noOfLines={{ base: undefined, md: 3 }}
-                        // mb={6}
                     >
                         {el.description}
                     </Text>
                 </Box>
 
                 <Flex justifyContent='space-between' mt={{ base: 1, lg: 6 }} gap={1}>
-                    <CategoriesTags
-                        subCategoriesIds={el.categoriesIds}
-                        keyId='CardVertical1'
-                        // flexDirection='column'
-                        // // flexWrap='wrap'
-                        // gap={1}
-                        // // flex='1'
-                    />
+                    <CategoriesTags subCategoriesIds={el.categoriesIds} keyId='CardVertical1' />
                     <CardStat bookmarks={el.bookmarks} like={el.likes} />
                 </Flex>
             </Flex>

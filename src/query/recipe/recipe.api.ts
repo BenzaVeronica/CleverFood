@@ -5,15 +5,15 @@ import { Tags } from '~/query/constants/tags.ts';
 import { publicApi } from '~/query/create-api.ts';
 import { ApplicationState } from '~/store/configure-store';
 import { recipe } from '~/store/recipe/recipe.types';
-import { setIsLoadingQuery, setResultLength } from '~/store/recipe/recipe-filter-slice';
+import { setExistResult, setIsLoadingQuery } from '~/store/recipe/recipe-filter-slice';
 
-import { DEFAULT_PARAMS } from '../api.constants';
 import {
     transformErrorResponse,
     transformRecipeProteinsResponse,
     transformRecipesProteinsResponse,
 } from '../api.utils';
 import { ResponseParamsOrNull, ResponseParamsWithId } from '../types';
+import { DEFAULT_PARAMS } from './recipe.constants';
 import { RecipesResponse } from './recipe.types';
 
 export const recipesApiSlice = publicApi
@@ -41,7 +41,7 @@ export const recipesApiSlice = publicApi
                         try {
                             dispatch(setIsLoadingQuery(true));
                             const { data } = await queryFulfilled;
-                            dispatch(setResultLength(data.meta.total));
+                            dispatch(setExistResult(data.meta.total));
                             dispatch(setIsLoadingQuery(false));
                         } catch (_error: unknown) {
                             dispatch(setIsLoadingQuery(false));

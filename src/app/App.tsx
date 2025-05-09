@@ -1,23 +1,30 @@
 import './App.css';
 
 import { Box } from '@chakra-ui/react';
-import { Outlet } from 'react-router';
+import { useEffect } from 'react';
+import { Outlet, useLocation } from 'react-router';
 
 import Footer from '~/components/Layout/Footer';
 import Header from '~/components/Layout/Header/Header';
 import LeftNavMenu from '~/components/Layout/LeftNavMenu';
 import RightAside from '~/components/Layout/RightAside';
 import { AppProviders } from '~/context/AppContext';
+import { useAppDispatch } from '~/store/hooks';
+import { resetFilters } from '~/store/recipe/recipe-filter-slice';
 import useBreakpoints from '~/utils/useBreakpoints';
 
 function App() {
     const { isTablet } = useBreakpoints();
+
+    const location = useLocation();
+    const dispatch = useAppDispatch();
+    useEffect(() => {
+        dispatch(resetFilters());
+    }, [dispatch, location.pathname]);
+
     return (
         <AppProviders>
-            <Box
-            // position='relative'
-            // position='relative' maxH={{ base: 'calc(100vh - 64px)', lg: 'auto' }}
-            >
+            <Box>
                 <Header />
                 <Box
                     position='fixed'
@@ -38,9 +45,6 @@ function App() {
                     mt={{ base: 16, lg: 20 }}
                     pb={{ base: '84px', lg: '0' }}
                     width={{ base: 'calc(100% - 16px)', lg: 'calc(100vw - 256px - 208px)' }}
-                    // height={{ base: 'calc(100vh - 64px)', lg: 'calc(100vh - 80px)' }}
-                    // position='relative'
-                    // maxH={{ base: 'calc(100vh - 64px)', lg: 'auto' }}
                     background='white'
                     minH='100vh'
                 >

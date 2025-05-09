@@ -34,11 +34,11 @@ export function sortByField<T>(items: T[], path: string, direction: 'asc' | 'des
 }
 
 export const hasAnyFilter = (state: RecipeFilterState): boolean =>
-    !!(
+    Boolean(
         state.searchQuery ||
-        state.categories.length ||
-        state.author.length ||
-        state.allergens.length ||
-        state.meatTypes.length ||
-        state.sideDishes.length
+            state.categories.length ||
+            state.author.length ||
+            state.allergens.length ||
+            state.meatTypes.length ||
+            state.sideDishes.length,
     );

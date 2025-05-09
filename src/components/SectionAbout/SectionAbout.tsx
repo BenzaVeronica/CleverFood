@@ -16,10 +16,7 @@ function SectionAbout({ items, randomSubCategoryId }: Props) {
     const category = useAppSelector(selectCategoryBySubCategoryId(randomSubCategoryId));
     if (!category) return null;
     return (
-        <Box
-            pt={{ base: 8, lg: 10 }}
-            // pb={3}
-        >
+        <Box pt={{ base: 8, lg: 10 }}>
             <Grid
                 templateColumns={{
                     base: 'repeat(4, 1fr)',
@@ -57,8 +54,13 @@ function SectionAbout({ items, randomSubCategoryId }: Props) {
                 gap={{ base: 3, lg: 4, xl: 6 }}
                 mb={4}
             >
-                {items[0] && <CardWithoutImg el={items[0]} colSpan={{ base: 4, md: 4, xl: 3 }} />}
-                {items[1] && <CardWithoutImg el={items[1]} colSpan={{ base: 4, md: 4, xl: 3 }} />}
+                {items.slice(0, 2).map((el) => (
+                    <CardWithoutImg
+                        key={`card_${el._id}`}
+                        el={el}
+                        colSpan={{ base: 4, md: 4, xl: 3 }}
+                    />
+                ))}
                 <GridItem colSpan={{ base: 4, sm: 4, md: 4, xl: 6 }}>
                     <Stack spacing={{ base: 3, lg: 3 }} margin='auto 0'>
                         {items.slice(2, 5).map((el) => (

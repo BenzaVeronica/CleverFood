@@ -2,15 +2,9 @@ import { Box } from '@chakra-ui/react';
 
 import Loader from './Loader';
 
-type Props = {
-    // isFullScreen: boolean;
-    // dataTestId?: string;
-};
-
-function LoaderScreen(_props: Props) {
+function LoaderScreen() {
     return (
         <Box
-            // data-test-id={props.dataTestId}
             data-test-id='app-loader'
             position='fixed'
             top={0}

@@ -3,7 +3,6 @@ import { Children, cloneElement, isValidElement, ReactNode } from 'react';
 
 type Props = {
     children: ReactNode;
-    // children: ReactElement<GridItemProps>| ReactElement<GridItemProps>[];
 } & GridProps;
 
 export const ContainerGridLayout = ({ children, ...gridProps }: Props) => {
@@ -36,12 +35,7 @@ type BoxLayoutProps = {
 } & BoxProps;
 
 export const ContainerBoxLayout = ({ children, ...otherProps }: BoxLayoutProps) => (
-    <Box
-        // width={{ base: 'calc(100% - 32px)', lg: 'calc(100vw - 256px - 208px - 72px)' }}
-        ml={{ base: 4, md: 5, lg: 6 }}
-        mr={{ base: 4, md: 5, lg: '72px' }}
-        {...otherProps}
-    >
+    <Box ml={{ base: 4, md: 5, lg: 6 }} mr={{ base: 4, md: 5, lg: '72px' }} {...otherProps}>
         {children}
     </Box>
 );

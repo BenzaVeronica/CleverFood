@@ -37,33 +37,12 @@ const CustomMultiSelectWithAdd = ({
     dataTestId,
     isFilterDataTestId,
 }: Props) => {
-    // console.log(selectedOptions);
-
     const [options, setOptions] = useState<FilterOptionType[]>(initialOptions);
-    // const [selectedOptions, setSelectedOptions] = useState<FilterOptionType[]>([]);
     const [isOpen, setIsOpen] = useState<boolean>(false);
 
     const onClear = (): void => {
-        // setSelectedOptions([]);
         onChange([]);
     };
-
-    // const toggleOption = (option: FilterOptionType): void => {
-    //     console.log(value);
-
-    //     const isSelected = value.includes(option.label);
-    //     let newValue: string[];
-
-    //     if (isSelected) {
-    //         newValue = value.filter((label) => label !== option.label);
-    //         setSelectedOptions(selectedOptions.filter((o) => o.label !== option.label));
-    //     } else {
-    //         newValue = [...value, option.label];
-    //         setSelectedOptions([...selectedOptions, option]);
-    //     }
-
-    //     onChange(newValue);
-    // };
 
     const toggleOption = (option: FilterOptionType) => {
         const isSelected = selectedOptions.includes(option.label);
@@ -88,16 +67,13 @@ const CustomMultiSelectWithAdd = ({
                         )
                     }
                     w='100%'
-                    // h='100%'
                     textAlign='left'
                     fontWeight='normal'
                     variant='outline'
                     isDisabled={isDisabled}
-                    // overflowY='hidden'
                 >
                     {selectedOptions.length > 0 ? (
                         <Flex
-                            //  mt={4}
                             gap={1}
                             flexWrap='wrap'
                             maxW='100%'
@@ -160,7 +136,6 @@ const CustomMultiSelectWithAdd = ({
                             py={2}
                         >
                             <Checkbox
-                                // data-test-id={`allergen-${index}`}
                                 data-test-id={isFilterDataTestId ? `allergen-${index}` : ''}
                                 isChecked={selectedOptions.includes(option.label)}
                                 onChange={(e) => {
@@ -172,7 +147,6 @@ const CustomMultiSelectWithAdd = ({
                                 mr={2}
                                 isFocusable={false}
                                 onMouseDown={(e) => e.preventDefault()}
-                                // pointerEvents='none'
                             >
                                 {option.label}
                             </Checkbox>
@@ -184,7 +158,6 @@ const CustomMultiSelectWithAdd = ({
                     isFilterDataTestId={isFilterDataTestId}
                     options={options}
                     setOptions={setOptions}
-                    // onChange={onChange}
                     selectedOptions={selectedOptions}
                     toggleOption={toggleOption}
                 />

@@ -1,5 +1,10 @@
 import { ResponseParams } from '../types';
 
+export const DEFAULT_PARAMS: ResponseParams = {
+    page: 1,
+    limit: 8,
+};
+
 export const SLIDER_PARAMS: ResponseParams = {
     page: 1,
     limit: 10,

@@ -15,11 +15,6 @@ function WithLoadingError({ isLoading, isError, isExist, children }: Props) {
     if (isError) return <ErrorNotification />;
     if (!isExist) return <div>Нет данных</div>;
     return children;
-    // return (
-    //     <Loading isLoaded={!isLoaded}>
-    //         <Error isError={isError}>{children}</Error>
-    //     </Loading>
-    // );
 }
 
 export default WithLoadingError;

@@ -37,7 +37,7 @@ function CategoryTopFilter({ title, text }: Props) {
 
     const { shadow, handleFocus, handleBlur, handleClear, handleSubmit } = useSearchFilter();
 
-    const { isLoadingQuery, searchQuery, resultLength } = useAppSelector(selectRecipeFilter);
+    const { isLoadingQuery, searchQuery, isExistResult } = useAppSelector(selectRecipeFilter);
 
     return (
         <Box
@@ -107,7 +107,7 @@ function CategoryTopFilter({ title, text }: Props) {
                             list={filterAlergens}
                         />
                     </Flex>
-                    {!!resultLength && <SelectedTagsFromStore />}
+                    {isExistResult && <SelectedTagsFromStore />}
                 </Box>
             )}
         </Box>

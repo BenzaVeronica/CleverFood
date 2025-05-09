@@ -4,10 +4,10 @@ import { ContainerGridLayout } from '~/app/ContainerAppLayout';
 import errorImage from '~/assets/errorImage.png';
 
 type Props = {
-    status?: number;
-    msg?: string;
+    status: number;
+    msg: string;
 };
-function ErrorPage(_props: Props) {
+function ErrorPage(_props: Partial<Props>) {
     return (
         <ContainerGridLayout>
             <GridItem

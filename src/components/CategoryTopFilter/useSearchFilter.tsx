@@ -18,17 +18,11 @@ function useSearchFilter() {
         }
     }, [isSearchActive, isLoadingQuery]);
 
-    const handleFocus = () => {
-        dispatch(setSearchActive(true));
-    };
+    const handleFocus = () => dispatch(setSearchActive(true));
 
-    const handleBlur = () => {
-        dispatch(setSearchActive(false));
-    };
+    const handleBlur = () => dispatch(setSearchActive(false));
 
-    const handleClear = () => {
-        dispatch(setSearchQuery(''));
-    };
+    const handleClear = () => dispatch(setSearchQuery(''));
 
     const handleSubmit = (inputValue: string) => {
         if (inputValue) {

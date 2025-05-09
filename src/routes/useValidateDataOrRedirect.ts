@@ -10,8 +10,6 @@ import { useAppSelector } from '~/store/hooks';
 import { PageRoutes } from './PageRoutes.constants';
 
 export function useValidateDataOrRedirect() {
-    // console.log('useValidateDataOrRedirect');
-
     const { categoryId, subcategoryId, recipeId } = useParams();
     const navigate = useNavigate();
 
@@ -33,23 +31,7 @@ export function useValidateDataOrRedirect() {
         }
     }, [isLoadingRecipe, isLoading]);
 
-    // useEffect(() => {
-    //     if (!categories || categories.length === 0) return;
-    //     if (categoryId && !category) {
-    //         console.log(category);
-    //         navigate('/not-found', { replace: true });
-    //     } else if (subcategoryId && !subcategory) {
-    //         console.log(subcategory);
-    //         navigate('/not-found', { replace: true });
-    //     } else if (recipeId && !recipe && !isLoadingRecipe) {
-    //         console.log(recipe);
-    //         navigate('/not-found', { replace: true });
-    //     }
-    // }, [isLoadingRecipe, categories]);
-
-    // const isLoading = isLoadingCategory || isLoadingSubcategory || isLoadingRecipe;
     return {
-        // isLoading,
         category,
         subcategory,
         recipe,

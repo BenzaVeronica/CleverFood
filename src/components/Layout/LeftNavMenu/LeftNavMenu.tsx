@@ -23,11 +23,7 @@ import CustomBreadcrumb from '../../UI/Breadcrumb';
 import LeftNavMenuWrapper from './LeftNavMenuWrapper';
 import { SubCategoryListItem } from './SubCategoryListItem';
 
-type Props = {
-    // title?: string;
-};
-
-function LeftNavMenu(_props: Props) {
+function LeftNavMenu() {
     const navigate = useNavigate();
 
     useGetNavTreeQuery();

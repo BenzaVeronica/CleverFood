@@ -3,7 +3,6 @@ import { Flex, Icon, keyframes } from '@chakra-ui/react';
 import iconSpinner from '~/assets/spinner.svg?react';
 
 type Props = {
-    // isFullScreen: boolean;
     dataTestId?: string;
 };
 

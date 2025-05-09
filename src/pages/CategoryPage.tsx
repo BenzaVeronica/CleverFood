@@ -69,10 +69,6 @@ function CategoryPage() {
             ? { id: currentSubcategory?._id, ...RECEPIES_PARAMS }
             : skipToken,
     );
-    // const recepies =
-    //     !isFilter && currentSubcategory
-    //         ? useGetRecipesBySubcategoryIdQuery({ id: currentSubcategory._id, ...RECEPIES_PARAMS })
-    //         : null;
 
     useEffect(() => {
         if (!isAllLoaded) return;
@@ -146,7 +142,6 @@ function CategoryPage() {
                                         _selected={{
                                             color: 'lime.600',
                                             borderColor: 'lime.600',
-                                            // marginBottom: '-2px',
                                             marginBottom: '0',
                                             borderBottomWidth: '2px',
                                         }}
@@ -173,7 +168,6 @@ function CategoryPage() {
                                             }}
                                         />
                                     )}
-                                    {/* <CardList list={recepies?.data?.data || []} /> */}
                                 </TabPanel>
                             ))}
                         </TabPanels>

@@ -4,11 +4,7 @@ import { useAuth } from '~/store/user/useAuth';
 
 import IconLogin from '../../assets/iconLogin.svg?react';
 
-type Props = {
-    // title?: string;
-};
-
-function LoginButton(_props: Props) {
+function LoginButton() {
     const { isAuthenticated } = useAuth();
     const onClickLogin = () => {};
     if (isAuthenticated) return null;

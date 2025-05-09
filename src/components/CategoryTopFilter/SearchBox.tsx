@@ -45,7 +45,8 @@ function SearchBox(props: Props) {
         props.onClear();
     };
 
-    const { isFilter } = useAppSelector(selectRecipeFilter);
+    const { isFilter, isExistResult } = useAppSelector(selectRecipeFilter);
+
     return (
         <InputGroup>
             <Input
@@ -64,7 +65,7 @@ function SearchBox(props: Props) {
                     borderColor: 'black',
                     boxShadow: `0 0 0 1px black`,
                 }}
-                borderColor={isFilter && inputValue ? 'lime.600' : 'gray.200'}
+                borderColor={isFilter ? (isExistResult ? 'green.500' : 'red.500') : 'gray.200'}
             />
             <InputRightElement w={{ base: '64px', lg: '76px' }} h={{ base: 8, lg: 12 }}>
                 <CloseButton size='sm' onClick={handleClear} mr={1} aria-label='Очистить поиск' />

@@ -33,12 +33,10 @@ const CustomMultiSelect = ({
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleOption = (optionValue: string): void => {
-        // console.log(optionValue);
         if (disabledItems.includes(optionValue)) return;
         const newValue = value.includes(optionValue)
             ? value.filter((v) => v !== optionValue)
             : [...value, optionValue];
-        // console.log(newValue);
         onChange(newValue);
     };
 
@@ -88,11 +86,6 @@ const CustomMultiSelect = ({
                     <MenuItem
                         key={option.id}
                         closeOnSelect={false}
-                        // onClick={(e) => {
-                        //     e.stopPropagation();
-                        //     toggleOption(option.id);
-                        // }}
-                        // onClick={() => toggleOption(option.id)}
                         px={4}
                         bg={index % 2 === 1 ? 'white' : 'blackAlpha.100'}
                         _hover={{ bg: 'blackAlpha.200' }}
@@ -101,7 +94,6 @@ const CustomMultiSelect = ({
                         <Checkbox
                             data-test-id={option.id === 'vegan' && 'checkbox-веганская кухня'}
                             isChecked={value.includes(option.id)}
-                            // onChange={() => toggleOption(option.id)}
                             onChange={(e) => {
                                 e.stopPropagation();
                                 toggleOption(option.id);
@@ -110,7 +102,6 @@ const CustomMultiSelect = ({
                             color='gray.800'
                             mr={2}
                             isFocusable={false}
-                            // pointerEvents='none'
                         >
                             {option.label}
                         </Checkbox>

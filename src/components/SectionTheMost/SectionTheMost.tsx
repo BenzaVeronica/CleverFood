@@ -13,7 +13,6 @@ type Props = {
 
 function SectionTheMost({ items }: Props) {
     return (
-        // <WithLoadingError isLoading={isLoading} isError={isError} isExist={!!data?.data.length}>
         <Box as='section'>
             <Flex mb={6} justifyContent='space-between'>
                 <Text as='h2' fontSize={['2xl', '2xl', '2xl', '3xl', '4xl']} fontWeight='500'>
@@ -39,12 +38,7 @@ function SectionTheMost({ items }: Props) {
                     Вся подборка
                 </Button>
             </Flex>
-            <CardList
-                list={items}
-                withButton={false}
-                // defaultParams={POPULAR_MAIN_PARAMS}
-                mb={{ base: 0, md: 10 }}
-            />
+            <CardList list={items} withButton={false} mb={{ base: 0, md: 10 }} />
             <Button
                 as={Link}
                 to={`/${PageRoutes.MOST}`}
@@ -69,7 +63,6 @@ function SectionTheMost({ items }: Props) {
                 Вся подборка
             </Button>
         </Box>
-        // </WithLoadingError>
     );
 }
 

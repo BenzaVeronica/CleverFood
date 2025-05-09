@@ -9,15 +9,11 @@ export type CategoryState = {
     tree: AllVariantsCategory[];
     categories: RootCategory[];
     subCategories: SubCategory[];
-    currentCategory: string;
-    currentSubCategory: string;
 };
 const initialState: CategoryState = {
     tree: [],
     categories: [],
     subCategories: [],
-    currentCategory: '',
-    currentSubCategory: '',
 };
 export const categorySlice = createSlice({
     name: 'category',

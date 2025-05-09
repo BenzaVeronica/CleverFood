@@ -25,12 +25,10 @@ type Props = {
 };
 
 function RecipeDescription(props: Props) {
-    // data-test-id={`card-link-${i}`}
     return (
         <Flex mt={{ base: 4, lg: 14 }} direction={{ base: 'column', md: 'row' }}>
             <Box
                 maxW={{ base: '328px', md: '232px', lg: '353px', xl: '553px' }}
-                // width="55%"
                 flexShrink={0}
                 overflow='hidden'
                 position='relative'

@@ -6,7 +6,6 @@ import { FilterOptionType } from '~/components/DrawerFilter/DrawerFilter.constan
 
 type Props = {
     selectedOptions: string[];
-    // onChange: (value: string[]) => void;
     options: FilterOptionType[];
     setOptions: React.Dispatch<React.SetStateAction<FilterOptionType[]>>;
     toggleOption: (option: FilterOptionType) => void;
@@ -15,7 +14,6 @@ type Props = {
 
 const CustomAddBox = ({
     selectedOptions,
-    // onChange,
     options,
     setOptions,
     toggleOption,
@@ -36,25 +34,16 @@ const CustomAddBox = ({
         }
 
         toggleOption(newOption);
-        // setSelectedOptions([...selectedOptions, newOption]);
-        // onChange([...selectedOptions, newOption.label]);
         setCustomAllergen('');
-        // forceFocus();
     };
     const inputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
-        // inputRef.current?.focus();
-        // console.log(inputRef.current);
         const timer = setTimeout(() => {
             inputRef.current?.focus();
         }, 10);
         return () => clearTimeout(timer);
     }, [selectedOptions]);
-    // const forceFocus = () => {
-    //     inputRef.current?.focus();
-    // };
-    // const { isOpen } = useDisclosure();
 
     return (
         <Box p={2}>
@@ -69,24 +58,11 @@ const CustomAddBox = ({
                     _placeholder={{ color: 'lime.800' }}
                     placeholder='Другой аллерген'
                     onKeyDown={(e: React.KeyboardEvent) => {
-                        // e.stopPropagation();
                         if (e.key === 'Enter') {
                             handleAddCustom();
                         }
                     }}
                     ref={inputRef}
-                    // onClick={() => inputRef.current?.focus()}
-                    // autoFocus
-                    // onMouseDown={(e) => e.stopPropagation()}
-                    // onMouseDown={(e) => {
-                    //     e.stopPropagation();
-                    //     forceFocus();
-                    // }}
-                    // onClick={(e) => {
-                    //     e.stopPropagation();
-                    //     forceFocus();
-                    // }}
-                    // zIndex={100}
                 />
                 <InputRightElement>
                     <IconButton
