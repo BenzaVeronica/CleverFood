@@ -29,19 +29,11 @@ function AlergenSwitch({
     isFilterDataTestId,
     ...otherProps
 }: Props) {
-    // const [isDisabledSelect, setDisabledSelect] = useState(true);
-    // const [values, setValues] = useState<string[] | null>(null);
-    // const onChange = (newValues: string[]) => {
-    //     setValues(newValues);
-    // };
     const isDisabledAllergenSwitch = useAppSelector(selectDisabledAllergenSwitch);
     const dispatch = useAppDispatch();
 
     const onSwitchChange = () => {
-        // setDisabledSelect(!isDisabledSelect);
         dispatch(toggleSearchDisabledAllergenSwitch());
-        // onChangeOption([]);
-        // !isDisabledAllergenSwitch && onAlergenSubmit && onAlergenSubmit([]);
     };
     const onSelectChange = (options: string[]) => {
         onChangeOption(options);

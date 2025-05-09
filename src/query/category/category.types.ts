@@ -46,10 +46,6 @@ export type GetRandomSubCategoryIdByCategory = (
     props: GetRandomSubCategoryIdByCategoryProp,
 ) => string | null;
 
-// export type GetAllSubCategoryIdsByCategoryId = (
-//     props: GetRandomSubCategoryIdByCategoryProp,
-// ) => SubCategory[] | null;
-
 export type GetAllSubCategoryIdsByCategoryIds = (
     categories: RootCategory[],
     categoryIds: string[],

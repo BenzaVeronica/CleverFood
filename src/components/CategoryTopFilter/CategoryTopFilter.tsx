@@ -18,7 +18,6 @@ import useSearchFilter from './useSearchFilter';
 type Props = {
     title: string;
     text?: string;
-    // list: item;
 };
 
 function CategoryTopFilter({ title, text }: Props) {
@@ -27,15 +26,12 @@ function CategoryTopFilter({ title, text }: Props) {
 
     const dispatch = useAppDispatch();
 
-    // const [value, setValue] = useState<string[] | null>(null);
     const value = useAppSelector(selectAllergens);
 
     const onAlergenSubmit = (allergens: string[]) => {
         dispatch(setAllergens(allergens));
     };
     const onChangeAlergen = (allergens: string[]) => {
-        // dispatch(toggleSearchDisabledAllergenSwitch());
-        // setValue(allergens);
         dispatch(setAllergens(allergens));
     };
 
@@ -45,7 +41,6 @@ function CategoryTopFilter({ title, text }: Props) {
 
     return (
         <Box
-            // boxShadow={isSearchActive || isLoadingQuery ? boxShadow : 'none'}
             boxShadow={shadow}
             borderRadius='0 0 24px 24px'
             w={{ base: '298px', md: '727px', lg: '898px' }}
@@ -82,10 +77,6 @@ function CategoryTopFilter({ title, text }: Props) {
                             data-test-id='filter-button'
                             variant='outline'
                             aria-label='Фильтр'
-                            // size='lg'
-                            // w={{ base: 8, lg: 12 }}
-                            // h={{ base: 8, lg: 12 }}
-                            // size={{ base: 'sm', lg: "lg" }}
                             size={{ base: '32px', lg: '48px' }}
                             p={{ base: 2, lg: '11px' }}
                             icon={<Icon as={IconFilter} boxSize={{ base: '14px', lg: '24px' }} />}

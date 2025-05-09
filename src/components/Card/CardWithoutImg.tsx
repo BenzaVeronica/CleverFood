@@ -42,8 +42,6 @@ function CardWithoutImg({ el, colSpan }: Props) {
                             subCategoriesIds={el.categoriesIds}
                             keyId='CardWithoutImg'
                             color='lime.50'
-                            // maxH={6}
-                            // isTruncated
                         />
                         <CardStat bookmarks={el.bookmarks} like={el.likes} />
                     </Flex>

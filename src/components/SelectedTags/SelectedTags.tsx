@@ -1,8 +1,9 @@
 import { Flex, Tag, TagCloseButton, TagLabel } from '@chakra-ui/react';
 
-import { filterConfig } from '~/components/DrawerFilter/DrawerFilter.config';
 import { FilterOptionType } from '~/components/DrawerFilter/DrawerFilter.constants';
 import { FormValues } from '~/components/DrawerFilter/DrawerFilterForm';
+
+import { useFilterConfig } from '../DrawerFilter/DrawerFilter.config';
 
 // type SelectedTagsProps = {
 //     selectedValuesMap: FormValues;
@@ -27,6 +28,8 @@ const SelectedTags = <Key extends keyof FormValues>({
     selectedValuesMap,
     removeHandlers,
 }: SelectedTagsProps) => {
+    const filterConfig = useFilterConfig();
+
     const hasFilters = Object.values(selectedValuesMap).some((values) => values?.length > 0);
     if (!hasFilters) return null;
 

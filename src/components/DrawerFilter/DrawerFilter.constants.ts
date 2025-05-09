@@ -1,4 +1,3 @@
-import { masDishCategories } from '~/store/category/category.constants';
 import { addIdToArray } from '~/store/utils';
 export type FilterOptionType = {
     id: string;
@@ -84,20 +83,8 @@ const filterAlergensWithoutId: string[] = [
     'Клубника (ягоды)',
     'Шоколад',
 ];
-// export const filterCategory: FilterOptionType[] = addIdToArray(filterMeatWithoutId);
-export const filterCategory: FilterOptionType[] = masDishCategories.map((category) => ({
-    id: category.url,
-    label: category.title,
-}));
 export const filterAuthor: FilterOptionType[] = addIdToArray(filterAuthorWithoutId);
 export const filterAlergens: FilterOptionType[] = filterAlergensWithoutId.map((item) => ({
     id: item,
     label: item,
 }));
-// export const filterAlergens: FilterOptionType[] = Array.from(
-//     new Set(
-//         MAS_RECIPES.flatMap((category) =>
-//             category.ingredients.map((ingr) => (ingr.title !== 'специи' ? ingr.title : 'Лук')),
-//         ),
-//     ),
-// ).map((label) => ({ id: label, label }));

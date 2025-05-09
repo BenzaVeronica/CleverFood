@@ -26,9 +26,6 @@ export function getSubCategories(categoriesResponse: AllVariantsCategory[]): Sub
 export function useCategoryBySubCategoryId(subCategoryId: string) {
     const { categories, subCategories } = useAppSelector(selectCategoriesWithSubs);
     return getCategoryBySubCategoryId({ categories, subCategories, subCategoryId });
-    // const result = getCategoryBySubCategoryId({ categories, subCategories, subCategoryId });
-    //     if (!result) return '';
-    //     return `/${result.category.category}/${result.subCategory.category}/${id}`;
 }
 export const getCategoryBySubCategoryId: GetCategoryBySubCategoryId = ({
     categories,
@@ -41,21 +38,6 @@ export const getCategoryBySubCategoryId: GetCategoryBySubCategoryId = ({
     if (!category) return null;
     return { subCategory, category };
 };
-
-// export const getFullPathBySubCategoryId: GetFullPathBySubCategoryId = ({
-//     categories,
-//     subCategories,
-//     subCategoryId,
-//     id,
-// }) => {
-//     const result = getCategoryBySubCategoryId({
-//         categories,
-//         subCategories,
-//         subCategoryId,
-//     });
-//     if (!result) return '';
-//     return `/${result.category.category}/${result.subCategory.category}/${id}`;
-// };
 
 export const getUniqueCategoriesBySubCategoryIds: GetUniqueCategoriesBySubCategoryIds = ({
     categories,
@@ -110,16 +92,6 @@ function useCurrentCategories() {
 
 export default useCurrentCategories;
 
-// export const getAllSubCategoryIdsByCategoryId: GetAllSubCategoryIdsByCategoryId = ({
-//     categories,
-//     categoryId,
-// }) => {
-//     const subCategoriesByCategory = categories.find(
-//         (cat) => cat.category === categoryId,
-//     )?.subCategories;
-//     if (!subCategoriesByCategory) return null;
-//     return subCategoriesByCategory;
-// };
 export const getAllSubCategoryIdsByCategoryIds: GetAllSubCategoryIdsByCategoryIds = (
     categories,
     categoryIds,

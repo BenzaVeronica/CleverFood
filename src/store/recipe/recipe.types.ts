@@ -30,14 +30,10 @@ export type recipe = {
 
     meat?: string;
     garnish?: string;
-    // side?: string;
     portions: number;
     authorId: string;
-    // recommend?: profile;
     categoriesIds: string[];
     steps: recipeStep[];
-    // subcategory: string[];
-    // date: string;
     nutritionValue: recipeNutritionValue;
     ingredients: recipeIngredients[];
 };

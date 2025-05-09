@@ -24,7 +24,6 @@ function TheMostPage() {
     const { subCategories } = useAppSelector(selectCategoriesWithSubs);
     const hasSubCategories = subCategories.length > 0;
     const randomSubCategoryId = useMemo(() => {
-        // if (subCategories.length) return null;
         if (!hasSubCategories) return null;
         return getRandomSubCategoryId(subCategories);
     }, [hasSubCategories, subCategories]);
@@ -64,10 +63,6 @@ function TheMostPage() {
                 queryParams={POPULAR_PARAMS}
                 dataTestId='load-more-button'
             />
-            {/* {!isFilter ? (
-            ) : (
-                <CardListWithFilter />
-            )} */}
             <WithLoadingError
                 isLoading={about.isLoading}
                 isError={about.isError}

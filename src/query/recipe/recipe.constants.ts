@@ -27,7 +27,6 @@ export const POPULAR_MAIN_PARAMS: ResponseParams = {
 export const RECEPIES_PARAMS: ResponseParams = {
     page: 1,
     limit: 8,
-    // limit: 2,
     sortBy: 'createdAt',
     sortOrder: 'asc',
 };

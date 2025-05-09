@@ -68,7 +68,6 @@ function LeftNavMenu(_props: Props) {
                         <AccordionItem
                             key={`LeftNavMenu_${item.category}${index}`}
                             border='none'
-                            // data-test-id={`${item.category}`}
                             data-test-id={
                                 item.category === 'vegan' ? 'vegan-cuisine' : item.category
                             }
@@ -78,7 +77,6 @@ function LeftNavMenu(_props: Props) {
                                     e.stopPropagation();
                                     handleAccordionClick(item);
                                 }}
-                                // data-test-id={item.category === 'vegan' ? 'vegan-cuisine' : ''}
                                 fontWeight='500'
                                 py={3}
                                 px={2}
@@ -98,7 +96,6 @@ function LeftNavMenu(_props: Props) {
                                 <Box as='span' flex='1' textAlign='left' mr={3} ml={3}>
                                     {item.title}
                                 </Box>
-                                {/* <IconArrowDown/> */}
                             </AccordionButton>
                             <AccordionPanel
                                 p={0}
@@ -137,7 +134,6 @@ function LeftNavMenu(_props: Props) {
                     Все права защищены, ученический файл, <br />
                     &copy; Клевер Технолоджи, 2025
                 </Text>
-                {/* <Button leftIcon={<IconExit />} variant={'ghost'} size='xs'>Выйти</Button> */}
                 <Flex alignItems='center' as='button'>
                     <IconExit boxSize={3} mr='6px' />
                     <Text fontSize='xs' fontWeight='600'>

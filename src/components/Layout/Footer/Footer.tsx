@@ -15,7 +15,6 @@ type Props = {
 
 function Footer(_props: Props) {
     const location = useLocation();
-    // console.log(location);
 
     const mas: FooterMenuItem[] = [
         {
@@ -41,26 +40,18 @@ function Footer(_props: Props) {
     ];
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
-    // const isCypress = window.Cypress;
     return (
         <SimpleGrid
             as='footer'
             data-test-id='footer'
-            // columns={[4, 12]}
             columns={4}
-            // columns={{ base: 4, sm: 12 }}
             bg='lime.50'
             position='fixed'
-            // position='absolute'
-            // position={isCypress ? 'absolute' : 'fixed'}
-            // position='sticky'
             bottom='0'
             left='0'
             right='0'
-            // w='100%'
             height='84px'
             display={{ base: 'grid', lg: 'none' }}
-            // display={{ base: 'block', lg: 'none' }}
             zIndex={7}
         >
             {mas.map((el, index) => {

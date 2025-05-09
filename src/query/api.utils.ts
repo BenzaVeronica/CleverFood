@@ -1,4 +1,3 @@
-// import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
 import { recipe } from '~/store/recipe/recipe.types';

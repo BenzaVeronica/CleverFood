@@ -65,24 +65,7 @@ function Header(_props: Props) {
                         p={0}
                     />
                 )}
-                {/* <Button
-                    data-test-id='close-icon'
-                    data-test-id='hamburger-icon'
-                    onClick={toggleMenu}
-                    colorScheme='lime'
-                    leftIcon={
-                        isOpen ? (
-                            <Icon as={IconClose} boxSize={8} color='gray.700' />
-                        ) : (
-                            <Icon as={IconMenu} boxSize={6} />
-                        )
-                    }
-                    variant='ghost'
-                    iconSpacing={0}
-                    p={0}
-                /> */}
             </Flex>
-            {/* {isOpen && <LeftNavMenu />} */}
             {isTablet && isOpen && <LeftNavMenu />}
         </Flex>
     );

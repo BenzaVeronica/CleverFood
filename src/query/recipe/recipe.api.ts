@@ -23,11 +23,8 @@ export const recipesApiSlice = publicApi
     .injectEndpoints({
         endpoints: (builder) => ({
             getRecipes: builder.query<RecipesResponse, ResponseParamsOrNull>({
-                // NOTE: удалить
-                // queryFn: getRecipesMock,
                 query: (params = {}) => ({
                     url: ApiEndpoints.RECIPE,
-                    // url: 'd',
                     method: 'GET',
                     apiGroupName: ApiGroupNames.RECIPE,
                     name: EndpointNames.GET_RECIPES,
@@ -75,20 +72,6 @@ export const recipesApiSlice = publicApi
                 transformResponse: transformRecipeProteinsResponse,
                 transformErrorResponse: transformErrorResponse,
             }),
-            // getTheMostRecipes: builder.query<RecipesResponse, number>({
-            //     query: (page = 1) => ({
-            //         url: ApiEndpoints.RECIPE,
-            //         method: 'GET',
-            //         apiGroupName: ApiGroupNames.RECIPE,
-            //         name: EndpointNames.GET_THE_MOST_RECIPE,
-            //         params: {
-            //             page: page,
-            //             limit: 8,
-            //             sortBy: 'likes',
-            //             sortOrder: 'desc',
-            //         },
-            //     }),
-            // }),
         }),
     });
 

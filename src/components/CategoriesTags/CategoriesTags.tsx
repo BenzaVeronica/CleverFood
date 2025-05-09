@@ -65,40 +65,6 @@ function CategoriesTags({
                     gap='2px'
                 />
             ))}
-            {/* {subCategoriesIds.map((subCategoryId) => {
-                const categoryItem = getCategoryBySubCategoryId({
-                    categories,
-                    subCategories,
-                    subCategoryId,
-                });
-                console.log(categoryItem);
-                
-                if (!categoryItem) return null;
-                return (
-                    <Tag
-                        key={`${key}_${subCategoryId}`}
-                        display={displayStyle}
-                        // display={{ base: 'inline-flex', lg: 'none' }}
-                        leftElement={
-                            <CustomImage
-                                src={categoryItem.icon}
-                                alt={subCategoryId}
-                                boxSize={4}
-                            />
-                        }
-                        text={categoryItem.title}
-                        color={color}
-                        gap='2px'
-
-                        // CardVertical1
-                        // maxH={6}
-                        // minWidth='0'
-                        // maxW={{ base: '140px', xl: '180px' }}
-
-                        // p={1} overflow='hidden' whiteSpace='nowrap' w='max-content' // maxW="100%"
-                    />
-                );
-            })} */}
         </Flex>
     );
 }

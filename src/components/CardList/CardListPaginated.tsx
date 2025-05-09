@@ -49,7 +49,6 @@ function CardListPaginated<P extends ResponseParams | ResponseParamsWithId>({
             setRecipes((prev) => (page === 1 ? data.data : [...prev, ...data.data]));
             const lastPage = data.meta?.totalPages;
             if (page >= lastPage || data.data.length < queryParams.limit) {
-                // if (page >= lastPage || data.data.length < data.meta.limit) {
                 setIsEnd(true);
             }
         }

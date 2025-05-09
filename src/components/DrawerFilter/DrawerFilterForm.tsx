@@ -20,7 +20,7 @@ import { selectRecipeFilter } from '~/store/recipe/recipe-filter-selector';
 import { resetFilters, setAllFilter } from '~/store/recipe/recipe-filter-slice';
 
 import BsFillXCircleFill from '../../assets/BsFillXCircleFill.svg?react';
-import { filterConfig } from './DrawerFilter.config';
+import { useFilterConfig } from './DrawerFilter.config';
 import DrawerFilterFields from './DrawerFilterFields';
 
 type Props = {
@@ -97,6 +97,7 @@ function DrawerFilterForm(props: Props) {
         dispatch(resetFilters());
     };
 
+    const filterConfig = useFilterConfig();
     const createRemoveHandlers = () => {
         const handlers: Partial<Record<keyof FormValues, (labelToRemove: string) => void>> = {};
         (Object.keys(filterConfig) as Array<keyof FormValues>).forEach((type) => {

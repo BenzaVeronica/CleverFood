@@ -6,12 +6,7 @@ import { ApplicationState } from '../configure-store';
 import { hasAnyFilter } from './utils';
 export type AppState = typeof initialState;
 
-// type RecipeSearch = {
-//     searchQuery: string;
-//     isSearchActive: boolean;
-// };
 export type RecipeFilterState = {
-    // search: RecipeSearch;
     isFilter: boolean;
     isSearchActive: boolean;
     searchQuery: string;
@@ -26,12 +21,6 @@ export type RecipeFilterState = {
     // isLoaderSearch: boolean;
 };
 const initialState: RecipeFilterState = {
-    // search: {
-    // searchQuery: '',
-    // isSearchActive: false,
-    // },
-    // isLoadingQuery: true,
-    // isFilter: true,
     isLoadingQuery: false,
     isFilter: false,
     searchQuery: '',
@@ -49,12 +38,8 @@ export const recipeFilterSlice = createSlice({
     name: 'recipeFilter',
     initialState,
     reducers: {
-        // setSearch: (state, { payload }: PayloadAction<RecipeSearch>) => {
-        //     state.search = payload;
-        // },
         setSearchQuery: (state, { payload }: PayloadAction<string>) => {
             state.searchQuery = payload;
-            // state.searchQuery = payload;
             if (state.searchQuery) {
                 state.isFilter = true;
             }
@@ -85,13 +70,11 @@ export const recipeFilterSlice = createSlice({
         setAllFilter: (state, action: PayloadAction<FormValues>) => {
             const { categories, author, allergens, meatTypes, sideDishes } = action.payload;
             state.categories = categories;
-            // state.subCategories = getSubCategories(categories);
             state.author = author;
             state.allergens = allergens;
             state.meatTypes = meatTypes;
             state.sideDishes = sideDishes;
             state.isFilter = true;
-            // state.isLoaderSearch = false;
         },
         setIsFilter: (state, { payload }: PayloadAction<boolean>) => {
             state.isFilter = payload;
