@@ -1,20 +1,17 @@
 import { Button, Flex, Icon } from '@chakra-ui/react';
-import { Link } from 'react-router';
 
+import IconClose from '~/assets/iconClose.svg?react';
+import IconMenu from '~/assets/iconMenu.svg?react';
+import LeftNavMenu from '~/components/Layout/LeftNavMenu';
+import LoginButton from '~/components/LoginButton';
+import Logo from '~/components/Logo';
+import CustomBreadcrumb from '~/components/UI/Breadcrumb';
+import UserProfile from '~/components/UserProfile';
+import UserStat from '~/components/UserStat';
 import { useMobileMenu } from '~/context/MobileMenuContext';
 import { masProfiles } from '~/store/blog/blog.constants';
 import { useAuth } from '~/store/user/useAuth';
 import useBreakpoints from '~/utils/useBreakpoints';
-
-import IconClose from '../../assets/iconClose.svg?react';
-import IconMenu from '../../assets/iconMenu.svg?react';
-import { LogoIcon } from '../Icons/LogoIcon';
-import { LogoText } from '../Icons/LogoText';
-import LeftNavMenu from '../LeftNavMenu';
-import LoginButton from '../LoginButton';
-import CustomBreadcrumb from '../UI/Breadcrumb';
-import UserProfile from '../UserProfile';
-import UserStat from '../UserStat';
 
 type Props = {
     // title?: string;
@@ -36,17 +33,7 @@ function Header(_props: Props) {
             alignItems='center'
             justifyContent='space-between'
         >
-            <Flex alignItems='end' px={{ base: 5, lg: 4 }} py={{ base: 4, lg: 6 }} as={Link} to='/'>
-                <LogoIcon boxSize={8} color='lime.500' />
-                <LogoText
-                    display={{ base: 'none', md: 'block' }}
-                    ml={2}
-                    width='auto'
-                    height='25px'
-                    color='lime.500'
-                    secondaryColor='lime.500'
-                />
-            </Flex>
+            <Logo />
 
             {!isTablet && <CustomBreadcrumb />}
 

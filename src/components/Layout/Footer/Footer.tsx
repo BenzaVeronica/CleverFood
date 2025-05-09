@@ -4,9 +4,9 @@ import { useLocation } from 'react-router';
 
 import { masProfiles } from '~/store/blog/blog.constants';
 
-import { IconHomeCircle } from '../Icons/IconHomeCircle';
-import { IconSearchCircle } from '../Icons/IconSearchCircle';
-import { IconWriteCircle } from '../Icons/IconWriteCircle';
+import { IconHomeCircle } from '../../Icons/IconHomeCircle';
+import { IconSearchCircle } from '../../Icons/IconSearchCircle';
+import { IconWriteCircle } from '../../Icons/IconWriteCircle';
 import { FooterMenuItem } from './Footer.types';
 
 type Props = {

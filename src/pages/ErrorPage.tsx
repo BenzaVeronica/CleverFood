@@ -1,5 +1,4 @@
 import { Box, GridItem, Image, Text } from '@chakra-ui/react';
-import { Link } from 'react-router';
 
 import { ContainerGridLayout } from '~/app/ContainerAppLayout';
 import errorImage from '~/assets/errorImage.png';
@@ -27,11 +26,7 @@ function ErrorPage(_props: Props) {
                 >
                     <Image src={errorImage} mb={8} />
                     <Text fontSize='2xl' fontWeight={600} mb={4}>
-                        Упс! Такой страницы нет
-                    </Text>
-                    <Text fontSize='md' color='blackAlpha.700'>
-                        Можете поискать другой рецепт
-                        <Link to='/home'>здесь</Link>
+                        Упс! Произошла ошибка приложения
                     </Text>
                 </Box>
             </GridItem>

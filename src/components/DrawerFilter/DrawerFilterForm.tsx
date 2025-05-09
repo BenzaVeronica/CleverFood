@@ -14,13 +14,14 @@ import { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router';
 
-import { useAppDispatch } from '~/store/hooks';
+import SelectedTags from '~/components/SelectedTags';
+import { useAppDispatch, useAppSelector } from '~/store/hooks';
+import { selectRecipeFilter } from '~/store/recipe/recipe-filter-selector';
 import { resetFilters, setAllFilter } from '~/store/recipe/recipe-filter-slice';
 
 import BsFillXCircleFill from '../../assets/BsFillXCircleFill.svg?react';
 import { filterConfig } from './DrawerFilter.config';
 import DrawerFilterFields from './DrawerFilterFields';
-import SelectedTags from './SelectedTags';
 
 type Props = {
     isOpen: boolean;
@@ -35,10 +36,20 @@ export type FormValues = {
     sideDishes: string[];
     allergens: string[];
 };
+
+const getEmptyFilterValues = (): FormValues => ({
+    categories: [],
+    author: [],
+    meatTypes: [],
+    sideDishes: [],
+    allergens: [],
+});
+
 function DrawerFilterForm(props: Props) {
     // const { isOpen, onOpen, onClose } = useDisclosure();
     // const btnRef = useRef();
     const { categoryId } = useParams();
+    const filters = useAppSelector(selectRecipeFilter);
 
     const {
         // register,
@@ -51,11 +62,13 @@ function DrawerFilterForm(props: Props) {
         formState: { isDirty },
     } = useForm<FormValues>({
         defaultValues: {
-            categories: categoryId ? [categoryId] : [],
-            author: [],
-            meatTypes: [],
-            sideDishes: [],
-            allergens: [],
+            ...getEmptyFilterValues(),
+            ...filters,
+            // categories: filters.categories || [],
+            // author: filters.author || [],
+            // meatTypes: filters.meatTypes || [],
+            // sideDishes: filters.sideDishes || [],
+            // allergens: filters.allergens || [],
         },
     });
     const selectedValuesMap = {
@@ -73,7 +86,14 @@ function DrawerFilterForm(props: Props) {
         dispatch(setAllFilter(data));
     };
     const handleClear = () => {
-        reset();
+        // reset({
+        //     categories: [],
+        //     author: [],
+        //     meatTypes: [],
+        //     sideDishes: [],
+        //     allergens: [],
+        // });
+        reset(getEmptyFilterValues());
         dispatch(resetFilters());
     };
 

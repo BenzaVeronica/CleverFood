@@ -1,19 +1,26 @@
-import { Grid, GridProps } from '@chakra-ui/react';
+import { Button, Grid, GridItem, GridProps } from '@chakra-ui/react';
 
-import { dishSubcategory } from '~/store/category/category.types';
 import { recipe } from '~/store/recipe/recipe.types';
 
 import CardHorizontal from '../Card/CardHorizontal';
-
 type Props = {
-    item?: dishSubcategory;
+    dataTestId?: string;
+    withButton?: boolean;
     list: recipe[];
+    isLoading?: boolean;
+    isEnd?: boolean;
+    onLoadMore?: () => void;
 } & GridProps;
 
-function CardList({ item, list, ...gridProps }: Props) {
-    // const { searchQuery, category, allergens, meat, side } = useAppSelector(selectActiveFilters);
-    // const filters = useAppSelector(selectActiveFilters);
-
+function CardList({
+    dataTestId,
+    withButton,
+    list,
+    isLoading = false,
+    isEnd = false,
+    onLoadMore,
+    ...gridProps
+}: Props) {
     return (
         <Grid
             rowGap={4}
@@ -26,12 +33,36 @@ function CardList({ item, list, ...gridProps }: Props) {
         >
             {list.map((el, index) => (
                 <CardHorizontal
-                    key={`CardList_CardHorizontal_${el.id}`}
+                    key={`CardList_CardHorizontal_${el._id}_${el.title}`}
                     el={el}
                     index={index}
                     colSpan={{ base: 4, md: 6, lg: 12, xl: 6 }}
                 />
             ))}
+
+            {!!list.length && withButton && !isEnd && (
+                <GridItem colSpan={{ base: 4, md: 12 }}>
+                    <Button
+                        data-test-id={dataTestId}
+                        onClick={onLoadMore}
+                        display='block'
+                        mx='auto'
+                        mt={4}
+                        bg='lime.300'
+                        _hover={{
+                            bg: 'lime.500',
+                            color: 'white',
+                            '& path': {
+                                fill: 'white',
+                            },
+                        }}
+                        fontSize='lg'
+                        fontWeight='semibold'
+                    >
+                        {isLoading ? 'Загрузка...' : 'Загрузить еще'}
+                    </Button>
+                </GridItem>
+            )}
         </Grid>
     );
 }

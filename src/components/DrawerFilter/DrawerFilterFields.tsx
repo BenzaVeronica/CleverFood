@@ -17,10 +17,10 @@ import { FormValues } from './DrawerFilterForm';
 
 type Props = {
     control: Control<FormValues>;
-    categoryId?: string;
+    // categoryId?: string;
 };
 
-function DrawerFilterFields({ control, categoryId }: Props) {
+function DrawerFilterFields({ control }: Props) {
     const { formDrawer } = useDrawers();
 
     return (
@@ -35,7 +35,7 @@ function DrawerFilterFields({ control, categoryId }: Props) {
                         onChange={field.onChange}
                         options={filterCategory}
                         placeholder='Категория'
-                        disabledItems={categoryId ? [categoryId] : []}
+                        // disabledItems={categoryId ? [categoryId] : []}
                     />
                 )}
             />

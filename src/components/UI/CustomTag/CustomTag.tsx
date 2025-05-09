@@ -1,15 +1,18 @@
 import { Flex, FlexProps, Text } from '@chakra-ui/react';
+import { Link } from 'react-router';
 
 type Props = {
     color: string;
     text: string;
     leftElement?: React.ReactNode;
+    to?: string;
 } & FlexProps;
 
-function CustomTag({ color, text, leftElement, ...flexProps }: Props) {
+function CustomTag({ color, text, to, leftElement, ...flexProps }: Props) {
     return (
         <Flex
-            as='button'
+            as={to ? Link : 'div'}
+            to={to}
             bg={color}
             borderRadius='8px'
             px={2}

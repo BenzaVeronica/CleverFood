@@ -5,19 +5,21 @@ import {
     AccordionPanel,
     Box,
     Flex,
-    Image,
     Text,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 
+import CustomImage from '~/components/UI/CustomImage/CustomImage';
 import { useMobileMenu } from '~/context/MobileMenuContext';
-import { masDishCategories } from '~/store/category/category.constants';
-import { dishCategory } from '~/store/category/category.types';
+import { useGetNavTreeQuery } from '~/query/category/category.api';
+import { RootCategory } from '~/query/category/category.types';
+import { selectCategoriesWithSubs } from '~/store/category/category-selector';
+import { useAppSelector } from '~/store/hooks';
 import useBreakpoints from '~/utils/useBreakpoints';
 
-import { IconExit } from '../Icons/IconExit';
-import CustomBreadcrumb from '../UI/Breadcrumb';
+import { IconExit } from '../../Icons/IconExit';
+import CustomBreadcrumb from '../../UI/Breadcrumb';
 import LeftNavMenuWrapper from './LeftNavMenuWrapper';
 import { SubCategoryListItem } from './SubCategoryListItem';
 
@@ -28,33 +30,30 @@ type Props = {
 function LeftNavMenu(_props: Props) {
     const navigate = useNavigate();
 
-    const handleAccordionClick = (item: dishCategory) => {
-        if (item.subcategories && item.subcategories.length > 0) {
-            navigate(`${item.url}/${item.subcategories[0].url}`);
+    useGetNavTreeQuery();
+    const { categories } = useAppSelector(selectCategoriesWithSubs);
+
+    const handleAccordionClick = (item: RootCategory) => {
+        if (item.subCategories && item.subCategories.length > 0) {
+            navigate(`${item.category}/${item.subCategories[0].category}`);
         } else {
-            navigate(item.url);
+            navigate(item.category);
         }
     };
     const { isTablet } = useBreakpoints();
-    const { categoryId, subcategoryId } = useParams();
+    const { categoryId } = useParams();
     const [activeTabIndex, setActiveTabIndex] = useState<number | null>(null);
+    const hasCategories = categories.length > 0;
     useEffect(() => {
         window.scrollTo(0, 0);
-        if (categoryId) {
-            const foundIndex = masDishCategories.findIndex((el) => el.url === categoryId);
+        if (categoryId && hasCategories) {
+            const foundIndex = categories.findIndex((el) => el.category === categoryId);
             setActiveTabIndex(foundIndex >= 0 ? foundIndex : null);
         } else {
             setActiveTabIndex(null);
         }
-    }, [categoryId, subcategoryId]);
+    }, [categoryId, categories, hasCategories]);
 
-    // const { recipeId } = useParams();
-    // const [currentRecipe, setCurrentRecipe] = useState<recipe | null>(
-    //     MAS_RECIPES.find((el) => el.id == recipeId) || null,
-    // );
-    // useEffect(() => {
-    //     setCurrentRecipe(MAS_RECIPES.find((el) => el.id == recipeId) || null);
-    // }, [recipeId]);
     const { closeMenu } = useMobileMenu();
     return (
         <LeftNavMenuWrapper isMobile={isTablet}>
@@ -65,19 +64,21 @@ function LeftNavMenu(_props: Props) {
                     allowMultiple={false}
                     index={activeTabIndex !== null ? [activeTabIndex] : []}
                 >
-                    {masDishCategories.map((item, index) => (
+                    {categories.map((item, index) => (
                         <AccordionItem
-                            key={`LeftNavMenu_${item.url}${index}`}
+                            key={`LeftNavMenu_${item.category}${index}`}
                             border='none'
-                            // data-test-id={`${item.url}`}
-                            data-test-id={item.url === 'vegan' ? 'vegan-cuisine' : item.url}
+                            // data-test-id={`${item.category}`}
+                            data-test-id={
+                                item.category === 'vegan' ? 'vegan-cuisine' : item.category
+                            }
                         >
                             <AccordionButton
                                 onClick={(e) => {
                                     e.stopPropagation();
                                     handleAccordionClick(item);
                                 }}
-                                // data-test-id={item.url === 'vegan' ? 'vegan-cuisine' : ''}
+                                // data-test-id={item.category === 'vegan' ? 'vegan-cuisine' : ''}
                                 fontWeight='500'
                                 py={3}
                                 px={2}
@@ -93,8 +94,7 @@ function LeftNavMenu(_props: Props) {
                                     borderColor: 'lime.100',
                                 }}
                             >
-                                {/* <item.icon/> */}
-                                <Image src={item.icon} alt={item.title} />
+                                <CustomImage src={item.icon} />
                                 <Box as='span' flex='1' textAlign='left' mr={3} ml={3}>
                                     {item.title}
                                 </Box>
@@ -106,12 +106,11 @@ function LeftNavMenu(_props: Props) {
                                     e.stopPropagation();
                                 }}
                             >
-                                {item.subcategories.map((el, j) => (
+                                {item.subCategories?.map((el, j) => (
                                     <SubCategoryListItem
-                                        key={`${el.url}${j}`}
+                                        key={`${el.category}${j}`}
                                         el={el}
-                                        // index={j}
-                                        onClick={() => navigate(`${item.url}/${el.url}`)}
+                                        onClick={() => navigate(`${item.category}/${el.category}`)}
                                     />
                                 ))}
                             </AccordionPanel>

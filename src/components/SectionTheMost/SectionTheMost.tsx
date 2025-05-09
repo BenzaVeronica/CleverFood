@@ -2,19 +2,18 @@ import { Box, Button, Flex, Icon, Text } from '@chakra-ui/react';
 import { Link } from 'react-router';
 
 import { PageRoutes } from '~/routes/PageRoutes.constants';
-import { MAS_RECIPES } from '~/store/recipe/recipe.constants';
-import { sortByField } from '~/store/recipe/utils';
+import { recipe } from '~/store/recipe/recipe.types';
 
 import ArrowLongRight from '../../assets/iconArrowLongRight.svg?react';
 import CardList from '../CardList';
 
 type Props = {
-    // title?: string;
+    items: recipe[];
 };
 
-function SectionTheMost(_props: Props) {
-    const list = sortByField(MAS_RECIPES, 'likes', 'desc').slice(0, 4);
+function SectionTheMost({ items }: Props) {
     return (
+        // <WithLoadingError isLoading={isLoading} isError={isError} isExist={!!data?.data.length}>
         <Box as='section'>
             <Flex mb={6} justifyContent='space-between'>
                 <Text as='h2' fontSize={['2xl', '2xl', '2xl', '3xl', '4xl']} fontWeight='500'>
@@ -41,12 +40,9 @@ function SectionTheMost(_props: Props) {
                 </Button>
             </Flex>
             <CardList
-                item={{
-                    id: 1,
-                    title: 'Самое сочное',
-                    url: PageRoutes.MOST,
-                }}
-                list={list}
+                list={items}
+                withButton={false}
+                // defaultParams={POPULAR_MAIN_PARAMS}
                 mb={{ base: 0, md: 10 }}
             />
             <Button
@@ -73,6 +69,7 @@ function SectionTheMost(_props: Props) {
                 Вся подборка
             </Button>
         </Box>
+        // </WithLoadingError>
     );
 }
 

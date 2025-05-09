@@ -1,12 +1,13 @@
-import { Box, Flex, Image, Text } from '@chakra-ui/react';
+import { Box, Flex, Text } from '@chakra-ui/react';
 import { Link } from 'react-router';
 
-import { chooseIconCategory, chooseTextCategory } from '~/store/category/utils';
+import { useCategoryBySubCategoryId } from '~/query/category/category.utils';
 import { recipe } from '~/store/recipe/recipe.types';
 import useBreakpoints from '~/utils/useBreakpoints';
 
 import CardStat from '../CardStat';
-import Tag from '../UI/CustomTag';
+import CategoriesTags from '../CategoriesTags';
+import CustomImage from '../UI/CustomImage/CustomImage';
 
 type Props = {
     el: recipe;
@@ -15,19 +16,24 @@ type Props = {
 function CardVertical({ el }: Props) {
     // const isHidden = useBreakpointValue({ base: true, md: false });
     const { isTablet } = useBreakpoints();
+    // console.log(el);
 
+    const firstSubCategoryId = el.categoriesIds[0];
+    const categs = useCategoryBySubCategoryId(firstSubCategoryId);
     return (
-        <Box
-            h='100%'
-            // h={{ base: '222px', lg: '462px' }}
+        <Flex
+            // h='100%'
+            minH={{ base: '222px', lg: '414px' }}
             borderColor='blackAlpha.200'
             borderWidth={1}
             borderRadius='8px'
             width={{ base: '156px', lg: '278px', xl: '322px' }}
             flexShrink={0}
-            display='block'
+            display='flex'
+            flexDirection='column'
             as={Link}
-            to={`/${el.category[0]}/${el.subcategory[0]}/${el.id}`}
+            to={`/${categs?.category?.category}/${categs?.subCategory?.category}/${el._id}`}
+            // to={getFullPathBySubCategoryId(categories, subCategories, el.categoriesIds[0], el._id)}
         >
             <Box
                 width='100%'
@@ -36,89 +42,63 @@ function CardVertical({ el }: Props) {
                 overflow='hidden'
                 h={{ base: '128px', lg: '230px' }}
             >
-                <Flex
-                    flexWrap='wrap'
-                    gap={1}
-                    flex='1'
-                    minWidth={0}
-                    position='absolute'
-                    zIndex={2}
-                    top={2}
-                    left={2}
-                >
-                    {el.category.map((categoryItem) => (
-                        <Tag
-                            key={`CardVertical_${categoryItem}`}
-                            display={{ base: 'inline-flex', lg: 'none' }}
-                            leftElement={
-                                <Image
-                                    src={chooseIconCategory(categoryItem)}
-                                    alt={categoryItem}
-                                    boxSize={4}
-                                />
-                            }
-                            text={chooseTextCategory(categoryItem)}
-                            color='lime.150'
-                            gap='2px'
-                            // p={1} overflow='hidden' whiteSpace='nowrap' w='max-content' // maxW="100%"
-                        />
-                    ))}
-                </Flex>
-                <Image src={el.image} alt={el.title} width='100%' height='100%' objectFit='cover' />
+                <CategoriesTags
+                    subCategoriesIds={el.categoriesIds}
+                    keyId='CardVertical'
+                    isPosition
+                />
+                <CustomImage
+                    src={el.image}
+                    alt={el.title}
+                    width='100%'
+                    height='100%'
+                    objectFit='cover'
+                />
             </Box>
-            <Box py={{ base: 2, lg: 4 }} px={{ base: 2, lg: 6 }}>
-                <Text
-                    fontSize={{ base: 'md', lg: 'lg', xl: 'xl' }}
-                    fontWeight={500}
-                    whiteSpace={{ base: 'normal', md: 'normal', lg: 'normal' }}
-                    noOfLines={{ base: 2, lg: 1 }}
-                    // noOfLines={2}
-                    isTruncated
-                >
-                    {el.title}
-                </Text>
-                <Text
-                    userSelect='auto'
-                    pt={1}
-                    fontSize='sm'
-                    hidden={isTablet}
-                    // display={{base: 'none', md: 'block'}}
-                    noOfLines={{ base: undefined, md: 3 }}
-                    // mb={6}
-                >
-                    {el.description}
-                </Text>
+            <Flex
+                py={{ base: 2, lg: 4 }}
+                px={{ base: 2, lg: 6 }}
+                flex='1'
+                justifyContent='space-between'
+                flexDirection='column'
+            >
+                <Box>
+                    <Text
+                        fontSize={{ base: 'md', lg: 'lg', xl: 'xl' }}
+                        fontWeight={500}
+                        isTruncated
+                        whiteSpace={{ base: 'normal!important', md: 'normal', lg: 'nowrap' }}
+                        noOfLines={{ base: 2, lg: 1 }}
+                        // noOfLines={2}
+                    >
+                        {el.title}
+                    </Text>
+                    <Text
+                        userSelect='auto'
+                        pt={1}
+                        fontSize='sm'
+                        hidden={isTablet}
+                        // display={{base: 'none', md: 'block'}}
+                        noOfLines={{ base: undefined, md: 3 }}
+                        // mb={6}
+                    >
+                        {el.description}
+                    </Text>
+                </Box>
 
                 <Flex justifyContent='space-between' mt={{ base: 1, lg: 6 }} gap={1}>
-                    <Flex
-                        flexDirection='column'
-                        // flexWrap='wrap'
-                        gap={1}
-                        // flex='1'
-                    >
-                        {el.category.map((categoryItem) => (
-                            <Tag
-                                key={`CardVertical1_${categoryItem}`}
-                                display={{ base: 'none', lg: 'inline-flex' }}
-                                leftElement={
-                                    <Image
-                                        src={chooseIconCategory(categoryItem)}
-                                        alt={categoryItem}
-                                    />
-                                }
-                                text={chooseTextCategory(categoryItem)}
-                                color='lime.150'
-                                maxH={6}
-                                minWidth='0'
-                                maxW={{ base: '140px', xl: '180px' }}
-                                // flex='1'
-                            />
-                        ))}
-                    </Flex>
+                    <CategoriesTags
+                        subCategoriesIds={el.categoriesIds}
+                        keyId='CardVertical1'
+                        // flexDirection='column'
+                        // // flexWrap='wrap'
+                        // gap={1}
+                        // // flex='1'
+                    />
                     <CardStat bookmarks={el.bookmarks} like={el.likes} />
                 </Flex>
-            </Box>
-        </Box>
+            </Flex>
+        </Flex>
     );
 }
 

@@ -1,5 +1,7 @@
 import { extendTheme } from '@chakra-ui/react';
-
+// const buttonStyle = defineStyle({
+//     display: 'flex',
+// });
 const theme = extendTheme({
     layerStyles: {
         customScroll: {
@@ -87,9 +89,7 @@ const theme = extendTheme({
         xl: '1920px',
     },
     colors: {
-        white: {
-            500: '#ffffff',
-        },
+        white: '#ffffff',
         black: {
             500: '#000000',
         },

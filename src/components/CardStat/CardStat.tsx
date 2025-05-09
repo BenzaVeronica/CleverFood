@@ -11,7 +11,7 @@ type Props = {
 function CardStat(props: Props) {
     return (
         <Flex gap={{ base: 0, lg: 2 }} flexShrink={0}>
-            {props.bookmarks && (
+            {props.bookmarks !== null && (
                 <Button
                     lineHeight='1'
                     p={1}
@@ -23,7 +23,7 @@ function CardStat(props: Props) {
                     {props.bookmarks}
                 </Button>
             )}
-            {props.like && (
+            {props.like !== null && (
                 <Button
                     lineHeight='1'
                     p={1}

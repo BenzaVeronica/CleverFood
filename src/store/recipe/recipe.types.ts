@@ -1,9 +1,7 @@
-import { profile } from '../blog/blog.types';
-
 export type recipeStep = {
     stepNumber: number;
     description: string;
-    image: string | null;
+    image?: string | null;
 };
 export type recipeIngredients = {
     title: string;
@@ -12,26 +10,34 @@ export type recipeIngredients = {
 };
 export type recipeNutritionValue = {
     calories: number;
-    proteins: number;
+    //TODO: заменить
+    proteins?: number;
+    protein?: number;
     fats: number;
     carbohydrates: number;
 };
 export type recipe = {
-    id: string;
+    _id: string;
+    createdAt: string;
     title: string;
     description: string;
-    category: string[];
-    subcategory: string[];
+
+    time: number;
     image: string;
-    bookmarks: number;
     likes: number;
-    date: string;
-    time: string;
+    bookmarks: number;
+    views: number;
+
+    meat?: string;
+    garnish?: string;
+    // side?: string;
     portions: number;
+    authorId: string;
+    // recommend?: profile;
+    categoriesIds: string[];
+    steps: recipeStep[];
+    // subcategory: string[];
+    // date: string;
     nutritionValue: recipeNutritionValue;
     ingredients: recipeIngredients[];
-    steps: recipeStep[];
-    meat?: string;
-    side?: string;
-    recommend?: profile;
 };

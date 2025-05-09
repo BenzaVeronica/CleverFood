@@ -1,6 +1,8 @@
-import { Box, Flex, Image, Tag, Text } from '@chakra-ui/react';
+import { Box, Flex, Tag, Text } from '@chakra-ui/react';
 
 import { recipeStep } from '~/store/recipe/recipe.types';
+
+import CustomImage from '../UI/CustomImage/CustomImage';
 
 type Props = {
     el: recipeStep;
@@ -26,7 +28,7 @@ function RecipeStepCard(props: Props) {
                 position='relative'
             >
                 {props.el.image && (
-                    <Image
+                    <CustomImage
                         src={props.el.image}
                         alt={`Шаг ${props.el.stepNumber}`}
                         width='100%'

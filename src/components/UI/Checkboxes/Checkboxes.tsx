@@ -26,7 +26,7 @@ function Checkboxes({ value, onChange, title, list, disabledItems }: CheckboxesP
                                 disabledItems && disabledItems.includes(option.id.toLowerCase())
                             }
                             key={option.id.toLowerCase()}
-                            value={option.id.toLowerCase()}
+                            value={option.label.toLowerCase()}
                             fontSize='sm'
                         >
                             {option.label}

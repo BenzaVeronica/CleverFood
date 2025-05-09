@@ -36,7 +36,12 @@ type BoxLayoutProps = {
 } & BoxProps;
 
 export const ContainerBoxLayout = ({ children, ...otherProps }: BoxLayoutProps) => (
-    <Box ml={{ base: 4, md: 5, lg: 6 }} mr={{ base: 4, md: 5, lg: '72px' }} {...otherProps}>
+    <Box
+        // width={{ base: 'calc(100% - 32px)', lg: 'calc(100vw - 256px - 208px - 72px)' }}
+        ml={{ base: 4, md: 5, lg: 6 }}
+        mr={{ base: 4, md: 5, lg: '72px' }}
+        {...otherProps}
+    >
         {children}
     </Box>
 );

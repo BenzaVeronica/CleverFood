@@ -7,9 +7,9 @@ import {
     InputRightElement,
 } from '@chakra-ui/react';
 import { KeyboardEvent, useState } from 'react';
-import { useSelector } from 'react-redux';
 
-import { selectFilteredRecipes } from '~/store/recipe/recipe-filter-selector';
+import { useAppSelector } from '~/store/hooks';
+import { selectAllergens, selectRecipeFilter } from '~/store/recipe/recipe-filter-selector';
 
 import IconSearch from '../../assets/IconSearch.svg?react';
 
@@ -23,7 +23,8 @@ type Props = {
 function SearchBox(props: Props) {
     // const { setSearchQuery, setIsSearchActive } = useSearch();
     const [inputValue, setInputValue] = useState(props.initValue || '');
-    const isSearchDisabled = inputValue.length < 3;
+    const allergens = useAppSelector(selectAllergens);
+    const isSearchDisabled = inputValue.length < 3 && allergens.length === 0;
 
     // const location = useLocation();
     // useEffect(() => {
@@ -58,10 +59,7 @@ function SearchBox(props: Props) {
         // dispatch(setSearchActive(false));
     };
 
-    const { isFilter, filteredList } = useSelector(selectFilteredRecipes);
-    const isValidNotEmpty = isFilter && filteredList.length === 0;
-    const validColor = isValidNotEmpty ? 'red' : 'black';
-
+    const { isFilter } = useAppSelector(selectRecipeFilter);
     return (
         <InputGroup>
             <Input
@@ -77,10 +75,13 @@ function SearchBox(props: Props) {
                     color: 'lime.800',
                 }}
                 _focus={{
-                    borderColor: validColor,
-                    boxShadow: `0 0 0 1px ${validColor}`,
+                    borderColor: 'black',
+                    boxShadow: `0 0 0 1px black`,
                 }}
-                borderColor={isFilter ? (isValidNotEmpty ? 'red' : 'lime.600') : 'gray.200'}
+                borderColor={
+                    isFilter && inputValue ? 'lime.600' : 'gray.200'
+                    // isFilter && inputValue ? (isValidNotEmpty ? 'red' : 'lime.600') : 'gray.200'
+                }
             />
             <InputRightElement w={{ base: '64px', lg: '76px' }} h={{ base: 8, lg: 12 }}>
                 <CloseButton size='sm' onClick={handleClear} mr={1} aria-label='Очистить поиск' />

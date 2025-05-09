@@ -1,6 +1,6 @@
 // import { masDishCategories } from '~/store/category/category.constants';
 // import { dishCategory } from '~/store/category/category.types';
-import { MAS_RECIPES } from '~/store/recipe/recipe.constants';
+import { MAS_RECIPES } from '~/query/recipe/recipe.mock';
 import { recipe } from '~/store/recipe/recipe.types';
 
 export type recipes = {

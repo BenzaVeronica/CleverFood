@@ -3,10 +3,10 @@ import './App.css';
 import { Box } from '@chakra-ui/react';
 import { Outlet } from 'react-router';
 
-import Footer from '~/components/Footer';
-import Header from '~/components/Header/Header.tsx';
-import LeftNavMenu from '~/components/LeftNavMenu';
-import RightAside from '~/components/RightAside';
+import Footer from '~/components/Layout/Footer';
+import Header from '~/components/Layout/Header/Header';
+import LeftNavMenu from '~/components/Layout/LeftNavMenu';
+import RightAside from '~/components/Layout/RightAside';
 import { AppProviders } from '~/context/AppContext';
 import useBreakpoints from '~/utils/useBreakpoints';
 
@@ -37,11 +37,12 @@ function App() {
                     ml={{ base: 0, lg: 64 }}
                     mt={{ base: 16, lg: 20 }}
                     pb={{ base: '84px', lg: '0' }}
-                    width={{ base: '100vw', lg: 'calc(100vw - 256px - 208px)' }}
-                    // height='100%'
+                    width={{ base: 'calc(100% - 16px)', lg: 'calc(100vw - 256px - 208px)' }}
+                    // height={{ base: 'calc(100vh - 64px)', lg: 'calc(100vh - 80px)' }}
                     // position='relative'
                     // maxH={{ base: 'calc(100vh - 64px)', lg: 'auto' }}
-                    // background='white'
+                    background='white'
+                    minH='100vh'
                 >
                     <Outlet />
                     <Box

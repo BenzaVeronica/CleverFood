@@ -2,8 +2,8 @@ import { Flex, Text } from '@chakra-ui/react';
 
 import { useAuth } from '~/store/user/useAuth';
 
-import { IconWriteCircle } from '../Icons/IconWriteCircle';
-import UserStat from '../UserStat';
+import { IconWriteCircle } from '../../Icons/IconWriteCircle';
+import UserStat from '../../UserStat';
 
 type Props = {
     // title?: string;

@@ -9,7 +9,6 @@ import {
     InputRightElement,
     Menu,
     MenuButton,
-    MenuItem,
     MenuList as ChakraMenuList,
     Text,
 } from '@chakra-ui/react';
@@ -151,14 +150,14 @@ const CustomMultiSelectWithAdd = ({
             >
                 <Box flex='1' overflowY='auto' layerStyle='customScroll'>
                     {options.map((option, index) => (
-                        <MenuItem
+                        <Flex
                             key={option.id}
-                            closeOnSelect={false}
                             px={4}
                             bg={index % 2 === 1 ? 'white' : 'blackAlpha.100'}
                             _hover={{ bg: 'blackAlpha.200' }}
                             justifyContent='flex-start'
-                            onMouseDown={(e) => e.preventDefault()}
+                            cursor='pointer'
+                            py={2}
                         >
                             <Checkbox
                                 // data-test-id={`allergen-${index}`}
@@ -177,7 +176,7 @@ const CustomMultiSelectWithAdd = ({
                             >
                                 {option.label}
                             </Checkbox>
-                        </MenuItem>
+                        </Flex>
                     ))}
                 </Box>
 

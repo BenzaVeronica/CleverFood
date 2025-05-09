@@ -1,14 +1,15 @@
 import { Flex, Tag, TagCloseButton, TagLabel } from '@chakra-ui/react';
 
-import { filterConfig } from './DrawerFilter.config';
-import { FilterOptionType } from './DrawerFilter.constants';
-import { FormValues } from './DrawerFilterForm';
+import { filterConfig } from '~/components/DrawerFilter/DrawerFilter.config';
+import { FilterOptionType } from '~/components/DrawerFilter/DrawerFilter.constants';
+import { FormValues } from '~/components/DrawerFilter/DrawerFilterForm';
 
 // type SelectedTagsProps = {
 //     selectedValuesMap: FormValues;
 //     removeHandlers: Partial<Record<keyof FormValues, (labelToRemove: string) => void>>;
 // };
 type SelectedTagsProps<Key extends keyof FormValues = keyof FormValues> = {
+    isFromTopFilterBox?: boolean;
     selectedValuesMap: Pick<FormValues, Key>;
     removeHandlers: {
         [K in Key]?: (labelToRemove: string) => void;
@@ -22,6 +23,7 @@ const getFilterLabels = (values: string[], options: FilterOptionType[]) =>
     });
 
 const SelectedTags = <Key extends keyof FormValues>({
+    isFromTopFilterBox = false,
     selectedValuesMap,
     removeHandlers,
 }: SelectedTagsProps) => {
@@ -29,7 +31,7 @@ const SelectedTags = <Key extends keyof FormValues>({
     if (!hasFilters) return null;
 
     return (
-        <Flex gap={2} mt={3} wrap='wrap'>
+        <Flex gap={2} mt={3} wrap='wrap' justifyContent={isFromTopFilterBox ? 'center' : 'start'}>
             {(Object.keys(selectedValuesMap) as Key[]).map((type) => {
                 const values = selectedValuesMap[type] || [];
                 if (values.length === 0) return null;

@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { FormValues } from '~/components/DrawerFilter/DrawerFilterForm';
 
 import { ApplicationState } from '../configure-store';
+import { hasAnyFilter } from './utils';
 export type AppState = typeof initialState;
 
 // type RecipeSearch = {
@@ -16,29 +17,33 @@ export type RecipeFilterState = {
     searchQuery: string;
     categories: string[];
     author: string[];
+    isDisabledAllergenSwitch: boolean;
     allergens: string[];
     meatTypes: string[];
     sideDishes: string[];
-    currentCategory: string;
-    // currentSubCategory: string;
+    isLoadingQuery: boolean;
+    resultLength: number | null;
+    // isLoaderSearch: boolean;
 };
 const initialState: RecipeFilterState = {
     // search: {
     // searchQuery: '',
     // isSearchActive: false,
     // },
+    // isLoadingQuery: true,
+    // isFilter: true,
+    isLoadingQuery: false,
     isFilter: false,
     searchQuery: '',
     isSearchActive: false,
-    // searchQuery: 'карт',
-    // isSearchActive: true,
     categories: [],
     author: [],
+    isDisabledAllergenSwitch: true,
     allergens: [],
     meatTypes: [],
     sideDishes: [],
-    currentCategory: '',
-    // currentSubCategory: '',
+    resultLength: null,
+    // isLoaderSearch: false,
 };
 export const recipeFilterSlice = createSlice({
     name: 'recipeFilter',
@@ -48,77 +53,99 @@ export const recipeFilterSlice = createSlice({
         //     state.search = payload;
         // },
         setSearchQuery: (state, { payload }: PayloadAction<string>) => {
-            state.searchQuery = payload.toLowerCase();
+            state.searchQuery = payload;
             // state.searchQuery = payload;
             if (state.searchQuery) {
                 state.isFilter = true;
             }
         },
+        toggleSearchDisabledAllergenSwitch: (state) => {
+            state.isDisabledAllergenSwitch = !state.isDisabledAllergenSwitch;
+            if (state.isDisabledAllergenSwitch) {
+                state.allergens = [];
+            }
+        },
+        setSearchDisabledAllergenSwitch: (state, { payload }: PayloadAction<boolean>) => {
+            state.isDisabledAllergenSwitch = payload;
+        },
         setSearchActive: (state, { payload }: PayloadAction<boolean>) => {
             state.isSearchActive = payload;
         },
-        setCategory: (state, action: PayloadAction<string[]>) => {
-            if (state.currentCategory) {
-                state.categories = [state.currentCategory, ...action.payload];
-            } else {
-                state.categories = action.payload;
-            }
-            state.isFilter = true;
-        },
-        setCurrentCategory: (state, action: PayloadAction<string>) => {
-            const category = action.payload;
-
-            if (!category) {
-                state.currentCategory = '';
-                return;
-            }
-            // if (state.categories.indexOf(category) !== -1) {
-            //   state.categories = state.categories.filter((c) => c !== category);
-            // } else {
-            //   state.categories = [...state.categories, category];
-            // }
-
-            state.categories = [...state.categories, category];
-            state.currentCategory = category;
-        },
         setAllergens: (state, action: PayloadAction<string[]>) => {
-            state.allergens = action.payload;
-            state.isFilter = true;
+            if (action.payload.length) {
+                state.allergens = action.payload;
+                // state.isFilter = true;
+            } else {
+                // state.isFilter = hasAnyFilter(state);
+            }
         },
+        // setLoaderSearch: (state, { payload }: PayloadAction<boolean>) => {
+        // state.isLoaderSearch = payload;
+        // },
         setAllFilter: (state, action: PayloadAction<FormValues>) => {
-            state.categories = action.payload.categories;
-            state.author = action.payload.author;
-            state.allergens = action.payload.allergens;
-            state.meatTypes = action.payload.meatTypes;
-            state.sideDishes = action.payload.sideDishes;
+            const { categories, author, allergens, meatTypes, sideDishes } = action.payload;
+            state.categories = categories;
+            // state.subCategories = getSubCategories(categories);
+            state.author = author;
+            state.allergens = allergens;
+            state.meatTypes = meatTypes;
+            state.sideDishes = sideDishes;
             state.isFilter = true;
+            // state.isLoaderSearch = false;
         },
-        // setMeat: (state, action: PayloadAction<string[]>) => {
-        //     state.meatTypes = action.payload;
-        // },
-        // setSide: (state, action: PayloadAction<string[]>) => {
-        //     state.sideDishes = action.payload;
-        // },
         setIsFilter: (state, { payload }: PayloadAction<boolean>) => {
             state.isFilter = payload;
         },
-        resetFilters: (state) => ({
+        setIsLoadingQuery: (state, { payload }: PayloadAction<boolean>) => {
+            state.isLoadingQuery = payload;
+        },
+        setResultLength: (state, { payload }: PayloadAction<number>) => {
+            state.resultLength = payload;
+            if (payload === 0) {
+                state.isFilter = false;
+                state.searchQuery = '';
+            }
+        },
+        resetFilters: (_state) => ({
             ...initialState,
-            currentCategory: state.currentCategory,
         }),
+
+        removeCategory: (state, action: PayloadAction<string>) => {
+            state.categories = state.categories.filter((item) => item !== action.payload);
+        },
+        removeAuthor: (state, action: PayloadAction<string>) => {
+            state.author = state.author.filter((item) => item !== action.payload);
+        },
+        removeAllergen: (state, action: PayloadAction<string>) => {
+            state.allergens = state.allergens.filter((item) => item !== action.payload);
+            state.isFilter = hasAnyFilter(state);
+        },
+        removeMeatType: (state, action: PayloadAction<string>) => {
+            state.meatTypes = state.meatTypes.filter((item) => item !== action.payload);
+        },
+        removeSideDish: (state, action: PayloadAction<string>) => {
+            state.sideDishes = state.sideDishes.filter((item) => item !== action.payload);
+        },
     },
 });
 export const userLoadingSelector = (state: ApplicationState) => state.app.isLoading;
 export const userErrorSelector = (state: ApplicationState) => state.app.error;
 
 export const {
+    removeCategory,
+    removeAuthor,
+    removeAllergen,
+    removeMeatType,
+    removeSideDish,
     setSearchQuery,
     setSearchActive,
-    setCategory,
-    setCurrentCategory,
     setAllergens,
     setAllFilter,
     setIsFilter,
     resetFilters,
+    setIsLoadingQuery,
+    setResultLength,
+    setSearchDisabledAllergenSwitch,
+    toggleSearchDisabledAllergenSwitch,
 } = recipeFilterSlice.actions;
 export default recipeFilterSlice.reducer;

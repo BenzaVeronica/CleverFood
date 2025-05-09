@@ -4,7 +4,6 @@ import {
     Flex,
     HStack,
     Icon,
-    Image,
     Stack,
     Tag,
     TagLabel,
@@ -12,14 +11,14 @@ import {
     Text,
 } from '@chakra-ui/react';
 
-import { chooseIconCategory, chooseTextCategory } from '~/store/category/utils';
 import { recipe } from '~/store/recipe/recipe.types';
 
 import BsAlarm from '../../assets/BsAlarm.svg?react';
 import Bookmark from '../../assets/iconSMBookmark.svg?react';
 import Like from '../../assets/iconSMLike.svg?react';
 import CardStat from '../CardStat';
-import CustomTag from '../UI/CustomTag';
+import CategoriesTags from '../CategoriesTags';
+import CustomImage from '../UI/CustomImage/CustomImage';
 
 type Props = {
     item: recipe;
@@ -36,7 +35,7 @@ function RecipeDescription(props: Props) {
                 overflow='hidden'
                 position='relative'
             >
-                <Image
+                <CustomImage
                     src={props.item.image}
                     alt={props.item.title}
                     width='100%'
@@ -55,21 +54,11 @@ function RecipeDescription(props: Props) {
             >
                 <Box>
                     <Flex justifyContent='space-between' alignItems='start'>
-                        <Flex gap={2} flexWrap={{ base: 'wrap', lg: 'wrap' }}>
-                            {props.item.category.map((tag) => (
-                                <CustomTag
-                                    leftElement={
-                                        <Image
-                                            src={chooseIconCategory(tag)}
-                                            alt={tag}
-                                            boxSize={4}
-                                        />
-                                    }
-                                    text={chooseTextCategory(tag)}
-                                    color='lime.50'
-                                />
-                            ))}
-                        </Flex>
+                        <CategoriesTags
+                            subCategoriesIds={props.item.categoriesIds}
+                            keyId='RecipeDescription'
+                            color='lime.50'
+                        />
                         <CardStat bookmarks={props.item.bookmarks} like={props.item.likes} />
                     </Flex>
                     <Stack spacing={{ base: 4, md: 1 }} mt={8}>
@@ -95,7 +84,7 @@ function RecipeDescription(props: Props) {
                 >
                     <Tag size='xs' py='3px' px={2}>
                         <TagLeftIcon boxSize='16px' as={BsAlarm} />
-                        <TagLabel>{props.item.time}</TagLabel>
+                        <TagLabel>{props.item.time} минут</TagLabel>
                     </Tag>
                     <HStack spacing={{ base: 3, lg: 4 }}>
                         <Button

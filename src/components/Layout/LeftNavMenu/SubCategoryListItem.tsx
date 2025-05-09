@@ -1,26 +1,22 @@
 import { Flex, Text } from '@chakra-ui/react';
 import { useParams } from 'react-router';
 
-import { dishSubcategory } from '~/store/category/category.types';
+import { SubCategory } from '~/query/category/category.types';
 
 type Props = {
-    el: dishSubcategory;
-    // index: number;
+    el: SubCategory;
     onClick: () => void;
 };
 
 export function SubCategoryListItem({ el, onClick }: Props) {
-    // const { isOpen } = useAccordionItemState();
-    // const isOpen = true;
     const { subcategoryId } = useParams();
-    const isActive = subcategoryId === el.url;
+    const isActive = subcategoryId === el.category;
     return (
         <Flex
-            data-test-id={isActive ? `${el.url}-active` : ''}
+            data-test-id={isActive ? `${el.category}-active` : ''}
             onClick={onClick}
             p='6px 8px 6px 40px'
             height={10}
-            // as='a'
             cursor='pointer'
             alignItems='center'
             position='relative'
@@ -35,11 +31,6 @@ export function SubCategoryListItem({ el, onClick }: Props) {
             }}
             _hover={{
                 bg: 'lime.100',
-                // _before: {
-                //     width: '8px',
-                //     height: '28px',
-                //     left: '33px',
-                // },
             }}
         >
             <Text ml={3} fontSize='md' fontWeight={isActive ? 'bold' : 'normal'}>
