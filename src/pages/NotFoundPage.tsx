@@ -8,7 +8,7 @@ function NotFoundPage() {
     return (
         <Box w='100vw' h='100vh'>
             <Flex w='100%' bg='lime.50' alignItems='center' justifyContent='space-between'>
-                <Logo />
+                <Logo withHiding />
             </Flex>
             <Box
                 display='flex'

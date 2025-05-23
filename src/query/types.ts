@@ -13,8 +13,8 @@ export interface ItemResponse<T> {
 }
 
 export interface ResponseParams {
-    page?: number;
     limit: number;
+    page?: number;
     sortBy?: string;
     sortOrder?: 'asc' | 'desc';
     allergens?: string;
@@ -23,7 +23,7 @@ export interface ResponseParams {
     subcategoriesIds?: string;
     searchString?: string;
 }
-export type ResponseParamsOrNull = ResponseParams | null | undefined | void;
+export type ResponseParamsOrNull = Partial<ResponseParams> | null | undefined | void;
 export type ResponseParamsWithId = {
     id: string;
 } & ResponseParams;
@@ -32,8 +32,15 @@ export type ResponseParamsWithOptionalId = {
 } & ResponseParams;
 
 export type ErrorQuery = FetchBaseQueryError | SerializedError | undefined;
+export type CustomErrorStatusResponse =
+    | number
+    | 'FETCH_ERROR'
+    | 'PARSING_ERROR'
+    | 'TIMEOUT_ERROR'
+    | 'CUSTOM_ERROR';
+
 export type CustomErrorResponse = {
-    status: number | 'FETCH_ERROR' | 'PARSING_ERROR' | 'TIMEOUT_ERROR' | 'CUSTOM_ERROR';
+    status: CustomErrorStatusResponse;
     title: string;
     message: string;
 };

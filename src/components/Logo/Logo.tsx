@@ -1,17 +1,28 @@
-import { Flex } from '@chakra-ui/react';
+import { Flex, ResponsiveValue } from '@chakra-ui/react';
 import { Link } from 'react-router';
 
 import { LogoIcon } from '../Icons/LogoIcon';
 import { LogoText } from '../Icons/LogoText';
 
-export const Logo = () => (
-    <Flex alignItems='end' px={{ base: 5, lg: 4 }} py={{ base: 4, lg: 6 }} as={Link} to='/'>
-        <LogoIcon boxSize={8} color='lime.500' />
+type Props = {
+    h?: ResponsiveValue<string>;
+    withHiding?: boolean;
+};
+export const Logo = ({ h, withHiding = false }: Props) => (
+    <Flex
+        justifyContent='center'
+        alignItems='end'
+        px={withHiding ? { base: 5, lg: 4 } : undefined}
+        py={withHiding ? { base: 4, lg: 6 } : undefined}
+        as={Link}
+        to='/'
+    >
+        <LogoIcon boxSize={h ? h : 8} color='lime.500' />
         <LogoText
-            display={{ base: 'none', md: 'block' }}
+            display={{ base: withHiding ? 'none' : 'block', md: 'block' }}
             ml={2}
             width='auto'
-            height='25px'
+            height={h ? h : '25px'}
             color='lime.500'
             secondaryColor='lime.500'
         />

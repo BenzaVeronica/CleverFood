@@ -2,13 +2,13 @@ import { ApiEndpoints } from '~/query/constants/api.ts';
 import { ApiGroupNames } from '~/query/constants/api-group-names.ts';
 import { EndpointNames } from '~/query/constants/endpoint-names.ts';
 import { Tags } from '~/query/constants/tags.ts';
-import { publicApi } from '~/query/create-api.ts';
+import { tokenApi } from '~/query/create-api.ts';
 import { initNavTree } from '~/store/category/category-slice';
 
-import { transformErrorResponse } from '../api.utils';
+import { transformErrorResponse } from '../errors/transformErrors';
 import { CategoriesResponse } from './category.types';
 
-export const categoryApiSlice = publicApi
+export const categoryApiSlice = tokenApi
     .enhanceEndpoints({
         addTagTypes: [Tags.CATEGORY],
     })

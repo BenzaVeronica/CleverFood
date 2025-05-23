@@ -1,6 +1,6 @@
 import { Flex, Text } from '@chakra-ui/react';
 
-import { useAuth } from '~/store/user/useAuth';
+import { useAuth } from '~/store/auth/useAuth';
 
 import { IconWriteCircle } from '../../Icons/IconWriteCircle';
 import UserStat from '../../UserStat';

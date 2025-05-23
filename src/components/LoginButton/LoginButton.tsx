@@ -1,6 +1,6 @@
 import { Button, Icon } from '@chakra-ui/react';
 
-import { useAuth } from '~/store/user/useAuth';
+import { useAuth } from '~/store/auth/useAuth';
 
 import IconLogin from '../../assets/iconLogin.svg?react';
 

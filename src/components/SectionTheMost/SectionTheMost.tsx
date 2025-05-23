@@ -22,7 +22,7 @@ function SectionTheMost({ items }: Props) {
                     as={Link}
                     to={`/${PageRoutes.MOST}`}
                     data-test-id='juiciest-link'
-                    display={{ base: 'none', md: 'flex' }}
+                    display={{ base: 'none', lg: 'flex' }}
                     rightIcon={<Icon as={ArrowLongRight} />}
                     bg='lime.300'
                     _hover={{
@@ -47,7 +47,7 @@ function SectionTheMost({ items }: Props) {
                 mx='auto'
                 mt={4}
                 mb={8}
-                display={{ base: 'flex', md: 'none' }}
+                display={{ base: 'flex', lg: 'none' }}
                 rightIcon={<Icon as={ArrowLongRight} />}
                 bg='lime.300'
                 _hover={{

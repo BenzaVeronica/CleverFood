@@ -13,7 +13,7 @@ import LoaderScreen from '~/components/UI/Loader/LoaderScreen';
 import WithLoadingError from '~/components/WithLoadingError';
 import { useGetNavTreeQuery } from '~/query/category/category.api';
 import { getRandomSubCategoryId } from '~/query/category/category.utils';
-import { ErrorDescEnum } from '~/query/error.constants';
+import { ErrorDescEnum } from '~/query/errors/error.constants';
 import { useGetRecipesBySubcategoryIdQuery, useGetRecipesQuery } from '~/query/recipe/recipe.api';
 import { ABOUT_PARAMS, POPULAR_MAIN_PARAMS, SLIDER_PARAMS } from '~/query/recipe/recipe.constants';
 import { CustomErrorResponse } from '~/query/types';
