@@ -1,2 +1,2 @@
-import WithLoadingError from './WithLoadingError';
+import { WithLoadingError } from './WithLoadingError';
 export default WithLoadingError;

@@ -64,6 +64,7 @@ function CategoryPage() {
     }, [currentCategory, subcategoryId]);
 
     const { isFilter } = useAppSelector(selectRecipeFilter);
+
     const recepies = useGetRecipesBySubcategoryIdQuery(
         currentSubcategory && !isFilter
             ? { id: currentSubcategory?._id, ...RECEPIES_PARAMS }
@@ -88,12 +89,9 @@ function CategoryPage() {
         }
     }, [isAllLoaded, navTree, about, recepies]);
 
-    if (!isAllLoaded) {
-        return <LoaderScreen />;
-    }
-
     return (
         <ContainerGridLayout>
+            {(!isAllLoaded || recepies.isFetching) && <LoaderScreen />}
             <GridItem colSpan={{ base: 4, md: 12 }}>
                 <Flex direction='column' alignItems='center'>
                     {currentCategory && (
@@ -134,17 +132,7 @@ function CategoryPage() {
                                     <Tab
                                         data-test-id={`tab-${el.category}-${index}`}
                                         key={`CategoryPage_Tab_${el._id}`}
-                                        color='lime.800'
-                                        borderColor='blackAlpha.200'
-                                        borderBottomWidth='1px'
-                                        marginBottom='1px'
                                         aria-selected={activeTabIndex === index}
-                                        _selected={{
-                                            color: 'lime.600',
-                                            borderColor: 'lime.600',
-                                            marginBottom: '0',
-                                            borderBottomWidth: '2px',
-                                        }}
                                     >
                                         {el.title}
                                     </Tab>

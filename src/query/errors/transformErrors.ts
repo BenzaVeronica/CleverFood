@@ -2,12 +2,10 @@ import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
 import { recipe } from '~/store/recipe/recipe.types';
 
-import { ErrorStatusMap, ErrorStringStatusMap } from './error.constants';
-import { RecipesResponse } from './recipe/recipe.types';
-import { CustomErrorResponse } from './types';
-
-export const isCustomErrorResponse = (error: unknown): error is CustomErrorResponse =>
-    !!error && typeof error === 'object' && 'status' in error;
+import { RecipesResponse } from '../recipe/recipe.types';
+import { CustomErrorResponse } from '../types';
+import { ErrorDescEnum, ErrorStatusMap, ErrorStringStatusMap } from './error.constants';
+import { checkStatusIsNumber, isServerError } from './error.utils';
 
 export const transformErrorResponse = (response: FetchBaseQueryError) => {
     if (!response) return;
@@ -16,13 +14,33 @@ export const transformErrorResponse = (response: FetchBaseQueryError) => {
         title: 'Ошибка',
         message: typeof response.data === 'string' ? response.data : '',
     };
-    if (typeof response.status === 'number') {
-        error.title = ErrorStatusMap[response.status] || ErrorStatusMap[0];
-        // if (response.status === 401) {
-        //     store.dispatch(logout());
-        // }
+    if (checkStatusIsNumber(response.status)) {
+        if (isServerError(response.status)) {
+            error.title = ErrorStatusMap[500];
+            error.message = ErrorDescEnum.LATER;
+        } else {
+            error.title = ErrorStatusMap[response.status] || ErrorStatusMap[0];
+        }
     } else {
         error.title = ErrorStringStatusMap[response.status];
+    }
+    return error;
+};
+type ResponseData = {
+    statusCode: number;
+    message: string;
+};
+export const transformErrorWithMessageResponse = (response: FetchBaseQueryError) => {
+    if (!response) return;
+    const data = response.data as ResponseData;
+    const error: CustomErrorResponse = {
+        status: response.status,
+        title: data?.message,
+        message: '',
+    };
+    if (isServerError(error.status)) {
+        error.title = ErrorStatusMap[500];
+        error.message = ErrorDescEnum.LATER;
     }
     return error;
 };

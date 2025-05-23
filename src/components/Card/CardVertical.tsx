@@ -20,7 +20,7 @@ function CardVertical({ el }: Props) {
     const categs = useCategoryBySubCategoryId(firstSubCategoryId);
     return (
         <Flex
-            minH={{ base: '222px', lg: '414px' }}
+            h={{ base: '222px', lg: '414px' }}
             borderColor='blackAlpha.200'
             borderWidth={1}
             borderRadius='8px'

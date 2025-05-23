@@ -1,20 +1,12 @@
 import { extendTheme } from '@chakra-ui/react';
+
+import { themeBreakpoints } from './themeBreakpoints';
+import { themeComponents } from './themeComponents';
+import { themeCustomScroll } from './themeCustomScroll';
+
 const theme = extendTheme({
     layerStyles: {
-        customScroll: {
-            '&::-webkit-scrollbar': {
-                background: 'rgba(0, 0, 0, 0.04)',
-                width: '8px',
-                height: '8px',
-            },
-            '::-webkit-scrollbar-thumb': {
-                background: 'rgba(0, 0, 0, 0.16)',
-                borderRadius: '8px',
-                width: '8px',
-                height: '8px',
-                border: '4px solid transparent',
-            },
-        },
+        customScroll: themeCustomScroll,
     },
     global: {
         '.search-container:has(input:focus)': {
@@ -61,13 +53,7 @@ const theme = extendTheme({
             color: 'gray.500',
         },
     },
-    breakpoints: {
-        base: '0px',
-        sm: '360px',
-        md: '768px',
-        lg: '1440px',
-        xl: '1920px',
-    },
+    breakpoints: themeBreakpoints,
     colors: {
         white: '#ffffff',
         black: {
@@ -88,43 +74,7 @@ const theme = extendTheme({
             800: '#134B00',
         },
     },
-    components: {
-        Switch: {
-            baseStyle: {
-                track: {
-                    bg: 'gray.200',
-                    _checked: {
-                        bg: 'lime.400',
-                    },
-                },
-                thumb: {
-                    bg: 'white',
-                },
-            },
-        },
-        Breadcrumb: {
-            baseStyle: {
-                list: {
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    gap: 1,
-                },
-            },
-        },
-        Checkbox: {
-            baseStyle: {
-                control: {
-                    borderColor: 'lime.150',
-                    borderWidth: '2px',
-                    _checked: {
-                        color: 'black',
-                        bg: 'lime.400',
-                        borderColor: 'lime.400',
-                    },
-                },
-            },
-        },
-    },
+    components: themeComponents,
 });
 
 export default theme;

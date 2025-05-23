@@ -1,2 +1,2 @@
-import ErrorNotification from './ErrorNotification';
+import { ErrorNotification } from './ErrorNotification';
 export default ErrorNotification;

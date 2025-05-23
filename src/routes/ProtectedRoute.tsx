@@ -1,24 +1,22 @@
 import { ReactNode } from 'react';
 import { Navigate, useLocation } from 'react-router';
 
-import ErrorPage from '~/pages/ErrorPage';
-import { useAuth, UserRole } from '~/store/user/useAuth';
+import { UserRole } from '~/store/auth/auth-slice';
+import { useAuth } from '~/store/auth/useAuth';
+
+import { PageRoutes } from './PageRoutes.constants';
 
 type Props = {
     requiredRole?: UserRole;
     children: ReactNode;
 };
 
-export default function ProtectedRoute({ children, requiredRole = 'guest' }: Props) {
-    const { user, isAuthenticated } = useAuth();
+export default function ProtectedRoute({ children }: Props) {
+    const { isAuthenticated } = useAuth();
     const location = useLocation();
 
     if (!isAuthenticated) {
-        return <Navigate to='/login' state={{ from: location }} replace />;
-    }
-
-    if (requiredRole && user?.role !== requiredRole) {
-        return <ErrorPage />;
+        return <Navigate to={PageRoutes.LOGIN} state={{ from: location }} replace />;
     }
 
     return children;

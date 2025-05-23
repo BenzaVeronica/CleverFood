@@ -8,7 +8,6 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { useGetRecipesQuery } from '~/query/recipe/recipe.api';
 import { SLIDER_PARAMS } from '~/query/recipe/recipe.constants';
-import { sortByNewest } from '~/store/recipe/utils';
 
 import ArrowLongRight from '../../assets/iconArrowLongRight.svg?react';
 import CardVertical from '../Card/CardVertical';
@@ -16,7 +15,6 @@ import WithLoadingError from '../WithLoadingError';
 
 function NewRecipeSlider() {
     const { data, isLoading, isError } = useGetRecipesQuery(SLIDER_PARAMS);
-    const modifiedData = data?.data ? [...sortByNewest(data.data)] : [];
 
     const sliderRef = useRef<SwiperType | null>(null);
     const next = () => {
@@ -83,10 +81,10 @@ function NewRecipeSlider() {
                             },
                         }}
                     >
-                        {modifiedData.map((recipe, i) => (
+                        {data?.data.map((recipe, i) => (
                             <SwiperSlide
                                 key={`new-recipe-${recipe._id}`}
-                                style={{ width: 'auto', height: 'initial' }}
+                                style={{ width: 'auto' }}
                                 data-test-id={`carousel-card-${i}`}
                             >
                                 <CardVertical el={recipe} />

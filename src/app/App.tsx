@@ -18,6 +18,7 @@ function App() {
 
     const location = useLocation();
     const dispatch = useAppDispatch();
+
     useEffect(() => {
         dispatch(resetFilters());
     }, [dispatch, location.pathname]);
@@ -42,7 +43,7 @@ function App() {
                 </Box>
                 <Box
                     ml={{ base: 0, lg: 64 }}
-                    mt={{ base: 16, lg: 20 }}
+                    pt={{ base: 16, lg: 20 }}
                     pb={{ base: '84px', lg: '0' }}
                     width={{ base: 'calc(100% - 16px)', lg: 'calc(100vw - 256px - 208px)' }}
                     background='white'

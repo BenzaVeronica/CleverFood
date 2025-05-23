@@ -3,7 +3,8 @@ import { resolve } from 'path';
 import { defineConfig } from 'vite';
 import svgr from 'vite-plugin-svgr';
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
+    base: command === 'build' ? '/BenzaVeronica/' : '/',
     plugins: [react(), svgr()],
     server: {
         host: true,
@@ -15,4 +16,4 @@ export default defineConfig({
             '@public': resolve(__dirname, 'public'),
         },
     },
-});
+}));

@@ -9,8 +9,8 @@ import CustomBreadcrumb from '~/components/UI/Breadcrumb';
 import UserProfile from '~/components/UserProfile';
 import UserStat from '~/components/UserStat';
 import { useMobileMenu } from '~/context/MobileMenuContext';
+import { useAuth } from '~/store/auth/useAuth';
 import { masProfiles } from '~/store/blog/blog.constants';
-import { useAuth } from '~/store/user/useAuth';
 import useBreakpoints from '~/utils/useBreakpoints';
 
 function Header() {
@@ -23,13 +23,13 @@ function Header() {
             position='fixed'
             top={0}
             left={0}
-            zIndex={10}
+            zIndex={11}
             w='100%'
             bg={isOpen ? 'white' : 'lime.50'}
             alignItems='center'
             justifyContent='space-between'
         >
-            <Logo />
+            <Logo withHiding />
 
             {!isTablet && <CustomBreadcrumb />}
 

@@ -2,7 +2,7 @@ import { ApiEndpoints } from '~/query/constants/api.ts';
 import { ApiGroupNames } from '~/query/constants/api-group-names.ts';
 import { EndpointNames } from '~/query/constants/endpoint-names.ts';
 import { Tags } from '~/query/constants/tags.ts';
-import { publicApi } from '~/query/create-api.ts';
+import { tokenApi } from '~/query/create-api.ts';
 import { ApplicationState } from '~/store/configure-store';
 import { recipe } from '~/store/recipe/recipe.types';
 import { setExistResult, setIsLoadingQuery } from '~/store/recipe/recipe-filter-slice';
@@ -11,12 +11,12 @@ import {
     transformErrorResponse,
     transformRecipeProteinsResponse,
     transformRecipesProteinsResponse,
-} from '../api.utils';
+} from '../errors/transformErrors';
 import { ResponseParamsOrNull, ResponseParamsWithId } from '../types';
 import { DEFAULT_PARAMS } from './recipe.constants';
 import { RecipesResponse } from './recipe.types';
 
-export const recipesApiSlice = publicApi
+export const recipesApiSlice = tokenApi
     .enhanceEndpoints({
         addTagTypes: [Tags.RECIPE],
     })

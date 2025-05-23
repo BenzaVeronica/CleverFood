@@ -1,7 +1,7 @@
 import { GridProps } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 
-import { ErrorDescEnum } from '~/query/error.constants';
+import { ErrorDescEnum } from '~/query/errors/error.constants';
 import { RecipesResponse } from '~/query/recipe/recipe.types';
 import {
     CustomErrorResponse,

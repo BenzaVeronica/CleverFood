@@ -18,6 +18,6 @@
             }
         ]
     },
-    "include": ["src", "cypress/**/*.ts", "cypress.config.ts"],
+    "include": ["src", "cypress/**/*.ts", "cypress.config.ts", "cypress/types/net-stubbing"],
     "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }]
 }
