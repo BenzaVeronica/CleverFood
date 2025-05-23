@@ -44,7 +44,6 @@ export function ModalRecoveryForm({ isOpen, onClose, onSuccess }: Props) {
 
     const onSubmit = async (data: FormDataFormModalRecovery) => {
         try {
-            // await SchemaFormModalRecovery.validate(data, { abortEarly: false });
             await resetPswProfile({
                 email,
                 ...data,

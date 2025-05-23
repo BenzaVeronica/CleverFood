@@ -42,7 +42,6 @@ export function FormRegistry({ onSuccess }: Props) {
 
     const getProgress = () => {
         const allCount = Object.keys(defaultFormValues).length;
-        console.log(formValues);
         const filled = Object.values(formValues).filter(Boolean).length;
         return Math.round((filled / allCount) * 100);
     };
@@ -65,7 +64,6 @@ export function FormRegistry({ onSuccess }: Props) {
             if (isServerError(err.status)) {
                 dispatch(addError(TOAST_MESSAGE.ServerErrorToast));
             }
-            console.log(err);
 
             if (err.status === 400) {
                 dispatch(addError({ title: err.title, description: '' }));

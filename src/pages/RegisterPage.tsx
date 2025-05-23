@@ -14,8 +14,6 @@ type ModalVariant = ModalsIdEnum | null;
 export function RegisterPage() {
     const [currentModal, setCurrentModal] = useState<ModalVariant>(null);
 
-    console.log(currentModal);
-
     const navigate = useNavigate();
     const openRegistryVerify = () => setCurrentModal(ModalsIdEnum.registryVerify);
     const onClearCurrentModal = () => setCurrentModal(null);
@@ -32,12 +30,10 @@ export function RegisterPage() {
 
             <FormRegistry onSuccess={openRegistryVerify} />
 
-            {/* {!isVerificationPage && ( */}
             <ModalRegistryVerifyInfo
                 isOpen={currentModal === ModalsIdEnum.registryVerify}
                 onClose={navigateToLoginPage}
             />
-            {/* )} */}
 
             <ModalRegistryNonVerify
                 isOpen={currentModal === ModalsIdEnum.registryNonVerify}

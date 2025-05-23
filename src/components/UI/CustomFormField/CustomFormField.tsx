@@ -96,7 +96,6 @@ function CustomFormField<T extends FieldValues>({
                             onMouseLeave={hidePsw}
                             onTouchStart={showPsw}
                             onTouchEnd={hidePsw}
-                            // onClick={() => setShowPassword(!showPassword)}
                         />
                     </InputRightElement>
                 )}

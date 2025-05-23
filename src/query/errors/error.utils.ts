@@ -1,14 +1,9 @@
 import { CustomErrorResponse, CustomErrorStatusResponse } from '../types';
 import { ErrorDescEnum, ErrorStatusMap } from './error.constants';
 
-//NOTE: заменить
-// export const isServerError = (status: number): boolean => {
-//     if(!checkStatusIsNumber(status)) return false
-//     return status >= 500 && status < 600
-// };
 export const isServerError = (status: CustomErrorStatusResponse): boolean => {
     if (!checkStatusIsNumber(status)) return false;
-    return status >= 404 && status < 600;
+    return status >= 500 && status < 600;
 };
 export const getServerInfoError = (
     status: CustomErrorStatusResponse,

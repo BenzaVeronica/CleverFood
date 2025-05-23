@@ -44,9 +44,7 @@ export const FormLogin = () => {
 
     const onSubmit = async (data: FormDataLogin) => {
         try {
-            const res = await login(data).unwrap();
-            console.log(res);
-
+            await login(data).unwrap();
             navigate('/');
         } catch (error) {
             const err = error as CustomErrorResponse;

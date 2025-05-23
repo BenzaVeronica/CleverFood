@@ -39,7 +39,6 @@ export function ModalRecoveryFormEmail({ isOpen, onClose, onSuccess }: Props) {
         resolver: yupResolver(SchemaModalRecoveryForm),
         defaultValues: {
             email: '',
-            // ...getEmptyFilterValues(),
         },
         mode: 'onBlur',
     });

@@ -40,8 +40,6 @@ function LoginPage() {
         }
     }, [location.state, dispatch]);
 
-    console.log(currentModal);
-
     return (
         <LayoutFormWithImg>
             <ErrorNotification />
@@ -69,7 +67,6 @@ function LoginPage() {
                 onSuccess={handleSuccess}
             />
             <ModalRecoveryForm
-                // isOpen={true}
                 isOpen={currentModal === ModalsIdEnum.recoveryForm}
                 onClose={onClearCurrentModal}
                 onSuccess={onClearCurrentModal}
