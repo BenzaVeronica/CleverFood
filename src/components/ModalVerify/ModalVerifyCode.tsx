@@ -93,7 +93,7 @@ export function ModalVerifyCode({ isOpen, onClose, onSuccess }: Props) {
                             <PinInputField
                                 data-test-id={`${TEST_ID.Input.VerificationCode}-${i + 1}`}
                                 key={i}
-                                border={isInvalid ? `1px solid red` : 'none'}
+                                borderColor={isInvalid ? `red` : 'inherit'}
                             />
                         ))}
                     </PinInput>

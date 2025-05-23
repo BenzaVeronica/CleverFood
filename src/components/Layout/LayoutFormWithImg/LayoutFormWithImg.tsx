@@ -26,7 +26,7 @@ export function LayoutFormWithImg({ children, img = bg }: Props) {
                 transform: { base: 'translateX(-50%)', lg: 'translateX(-75%)' },
             }}
         >
-            <Flex h='100vh' zIndex={10} position='relative' justifyContent='space-between'>
+            <Flex h='100vh' position='relative' justifyContent='space-between'>
                 <Flex
                     flexDirection='column'
                     alignItems='center'
@@ -34,22 +34,13 @@ export function LayoutFormWithImg({ children, img = bg }: Props) {
                     pb={{ base: '82px', lg: '138px' }}
                     w='50%'
                     flex='1'
+                    position='relative'
                 >
-                    <Box
-                        w={{ base: '328px', md: '355px', lg: '456px', xl: '461px' }}
-                        // ml={{ base: 'auto', lg: '130px', xl: '256px' }}
-                        // mr='auto'
-                        // mt={{ base: '72px', md: '140px', lg: '170px' }}
-                    >
+                    <Box w={{ base: '328px', md: '355px', lg: '456px', xl: '461px' }}>
                         {children}
                     </Box>
                 </Flex>
-                <Box
-                    display={{ base: 'none', lg: 'block' }}
-                    w='50%'
-                    // w={{ lg: '732px', xl: '978px' }}
-                    h='100vh'
-                >
+                <Box display={{ base: 'none', lg: 'block' }} w='50%' h='100vh'>
                     <Image src={img} alt='AuthBg' w='100%' h='100%' objectFit='cover' />
                 </Box>
             </Flex>

@@ -12,8 +12,8 @@ import {
 } from './FormRegistryStep2.types';
 
 type Props = {
-    onFieldsChange?: (values: Partial<FormFieldsFormRegistryStep2>) => void;
     handleSubmitStep: () => void;
+    onFieldsChange?: (values: Partial<FormFieldsFormRegistryStep2>) => void;
 };
 export function FormRegistryStep2({ onFieldsChange, handleSubmitStep }: Props) {
     const {
