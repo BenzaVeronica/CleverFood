@@ -3,8 +3,8 @@ import { useParams } from 'react-router';
 
 import { useDrawers } from '~/context/DrawerContext';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
-import { selectAllergens, selectRecipeFilter } from '~/store/recipe/recipe-filter-selector';
-import { setAllergens } from '~/store/recipe/recipe-filter-slice';
+import { selectAllergens, selectRecipeFilter } from '~/store/recipe-filter/recipe-filter-selector';
+import { setAllergens } from '~/store/recipe-filter/recipe-filter-slice';
 
 import IconFilter from '../../assets/iconfilter.svg?react';
 import AlergenSwitch from '../AlergenSwitch';

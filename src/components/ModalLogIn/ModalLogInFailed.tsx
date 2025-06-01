@@ -1,5 +1,5 @@
 import img from '~/assets/modals/recoveryDesk.png';
-import { TEST_ID } from '~/test/constant';
+import { TEST_ID } from '~/test/test.constant';
 
 import { CustomModalInfo } from '../UI/CustomModal/CustomModalInfo';
 

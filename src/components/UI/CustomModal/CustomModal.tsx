@@ -1,7 +1,7 @@
 import { Icon, Modal, ModalBody, ModalContent, ModalOverlay } from '@chakra-ui/react';
 import { ReactNode } from 'react';
 
-import { TEST_ID } from '~/test/constant';
+import { TEST_ID } from '~/test/test.constant';
 
 import BsXCircle from '../../../assets/BsXCircle.svg?react';
 import LoaderScreen from '../Loader/LoaderScreen';
@@ -35,7 +35,7 @@ export function CustomModal({ isOpen, onClose, children, dataTestId, isLoading }
                     cursor='pointer'
                 />
 
-                <ModalBody p={0} whiteSpace='pre-line'>
+                <ModalBody p={8} whiteSpace='pre-line'>
                     {children}
                 </ModalBody>
             </ModalContent>

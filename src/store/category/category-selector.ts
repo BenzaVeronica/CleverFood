@@ -10,6 +10,12 @@ export const selectCategoryById = (id: string | null) =>
         return categories.find((el) => el._id === id);
     });
 export const selectSubCategories = (state: ApplicationState) => state.category.subCategories;
+export const selectSubCategoriesOptions = createSelector([selectSubCategories], (subCategories) =>
+    subCategories.map((sub) => ({
+        id: sub._id,
+        label: sub.title,
+    })),
+);
 
 export const selectCategoriesWithSubs = createSelector(
     [

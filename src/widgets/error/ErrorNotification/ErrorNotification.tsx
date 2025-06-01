@@ -10,7 +10,7 @@ import {
 import { useEffect } from 'react';
 
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
-import { TEST_ID } from '~/test/constant';
+import { TEST_ID } from '~/test/test.constant';
 
 import { AlertStatus, removeError } from '../error-slice';
 
@@ -23,7 +23,10 @@ function getColor(status: AlertStatus) {
             return 'red.500';
     }
 }
-export function ErrorNotification() {
+type Props = {
+    isPosition?: boolean;
+};
+export function ErrorNotification({ isPosition }: Props) {
     const dispatch = useAppDispatch();
     const errors = useAppSelector((state) => state.error.list);
 
@@ -44,7 +47,7 @@ export function ErrorNotification() {
     if (!errors.length) return null;
     return (
         <Box
-            position='absolute'
+            position={isPosition ? 'absolute' : 'fixed'}
             bottom={{ base: '100px', lg: '80px' }}
             left='50%'
             transform='translateX(-50%)'
@@ -59,7 +62,7 @@ export function ErrorNotification() {
                         variant='solid'
                         status={err.status}
                         bg={getColor(err.status)}
-                        position='relative'
+                        position={isPosition ? 'relative' : 'initial'}
                     >
                         <AlertIcon />
                         <Box flex='1'>

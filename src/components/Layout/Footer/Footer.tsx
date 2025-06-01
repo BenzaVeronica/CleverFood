@@ -2,6 +2,7 @@ import { Avatar, Flex, SimpleGrid, Text } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useLocation } from 'react-router';
 
+import { PageRoutes } from '~/routes/PageRoutes.constants';
 import { masProfiles } from '~/store/blog/blog.constants';
 
 import { IconHomeCircle } from '../../Icons/IconHomeCircle';
@@ -25,7 +26,7 @@ function Footer() {
         },
         {
             text: 'Записать',
-            link: '/write',
+            link: PageRoutes.RECIPE_CREATE,
             icon: (props) => <IconWriteCircle {...props} />,
         },
         {
@@ -55,6 +56,7 @@ function Footer() {
                 const isActive = location.pathname.startsWith(el.link) || isHovered;
                 return (
                     <Flex
+                        // data-test-id={index === 2 ?""}
                         bg={isActive ? 'limeGradient.70' : ''}
                         key={`Footer_${el.text}${index}`}
                         onMouseEnter={() => setHoveredIndex(index)}

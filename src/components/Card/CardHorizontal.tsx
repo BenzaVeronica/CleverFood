@@ -13,18 +13,19 @@ import { Link } from 'react-router';
 
 import { useCategoryBySubCategoryId } from '~/query/category/category.utils';
 import { useAppSelector } from '~/store/hooks';
-import { recipe } from '~/store/recipe/recipe.types';
-import { selectSearch } from '~/store/recipe/recipe-filter-selector';
+import { Recipe } from '~/store/recipe-filter/recipe.types';
+import { selectSearch } from '~/store/recipe-filter/recipe-filter-selector';
+import { useLikeAndBookmark } from '~/store/recipe-filter/useLikeAndBookmark';
 import useBreakpoints from '~/utils/useBreakpoints';
 
 import Bookmark from '../../assets/iconSMBookmark.svg?react';
 import CardStat from '../CardStat';
 import CategoriesTags from '../CategoriesTags';
-import CustomImage from '../UI/CustomImage/CustomImage';
+import { CustomImage } from '../UI/CustomImage/CustomImage';
 import HighlightText from '../UI/HighlightText';
 
 type Props = {
-    el: recipe;
+    el: Recipe;
     index: number;
     colSpan: GridItemProps['colSpan'];
 };
@@ -34,7 +35,7 @@ function CardHorizontal({ el, index, colSpan }: Props) {
     const { isSearchActive, searchQuery } = useAppSelector(selectSearch);
     const firstSubCategoryId = el.categoriesIds[0];
     const categs = useCategoryBySubCategoryId(firstSubCategoryId);
-
+    const { toggleBookmark } = useLikeAndBookmark(el);
     return (
         <GridItem
             data-test-id={`food-card-${index}`}
@@ -43,20 +44,16 @@ function CardHorizontal({ el, index, colSpan }: Props) {
             borderWidth='1px'
             borderRadius='8px'
             overflow='hidden'
-            h='100%'
             display='flex'
+            height='fit-content'
         >
-            <Box
-                maxW={{ base: '158px', lg: '345px' }}
-                flexShrink={0}
-                overflow='hidden'
-                position='relative'
-            >
+            <Box flexShrink={0} overflow='hidden' position='relative'>
                 <CustomImage
                     src={el.image}
                     alt={el.title}
-                    width='100%'
                     height='100%'
+                    w={{ base: '158px', lg: '345px' }}
+                    maxH='250px'
                     objectFit='cover'
                 />
                 {/* TODO: authorId */}
@@ -128,7 +125,7 @@ function CardHorizontal({ el, index, colSpan }: Props) {
                     <Text
                         userSelect='auto'
                         fontSize='sm'
-                        noOfLines={{ base: undefined, lg: 3 }}
+                        noOfLines={{ base: undefined, md: 3 }}
                         hidden={isTablet}
                     >
                         {el.description}
@@ -136,6 +133,7 @@ function CardHorizontal({ el, index, colSpan }: Props) {
                 </Stack>
                 <Flex gap={2} justifyContent='flex-end' mt={{ base: 5, lg: 0 }}>
                     <Button
+                        onClick={toggleBookmark}
                         display={{ base: 'none', lg: 'flex' }}
                         size='sm'
                         variant='outline'

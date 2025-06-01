@@ -1,11 +1,11 @@
 import { Box, Flex, Tag, Text } from '@chakra-ui/react';
 
-import { recipeStep } from '~/store/recipe/recipe.types';
+import { RecipeStep } from '~/store/recipe-filter/recipe.types';
 
-import CustomImage from '../UI/CustomImage/CustomImage';
+import { CustomImage } from '../UI/CustomImage/CustomImage';
 
 type Props = {
-    el: recipeStep;
+    el: RecipeStep;
     isLast: boolean;
 };
 

@@ -25,7 +25,9 @@ export function getSubCategories(categoriesResponse: AllVariantsCategory[]): Sub
 
 export function useCategoryBySubCategoryId(subCategoryId: string) {
     const { categories, subCategories } = useAppSelector(selectCategoriesWithSubs);
-    return getCategoryBySubCategoryId({ categories, subCategories, subCategoryId });
+    return subCategoryId
+        ? getCategoryBySubCategoryId({ categories, subCategories, subCategoryId })
+        : null;
 }
 export const getCategoryBySubCategoryId: GetCategoryBySubCategoryId = ({
     categories,
@@ -85,7 +87,7 @@ function useCurrentCategories() {
     return {
         currentCategory,
         currentSubcategory,
-        currentRecipe,
+        currentRecipe: currentSubcategory ? currentRecipe : undefined,
         allSubCategories,
     };
 }

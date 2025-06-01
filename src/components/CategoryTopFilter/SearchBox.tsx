@@ -9,7 +9,7 @@ import {
 import { KeyboardEvent, useState } from 'react';
 
 import { useAppSelector } from '~/store/hooks';
-import { selectAllergens, selectRecipeFilter } from '~/store/recipe/recipe-filter-selector';
+import { selectAllergens, selectRecipeFilter } from '~/store/recipe-filter/recipe-filter-selector';
 
 import IconSearch from '../../assets/IconSearch.svg?react';
 

@@ -9,7 +9,7 @@ import { isServerError } from '~/query/errors/error.utils';
 import { CustomErrorResponse } from '~/query/types';
 import { setEmail } from '~/store/auth/auth-slice';
 import { useAppDispatch } from '~/store/hooks';
-import { TEST_ID } from '~/test/constant';
+import { TEST_ID } from '~/test/test.constant';
 import { addError } from '~/widgets/error/error-slice';
 
 import { LoadingScreenError } from '../WithLoadingError/WithLoadingError';

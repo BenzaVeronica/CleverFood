@@ -2,14 +2,14 @@ import { Avatar, Box, Button, Flex, Icon, Stack, Text } from '@chakra-ui/react';
 
 import { profile } from '~/store/blog/blog.types';
 
-import PeopleOutline from '../../assets/iconSMPeopleOutline.svg?react';
-import Subscribe from '../../assets/iconSubscribe.svg?react';
+import Subscribe from '../../assets/user-plus.svg?react';
+import PeopleOutline from '../../assets/users.svg?react';
 
 type Props = {
     profile: profile;
 };
 
-function CardUser(props: Props) {
+export function UserCardGreen(props: Props) {
     return (
         <Flex
             bg='lime.300'
@@ -63,5 +63,3 @@ function CardUser(props: Props) {
         </Flex>
     );
 }
-
-export default CardUser;

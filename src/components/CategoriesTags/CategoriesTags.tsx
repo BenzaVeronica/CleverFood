@@ -4,7 +4,7 @@ import { getUniqueCategoriesBySubCategoryIds } from '~/query/category/category.u
 import { selectCategoriesWithSubs } from '~/store/category/category-selector';
 import { useAppSelector } from '~/store/hooks';
 
-import CustomImage from '../UI/CustomImage/CustomImage';
+import { CustomImage } from '../UI/CustomImage/CustomImage';
 import Tag from '../UI/CustomTag';
 
 type Props = {

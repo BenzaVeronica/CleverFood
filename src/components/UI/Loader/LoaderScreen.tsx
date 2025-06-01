@@ -1,6 +1,6 @@
 import { Box } from '@chakra-ui/react';
 
-import { TEST_ID } from '~/test/constant';
+import { TEST_ID } from '~/test/test.constant';
 
 import Loader from './Loader';
 

@@ -6,7 +6,8 @@ import errorReducer, { errorSlice } from '../widgets/error/error-slice';
 import appReducer, { appSlice } from './app-slice';
 import authReducer, { authSlice } from './auth/auth-slice';
 import categoryReducer, { categorySlice } from './category/category-slice';
-import recipeFilterReducer, { recipeFilterSlice } from './recipe/recipe-filter-slice';
+import recipeFilterReducer, { recipeFilterSlice } from './recipe-filter/recipe-filter-slice';
+import recipeFormReducer, { recipeFormSlice } from './recipe-form/recipe-form-slice';
 const isProduction = false;
 
 const rootReducer = combineReducers({
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
     [authSlice.name]: authReducer,
     [publicApi.reducerPath]: publicApi.reducer,
     [tokenApi.reducerPath]: tokenApi.reducer,
+    [recipeFormSlice.name]: recipeFormReducer,
 });
 
 export type ApplicationState = ReturnType<typeof rootReducer>;

@@ -1,9 +1,9 @@
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
-import { recipe } from '~/store/recipe/recipe.types';
+import { Recipe } from '~/store/recipe-filter/recipe.types';
 
 import { RecipesResponse } from '../recipe/recipe.types';
-import { CustomErrorResponse } from '../types';
+import { CustomErrorResponse, ResponseData } from '../types';
 import { ErrorDescEnum, ErrorStatusMap, ErrorStringStatusMap } from './error.constants';
 import { checkStatusIsNumber, isServerError } from './error.utils';
 
@@ -26,10 +26,7 @@ export const transformErrorResponse = (response: FetchBaseQueryError) => {
     }
     return error;
 };
-type ResponseData = {
-    statusCode: number;
-    message: string;
-};
+
 export const transformErrorWithMessageResponse = (response: FetchBaseQueryError) => {
     if (!response) return;
     const data = response.data as ResponseData;
@@ -47,7 +44,7 @@ export const transformErrorWithMessageResponse = (response: FetchBaseQueryError)
 
 export const transformRecipesProteinsResponse = (response: RecipesResponse) => {
     const transformedRecipes = Array.isArray(response?.data)
-        ? response.data.map((recipe: recipe) => ({
+        ? response.data.map((recipe: Recipe) => ({
               ...recipe,
               nutritionValue: {
                   ...recipe.nutritionValue,
@@ -63,7 +60,7 @@ export const transformRecipesProteinsResponse = (response: RecipesResponse) => {
     };
 };
 
-export const transformRecipeProteinsResponse = (recipe: recipe) => ({
+export const transformRecipeProteinsResponse = (recipe: Recipe) => ({
     ...recipe,
     nutritionValue: {
         ...recipe.nutritionValue,

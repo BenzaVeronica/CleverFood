@@ -3,20 +3,21 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router';
 
 import { ContainerGridLayout } from '~/app/ContainerAppLayout';
-import CardUser from '~/components/Card/CardUser';
-import IngridientsTable from '~/components/IngridientsTable';
 import NewRecipeSlider from '~/components/NewRecipeSlider';
 import NutritionBox from '~/components/NutritionBox';
 import RecipeDescription from '~/components/RecipeDescription';
+import IngridientsTable from '~/components/RecipeIngridientsTable';
 import RecipeSteps from '~/components/RecipeSteps';
 import LoaderScreen from '~/components/UI/Loader/LoaderScreen';
+import { UserCardGreen } from '~/components/UserCard/UserCardGreen';
 import { useGetRecipeByIdQuery } from '~/query/recipe/recipe.api';
-import { useValidateDataOrRedirect } from '~/routes/useValidateDataOrRedirect';
+import { useRedirectInvalidPath } from '~/routes/useRedirectInvalidPath';
 import { masProfiles } from '~/store/blog/blog.constants';
+import ErrorNotification from '~/widgets/error/ErrorNotification';
 
 function RecipePage() {
     const { categoryId, subcategoryId, recipeId } = useParams();
-    useValidateDataOrRedirect();
+    useRedirectInvalidPath();
 
     const { data: currentRecipe, isLoading } = useGetRecipeByIdQuery(recipeId);
 
@@ -27,6 +28,7 @@ function RecipePage() {
     if (isLoading || !currentRecipe) return <LoaderScreen />;
     return (
         <ContainerGridLayout gap={6}>
+            <ErrorNotification />
             <GridItem colSpan={{ base: 4, md: 12 }}>
                 <RecipeDescription item={currentRecipe} />
             </GridItem>
@@ -70,7 +72,7 @@ function RecipePage() {
                 </Stack>
                 <IngridientsTable item={currentRecipe} />
                 <RecipeSteps item={currentRecipe} />
-                <CardUser profile={masProfiles[4]} />
+                <UserCardGreen profile={masProfiles[4]} />
             </GridItem>
             <GridItem colSpan={{ base: 4, md: 12 }}>
                 <NewRecipeSlider />

@@ -1,18 +1,15 @@
-import { Button, Flex, Icon } from '@chakra-ui/react';
+import { Button, Flex, FlexProps, Icon } from '@chakra-ui/react';
 
 import Bookmark from '../../assets/iconSMBookmark.svg?react';
 import Like from '../../assets/iconSMLike.svg?react';
-import People from '../../assets/iconSMPeople.svg?react';
+import People from '../../assets/users-filled.svg?react';
 
-function UserStat() {
+type Props = {
+    flexProps?: FlexProps;
+};
+function UserStat({ flexProps }: Props) {
     return (
-        <Flex
-            pt={{ base: 0, lg: 4 }}
-            px={{ base: 0, lg: 12 }}
-            gap={{ base: 0, lg: 6 }}
-            flexDirection={{ base: 'row', lg: 'column' }}
-            alignItems='center'
-        >
+        <Flex alignItems='center' {...flexProps}>
             <Button
                 px={[2, 4]}
                 fontSize={{ base: '12px', lg: '16px' }}

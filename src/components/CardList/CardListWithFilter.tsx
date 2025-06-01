@@ -1,7 +1,7 @@
 import { GridProps } from '@chakra-ui/react';
 
 import { useGetRecipesQuery } from '~/query/recipe/recipe.api';
-import { useFilterParams } from '~/store/recipe/useFilterParams';
+import { useFilterParams } from '~/store/recipe-filter/useFilterParams';
 
 import CardListPaginated from './CardListPaginated';
 

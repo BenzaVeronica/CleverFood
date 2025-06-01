@@ -14,7 +14,8 @@ import { masProfiles } from '~/store/blog/blog.constants';
 import useBreakpoints from '~/utils/useBreakpoints';
 
 function Header() {
-    const { isTablet } = useBreakpoints();
+    const { isSmallDesktop } = useBreakpoints();
+    // const [isTablet] = useMediaQuery('(max-width: 1440px)');
     const { isAuthenticated } = useAuth();
     const { isOpen, toggleMenu } = useMobileMenu();
     return (
@@ -31,38 +32,44 @@ function Header() {
         >
             <Logo withHiding />
 
-            {!isTablet && <CustomBreadcrumb />}
+            {!isSmallDesktop && <CustomBreadcrumb />}
 
-            {isAuthenticated && !isTablet ? (
-                <UserProfile profile={masProfiles[0]} showOnMobile={false} mr={14} w='432px' />
+            {isAuthenticated && !isSmallDesktop ? (
+                <UserProfile profile={masProfiles[0]} mr={14} w='432px' />
             ) : (
                 <LoginButton />
             )}
-            <Flex mr={5} alignItems='center' display={{ base: 'flex', lg: 'none' }}>
-                {isAuthenticated && !isOpen ? <UserStat /> : <LoginButton />}
-                {isOpen ? (
-                    <Button
-                        data-test-id='close-icon'
-                        onClick={toggleMenu}
-                        colorScheme='lime'
-                        leftIcon={<Icon as={IconClose} boxSize={8} color='gray.700' />}
-                        variant='ghost'
-                        iconSpacing={0}
-                        p={0}
-                    />
-                ) : (
-                    <Button
-                        data-test-id='hamburger-icon'
-                        onClick={toggleMenu}
-                        colorScheme='lime'
-                        leftIcon={<Icon as={IconMenu} boxSize={6} />}
-                        variant='ghost'
-                        iconSpacing={0}
-                        p={0}
-                    />
-                )}
-            </Flex>
-            {isTablet && isOpen && <LeftNavMenu />}
+            {isSmallDesktop && (
+                <Flex
+                    mr={5}
+                    alignItems='center'
+                    // display={{ base: 'flex', lg: 'none' }}
+                >
+                    {isAuthenticated && !isOpen ? <UserStat /> : <LoginButton />}
+                    {isOpen ? (
+                        <Button
+                            data-test-id={isOpen ? 'close-icon' : 'hamburger-icon'}
+                            onClick={toggleMenu}
+                            colorScheme='lime'
+                            leftIcon={<Icon as={IconClose} boxSize={8} color='gray.700' />}
+                            variant='ghost'
+                            iconSpacing={0}
+                            p={0}
+                        />
+                    ) : (
+                        <Button
+                            data-test-id='hamburger-icon'
+                            onClick={toggleMenu}
+                            colorScheme='lime'
+                            leftIcon={<Icon as={IconMenu} boxSize={6} />}
+                            variant='ghost'
+                            iconSpacing={0}
+                            p={0}
+                        />
+                    )}
+                </Flex>
+            )}
+            {isSmallDesktop && isOpen && <LeftNavMenu />}
         </Flex>
     );
 }

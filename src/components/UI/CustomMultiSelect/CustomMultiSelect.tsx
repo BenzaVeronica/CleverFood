@@ -1,6 +1,7 @@
 import { ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons';
 import {
     Button,
+    ButtonProps,
     Checkbox,
     Flex,
     Menu,
@@ -9,7 +10,7 @@ import {
     MenuList as ChakraMenuList,
     Text,
 } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { FilterOptionType } from '~/components/DrawerFilter/DrawerFilter.constants';
 
@@ -20,7 +21,13 @@ type CustomMultiSelectProps = {
     placeholder?: string;
     disabledItems?: string[];
     dataTestId?: string;
+    buttonProps?: ButtonProps;
+    hasError?: boolean;
+    maxLabelWidth?: number;
 };
+
+const MAX_LABEL_WIDTH = 100;
+const GAP = 8;
 
 const CustomMultiSelect = ({
     value = [],
@@ -29,6 +36,9 @@ const CustomMultiSelect = ({
     placeholder = 'Выберите...',
     disabledItems = [],
     dataTestId,
+    buttonProps,
+    hasError,
+    maxLabelWidth = MAX_LABEL_WIDTH,
 }: CustomMultiSelectProps) => {
     const [isOpen, setIsOpen] = useState(false);
 
@@ -44,6 +54,34 @@ const CustomMultiSelect = ({
         .filter((option) => value.includes(option.id))
         .map((option) => option.label);
 
+    const containerRef = useRef<HTMLDivElement | null>(null);
+    const [visibleCount, setVisibleCount] = useState(0);
+    // useEffect(() => {
+    //     if (!containerRef.current) return;
+    //     const containerWidth = containerRef.current.offsetWidth;
+    //     // console.log(containerRef);
+    //     // console.log(containerWidth);
+    //     const visibleCount = Math.floor((containerWidth + GAP) / (maxLabelWidth + GAP));
+    //     setVisibleCount(visibleCount);
+    // }, [containerRef, selectedLabels, maxLabelWidth]);
+    useEffect(() => {
+        if (!containerRef.current) return;
+        const observer = new ResizeObserver((entries) => {
+            for (const entry of entries) {
+                const containerWidth = entry.contentRect.width;
+                const visibleCount = Math.floor((containerWidth + GAP) / (maxLabelWidth + GAP));
+                setVisibleCount(visibleCount);
+            }
+        });
+        observer.observe(containerRef.current);
+        return () => {
+            observer.disconnect();
+        };
+    }, [containerRef, maxLabelWidth]);
+
+    const visibleLabels = selectedLabels.slice(0, visibleCount);
+    const hiddenCount = selectedLabels.length - visibleCount;
+
     return (
         <Menu isOpen={isOpen} onOpen={() => setIsOpen(true)} onClose={() => setIsOpen(false)}>
             <MenuButton
@@ -51,7 +89,8 @@ const CustomMultiSelect = ({
                 as={Button}
                 rightIcon={isOpen ? <ChevronUpIcon /> : <ChevronDownIcon />}
                 color='blackAlpha.700'
-                borderColor='blackAlpha.200'
+                borderColor={hasError ? 'red.500' : 'blackAlpha.200'}
+                borderWidth={hasError ? '2px' : '1px'}
                 size='md'
                 textAlign='left'
                 fontWeight='normal'
@@ -60,10 +99,14 @@ const CustomMultiSelect = ({
                 _expanded={{ bg: 'white', borderColor: 'lime.300' }}
                 height='auto'
                 py='10px'
+                maxH='48px'
+                width='100%'
+                ref={containerRef}
+                {...buttonProps}
             >
                 {selectedLabels.length > 0 ? (
-                    <Flex gap={2} flexWrap='wrap' maxW='100%' maxH='58px' overflowY='hidden'>
-                        {selectedLabels.map((el, index) => (
+                    <Flex gap={2} flexWrap='nowrap' maxW='100%' maxH='19px' overflow='hidden'>
+                        {visibleLabels.map((el, index) => (
                             <Flex
                                 key={index}
                                 borderColor='lime.300'
@@ -76,6 +119,18 @@ const CustomMultiSelect = ({
                                 </Text>
                             </Flex>
                         ))}
+                        {hiddenCount > 0 && (
+                            <Flex
+                                borderColor='lime.300'
+                                borderRadius='6px'
+                                borderWidth='1px'
+                                alignItems='center'
+                                px={2}
+                                py='2px'
+                            >
+                                <Text color='lime.600'>+{hiddenCount}</Text>
+                            </Flex>
+                        )}
                     </Flex>
                 ) : (
                     placeholder

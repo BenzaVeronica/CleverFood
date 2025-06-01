@@ -57,4 +57,38 @@ export const TOAST_MESSAGE = {
         title: 'Ошибка сервера',
         description: 'Попробуйте немного позже',
     },
+    RecipeDraftCreate: {
+        [200]: {
+            title: 'Черновик успешно сохранен',
+            description: '',
+        },
+        [500]: {
+            title: 'Ошибка сервера',
+            description: 'Не удалось сохранить черновик рецепта',
+        },
+    },
+    RecipeCreate: {
+        [200]: {
+            title: 'Рецепт успешно опубликован',
+            description: '',
+        },
+        [409]: {
+            title: 'Ошибка',
+            description: 'Рецепт с таким названием уже существует',
+        },
+        [500]: {
+            title: 'Ошибка сервера',
+            description: 'Попробуйте пока сохранить в черновик',
+        },
+    },
+    RecipeDelete: {
+        [200]: {
+            title: 'Рецепт успешно удален',
+            description: '',
+        },
+        [500]: {
+            title: 'Ошибка сервера',
+            description: 'Не удалось удалить рецепт',
+        },
+    },
 } as const;

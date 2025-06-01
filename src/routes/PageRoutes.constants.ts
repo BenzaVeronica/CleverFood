@@ -5,5 +5,6 @@ export enum PageRoutes {
     REGISTER = '/register',
     RECOVERY = '/recovery',
     REGISTER_VERIFICATION = '/verification',
-    // VERIFY = '/not-found',
+    RECIPE_CREATE = '/new-recipe',
+    RECIPE_EDIT = '/edit-recipe',
 }

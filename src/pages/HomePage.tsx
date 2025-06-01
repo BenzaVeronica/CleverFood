@@ -19,7 +19,7 @@ import { ABOUT_PARAMS, POPULAR_MAIN_PARAMS, SLIDER_PARAMS } from '~/query/recipe
 import { CustomErrorResponse } from '~/query/types';
 import { selectCategoriesWithSubs } from '~/store/category/category-selector';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
-import { selectRecipeFilter } from '~/store/recipe/recipe-filter-selector';
+import { selectRecipeFilter } from '~/store/recipe-filter/recipe-filter-selector';
 import { useAllQueriesFinished } from '~/utils/useAllQueriesFinished';
 import { addError } from '~/widgets/error/error-slice';
 

@@ -10,10 +10,11 @@ import {
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 
-import CustomImage from '~/components/UI/CustomImage/CustomImage';
+import { CustomImage } from '~/components/UI/CustomImage/CustomImage';
 import { useMobileMenu } from '~/context/MobileMenuContext';
 import { useGetNavTreeQuery } from '~/query/category/category.api';
 import { RootCategory } from '~/query/category/category.types';
+import { useAuth } from '~/store/auth/useAuth';
 import { selectCategoriesWithSubs } from '~/store/category/category-selector';
 import { useAppSelector } from '~/store/hooks';
 import useBreakpoints from '~/utils/useBreakpoints';
@@ -36,7 +37,7 @@ function LeftNavMenu() {
             navigate(item.category);
         }
     };
-    const { isTablet } = useBreakpoints();
+    const { isSmallDesktop } = useBreakpoints();
     const { categoryId } = useParams();
     const [activeTabIndex, setActiveTabIndex] = useState<number | null>(null);
     const hasCategories = categories.length > 0;
@@ -51,9 +52,11 @@ function LeftNavMenu() {
     }, [categoryId, categories, hasCategories]);
 
     const { closeMenu } = useMobileMenu();
+    const { logout } = useAuth();
+
     return (
-        <LeftNavMenuWrapper isMobile={isTablet}>
-            {isTablet && <CustomBreadcrumb closeMenu={closeMenu} />}
+        <LeftNavMenuWrapper isMobile={isSmallDesktop}>
+            {isSmallDesktop && <CustomBreadcrumb closeMenu={closeMenu} />}
             <Box overflowY='scroll' flex='1' mr={1} layerStyle='customScroll'>
                 <Accordion
                     allowToggle
@@ -132,7 +135,7 @@ function LeftNavMenu() {
                 </Text>
                 <Flex alignItems='center' as='button'>
                     <IconExit boxSize={3} mr='6px' />
-                    <Text fontSize='xs' fontWeight='600'>
+                    <Text fontSize='xs' fontWeight='600' onClick={logout}>
                         Выйти
                     </Text>
                 </Flex>

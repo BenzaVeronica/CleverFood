@@ -1,6 +1,8 @@
 import { Flex, ResponsiveValue } from '@chakra-ui/react';
 import { Link } from 'react-router';
 
+import { TEST_ID } from '~/test/test.constant';
+
 import { LogoIcon } from '../Icons/LogoIcon';
 import { LogoText } from '../Icons/LogoText';
 
@@ -10,6 +12,7 @@ type Props = {
 };
 export const Logo = ({ h, withHiding = false }: Props) => (
     <Flex
+        data-test-id={TEST_ID.HeaderLogo}
         justifyContent='center'
         alignItems='end'
         px={withHiding ? { base: 5, lg: 4 } : undefined}

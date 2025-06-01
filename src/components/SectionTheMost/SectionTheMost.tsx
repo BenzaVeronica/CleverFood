@@ -2,13 +2,13 @@ import { Box, Button, Flex, Icon, Text } from '@chakra-ui/react';
 import { Link } from 'react-router';
 
 import { PageRoutes } from '~/routes/PageRoutes.constants';
-import { recipe } from '~/store/recipe/recipe.types';
+import { Recipe } from '~/store/recipe-filter/recipe.types';
 
 import ArrowLongRight from '../../assets/iconArrowLongRight.svg?react';
 import CardList from '../CardList';
 
 type Props = {
-    items: recipe[];
+    items: Recipe[];
 };
 
 function SectionTheMost({ items }: Props) {

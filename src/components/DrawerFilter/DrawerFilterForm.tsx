@@ -15,8 +15,8 @@ import { useForm } from 'react-hook-form';
 
 import SelectedTags from '~/components/SelectedTags';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
-import { selectRecipeFilter } from '~/store/recipe/recipe-filter-selector';
-import { resetFilters, setAllFilter } from '~/store/recipe/recipe-filter-slice';
+import { selectRecipeFilter } from '~/store/recipe-filter/recipe-filter-selector';
+import { resetFilters, setAllFilter } from '~/store/recipe-filter/recipe-filter-slice';
 
 import BsFillXCircleFill from '../../assets/BsFillXCircleFill.svg?react';
 import { useFilterConfig } from './DrawerFilter.config';

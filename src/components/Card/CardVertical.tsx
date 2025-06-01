@@ -2,15 +2,15 @@ import { Box, Flex, Text } from '@chakra-ui/react';
 import { Link } from 'react-router';
 
 import { useCategoryBySubCategoryId } from '~/query/category/category.utils';
-import { recipe } from '~/store/recipe/recipe.types';
+import { Recipe } from '~/store/recipe-filter/recipe.types';
 import useBreakpoints from '~/utils/useBreakpoints';
 
 import CardStat from '../CardStat';
 import CategoriesTags from '../CategoriesTags';
-import CustomImage from '../UI/CustomImage/CustomImage';
+import { CustomImage } from '../UI/CustomImage/CustomImage';
 
 type Props = {
-    el: recipe;
+    el: Recipe;
 };
 
 function CardVertical({ el }: Props) {
@@ -20,7 +20,7 @@ function CardVertical({ el }: Props) {
     const categs = useCategoryBySubCategoryId(firstSubCategoryId);
     return (
         <Flex
-            h={{ base: '222px', lg: '414px' }}
+            h={{ base: '222px', lg: '474px' }}
             borderColor='blackAlpha.200'
             borderWidth={1}
             borderRadius='8px'

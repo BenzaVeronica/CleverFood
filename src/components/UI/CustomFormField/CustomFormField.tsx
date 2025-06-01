@@ -11,7 +11,7 @@ import {
 import { useState } from 'react';
 import { FieldError, FieldErrors, FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
-import { TEST_ID } from '~/test/constant';
+import { TEST_ID } from '~/test/test.constant';
 
 import CustomFormInput from '../CustomFormInput';
 

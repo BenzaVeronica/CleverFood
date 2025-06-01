@@ -1,11 +1,11 @@
 import { Flex, Text } from '@chakra-ui/react';
 
-import { recipe } from '~/store/recipe/recipe.types';
+import { Recipe } from '~/store/recipe-filter/recipe.types';
 
 import RecipeStepCard from './RecipeStepCard';
 
 type Props = {
-    item: recipe;
+    item: Recipe;
 };
 
 function RecipeSteps(props: Props) {

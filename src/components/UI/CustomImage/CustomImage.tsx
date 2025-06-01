@@ -6,8 +6,6 @@ type CustomImageProps = {
     src: string;
 } & ImageProps;
 
-function CustomImage({ src, ...rest }: CustomImageProps) {
+export function CustomImage({ src, ...rest }: CustomImageProps) {
     return <Image src={BASE_IMAGE_URL + src} {...rest} />;
 }
-
-export default CustomImage;
