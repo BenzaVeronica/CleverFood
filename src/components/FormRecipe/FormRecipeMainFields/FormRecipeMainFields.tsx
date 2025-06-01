@@ -16,8 +16,6 @@ export const FormRecipeMainFields = ({
     handleChange: (field: keyof RecipeFormDataDraft, value: unknown) => void;
 }) => {
     const subCategories = useAppSelector(selectSubCategoriesOptions);
-    console.log(formData?.categoriesIds);
-
     return (
         <GridItem
             colSpan={{ base: 4, md: 8, lg: 7, xl: 6 }}

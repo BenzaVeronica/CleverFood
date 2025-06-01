@@ -14,17 +14,6 @@ export const measureUnitsApiSlice = tokenApi
     .injectEndpoints({
         endpoints: (builder) => ({
             uploadFile: builder.mutation<File, FormData>({
-                // queryFn: async () => {
-                //     await new Promise(resolve => setTimeout(resolve, 200));
-
-                //     return {
-                //         data: {
-                //             name: "bd9e706e-6d6a-4123-9641-7ea69f7b5c53.jpg",
-                //             url: "/media/images/bd9e706e-6d6a-4123-9641-7ea69f7b5c53.jpg",
-                //             _id: "68323b06b7cf34db7212e244"
-                //         }
-                //     };
-                // },
                 query: (formData) => ({
                     url: `${ApiEndpoints.FILE_UPLOAD}`,
                     method: 'POST',

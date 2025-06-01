@@ -60,7 +60,6 @@ const FormRecipe = ({ initialData, recipeId }: Props) => {
     const [createRecipe, { isLoading: isCreating }] = useCreateRecipeMutation();
     const [createRecipeDraft, { isLoading: isSavingDraft }] = useCreateRecipeDraftMutation();
 
-    // const categs = useCategoryBySubCategoryId(formData?.categoriesIds[0]);
     const { categories, subCategories } = useAppSelector(selectCategoriesWithSubs);
 
     const navigate = useNavigate();
@@ -90,19 +89,15 @@ const FormRecipe = ({ initialData, recipeId }: Props) => {
         e.preventDefault();
         const isValid = await validateWithSchema(recipeSchema, formData);
         if (!isValid) return;
-        // console.log('onSubmit', formData);
-        let result;
         if (!recipeId) {
             try {
-                result = await createRecipe(formData as RecipeFormData).unwrap();
-                // console.log(result);
+                const result = await createRecipe(formData as RecipeFormData).unwrap();
                 dispatch(addSuccess(TOAST_MESSAGE.RecipeCreate[200]));
                 const tree = getCategoryBySubCategoryId({
                     categories,
                     subCategories,
                     subCategoryId: result.categoriesIds[0],
                 });
-                // console.log(`/${tree?.category.category}/${tree?.subCategory.category}/${result._id}`);
                 setIsAllowNavigation(true);
                 resetForm();
                 navigate(`/${tree?.category.category}/${tree?.subCategory.category}/${result._id}`);
@@ -113,22 +108,27 @@ const FormRecipe = ({ initialData, recipeId }: Props) => {
                 }
             }
         } else {
-            result = await updateRecipe({
-                id: recipeId,
-                data: formData as RecipeFormData,
-            }).unwrap();
-            resetForm();
-            setIsAllowNavigation(true);
-            navigate(window.location.pathname.replace(`${PageRoutes.RECIPE_EDIT}`, ''));
+            try {
+                await updateRecipe({
+                    id: recipeId,
+                    data: formData as RecipeFormData,
+                }).unwrap();
+                resetForm();
+                setIsAllowNavigation(true);
+                dispatch(addSuccess(TOAST_MESSAGE.RecipeCreate[200]));
+                navigate(window.location.pathname.replace(`${PageRoutes.RECIPE_EDIT}`, ''));
+            } catch (error) {
+                const err = error as CustomErrorResponse;
+                if (err.status === 409 || err.status === 500) {
+                    dispatch(addError(TOAST_MESSAGE.RecipeCreate[err.status]));
+                }
+            }
         }
-        // console.log('Форма отправлена', result);
     };
 
     const onSaveDraft = async () => {
         try {
             const isValid = await validateWithSchema(baseSchema, formData);
-            // console.log(isValid);
-            // console.log(formData);
             if (!isValid) {
                 throw {
                     title: 'Validation failed',
@@ -137,8 +137,8 @@ const FormRecipe = ({ initialData, recipeId }: Props) => {
             }
             await createRecipeDraft(formData).unwrap();
             setIsAllowNavigation(true);
-            navigate('/');
             dispatch(addSuccess(TOAST_MESSAGE.RecipeDraftCreate[200]));
+            navigate('/', { state: { showNotification: true } });
             return true;
         } catch (error) {
             setIsAllowNavigation(false);
@@ -199,7 +199,6 @@ const FormRecipe = ({ initialData, recipeId }: Props) => {
                     }}
                     ml={{ base: 4, md: 5, lg: 6 }}
                     mr={{ base: 4, md: 5, lg: 6 }}
-                    // gap={{base: 'auto', md: 3, lg: 8}}
                     columnGap={4}
                     rowGap={8}
                 >

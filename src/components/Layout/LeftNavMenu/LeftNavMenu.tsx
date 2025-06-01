@@ -37,7 +37,7 @@ function LeftNavMenu() {
             navigate(item.category);
         }
     };
-    const { isSmallDesktop } = useBreakpoints();
+    const { isTablet } = useBreakpoints();
     const { categoryId } = useParams();
     const [activeTabIndex, setActiveTabIndex] = useState<number | null>(null);
     const hasCategories = categories.length > 0;
@@ -55,8 +55,8 @@ function LeftNavMenu() {
     const { logout } = useAuth();
 
     return (
-        <LeftNavMenuWrapper isMobile={isSmallDesktop}>
-            {isSmallDesktop && <CustomBreadcrumb closeMenu={closeMenu} />}
+        <LeftNavMenuWrapper isMobile={isTablet}>
+            {isTablet && <CustomBreadcrumb closeMenu={closeMenu} />}
             <Box overflowY='scroll' flex='1' mr={1} layerStyle='customScroll'>
                 <Accordion
                     allowToggle

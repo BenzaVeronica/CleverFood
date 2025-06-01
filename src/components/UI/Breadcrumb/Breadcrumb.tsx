@@ -1,5 +1,5 @@
 import { ChevronRightIcon } from '@chakra-ui/icons';
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@chakra-ui/react';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbProps } from '@chakra-ui/react';
 import { Link, useLocation, useParams } from 'react-router';
 
 import useCurrentCategories from '~/query/category/category.utils';
@@ -7,9 +7,10 @@ import { PageRoutes } from '~/routes/PageRoutes.constants';
 
 type Props = {
     closeMenu?: () => void;
+    breadcrumbProps?: BreadcrumbProps;
 };
 
-function CustomBreadcrumb({ closeMenu = () => {} }: Props) {
+function CustomBreadcrumb({ closeMenu = () => {}, breadcrumbProps }: Props) {
     const location = useLocation();
     const { recipeId } = useParams();
     const { currentCategory, currentSubcategory, currentRecipe } = useCurrentCategories();
@@ -23,6 +24,7 @@ function CustomBreadcrumb({ closeMenu = () => {} }: Props) {
             separator={<ChevronRightIcon color='gray.500' />}
             flex={{ base: 'none', lg: '1' }}
             ml={{ base: 0, lg: 28 }}
+            {...breadcrumbProps}
         >
             <BreadcrumbItem>
                 <BreadcrumbLink

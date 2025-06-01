@@ -1,6 +1,7 @@
 import { Flex } from '@chakra-ui/react';
 import { skipToken } from '@reduxjs/toolkit/query';
 import { useEffect, useMemo } from 'react';
+import { useLocation } from 'react-router';
 
 import { ContainerBoxLayout } from '~/app/ContainerAppLayout';
 import CardListWithFilter from '~/components/CardList/CardListWithFilter';
@@ -22,6 +23,7 @@ import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { selectRecipeFilter } from '~/store/recipe-filter/recipe-filter-selector';
 import { useAllQueriesFinished } from '~/utils/useAllQueriesFinished';
 import { addError } from '~/widgets/error/error-slice';
+import ErrorNotification from '~/widgets/error/ErrorNotification';
 
 function HomePage() {
     const dispatch = useAppDispatch();
@@ -59,12 +61,16 @@ function HomePage() {
             });
         }
     }, [isAllLoaded, navTree, slider, popular, about]);
+    const location = useLocation();
+    const showNotification = location.state?.showNotification;
+
     if (!isAllLoaded) {
         return <LoaderScreen />;
     }
 
     return (
         <ContainerBoxLayout>
+            {showNotification && <ErrorNotification />}
             <Flex direction='column' alignItems='center'>
                 <CategoryTopFilter title='Приятного аппетита!' />
             </Flex>

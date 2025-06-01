@@ -1,4 +1,4 @@
-import { Button, Flex, Icon } from '@chakra-ui/react';
+import { Button, Flex, Icon, useMediaQuery } from '@chakra-ui/react';
 
 import IconClose from '~/assets/iconClose.svg?react';
 import IconMenu from '~/assets/iconMenu.svg?react';
@@ -11,13 +11,12 @@ import UserStat from '~/components/UserStat';
 import { useMobileMenu } from '~/context/MobileMenuContext';
 import { useAuth } from '~/store/auth/useAuth';
 import { masProfiles } from '~/store/blog/blog.constants';
-import useBreakpoints from '~/utils/useBreakpoints';
 
 function Header() {
-    const { isSmallDesktop } = useBreakpoints();
-    // const [isTablet] = useMediaQuery('(max-width: 1440px)');
+    const [isTablet] = useMediaQuery('(max-width: 1439px)');
     const { isAuthenticated } = useAuth();
     const { isOpen, toggleMenu } = useMobileMenu();
+
     return (
         <Flex
             data-test-id='header'
@@ -32,44 +31,50 @@ function Header() {
         >
             <Logo withHiding />
 
-            {!isSmallDesktop && <CustomBreadcrumb />}
+            <CustomBreadcrumb
+                breadcrumbProps={{
+                    display: isTablet ? 'none' : 'inline',
+                }}
+            />
 
-            {isAuthenticated && !isSmallDesktop ? (
+            {isAuthenticated && !isTablet ? (
                 <UserProfile profile={masProfiles[0]} mr={14} w='432px' />
             ) : (
                 <LoginButton />
             )}
-            {isSmallDesktop && (
-                <Flex
-                    mr={5}
-                    alignItems='center'
-                    // display={{ base: 'flex', lg: 'none' }}
-                >
-                    {isAuthenticated && !isOpen ? <UserStat /> : <LoginButton />}
-                    {isOpen ? (
-                        <Button
-                            data-test-id={isOpen ? 'close-icon' : 'hamburger-icon'}
-                            onClick={toggleMenu}
-                            colorScheme='lime'
-                            leftIcon={<Icon as={IconClose} boxSize={8} color='gray.700' />}
-                            variant='ghost'
-                            iconSpacing={0}
-                            p={0}
-                        />
-                    ) : (
-                        <Button
-                            data-test-id='hamburger-icon'
-                            onClick={toggleMenu}
-                            colorScheme='lime'
-                            leftIcon={<Icon as={IconMenu} boxSize={6} />}
-                            variant='ghost'
-                            iconSpacing={0}
-                            p={0}
-                        />
-                    )}
-                </Flex>
-            )}
-            {isSmallDesktop && isOpen && <LeftNavMenu />}
+            <Flex
+                mr={5}
+                alignItems='center'
+                style={{
+                    visibility: isTablet ? 'visible' : 'hidden',
+                    width: isTablet ? 'auto' : '0px',
+                }}
+                // display={{ base: 'flex', lg: 'none' }}
+            >
+                {isAuthenticated && !isOpen ? <UserStat /> : <LoginButton />}
+                {isOpen ? (
+                    <Button
+                        data-test-id={isOpen ? 'close-icon' : 'hamburger-icon'}
+                        onClick={toggleMenu}
+                        colorScheme='lime'
+                        leftIcon={<Icon as={IconClose} boxSize={8} color='gray.700' />}
+                        variant='ghost'
+                        iconSpacing={0}
+                        p={0}
+                    />
+                ) : (
+                    <Button
+                        data-test-id='hamburger-icon'
+                        onClick={toggleMenu}
+                        colorScheme='lime'
+                        leftIcon={<Icon as={IconMenu} boxSize={6} />}
+                        variant='ghost'
+                        iconSpacing={0}
+                        p={0}
+                    />
+                )}
+            </Flex>
+            {isTablet && isOpen && <LeftNavMenu />}
         </Flex>
     );
 }
