@@ -26,6 +26,7 @@ import { SubCategoryListItem } from './SubCategoryListItem';
 
 function LeftNavMenu() {
     const navigate = useNavigate();
+    const { closeMenu } = useMobileMenu();
 
     useGetNavTreeQuery();
     const { categories } = useAppSelector(selectCategoriesWithSubs);
@@ -37,7 +38,7 @@ function LeftNavMenu() {
             navigate(item.category);
         }
     };
-    const { isTablet } = useBreakpoints();
+    const { isSmallDesktop } = useBreakpoints();
     const { categoryId } = useParams();
     const [activeTabIndex, setActiveTabIndex] = useState<number | null>(null);
     const hasCategories = categories.length > 0;
@@ -51,12 +52,11 @@ function LeftNavMenu() {
         }
     }, [categoryId, categories, hasCategories]);
 
-    const { closeMenu } = useMobileMenu();
     const { logout } = useAuth();
 
     return (
-        <LeftNavMenuWrapper isMobile={isTablet}>
-            {isTablet && <CustomBreadcrumb closeMenu={closeMenu} />}
+        <LeftNavMenuWrapper isMobile={isSmallDesktop}>
+            {isSmallDesktop && <CustomBreadcrumb closeMenu={closeMenu} />}
             <Box overflowY='scroll' flex='1' mr={1} layerStyle='customScroll'>
                 <Accordion
                     allowToggle

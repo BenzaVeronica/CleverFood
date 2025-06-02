@@ -25,17 +25,20 @@ function Header() {
             left={0}
             zIndex={11}
             w='100%'
-            bg={isOpen ? 'white' : 'lime.50'}
+            bg={isOpen && isTablet ? 'white' : 'lime.50'}
             alignItems='center'
             justifyContent='space-between'
         >
             <Logo withHiding />
 
-            <CustomBreadcrumb
-                breadcrumbProps={{
-                    display: isTablet ? 'none' : 'inline',
-                }}
-            />
+            {!isTablet && (
+                <CustomBreadcrumb
+                    breadcrumbProps={{
+                        display: { base: 'none', lg: 'inline' },
+                        flex: { base: 'none', lg: '1' },
+                    }}
+                />
+            )}
 
             {isAuthenticated && !isTablet ? (
                 <UserProfile profile={masProfiles[0]} mr={14} w='432px' />
