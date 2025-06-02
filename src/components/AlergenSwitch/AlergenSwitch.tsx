@@ -1,8 +1,8 @@
 import { FormControl, FormControlProps, FormLabel, Switch } from '@chakra-ui/react';
 
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
-import { selectDisabledAllergenSwitch } from '~/store/recipe/recipe-filter-selector';
-import { toggleSearchDisabledAllergenSwitch } from '~/store/recipe/recipe-filter-slice';
+import { selectDisabledAllergenSwitch } from '~/store/recipe-filter/recipe-filter-selector';
+import { toggleSearchDisabledAllergenSwitch } from '~/store/recipe-filter/recipe-filter-slice';
 
 import { filterAlergens, FilterOptionType } from '../DrawerFilter/DrawerFilter.constants';
 import CustomMultiSelectWithAdd from '../UI/CustomMultiSelect/CustomMultiSelectWithAdd';

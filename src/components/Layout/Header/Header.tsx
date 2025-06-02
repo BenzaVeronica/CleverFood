@@ -1,4 +1,4 @@
-import { Button, Flex, Icon } from '@chakra-ui/react';
+import { Button, Flex, Icon, useMediaQuery } from '@chakra-ui/react';
 
 import IconClose from '~/assets/iconClose.svg?react';
 import IconMenu from '~/assets/iconMenu.svg?react';
@@ -11,12 +11,12 @@ import UserStat from '~/components/UserStat';
 import { useMobileMenu } from '~/context/MobileMenuContext';
 import { useAuth } from '~/store/auth/useAuth';
 import { masProfiles } from '~/store/blog/blog.constants';
-import useBreakpoints from '~/utils/useBreakpoints';
 
 function Header() {
-    const { isTablet } = useBreakpoints();
+    const [isTablet] = useMediaQuery('(max-width: 1439px)');
     const { isAuthenticated } = useAuth();
     const { isOpen, toggleMenu } = useMobileMenu();
+
     return (
         <Flex
             data-test-id='header'
@@ -25,24 +25,39 @@ function Header() {
             left={0}
             zIndex={11}
             w='100%'
-            bg={isOpen ? 'white' : 'lime.50'}
+            bg={isOpen && isTablet ? 'white' : 'lime.50'}
             alignItems='center'
             justifyContent='space-between'
         >
             <Logo withHiding />
 
-            {!isTablet && <CustomBreadcrumb />}
+            {!isTablet && (
+                <CustomBreadcrumb
+                    breadcrumbProps={{
+                        display: { base: 'none', lg: 'inline' },
+                        flex: { base: 'none', lg: '1' },
+                    }}
+                />
+            )}
 
             {isAuthenticated && !isTablet ? (
-                <UserProfile profile={masProfiles[0]} showOnMobile={false} mr={14} w='432px' />
+                <UserProfile profile={masProfiles[0]} mr={14} w='432px' />
             ) : (
                 <LoginButton />
             )}
-            <Flex mr={5} alignItems='center' display={{ base: 'flex', lg: 'none' }}>
+            <Flex
+                mr={5}
+                alignItems='center'
+                style={{
+                    visibility: isTablet ? 'visible' : 'hidden',
+                    width: isTablet ? 'auto' : '0px',
+                }}
+                // display={{ base: 'flex', lg: 'none' }}
+            >
                 {isAuthenticated && !isOpen ? <UserStat /> : <LoginButton />}
                 {isOpen ? (
                     <Button
-                        data-test-id='close-icon'
+                        data-test-id={isOpen ? 'close-icon' : 'hamburger-icon'}
                         onClick={toggleMenu}
                         colorScheme='lime'
                         leftIcon={<Icon as={IconClose} boxSize={8} color='gray.700' />}

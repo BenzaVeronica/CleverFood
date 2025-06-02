@@ -2,13 +2,13 @@ import { Box, Button, Flex, Grid, GridItem, Stack, Text } from '@chakra-ui/react
 
 import { selectCategoryBySubCategoryId } from '~/store/category/category-selector';
 import { useAppSelector } from '~/store/hooks';
-import { recipe } from '~/store/recipe/recipe.types';
+import { Recipe } from '~/store/recipe-filter/recipe.types';
 
 import CardWithoutImg from '../Card/CardWithoutImg';
-import CustomImage from '../UI/CustomImage/CustomImage';
+import { CustomImage } from '../UI/CustomImage/CustomImage';
 
 type Props = {
-    items: recipe[];
+    items: Recipe[];
     randomSubCategoryId: string | null;
 };
 

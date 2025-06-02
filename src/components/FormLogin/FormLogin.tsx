@@ -9,7 +9,7 @@ import { TOAST_MESSAGE } from '~/query/errors/error.constants';
 import { isServerError } from '~/query/errors/error.utils';
 import { CustomErrorResponse } from '~/query/types';
 import { useAppDispatch } from '~/store/hooks';
-import { TEST_ID } from '~/test/constant';
+import { TEST_ID } from '~/test/test.constant';
 import { addError } from '~/widgets/error/error-slice';
 
 import { ModalLogInFailed } from '../ModalLogIn/ModalLogInFailed';

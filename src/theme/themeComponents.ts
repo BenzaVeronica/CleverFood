@@ -1,4 +1,23 @@
+import { themeBtns } from './themeBtns';
+import { themeInput } from './themeInput';
+
 export const themeComponents = {
+    Input: {
+        variants: themeInput,
+    },
+    Button: {
+        variants: themeBtns,
+    },
+    FormLabel: {
+        variants: {
+            main: {
+                fontSize: 'sm',
+                color: 'black',
+                fontWeight: '600',
+                marginBottom: '0',
+            },
+        },
+    },
     Switch: {
         baseStyle: {
             track: {

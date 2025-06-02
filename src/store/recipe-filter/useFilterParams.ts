@@ -7,7 +7,7 @@ import { RECEPIES_PARAMS } from '~/query/recipe/recipe.constants';
 import { ResponseParams } from '~/query/types';
 import { selectCategories } from '~/store/category/category-selector';
 import { useAppSelector } from '~/store/hooks';
-import { selectRecipeFilter } from '~/store/recipe/recipe-filter-selector';
+import { selectRecipeFilter } from '~/store/recipe-filter/recipe-filter-selector';
 
 export const useFilterParams = () => {
     const { currentCategory, allSubCategories } = useCurrentCategories();

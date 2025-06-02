@@ -1,9 +1,9 @@
-import { Box, Button, Flex, Grid, Icon, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, Grid, GridItem, Icon, Text } from '@chakra-ui/react';
 
 import { masBlogItems } from '~/store/blog/blog.constants';
 
 import ArrowLongRight from '../../assets/iconArrowLongRight.svg?react';
-import Article from '../Article';
+import UserCard from '../UserCard';
 
 function SectionBlog() {
     return (
@@ -41,7 +41,9 @@ function SectionBlog() {
                 gap={{ base: 3, lg: 4 }}
             >
                 {masBlogItems.map((el) => (
-                    <Article item={el} key={`SectionBlog_${el.id}`} />
+                    <GridItem key={`SectionBlog_${el.id}`} as='article' colSpan={4}>
+                        <UserCard item={el} />
+                    </GridItem>
                 ))}
             </Grid>
 

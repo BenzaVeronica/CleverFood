@@ -3,7 +3,8 @@ body {
     width: 100%;
 }
 #root {
-    width: 1920px;
+    /* width: 1920px; */
+    width: 100%;
     margin: 0 auto;
 }
 button {

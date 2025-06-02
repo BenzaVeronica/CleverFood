@@ -4,14 +4,11 @@ import { profile } from '~/store/blog/blog.types';
 
 type Props = {
     profile: profile;
-    showOnMobile?: boolean;
 } & FlexProps;
 
-function UserProfile({ profile, showOnMobile = true, ...flexProps }: Props) {
-    const displayValue = showOnMobile ? 'flex' : { base: 'none', lg: 'flex' };
-
+function UserProfile({ profile, ...flexProps }: Props) {
     return (
-        <Flex gap={3} display={displayValue} alignItems='center' {...flexProps} minW={0}>
+        <Flex gap={3} display='flex' alignItems='center' {...flexProps} minW={0}>
             <Avatar size='md' src={profile.img} name={`${profile.name} ${profile.surname}`} />
             <Box flex='1' minW={0}>
                 <Text fontWeight={500} fontSize='lg' isTruncated>

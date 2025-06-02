@@ -9,7 +9,7 @@ import { useAppSelector } from '~/store/hooks';
 
 import { PageRoutes } from './PageRoutes.constants';
 
-export function useValidateDataOrRedirect() {
+export function useRedirectInvalidPath() {
     const { categoryId, subcategoryId, recipeId } = useParams();
     const navigate = useNavigate();
 
@@ -26,6 +26,7 @@ export function useValidateDataOrRedirect() {
         const isNotValidCat = categoryId && !category;
         const isNotValidSub = subcategoryId && !subcategory;
         const isNotValidRecipe = subcategoryId && !subcategory;
+        // debugger;
         if (isNotValidCat || isNotValidSub || isNotValidRecipe) {
             navigate(PageRoutes.NOT_FOUND, { replace: true });
         }

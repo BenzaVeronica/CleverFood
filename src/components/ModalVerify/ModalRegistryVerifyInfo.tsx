@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 import img from '~/assets/modals/succesDesk.png';
 import { selectAuthEmail } from '~/store/auth/auth-selector';
-import { TEST_ID } from '~/test/constant';
+import { TEST_ID } from '~/test/test.constant';
 
 import { CustomModalInfo } from '../UI/CustomModal/CustomModalInfo';
 

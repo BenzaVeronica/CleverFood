@@ -1,12 +1,12 @@
 import { Button, Grid, GridItem, GridProps } from '@chakra-ui/react';
 
-import { recipe } from '~/store/recipe/recipe.types';
+import { Recipe } from '~/store/recipe-filter/recipe.types';
 
 import CardHorizontal from '../Card/CardHorizontal';
 type Props = {
     dataTestId?: string;
     withButton?: boolean;
-    list: recipe[];
+    list: Recipe[];
     isLoading?: boolean;
     isEnd?: boolean;
     onLoadMore?: () => void;

@@ -2,7 +2,7 @@ import { Box, Button } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 
-import { TEST_ID } from '~/test/constant';
+import { TEST_ID } from '~/test/test.constant';
 
 import CustomFormField from '../../UI/CustomFormField';
 import {

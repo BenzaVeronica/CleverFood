@@ -9,7 +9,7 @@ import { isServerError } from '~/query/errors/error.utils';
 import { CustomErrorResponse } from '~/query/types';
 import { selectAuthEmail } from '~/store/auth/auth-selector';
 import { useAppDispatch } from '~/store/hooks';
-import { TEST_ID } from '~/test/constant';
+import { TEST_ID } from '~/test/test.constant';
 import { addError, addSuccess } from '~/widgets/error/error-slice';
 
 import CustomFormField from '../UI/CustomFormField';
@@ -64,7 +64,7 @@ export function ModalRecoveryForm({ isOpen, onClose, onSuccess }: Props) {
             dataTestId={TEST_ID.Modal.ResetCredentialsModal}
             isLoading={isLoading}
         >
-            <Box as='form' onSubmit={handleSubmit(onSubmit)} noValidate p={8}>
+            <Box as='form' onSubmit={handleSubmit(onSubmit)} noValidate>
                 <Text
                     mb={6}
                     fontSize='2xl'

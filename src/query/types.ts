@@ -1,6 +1,21 @@
 import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
+export type ResponseData = {
+    statusCode: number;
+    message: string;
+};
+
+export type OptionType = {
+    id: string;
+    label: string;
+};
+
+export type MongoEntity = {
+    _id: string;
+    createdAt: string;
+};
+
 export type MetaType = {
     total: number;
     page: number;

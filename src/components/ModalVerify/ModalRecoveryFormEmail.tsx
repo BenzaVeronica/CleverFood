@@ -10,7 +10,7 @@ import { isServerError } from '~/query/errors/error.utils';
 import { CustomErrorResponse } from '~/query/types';
 import { setEmail } from '~/store/auth/auth-slice';
 import { useAppDispatch } from '~/store/hooks';
-import { TEST_ID } from '~/test/constant';
+import { TEST_ID } from '~/test/test.constant';
 import { addError } from '~/widgets/error/error-slice';
 
 import CustomFormField from '../UI/CustomFormField';
@@ -80,7 +80,7 @@ export function ModalRecoveryFormEmail({ isOpen, onClose, onSuccess }: Props) {
             dataTestId={TEST_ID.Modal.SendEmailModal}
             isLoading={isLoading}
         >
-            <Flex flexDirection='column' gap={8} alignItems='center' p={8} textAlign='center'>
+            <Flex flexDirection='column' gap={8} alignItems='center' textAlign='center'>
                 <Image src={img} alt='RegistryVerifyInfo' w={{ base: '108px', lg: '206px' }} />
 
                 <VStack spacing={6} as='form' onSubmit={handleSubmit(onSubmit)} noValidate>

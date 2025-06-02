@@ -2,13 +2,13 @@ import { Box, Flex, GridItem, GridItemProps, Text } from '@chakra-ui/react';
 import { Link } from 'react-router';
 
 import { useCategoryBySubCategoryId } from '~/query/category/category.utils';
-import { recipe } from '~/store/recipe/recipe.types';
+import { Recipe } from '~/store/recipe-filter/recipe.types';
 
 import CardStat from '../CardStat';
 import CategoriesTags from '../CategoriesTags';
 
 type Props = {
-    el: recipe;
+    el: Recipe;
     colSpan: GridItemProps['colSpan'];
 };
 

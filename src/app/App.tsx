@@ -10,7 +10,7 @@ import LeftNavMenu from '~/components/Layout/LeftNavMenu';
 import RightAside from '~/components/Layout/RightAside';
 import { AppProviders } from '~/context/AppContext';
 import { useAppDispatch } from '~/store/hooks';
-import { resetFilters } from '~/store/recipe/recipe-filter-slice';
+import { resetFilters } from '~/store/recipe-filter/recipe-filter-slice';
 import useBreakpoints from '~/utils/useBreakpoints';
 
 function App() {
@@ -48,6 +48,7 @@ function App() {
                     width={{ base: 'calc(100% - 16px)', lg: 'calc(100vw - 256px - 208px)' }}
                     background='white'
                     minH='100vh'
+                    overflowX='hidden'
                 >
                     <Outlet />
                     <Box

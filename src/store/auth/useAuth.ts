@@ -4,16 +4,12 @@ import { useNavigate } from 'react-router';
 import { localStorageData } from '~/localStorage/constants';
 import { getDataFromLocalStorage } from '~/localStorage/localStorage';
 import { useGetCheckAuthQuery } from '~/query/auth/auth.api';
+import { getUserFromJWT } from '~/query/user/getUserFromJWT';
+import { User } from '~/query/user/user.types';
 import { PageRoutes } from '~/routes/PageRoutes.constants';
 
-// type User = {
-//     id: string;
-//     email: string;
-//     role: string;
-// };
-
 type UseAuthReturn = {
-    // user: User | null;
+    user: User | null;
     isAuthenticated: boolean;
     logout: () => void;
 };
@@ -21,7 +17,7 @@ type UseAuthReturn = {
 export function useAuth(): UseAuthReturn {
     const navigate = useNavigate();
 
-    // const [user, setUser] = useState<User | null>(null);
+    const [user, setUser] = useState<User | null>(null);
     const accessToken = getDataFromLocalStorage(localStorageData.access_token);
     const [isAuthenticated, setIsAuthenticated] = useState(Boolean(accessToken));
 
@@ -31,30 +27,33 @@ export function useAuth(): UseAuthReturn {
 
     const logout = useCallback(() => {
         localStorage.removeItem(localStorageData.access_token);
-        // setUser(null);
+        setUser(null);
         setIsAuthenticated(false);
         navigate(PageRoutes.LOGIN);
     }, [navigate]);
 
     useEffect(() => {
         if (!accessToken) {
-            setIsAuthenticated(false);
-            // setUser(null);
+            logout();
             return;
         }
 
-        if (error) {
-            // logout();
-            return;
-        }
+        // if (isTokenExpired(accessToken)) {
+        // if (error) {
+        // logout();
+        //     return;
+        // }
 
-        if (data) {
+        // if (data) {
+        if (accessToken) {
             setIsAuthenticated(true);
+            const user = getUserFromJWT(accessToken);
+            setUser(user);
         }
-    }, [data, error, logout]);
+    }, [data, error, logout, accessToken]);
 
     return {
-        // user,
+        user,
         isAuthenticated,
         logout,
     };

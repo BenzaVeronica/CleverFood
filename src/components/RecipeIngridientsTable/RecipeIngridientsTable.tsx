@@ -9,13 +9,13 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 
-import { recipe } from '~/store/recipe/recipe.types';
+import { Recipe } from '~/store/recipe-filter/recipe.types';
 
 type Props = {
-    item: recipe;
+    item: Recipe;
 };
 
-function IngridientsTable(props: Props) {
+export function RecipeIngridientsTable(props: Props) {
     const [portions, setPortions] = useState(props.item.portions || 1);
     return (
         <Flex direction='column' alignItems='center' justifyContent='space-between'>
@@ -91,5 +91,3 @@ function IngridientsTable(props: Props) {
         </Flex>
     );
 }
-
-export default IngridientsTable;

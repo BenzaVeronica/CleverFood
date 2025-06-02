@@ -1,8 +1,12 @@
 import { useEffect, useState } from 'react';
 
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
-import { selectRecipeFilter } from '~/store/recipe/recipe-filter-selector';
-import { setIsFilter, setSearchActive, setSearchQuery } from '~/store/recipe/recipe-filter-slice';
+import { selectRecipeFilter } from '~/store/recipe-filter/recipe-filter-selector';
+import {
+    setIsFilter,
+    setSearchActive,
+    setSearchQuery,
+} from '~/store/recipe-filter/recipe-filter-slice';
 
 function useSearchFilter() {
     const dispatch = useAppDispatch();

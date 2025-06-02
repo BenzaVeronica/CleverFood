@@ -10,7 +10,7 @@ import {
     ResponseParamsWithId,
 } from '~/query/types';
 import { useAppDispatch } from '~/store/hooks';
-import { recipe } from '~/store/recipe/recipe.types';
+import { Recipe } from '~/store/recipe-filter/recipe.types';
 import { addError } from '~/widgets/error/error-slice';
 import ErrorNotification from '~/widgets/error/ErrorNotification';
 
@@ -42,7 +42,7 @@ function CardListPaginated<P extends ResponseParams | ResponseParamsWithId>({
         page,
     });
 
-    const [recipes, setRecipes] = useState<recipe[]>([]);
+    const [recipes, setRecipes] = useState<Recipe[]>([]);
     const [isEnd, setIsEnd] = useState(false);
     useEffect(() => {
         if (data?.data) {

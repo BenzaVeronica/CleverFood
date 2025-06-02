@@ -2,6 +2,7 @@ import { createBrowserRouter, Navigate } from 'react-router';
 
 import LoginPage from '~/pages/LoginPage';
 import NotFoundPage from '~/pages/NotFoundPage';
+import { RecipeCreateEditPage } from '~/pages/RecipeCreateEditPage.tsx';
 import { RegisterPage } from '~/pages/RegisterPage';
 import TheMostPage from '~/pages/TheMostPage';
 
@@ -50,6 +51,14 @@ export const router = createBrowserRouter([
             {
                 path: ':categoryId/:subcategoryId/:recipeId',
                 element: <RecipePage />,
+            },
+            {
+                path: `${PageRoutes.RECIPE_EDIT}/:categoryId/:subcategoryId/:recipeId`,
+                element: <RecipeCreateEditPage />,
+            },
+            {
+                path: PageRoutes.RECIPE_CREATE,
+                element: <RecipeCreateEditPage />,
             },
         ],
     },

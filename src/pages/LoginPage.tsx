@@ -11,7 +11,7 @@ import { ModalVerifyCode } from '~/components/ModalVerify/ModalVerifyCode';
 import { TOAST_MESSAGE } from '~/query/errors/error.constants';
 import { useAppDispatch } from '~/store/hooks';
 import { ModalsIdEnum } from '~/store/modals/modals.constants';
-import { TEST_ID } from '~/test/constant';
+import { TEST_ID } from '~/test/test.constant';
 import { addSuccess } from '~/widgets/error/error-slice';
 import ErrorNotification from '~/widgets/error/ErrorNotification';
 
@@ -42,7 +42,7 @@ function LoginPage() {
 
     return (
         <LayoutFormWithImg>
-            <ErrorNotification />
+            <ErrorNotification isPosition />
             <HeaderLogoTabs />
             <FormLogin />
             <Text

@@ -9,7 +9,7 @@ import { isCustomErrorResponse, isServerError } from '~/query/errors/error.utils
 import { CustomErrorResponse } from '~/query/types';
 import { selectAuthEmail } from '~/store/auth/auth-selector';
 import { useAppDispatch } from '~/store/hooks';
-import { TEST_ID } from '~/test/constant';
+import { TEST_ID } from '~/test/test.constant';
 import { addError } from '~/widgets/error/error-slice';
 
 import CustomModal from '../UI/CustomModal';
@@ -61,7 +61,7 @@ export function ModalVerifyCode({ isOpen, onClose, onSuccess }: Props) {
             dataTestId={TEST_ID.Modal.VerificationCodeModal}
             isLoading={isLoading}
         >
-            <Flex flexDirection='column' alignItems='center' p={8} textAlign='center'>
+            <Flex flexDirection='column' alignItems='center' textAlign='center'>
                 <Image
                     src={img}
                     alt='RegistryVerifyInfo'

@@ -17,16 +17,16 @@ import useCurrentCategories, {
 import { useGetRecipesBySubcategoryIdQuery } from '~/query/recipe/recipe.api';
 import { ABOUT_PARAMS, RECEPIES_PARAMS } from '~/query/recipe/recipe.constants';
 import { CustomErrorResponse } from '~/query/types';
-import { useValidateDataOrRedirect } from '~/routes/useValidateDataOrRedirect';
+import { useRedirectInvalidPath } from '~/routes/useRedirectInvalidPath';
 import { selectCategoriesWithSubs } from '~/store/category/category-selector';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
-import { selectRecipeFilter } from '~/store/recipe/recipe-filter-selector';
+import { selectRecipeFilter } from '~/store/recipe-filter/recipe-filter-selector';
 import { useAllQueriesFinished } from '~/utils/useAllQueriesFinished';
 import { addError } from '~/widgets/error/error-slice';
 
 function CategoryPage() {
     const navigate = useNavigate();
-    useValidateDataOrRedirect();
+    useRedirectInvalidPath();
     const dispatch = useAppDispatch();
     const { categoryId, subcategoryId } = useParams();
     const navTree = useGetNavTreeQuery();

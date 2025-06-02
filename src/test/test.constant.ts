@@ -5,7 +5,7 @@ export const TEST_ID = {
     AppLoader: 'app-loader',
     SearchBlockLoader: 'loader-search-block',
     Breadcrumbs: 'breadcrumbs',
-
+    HeaderLogo: 'header-logo',
     Progress: {
         SignUp: 'sign-up-progress',
     },
@@ -30,6 +30,9 @@ export const TEST_ID = {
         SendEmailModal: 'send-email-modal',
         VerificationCodeModal: 'verification-code-modal',
         ResetCredentialsModal: 'reset-credentials-modal',
+        RecipeImageModal: 'recipe-image-modal',
+        RecipeImageModalPreviewImage: 'recipe-image-modal-preview-image',
+        PreventiveModal: 'recipe-preventive-modal',
     },
     Button: {
         Submit: 'submit-button',
@@ -78,5 +81,21 @@ export const TEST_ID = {
     },
     Notification: {
         Error: 'error-notification',
+    },
+    Recipe: {
+        Title: 'recipe-title',
+        Description: 'recipe-description',
+        Categories: 'recipe-categories',
+        Time: 'recipe-time',
+        Portions: 'recipe-portions',
+        Form: 'recipe-form',
+        DeleteButton: 'recipe-delete-button',
+        SaveDraftButton: 'recipe-save-draft-button',
+        PublishButton: 'recipe-publish-recipe-button',
+        ImageBlock: 'recipe-image-block',
+        AddRecipeButton: 'add-recipe-button',
+        ImageBlockInputFile: 'recipe-image-block-input-file',
+        ImageBlockPreviewImage: 'recipe-image-block-preview-image',
+        AddIngredientsButton: 'recipe-ingredients-add-ingredients',
     },
 } as const;

@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
-import { selectRecipeFilter } from '~/store/recipe/recipe-filter-selector';
+import { selectRecipeFilter } from '~/store/recipe-filter/recipe-filter-selector';
 
 import {
     removeAllergen,
@@ -7,7 +7,7 @@ import {
     removeCategory,
     removeMeatType,
     removeSideDish,
-} from '../../store/recipe/recipe-filter-slice';
+} from '../../store/recipe-filter/recipe-filter-slice';
 import SelectedTags from './SelectedTags';
 
 const SelectedTagsFromStore = () => {
