@@ -62,24 +62,6 @@ function NewRecipeSlider() {
                         onSwiper={(swiper) => (sliderRef.current = swiper)}
                         grabCursor={true}
                         speed={0}
-                        // breakpoints={{
-                        //     320: {
-                        //         slidesPerView: 2.1,
-                        //         spaceBetween: 12,
-                        //     },
-                        //     768: {
-                        //         slidesPerView: 4.5,
-                        //         spaceBetween: 12,
-                        //     },
-                        //     1440: {
-                        //         slidesPerView: 3.1,
-                        //         spaceBetween: 12,
-                        //     },
-                        //     1920: {
-                        //         slidesPerView: 4,
-                        //         spaceBetween: 24,
-                        //     },
-                        // }}
                     >
                         {data?.data.map((recipe, i) => (
                             <SwiperSlide

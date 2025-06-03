@@ -56,7 +56,6 @@ export function ModalRecoveryFormEmail({ isOpen, onClose, onSuccess }: Props) {
     const [postForgetPswByEmail, { isLoading }] = usePostForgetPswByEmailMutation();
     const onSubmit = async (data: FormDataModalRecoveryForm) => {
         try {
-            // await SchemaModalRecoveryForm.validate(data, { abortEarly: false });
             dispatch(setEmail(data.email));
             await postForgetPswByEmail(data).unwrap();
             onSuccess();
@@ -99,7 +98,6 @@ export function ModalRecoveryFormEmail({ isOpen, onClose, onSuccess }: Props) {
                             register={register}
                             onFieldChange={handleChange}
                             errors={errors}
-                            //   {...register("login")}
                         />
                     </VStack>
 

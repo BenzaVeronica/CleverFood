@@ -17,6 +17,13 @@ function Header() {
     const { isAuthenticated } = useAuth();
     const { isOpen, toggleMenu } = useMobileMenu();
 
+    const buttonTestId = isOpen ? 'close-icon' : 'hamburger-icon';
+    const ButtonIcon = isOpen ? (
+        <Icon as={IconClose} boxSize={8} color='gray.700' />
+    ) : (
+        <Icon as={IconMenu} boxSize={6} />
+    );
+
     return (
         <Flex
             data-test-id='header'
@@ -55,27 +62,15 @@ function Header() {
                 // display={{ base: 'flex', lg: 'none' }}
             >
                 {isAuthenticated && !isOpen ? <UserStat /> : <LoginButton />}
-                {isOpen ? (
-                    <Button
-                        data-test-id={isOpen ? 'close-icon' : 'hamburger-icon'}
-                        onClick={toggleMenu}
-                        colorScheme='lime'
-                        leftIcon={<Icon as={IconClose} boxSize={8} color='gray.700' />}
-                        variant='ghost'
-                        iconSpacing={0}
-                        p={0}
-                    />
-                ) : (
-                    <Button
-                        data-test-id='hamburger-icon'
-                        onClick={toggleMenu}
-                        colorScheme='lime'
-                        leftIcon={<Icon as={IconMenu} boxSize={6} />}
-                        variant='ghost'
-                        iconSpacing={0}
-                        p={0}
-                    />
-                )}
+                <Button
+                    data-test-id={buttonTestId}
+                    onClick={toggleMenu}
+                    colorScheme='lime'
+                    leftIcon={ButtonIcon}
+                    variant='ghost'
+                    iconSpacing={0}
+                    p={0}
+                />
             </Flex>
             {isTablet && isOpen && <LeftNavMenu />}
         </Flex>

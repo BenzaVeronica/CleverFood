@@ -12,11 +12,11 @@ import CustomSelect from '../../UI/CustomSelect';
 type Props = {
     index: number;
     ingredient: Nullable<RecipeIngredients>;
-    errors?: Record<string, string>;
-    onRemove?: () => void;
-    isNew?: boolean;
+    onRemove: () => void;
+    errors: Record<string, string>;
     onChangeIngredient: onChangeNewIngredient;
     handleAdd: () => void;
+    isNew?: boolean;
 };
 export const FormRecipeIngredientItem = ({
     index,
@@ -37,7 +37,6 @@ export const FormRecipeIngredientItem = ({
                     placeholder='Ингредиент'
                     value={ingredient.title || ''}
                     onChange={(e) => onChangeIngredient('title', e.target.value)}
-                    // defaultValue={!isNew ? (ingredient.title ?? '') : undefined}
                 />
             </FormControl>
 
@@ -50,7 +49,6 @@ export const FormRecipeIngredientItem = ({
                     type='number'
                     value={ingredient.count || ''}
                     onChange={(e) => onChangeIngredient?.('count', Number(e.target.value) || null)}
-                    // defaultValue={!isNew ? (ingredient.count ?? '') : undefined}
                     isInvalid={!!errors?.[`ingredients[${index}].count`]}
                 />
             </FormControl>
@@ -80,9 +78,7 @@ export const FormRecipeIngredientItem = ({
                     aria-label='Добавить ингредиент'
                     icon={<IconPlus boxSize={8} />}
                     onClick={handleAdd}
-                    // onClick={() => onChangeIngredient?.('submit', null)}
                     variant='ghost'
-                    // isDisabled={!ingredient.title}
                 />
             )}
         </Flex>

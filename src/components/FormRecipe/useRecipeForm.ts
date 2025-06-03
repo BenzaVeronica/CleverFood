@@ -16,13 +16,7 @@ export const useRecipeForm = (initialData: RecipeFormDataDraft | undefined | nul
     const [formData, setFormData] = useState<RecipeFormDataDraft>(initialData || emptyForm);
     const [errors, setErrors] = useState<Record<string, string>>({});
 
-    // console.log(recipeId);
-    // console.log(initialData);
-    // console.log(formData);
-
     useEffect(() => {
-        // console.log('useEffect');
-
         if (initialData) {
             setFormData(initialData);
         } else {
@@ -82,7 +76,6 @@ export const useRecipeForm = (initialData: RecipeFormDataDraft | undefined | nul
     };
 
     const resetForm = () => {
-        // setFormData(initialData||emptyForm)
         dispatch(resetRecipeForm());
     };
 

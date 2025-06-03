@@ -19,7 +19,6 @@ export const ImageBox = ({
 }: ImageBoxProps) => (
     <Box
         data-test-id={dataTestId}
-        // data-test-id={image ? dataTestIdPreview : dataTestId}
         as={onClick && 'button'}
         type={onClick && 'button'}
         onClick={onClick}

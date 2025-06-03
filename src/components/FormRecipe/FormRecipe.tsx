@@ -15,17 +15,13 @@ import { CustomErrorResponse } from '~/query/types';
 import { PageRoutes } from '~/routes/PageRoutes.constants';
 import { selectCategoriesWithSubs } from '~/store/category/category-selector';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
+import { baseSchema, recipeSchema } from '~/store/recipe-form/recipe-form-schema';
 import { selectIsDirty } from '~/store/recipe-form/recipe-form-selector';
 import { TEST_ID } from '~/test/test.constant';
 import { addError, addSuccess } from '~/widgets/error/error-slice';
 import ErrorNotification from '~/widgets/error/ErrorNotification';
 
-import {
-    baseSchema,
-    RecipeFormData,
-    RecipeFormDataDraft,
-    recipeSchema,
-} from '../../store/recipe-form/recipe-form-types';
+import { RecipeFormData, RecipeFormDataDraft } from '../../store/recipe-form/recipe-form-types';
 import { IconPencil } from '../Icons/IconPencil';
 import { ModalExitSaveNavBlock } from '../ModalExitSave/ModalExitSaveNavBlock';
 import { ModalImageUploader } from '../ModalImageUploader/ModalImageUploader';

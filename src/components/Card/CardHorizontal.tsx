@@ -35,7 +35,7 @@ function CardHorizontal({ el, index, colSpan }: Props) {
     const { isSearchActive, searchQuery } = useAppSelector(selectSearch);
     const firstSubCategoryId = el.categoriesIds[0];
     const categs = useCategoryBySubCategoryId(firstSubCategoryId);
-    const { toggleBookmark } = useLikeAndBookmark(el);
+    const { toggleBookmark } = useLikeAndBookmark(el._id);
     return (
         <GridItem
             data-test-id={`food-card-${index}`}
@@ -136,18 +136,15 @@ function CardHorizontal({ el, index, colSpan }: Props) {
                         onClick={toggleBookmark}
                         display={{ base: 'none', lg: 'flex' }}
                         size='sm'
-                        variant='outline'
-                        colorScheme='black'
-                        color='blackAlpha.800'
+                        variant='btnOutlineBlack'
                         leftIcon={<Icon as={Bookmark} />}
                     >
                         Сохранить
                     </Button>
                     <IconButton
+                        onClick={toggleBookmark}
                         aria-label='Bookmark'
-                        variant='outline'
-                        colorScheme='black'
-                        color='blackAlpha.800'
+                        variant='btnOutlineBlack'
                         size='xs'
                         icon={<Icon as={Bookmark} boxSize={3} />}
                         display={{ base: 'flex', lg: 'none' }}
@@ -155,8 +152,7 @@ function CardHorizontal({ el, index, colSpan }: Props) {
                     <Button
                         data-test-id={`card-link-${index}`}
                         size={{ base: 'xs', lg: 'sm' }}
-                        colorScheme='black'
-                        color='white'
+                        variant='btnMain'
                         as={Link}
                         to={`/${categs?.category?.category}/${categs?.subCategory?.category}/${el._id}`}
                     >

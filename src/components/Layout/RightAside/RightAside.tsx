@@ -11,7 +11,13 @@ import UserStat from '../../UserStat';
 function RightAside() {
     const { isAuthenticated } = useAuth();
 
-    if (!isAuthenticated) return null;
+    const currentPath = window.location.pathname;
+    const isHide =
+        !isAuthenticated ||
+        currentPath.includes(PageRoutes.RECIPE_CREATE) ||
+        currentPath.includes(PageRoutes.RECIPE_EDIT);
+
+    if (isHide) return null;
     return (
         <Flex flexDirection='column' justifyContent='space-between' h='calc(100vh - 80px)'>
             <UserStat

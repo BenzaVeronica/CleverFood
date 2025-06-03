@@ -39,7 +39,7 @@ function LeftNavMenu() {
         }
     };
     const { isSmallDesktop } = useBreakpoints();
-    const { categoryId } = useParams();
+    const { categoryId, subcategoryId } = useParams();
     const [activeTabIndex, setActiveTabIndex] = useState<number | null>(null);
     const hasCategories = categories.length > 0;
     useEffect(() => {
@@ -63,9 +63,9 @@ function LeftNavMenu() {
                     allowMultiple={false}
                     index={activeTabIndex !== null ? [activeTabIndex] : []}
                 >
-                    {categories.map((item, index) => (
+                    {categories.map((item) => (
                         <AccordionItem
-                            key={`LeftNavMenu_${item.category}${index}`}
+                            key={`LeftNavMenu_${item.category}`}
                             border='none'
                             data-test-id={
                                 item.category === 'vegan' ? 'vegan-cuisine' : item.category
@@ -102,11 +102,12 @@ function LeftNavMenu() {
                                     e.stopPropagation();
                                 }}
                             >
-                                {item.subCategories?.map((el, j) => (
+                                {item.subCategories?.map((el) => (
                                     <SubCategoryListItem
-                                        key={`${el.category}${j}`}
+                                        key={`SubCategoryListItem_${el.category}`}
                                         el={el}
                                         onClick={() => navigate(`${item.category}/${el.category}`)}
+                                        isActive={subcategoryId === el.category}
                                     />
                                 ))}
                             </AccordionPanel>

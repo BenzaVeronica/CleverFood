@@ -1,6 +1,6 @@
 import { Avatar, Flex, SimpleGrid, Text } from '@chakra-ui/react';
 import { useState } from 'react';
-import { useLocation } from 'react-router';
+import { Link, useLocation } from 'react-router';
 
 import { PageRoutes } from '~/routes/PageRoutes.constants';
 import { masProfiles } from '~/store/blog/blog.constants';
@@ -56,13 +56,13 @@ function Footer() {
                 const isActive = location.pathname.startsWith(el.link) || isHovered;
                 return (
                     <Flex
-                        // data-test-id={index === 2 ?""}
+                        as={Link}
+                        to={el.link}
                         bg={isActive ? 'limeGradient.70' : ''}
                         key={`Footer_${el.text}${index}`}
                         onMouseEnter={() => setHoveredIndex(index)}
                         onMouseLeave={() => setHoveredIndex(null)}
                         transition='background-color 0.2s'
-                        _hover={{ bg: 'lime.500' }}
                         cursor='pointer'
                         direction='column'
                         alignItems='center'

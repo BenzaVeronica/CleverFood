@@ -22,7 +22,6 @@ function RecipeStepCard(props: Props) {
         >
             <Box
                 maxW={{ base: '158px', lg: '345px' }}
-                // width="55%"
                 flexShrink={0}
                 overflow='hidden'
                 position='relative'

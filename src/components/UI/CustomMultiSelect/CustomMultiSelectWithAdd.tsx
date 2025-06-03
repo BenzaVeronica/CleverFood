@@ -89,7 +89,6 @@ const CustomMultiSelectWithAdd = ({
                                     alignItems='center'
                                 >
                                     <Text color='lime.600' px={2} py='2px'>
-                                        {/* {el.label} */}
                                         {el}
                                     </Text>
                                 </Flex>

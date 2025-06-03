@@ -1,7 +1,7 @@
-import { recipe } from './recipe.types';
+import { Recipe } from './recipe.types';
 import { RecipeFilterState } from './recipe-filter-slice';
 
-export function sortByNewest(recipes: recipe[]): recipe[] {
+export function sortByNewest(recipes: Recipe[]): Recipe[] {
     return [...recipes].sort(
         (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
     );

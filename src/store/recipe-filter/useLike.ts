@@ -15,7 +15,6 @@ export function useLike(recipeId: string | undefined) {
             await likeRecipeBy(recipeId).unwrap();
         } catch (error) {
             const err = error as CustomErrorResponse;
-            // if (isServerError(err.status)) {
             if (err) {
                 dispatch(addError(TOAST_MESSAGE.ServerErrorToast));
             }

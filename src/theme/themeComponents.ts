@@ -97,7 +97,6 @@ export const themeComponents = {
                 tab: {
                     fontSize: 'inherit',
                     color: 'lime.800!important',
-                    // borderColor: 'blackAlpha.200',
                     borderBottom: '0',
                     marginBottom: '1px',
                     _selected: {

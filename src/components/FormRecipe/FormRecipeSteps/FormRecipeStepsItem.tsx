@@ -12,8 +12,8 @@ type StepItemProps = {
     step: Nullable<RecipeStep> & {
         id?: string;
     };
-    onRemove?: () => void;
-    errors?: Record<string, string>;
+    onRemove: () => void;
+    errors: Record<string, string>;
     isNew?: boolean;
     descriptionValue?: string;
     onDescriptionChange?: (index: number, value: string) => void;
@@ -48,7 +48,7 @@ export function FormRecipeStepsItem({
                             {isNew ? 'Шаг 1' : `Шаг ${index + 1}`}
                         </Tag>
 
-                        {!isNew && onRemove && index !== 0 && (
+                        {!isNew && index && (
                             <IconButton
                                 data-test-id={`recipe-steps-remove-button-${index}`}
                                 size='xs'

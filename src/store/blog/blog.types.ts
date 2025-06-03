@@ -1,12 +1,12 @@
 export type blogItem = {
-    id: number;
+    id: string;
     text: string;
     profile: profile;
     // like: number | null,
     // bookmarks: number | null,
 };
 export type profile = {
-    id: number;
+    id: string;
     name: string;
     surname: string;
     username: string;

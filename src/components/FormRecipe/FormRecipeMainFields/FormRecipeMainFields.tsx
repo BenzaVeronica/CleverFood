@@ -6,15 +6,13 @@ import { selectSubCategoriesOptions } from '~/store/category/category-selector';
 import { useAppSelector } from '~/store/hooks';
 import { RecipeFormDataDraft } from '~/store/recipe-form/recipe-form-types';
 import { TEST_ID } from '~/test/test.constant';
-export const FormRecipeMainFields = ({
-    formData,
-    errors,
-    handleChange,
-}: {
+
+type Props = {
     formData: RecipeFormDataDraft;
     errors: Record<string, string>;
     handleChange: (field: keyof RecipeFormDataDraft, value: unknown) => void;
-}) => {
+};
+export const FormRecipeMainFields = ({ formData, errors, handleChange }: Props) => {
     const subCategories = useAppSelector(selectSubCategoriesOptions);
     return (
         <GridItem

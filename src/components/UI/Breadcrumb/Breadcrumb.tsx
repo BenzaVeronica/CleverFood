@@ -7,7 +7,7 @@ import { PageRoutes } from '~/routes/PageRoutes.constants';
 
 type Props = {
     closeMenu?: () => void;
-    breadcrumbProps?: BreadcrumbProps;
+    breadcrumbProps?: Partial<BreadcrumbProps>;
 };
 
 function CustomBreadcrumb({ closeMenu = () => {}, breadcrumbProps }: Props) {
@@ -19,7 +19,6 @@ function CustomBreadcrumb({ closeMenu = () => {}, breadcrumbProps }: Props) {
     return (
         <Breadcrumb
             data-test-id='breadcrumbs'
-            // flexWrap={{ base: 'wrap', lg: 'nowrap' }}
             display={{ base: 'inline', lg: 'block' }}
             separator={<ChevronRightIcon color='gray.500' />}
             flex={{ base: 'none', lg: '1' }}

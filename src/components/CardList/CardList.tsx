@@ -4,18 +4,18 @@ import { Recipe } from '~/store/recipe-filter/recipe.types';
 
 import CardHorizontal from '../Card/CardHorizontal';
 type Props = {
+    list: Recipe[];
     dataTestId?: string;
     withButton?: boolean;
-    list: Recipe[];
     isLoading?: boolean;
     isEnd?: boolean;
     onLoadMore?: () => void;
 } & GridProps;
 
 function CardList({
+    list,
     dataTestId,
     withButton,
-    list,
     isLoading = false,
     isEnd = false,
     onLoadMore,
