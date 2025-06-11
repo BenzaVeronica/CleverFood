@@ -12,9 +12,7 @@ type Props = {
 function RecipeStepCard(props: Props) {
     return (
         <Flex
-            borderColor='blackAlpha.200'
-            borderWidth='1px'
-            borderRadius='8px'
+            layerStyle='card'
             overflow='hidden'
             w='100%'
             display='flex'

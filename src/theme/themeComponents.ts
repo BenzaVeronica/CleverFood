@@ -7,6 +7,9 @@ export const themeComponents = {
     },
     Button: {
         variants: themeBtns,
+        baseStyle: {
+            lineHeight: '1',
+        },
     },
     FormLabel: {
         variants: {

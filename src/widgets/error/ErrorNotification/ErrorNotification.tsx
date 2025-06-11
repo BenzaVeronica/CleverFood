@@ -66,8 +66,10 @@ export function ErrorNotification({ isPosition }: Props) {
                     >
                         <AlertIcon />
                         <Box flex='1'>
-                            <AlertTitle>{err.title}</AlertTitle>
-                            <AlertDescription>{err.description}</AlertDescription>
+                            <AlertTitle data-test-id={TEST_ID.Error.title}>{err.title}</AlertTitle>
+                            <AlertDescription data-test-id={TEST_ID.Error.description}>
+                                {err.description}
+                            </AlertDescription>
                         </Box>
                         <CloseButton
                             data-test-id='close-alert-button'

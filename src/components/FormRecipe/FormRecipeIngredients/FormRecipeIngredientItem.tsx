@@ -1,9 +1,11 @@
 import { Flex, FormControl, IconButton, Input } from '@chakra-ui/react';
 
+import { ACCESSIBILITY } from '~/app/accessibility.constants';
 import { IconTrash } from '~/components/Icons/Trash';
 import { useGetAllMeasureUnitsQuery } from '~/query/measureUnits/measureUnits.api';
 import { RecipeIngredients } from '~/store/recipe-filter/recipe.types';
 import { TEST_ID } from '~/test/test.constant';
+import { HEIGHT_HEADER } from '~/theme/ui.constants';
 
 import { Nullable, onChangeNewIngredient } from '../../../store/recipe-form/recipe-form-types';
 import { IconPlus } from '../../Icons/IconPlus';
@@ -53,7 +55,7 @@ export const FormRecipeIngredientItem = ({
                 />
             </FormControl>
 
-            <FormControl w={{ base: 'calc(100% - 80px - 40px - 30px)', md: 'full' }}>
+            <FormControl w={{ base: `calc(100% - ${HEIGHT_HEADER} - 40px - 30px)`, md: 'full' }}>
                 <CustomSelect
                     data-test-id={`recipe-ingredients-measureUnit-${index}`}
                     hasError={!!errors?.[`ingredients[${index}].measureUnit`]}
@@ -67,7 +69,7 @@ export const FormRecipeIngredientItem = ({
             {!isNew ? (
                 <IconButton
                     data-test-id={`recipe-ingredients-remove-ingredients-${index}`}
-                    aria-label='Удалить ингредиент'
+                    aria-label={ACCESSIBILITY.ingredients.delete}
                     icon={<IconTrash />}
                     onClick={onRemove}
                     variant='ghost'
@@ -75,7 +77,7 @@ export const FormRecipeIngredientItem = ({
             ) : (
                 <IconButton
                     data-test-id={TEST_ID.Recipe.AddIngredientsButton}
-                    aria-label='Добавить ингредиент'
+                    aria-label={ACCESSIBILITY.ingredients.add}
                     icon={<IconPlus boxSize={8} />}
                     onClick={handleAdd}
                     variant='ghost'

@@ -1,2 +1,2 @@
-import CustomBreadcrumb from './Breadcrumb';
+import { CustomBreadcrumb } from './Breadcrumb';
 export default CustomBreadcrumb;

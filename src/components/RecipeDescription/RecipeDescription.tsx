@@ -13,6 +13,10 @@ import {
 } from '@chakra-ui/react';
 import { useNavigate, useParams } from 'react-router';
 
+import { ACCESSIBILITY } from '~/app/accessibility.constants';
+import BsAlarm from '~/assets/BsAlarm.svg?react';
+import Bookmark from '~/assets/iconSMBookmark.svg?react';
+import Like from '~/assets/iconSMLike.svg?react';
 import { TOAST_MESSAGE } from '~/query/errors/error.constants';
 import { isServerError } from '~/query/errors/error.utils';
 import { useDeleteRecipeMutation } from '~/query/recipe/recipe.api';
@@ -25,9 +29,6 @@ import { useLikeAndBookmark } from '~/store/recipe-filter/useLikeAndBookmark';
 import { TEST_ID } from '~/test/test.constant';
 import { addError, addSuccess } from '~/widgets/error/error-slice';
 
-import BsAlarm from '../../assets/BsAlarm.svg?react';
-import Bookmark from '../../assets/iconSMBookmark.svg?react';
-import Like from '../../assets/iconSMLike.svg?react';
 import CardStat from '../CardStat';
 import CategoriesTags from '../CategoriesTags';
 import { IconPencil } from '../Icons/IconPencil';
@@ -139,6 +140,7 @@ function RecipeDescription(props: Props) {
                                     colorScheme='black'
                                     color='blackAlpha.600'
                                     leftIcon={<Icon as={Like} color='blackAlpha.800' />}
+                                    aria-label={ACCESSIBILITY.recipe.like}
                                 >
                                     Оценить рецепт
                                 </Button>
@@ -147,6 +149,7 @@ function RecipeDescription(props: Props) {
                                     size={{ base: 'xs', lg: 'sm', xl: 'lg' }}
                                     bg='lime.400'
                                     leftIcon={<Icon as={Bookmark} color='blackAlpha.800' />}
+                                    aria-label={ACCESSIBILITY.recipe.bookmark}
                                 >
                                     Сохранить в закладки
                                 </Button>
@@ -155,16 +158,17 @@ function RecipeDescription(props: Props) {
                             <>
                                 <IconButton
                                     data-test-id={TEST_ID.Recipe.DeleteButton}
-                                    aria-label='Удалить рецепт'
                                     variant='ghost'
                                     icon={<IconTrash color='black' />}
                                     onClick={handleDeleteRecipe}
+                                    aria-label={ACCESSIBILITY.recipe.delete}
                                 />
                                 <Button
                                     onClick={handleEditRecipe}
                                     size={{ base: 'xs', lg: 'sm', xl: 'lg' }}
                                     variant='btnOutlineBlack'
                                     leftIcon={<IconPencil fill='black' />}
+                                    aria-label={ACCESSIBILITY.recipe.edit}
                                 >
                                     Редактировать рецепт
                                 </Button>

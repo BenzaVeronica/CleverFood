@@ -43,8 +43,7 @@ export const baseQueryWithReauth: BaseQueryFn<
 > = async (args, api, extraOptions) => {
     let result = await baseQueryWithToken(args, api, extraOptions);
 
-    // if (result.error?.status === 401 || result.error?.status === 403) {
-    if (result.error?.status === 401) {
+    if (result.error?.status === 401 || result.error?.status === 403) {
         if (isRefreshing) {
             try {
                 await new Promise<void>((resolve) => {

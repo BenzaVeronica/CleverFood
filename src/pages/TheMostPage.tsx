@@ -3,7 +3,7 @@ import { skipToken } from '@reduxjs/toolkit/query';
 import { useEffect, useMemo } from 'react';
 
 import { ContainerBoxLayout } from '~/app/ContainerAppLayout';
-import CardListPaginated from '~/components/CardList/CardListPaginated';
+import CardListQueryPaginated from '~/components/CardList/CardListQueryPaginated';
 import CategoryTopFilter from '~/components/CategoryTopFilter';
 import SectionAbout from '~/components/SectionAbout';
 import LoaderScreen from '~/components/UI/Loader/LoaderScreen';
@@ -58,7 +58,7 @@ function TheMostPage() {
             <Flex direction='column' alignItems='center'>
                 <CategoryTopFilter title='Самое сочное' />
             </Flex>
-            <CardListPaginated
+            <CardListQueryPaginated
                 queryHook={useGetRecipesQuery}
                 queryParams={POPULAR_PARAMS}
                 dataTestId='load-more-button'

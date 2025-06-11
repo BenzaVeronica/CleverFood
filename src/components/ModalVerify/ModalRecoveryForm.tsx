@@ -5,12 +5,11 @@ import { useSelector } from 'react-redux';
 
 import { useResetPasswordMutation } from '~/query/auth/auth.api';
 import { TOAST_MESSAGE } from '~/query/errors/error.constants';
-import { isServerError } from '~/query/errors/error.utils';
-import { CustomErrorResponse } from '~/query/types';
 import { selectAuthEmail } from '~/store/auth/auth-selector';
 import { useAppDispatch } from '~/store/hooks';
 import { TEST_ID } from '~/test/test.constant';
-import { addError, addSuccess } from '~/widgets/error/error-slice';
+import { useGeneralServerError } from '~/utils/useGeneralServerError';
+import { addSuccess } from '~/widgets/error/error-slice';
 
 import CustomFormField from '../UI/CustomFormField';
 import CustomModal from '../UI/CustomModal';
@@ -42,6 +41,7 @@ export function ModalRecoveryForm({ isOpen, onClose, onSuccess }: Props) {
     const email = useSelector(selectAuthEmail);
     const [resetPswProfile, { isLoading }] = useResetPasswordMutation();
 
+    const { handleServerError } = useGeneralServerError();
     const onSubmit = async (data: FormDataFormModalRecovery) => {
         try {
             await resetPswProfile({
@@ -51,10 +51,7 @@ export function ModalRecoveryForm({ isOpen, onClose, onSuccess }: Props) {
             onSuccess();
             dispatch(addSuccess(TOAST_MESSAGE.RestoreCredentials[200]));
         } catch (error) {
-            const err = error as CustomErrorResponse;
-            if (isServerError(err.status)) {
-                dispatch(addError(TOAST_MESSAGE.ServerErrorToast));
-            }
+            handleServerError(error);
         }
     };
     return (

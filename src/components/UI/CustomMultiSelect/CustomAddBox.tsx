@@ -1,6 +1,7 @@
 import { Box, IconButton, Input, InputGroup, InputRightElement } from '@chakra-ui/react';
 import { useEffect, useRef, useState } from 'react';
 
+import { ACCESSIBILITY } from '~/app/accessibility.constants';
 import FillCirclePlus from '~/assets/FillCirclePlus.svg?react';
 import { FilterOptionType } from '~/components/DrawerFilter/DrawerFilter.constants';
 
@@ -67,7 +68,7 @@ const CustomAddBox = ({
                 <InputRightElement>
                     <IconButton
                         data-test-id={isFilterDataTestId ? 'add-allergen-button' : ''}
-                        aria-label='add'
+                        aria-label={ACCESSIBILITY.controls.add}
                         bg='white'
                         size='xs'
                         onClick={handleAddCustom}

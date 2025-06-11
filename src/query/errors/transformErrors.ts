@@ -3,8 +3,9 @@ import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { Recipe } from '~/store/recipe-filter/recipe.types';
 
 import { RecipesResponse } from '../recipe/recipe.types';
-import { CustomErrorResponse, ResponseData } from '../types';
-import { ErrorDescEnum, ErrorStatusMap, ErrorStringStatusMap } from './error.constants';
+import { ResponseData } from '../types';
+import { ErrorStringStatusMap, TOAST_MESSAGE } from './error.constants';
+import { CustomErrorResponse } from './error.type';
 import { checkStatusIsNumber, isServerError } from './error.utils';
 
 export const transformErrorResponse = (response: FetchBaseQueryError) => {
@@ -16,10 +17,11 @@ export const transformErrorResponse = (response: FetchBaseQueryError) => {
     };
     if (checkStatusIsNumber(response.status)) {
         if (isServerError(response.status)) {
-            error.title = ErrorStatusMap[500];
-            error.message = ErrorDescEnum.LATER;
+            error.title = TOAST_MESSAGE.ServerErrorToast.title;
+            error.message = TOAST_MESSAGE.ServerErrorToast.description;
         } else {
-            error.title = ErrorStatusMap[response.status] || ErrorStatusMap[0];
+            error.title = TOAST_MESSAGE.ClientErrorToast.title;
+            error.message = TOAST_MESSAGE.ClientErrorToast.description;
         }
     } else {
         error.title = ErrorStringStatusMap[response.status];
@@ -36,8 +38,8 @@ export const transformErrorWithMessageResponse = (response: FetchBaseQueryError)
         message: '',
     };
     if (isServerError(error.status)) {
-        error.title = ErrorStatusMap[500];
-        error.message = ErrorDescEnum.LATER;
+        error.title = TOAST_MESSAGE.ServerErrorToast.title;
+        error.message = TOAST_MESSAGE.ServerErrorToast.description;
     }
     return error;
 };

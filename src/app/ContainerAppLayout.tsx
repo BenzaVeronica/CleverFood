@@ -1,11 +1,24 @@
-import { Box, BoxProps, Grid, GridItemProps, GridProps } from '@chakra-ui/react';
+import {
+    Box,
+    BoxProps,
+    Grid,
+    GridItemProps,
+    GridProps,
+    useBreakpointValue,
+} from '@chakra-ui/react';
 import { Children, cloneElement, isValidElement, ReactNode } from 'react';
+
+import { HEIGHT_HEADER, HEIGHT_HEADER_TABLET } from '~/theme/ui.constants';
 
 type Props = {
     children: ReactNode;
 } & GridProps;
 
 export const ContainerGridLayout = ({ children, ...gridProps }: Props) => {
+    const headerHeight = useBreakpointValue({
+        base: HEIGHT_HEADER_TABLET,
+        md: HEIGHT_HEADER,
+    });
     const validatedChildren = Children.map(children, (child) => {
         if (isValidElement<GridItemProps>(child)) {
             return cloneElement(child, {
@@ -23,6 +36,7 @@ export const ContainerGridLayout = ({ children, ...gridProps }: Props) => {
             ml={{ base: 4, md: 5, lg: 6 }}
             mr={{ base: 4, md: 5, lg: '72px' }}
             gap={{ base: 4, lg: 4, xl: 6 }}
+            minHeight={`calc(100vh - ${headerHeight})`}
             {...gridProps}
         >
             {validatedChildren}

@@ -4,3 +4,7 @@ export type User = {
     //     email: string;
     //     role: string;
 };
+export type SubscriptionRequest = {
+    fromUserId: string;
+    toUserId: string;
+};

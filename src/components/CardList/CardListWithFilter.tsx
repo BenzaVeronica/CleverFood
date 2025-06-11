@@ -3,7 +3,7 @@ import { GridProps } from '@chakra-ui/react';
 import { useGetRecipesQuery } from '~/query/recipe/recipe.api';
 import { useFilterParams } from '~/store/recipe-filter/useFilterParams';
 
-import CardListPaginated from './CardListPaginated';
+import CardListQueryPaginated from './CardListQueryPaginated';
 
 type Props = {
     dataTestId?: string;
@@ -12,7 +12,7 @@ type Props = {
 function CardListWithFilter({ dataTestId, ...gridProps }: Props) {
     const filterParams = useFilterParams();
     return (
-        <CardListPaginated
+        <CardListQueryPaginated
             queryHook={useGetRecipesQuery}
             queryParams={filterParams}
             {...gridProps}

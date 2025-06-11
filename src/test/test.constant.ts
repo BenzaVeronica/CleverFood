@@ -63,6 +63,7 @@ export const TEST_ID = {
         ErrorHomePage: 'error-page-go-home',
     },
     Drawer: {
+        FilterCloseBtn: 'close-filter-drawer',
         Filter: 'filter-drawer',
     },
     Card: {
@@ -98,4 +99,55 @@ export const TEST_ID = {
         ImageBlockPreviewImage: 'recipe-image-block-preview-image',
         AddIngredientsButton: 'recipe-ingredients-add-ingredients',
     },
+    Bloggers: {
+        // main page
+        MainPageBlogsBox: 'main-page-blogs-box',
+        MainPageBlogsButton: 'main-page-blogs-button',
+        MainPageBlogsGrid: 'main-page-blogs-grid',
+        BlogsCard: 'blogs-card',
+        BlogsCardName: 'blogs-card-name',
+        BlogsCardLogin: 'blogs-card-login',
+        BlogsCardNotesText: 'blogs-card-notes-text',
+        BlogsCardNewRecipesBadge: 'blogs-card-new-recipes-badge',
+        BlogsCardRecipesButton: 'blogs-card-recipes-button',
+        BlogsCardNotesButton: 'blogs-card-notes-button',
+        RecipeCardList: 'recipe-card-list',
+        BlogNotesBox: 'blog-notes-box',
+
+        // blogs page
+        BlogsFavoritesBox: 'blogs-favorites-box',
+        BlogsFavoritesGrid: 'blogs-favorites-grid',
+        BlogsOthersBox: 'blogs-others-box',
+        BlogsOthersGrid: 'blogs-others-grid',
+        BlogsOthersButton: 'blogs-others-button',
+        BlogToggleSubscribe: 'blog-toggle-subscribe',
+        BlogToggleUnsubscribe: 'blog-toggle-unsubscribe',
+
+        // blogger profile
+        BloggerUserInfoBox: 'blogger-user-info-box',
+        BloggerUserInfoName: 'blogger-user-info-name',
+        BloggerUserInfoLogin: 'blogger-user-info-login',
+
+        BloggerFollowersCount: 'blogger-followers-count',
+        BloggerFollowersBookmarks: 'blogger-followers-bookmarks',
+
+        BloggerUserNotesCount: 'blogger-user-notes-count',
+        BloggerUserNotesGrid: 'blogger-user-notes-grid',
+        BloggerUserNotesButton: 'blogger-user-notes-button',
+
+        BloggerUserOtherBlogsButton: 'blogger-user-other-blogs-button',
+        BloggerUserOtherBlogsGrid: 'blogger-user-other-blogs-grid',
+        BloggerUserBreadcrumbName: 'blogger-user-breadcrumb-name',
+        BloggerUserBreadcrumbSection: 'blogger-user-breadcrumb-section',
+        NotesCardDate: 'notes-card-date',
+        NotesCardText: 'notes-card-text',
+
+        BlogTooltip: 'blog-tooltip',
+        MobileLoader: 'mobile-loader',
+    },
+    Error: {
+        title: 'error-notification-title',
+        description: 'error-notification-description',
+    },
 } as const;
+// 682b5e30b7cf34db7212d8c4

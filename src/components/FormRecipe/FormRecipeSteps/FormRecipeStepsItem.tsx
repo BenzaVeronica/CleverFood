@@ -1,5 +1,6 @@
 import { Box, Flex, FormControl, IconButton, Tag, Textarea } from '@chakra-ui/react';
 
+import { ACCESSIBILITY } from '~/app/accessibility.constants';
 import { IconTrash } from '~/components/Icons/Trash';
 import { BASE_IMAGE_URL } from '~/query/api.constants';
 import { RecipeStep } from '~/store/recipe-filter/recipe.types';
@@ -52,7 +53,7 @@ export function FormRecipeStepsItem({
                             <IconButton
                                 data-test-id={`recipe-steps-remove-button-${index}`}
                                 size='xs'
-                                aria-label='Удалить шаг'
+                                aria-label={ACCESSIBILITY.controls.delete}
                                 icon={<IconTrash />}
                                 onClick={onRemove}
                                 variant='ghost'

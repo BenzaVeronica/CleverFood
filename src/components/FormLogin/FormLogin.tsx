@@ -6,8 +6,9 @@ import { useNavigate } from 'react-router';
 
 import { useLoginMutation } from '~/query/auth/auth.api';
 import { TOAST_MESSAGE } from '~/query/errors/error.constants';
+import { CustomErrorResponse } from '~/query/errors/error.type';
 import { isServerError } from '~/query/errors/error.utils';
-import { CustomErrorResponse } from '~/query/types';
+import { setWasLoggedIn } from '~/store/auth/auth-slice';
 import { useAppDispatch } from '~/store/hooks';
 import { TEST_ID } from '~/test/test.constant';
 import { addError } from '~/widgets/error/error-slice';
@@ -45,6 +46,7 @@ export const FormLogin = () => {
     const onSubmit = async (data: FormDataLogin) => {
         try {
             await login(data).unwrap();
+            dispatch(setWasLoggedIn(true));
             navigate('/');
         } catch (error) {
             const err = error as CustomErrorResponse;

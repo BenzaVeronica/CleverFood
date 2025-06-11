@@ -1,15 +1,19 @@
 import { Avatar, Box, Button, Flex, Icon, Stack, Text } from '@chakra-ui/react';
+import { useState } from 'react';
 
-import { profile } from '~/store/blog/blog.types';
+import { GetBloggerByIdResponse } from '~/query/blogs/blogs.type';
 
-import Subscribe from '../../assets/user-plus.svg?react';
 import PeopleOutline from '../../assets/users.svg?react';
+import CustomSubscribeButton from '../../widgets/CustomSubscribeButton';
+import Loader from '../UI/Loader';
 
 type Props = {
-    profile: profile;
+    profile: GetBloggerByIdResponse;
 };
 
 export function UserCardGreen(props: Props) {
+    // const transformBlogger = transformBloggerToProfile(props.profile);
+    const [isLoadingSubscribe, setIsLoadingSubscribe] = useState(false);
     return (
         <Flex
             bg='lime.300'
@@ -20,19 +24,21 @@ export function UserCardGreen(props: Props) {
             gap={{ base: 2, md: 4 }}
             position='relative'
         >
+            {isLoadingSubscribe && <Loader />}
             <Avatar
                 size='xl'
-                src={props.profile.img}
-                name={`${props.profile.name} ${props.profile.surname}`}
+                // src={props.profile.img}
+                name={`${props.profile.bloggerInfo.firstName} ${props.profile.bloggerInfo.lastName}`}
             />
             <Stack flex='1'>
                 <Flex justifyContent='space-between' alignItems='start'>
                     <Box>
                         <Text fontSize={{ base: 'lg', xl: '2xl' }} fontWeight={600} isTruncated>
-                            {props.profile.name} {props.profile.surname}
+                            {props.profile.bloggerInfo.firstName}{' '}
+                            {props.profile.bloggerInfo.lastName}
                         </Text>
                         <Text fontSize='sm' color='blackAlpha.700'>
-                            {props.profile.username}
+                            @{props.profile.bloggerInfo.login}
                         </Text>
                     </Box>
                     <Text
@@ -45,9 +51,11 @@ export function UserCardGreen(props: Props) {
                     </Text>
                 </Flex>
                 <Flex justifyContent='space-between' alignItems='center'>
-                    <Button size='sm' colorScheme='black' leftIcon={<Icon as={Subscribe} />}>
-                        Подписаться
-                    </Button>
+                    <CustomSubscribeButton
+                        isSubscribe={props.profile.isFavorite}
+                        userId={props.profile.bloggerInfo._id}
+                        onLoadingChange={setIsLoadingSubscribe}
+                    />
                     <Button
                         px={[2, 4]}
                         h='24px'
@@ -56,7 +64,7 @@ export function UserCardGreen(props: Props) {
                         colorScheme='lime'
                         variant='ghost'
                     >
-                        {props.profile.statistics?.views}
+                        {props.profile.totalSubscribers}
                     </Button>
                 </Flex>
             </Stack>

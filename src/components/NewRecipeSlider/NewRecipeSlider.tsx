@@ -6,6 +6,7 @@ import type { Swiper as SwiperType } from 'swiper';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import { ACCESSIBILITY } from '~/app/accessibility.constants';
 import { useGetRecipesQuery } from '~/query/recipe/recipe.api';
 import { SLIDER_PARAMS } from '~/query/recipe/recipe.constants';
 
@@ -39,7 +40,7 @@ function NewRecipeSlider() {
                 <Box w={{ base: 'calc(100% + 15px)', md: 'auto' }}>
                     <IconButton
                         data-test-id='carousel-back'
-                        aria-label='prev'
+                        aria-label={ACCESSIBILITY.controls.prev}
                         bg='black'
                         color='white'
                         _hover={{ bg: 'gray.800' }}
@@ -75,7 +76,7 @@ function NewRecipeSlider() {
                     </Swiper>
                     <IconButton
                         data-test-id='carousel-forward'
-                        aria-label='next'
+                        aria-label={ACCESSIBILITY.controls.next}
                         bg='black'
                         color='white'
                         _hover={{ bg: 'gray.800' }}

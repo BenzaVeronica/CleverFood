@@ -2,7 +2,7 @@ export enum ApiEndpoints {
     // HEALTH = '/health',
     RECIPE = '/recipe',
     RECIPE_CATEGORY = '/recipe/category',
-    // RECIPE_USER = '/recipe/user',
+    RECIPE_USER = '/recipe/user',
     RECIPE_DRAFT = '/recipe/draft',
     CATEGORY = '/category',
     // FILE = '/file',
@@ -16,5 +16,7 @@ export enum ApiEndpoints {
     AUTH_VERIFY_OTP = '/auth/verify-otp',
     AUTH_RESET_PASSWORD = '/auth/reset-password',
     // USERS = '/users',
+    USERS_TOGGLE_SUBSCRIPTION = '/users/toggle-subscription',
+    BLOGGERS = '/bloggers',
     MEASURE_UNITS = '/measure-units',
 }

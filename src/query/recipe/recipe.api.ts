@@ -13,7 +13,12 @@ import {
     transformRecipeProteinsResponse,
     transformRecipesProteinsResponse,
 } from '../errors/transformErrors';
-import { ResponseData, ResponseParamsOrNull, ResponseParamsWithId } from '../types';
+import {
+    RequestParamsUserId,
+    ResponseData,
+    ResponseParamsOrNull,
+    ResponseParamsWithId,
+} from '../types';
 import { DEFAULT_PARAMS } from './recipe.constants';
 import {
     invalidateRecipeListTags,
@@ -23,7 +28,12 @@ import {
     providesRecipeTagById,
     providesRecipeTags,
 } from './recipe.tags';
-import { RecipeBookmarksResponse, RecipeLikeResponse, RecipesResponse } from './recipe.types';
+import {
+    RecipeBookmarksResponse,
+    RecipeLikeResponse,
+    RecipesByUserIdResponse,
+    RecipesResponse,
+} from './recipe.types';
 
 export const recipesApiSlice = tokenApi
     .enhanceEndpoints({
@@ -142,6 +152,16 @@ export const recipesApiSlice = tokenApi
                 }),
                 invalidatesTags: invalidateRecipeTags,
             }),
+            getRecipesByUserId: builder.query<RecipesByUserIdResponse, RequestParamsUserId>({
+                query: ({ userId }) => ({
+                    url: `${ApiEndpoints.RECIPE_USER}/${userId}`,
+                    method: 'GET',
+                    apiGroupName: ApiGroupNames.RECIPE,
+                    name: EndpointNames.GET_RECIPES_BY_USER,
+                }),
+                transformErrorResponse: transformErrorResponse,
+                // providesTags: providesRecipeTags,
+            }),
         }),
     });
 
@@ -149,6 +169,7 @@ export const {
     useGetRecipesQuery,
     useGetRecipesBySubcategoryIdQuery,
     useGetRecipeByIdQuery,
+    useGetRecipesByUserIdQuery,
     useCreateRecipeMutation,
     useUpdateRecipeMutation,
     useDeleteRecipeMutation,

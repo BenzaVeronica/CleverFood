@@ -14,6 +14,7 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 
+import { ACCESSIBILITY } from '~/app/accessibility.constants';
 import { FilterOptionType } from '~/components/DrawerFilter/DrawerFilter.constants';
 
 import CustomAddBox from './CustomAddBox';
@@ -101,7 +102,7 @@ const CustomMultiSelectWithAdd = ({
                 {selectedOptions.length > 0 && (
                     <InputRightElement>
                         <IconButton
-                            aria-label='clear'
+                            aria-label={ACCESSIBILITY.controls.clear}
                             icon={<CloseIcon boxSize='10px' />}
                             size='md'
                             variant='ghost'

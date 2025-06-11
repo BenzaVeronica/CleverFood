@@ -7,6 +7,11 @@ import { themeCustomScroll } from './themeCustomScroll';
 const theme = extendTheme({
     layerStyles: {
         customScroll: themeCustomScroll,
+        card: {
+            borderColor: 'blackAlpha.200',
+            borderWidth: '1px',
+            borderRadius: '8px',
+        },
     },
     global: {
         '.search-container:has(input:focus)': {
@@ -75,6 +80,6 @@ const theme = extendTheme({
         },
     },
     components: themeComponents,
-});
+} as const);
 
 export default theme;

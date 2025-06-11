@@ -7,4 +7,10 @@ export enum PageRoutes {
     REGISTER_VERIFICATION = '/verification',
     RECIPE_CREATE = '/new-recipe',
     RECIPE_EDIT = '/edit-recipe',
+    BLOGS = '/blogs',
+    // PROFILE = 'profile',
+    // SETTINGS = 'settings',
+}
+export enum PageRoutesHash {
+    NOTES = 'notes',
 }

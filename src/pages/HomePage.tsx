@@ -1,7 +1,6 @@
 import { Flex } from '@chakra-ui/react';
 import { skipToken } from '@reduxjs/toolkit/query';
 import { useEffect, useMemo } from 'react';
-import { useLocation } from 'react-router';
 
 import { ContainerBoxLayout } from '~/app/ContainerAppLayout';
 import CardListWithFilter from '~/components/CardList/CardListWithFilter';
@@ -15,9 +14,9 @@ import WithLoadingError from '~/components/WithLoadingError';
 import { useGetNavTreeQuery } from '~/query/category/category.api';
 import { getRandomSubCategoryId } from '~/query/category/category.utils';
 import { ErrorDescEnum } from '~/query/errors/error.constants';
+import { CustomErrorResponse } from '~/query/errors/error.type';
 import { useGetRecipesBySubcategoryIdQuery, useGetRecipesQuery } from '~/query/recipe/recipe.api';
 import { ABOUT_PARAMS, POPULAR_MAIN_PARAMS, SLIDER_PARAMS } from '~/query/recipe/recipe.constants';
-import { CustomErrorResponse } from '~/query/types';
 import { selectCategoriesWithSubs } from '~/store/category/category-selector';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { selectRecipeFilter } from '~/store/recipe-filter/recipe-filter-selector';
@@ -61,8 +60,8 @@ function HomePage() {
             });
         }
     }, [isAllLoaded, navTree, slider, popular, about]);
-    const location = useLocation();
-    const showNotification = location.state?.showNotification;
+    // const location = useLocation();
+    // const showNotification = location.state?.showNotification;
 
     if (!isAllLoaded) {
         return <LoaderScreen />;
@@ -70,7 +69,8 @@ function HomePage() {
 
     return (
         <ContainerBoxLayout>
-            {showNotification && <ErrorNotification />}
+            {/* {showNotification && <ErrorNotification />} */}
+            <ErrorNotification />
             <Flex direction='column' alignItems='center'>
                 <CategoryTopFilter title='Приятного аппетита!' />
             </Flex>
@@ -91,7 +91,7 @@ function HomePage() {
                         <SectionTheMost items={popular.data?.data || []} />
                     </WithLoadingError>
 
-                    <SectionBlog />
+                    <SectionBlog colorMain />
 
                     <WithLoadingError
                         isLoading={about.isLoading}

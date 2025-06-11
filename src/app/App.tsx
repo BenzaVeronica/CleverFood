@@ -11,6 +11,12 @@ import RightAside from '~/components/Layout/RightAside';
 import { AppProviders } from '~/context/AppContext';
 import { useAppDispatch } from '~/store/hooks';
 import { resetFilters } from '~/store/recipe-filter/recipe-filter-slice';
+import {
+    HEIGHT_FOOTER,
+    HEIGHT_HEADER,
+    WIDTH_LEFT_MENU,
+    WIDTH_RIGHT_ASIDE,
+} from '~/theme/ui.constants';
 import useBreakpoints from '~/utils/useBreakpoints';
 
 function App() {
@@ -33,7 +39,7 @@ function App() {
                     background='white'
                     w={64}
                     overflow='auto'
-                    height='calc(100vh - 80px)'
+                    height={`calc(100vh - ${HEIGHT_HEADER})`}
                     zIndex={1}
                     pt={6}
                     boxShadow='0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12)'
@@ -44,8 +50,11 @@ function App() {
                 <Box
                     ml={{ base: 0, lg: 64 }}
                     pt={{ base: 16, lg: 20 }}
-                    pb={{ base: '84px', lg: '0' }}
-                    width={{ base: 'calc(100% - 16px)', lg: 'calc(100vw - 256px - 208px)' }}
+                    pb={{ base: HEIGHT_FOOTER, lg: '0' }}
+                    width={{
+                        base: 'calc(100% - 16px)',
+                        lg: `calc(100vw - ${WIDTH_LEFT_MENU} - ${WIDTH_RIGHT_ASIDE})`,
+                    }}
                     background='white'
                     minH='100vh'
                     overflowX='hidden'

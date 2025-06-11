@@ -11,6 +11,7 @@ import {
 } from '@chakra-ui/react';
 import { Link } from 'react-router';
 
+import { ACCESSIBILITY } from '~/app/accessibility.constants';
 import { useCategoryBySubCategoryId } from '~/query/category/category.utils';
 import { useAppSelector } from '~/store/hooks';
 import { Recipe } from '~/store/recipe-filter/recipe.types';
@@ -40,9 +41,7 @@ function CardHorizontal({ el, index, colSpan }: Props) {
         <GridItem
             data-test-id={`food-card-${index}`}
             colSpan={colSpan}
-            borderColor='blackAlpha.200'
-            borderWidth='1px'
-            borderRadius='8px'
+            layerStyle='card'
             overflow='hidden'
             display='flex'
             height='fit-content'
@@ -138,16 +137,17 @@ function CardHorizontal({ el, index, colSpan }: Props) {
                         size='sm'
                         variant='btnOutlineBlack'
                         leftIcon={<Icon as={Bookmark} />}
+                        aria-label={ACCESSIBILITY.recipe.bookmark}
                     >
                         Сохранить
                     </Button>
                     <IconButton
                         onClick={toggleBookmark}
-                        aria-label='Bookmark'
                         variant='btnOutlineBlack'
                         size='xs'
                         icon={<Icon as={Bookmark} boxSize={3} />}
                         display={{ base: 'flex', lg: 'none' }}
+                        aria-label={ACCESSIBILITY.recipe.bookmark}
                     />
                     <Button
                         data-test-id={`card-link-${index}`}
@@ -155,6 +155,7 @@ function CardHorizontal({ el, index, colSpan }: Props) {
                         variant='btnMain'
                         as={Link}
                         to={`/${categs?.category?.category}/${categs?.subCategory?.category}/${el._id}`}
+                        aria-label={ACCESSIBILITY.nav.recipe}
                     >
                         Готовить
                     </Button>

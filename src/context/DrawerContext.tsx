@@ -44,3 +44,8 @@ export const useDrawers = (): DrawerContextType => {
     }
     return context;
 };
+
+export type DrawerProps = {
+    isOpen: boolean;
+    onClose: () => void;
+};

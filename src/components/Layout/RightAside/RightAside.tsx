@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import { PageRoutes } from '~/routes/PageRoutes.constants';
 import { useAuth } from '~/store/auth/useAuth';
 import { TEST_ID } from '~/test/test.constant';
+import { HEIGHT_HEADER, WIDTH_RIGHT_ASIDE } from '~/theme/ui.constants';
 
 import { IconWriteCircle } from '../../Icons/IconWriteCircle';
 import UserStat from '../../UserStat';
@@ -19,7 +20,11 @@ function RightAside() {
 
     if (isHide) return null;
     return (
-        <Flex flexDirection='column' justifyContent='space-between' h='calc(100vh - 80px)'>
+        <Flex
+            flexDirection='column'
+            justifyContent='space-between'
+            h={`calc(100vh - ${HEIGHT_HEADER})`}
+        >
             <UserStat
                 flexProps={{
                     flexDirection: { base: 'row', lg: 'column' },
@@ -30,7 +35,7 @@ function RightAside() {
             />
             <Flex
                 data-test-id={TEST_ID.Recipe.AddRecipeButton}
-                h='208px'
+                h={WIDTH_RIGHT_ASIDE}
                 bg='limeGradient.70'
                 alignItems='center'
                 justifyContent='center'

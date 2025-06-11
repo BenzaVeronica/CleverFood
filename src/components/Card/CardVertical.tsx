@@ -21,9 +21,7 @@ function CardVertical({ el }: Props) {
     return (
         <Flex
             h={{ base: '222px', lg: '474px' }}
-            borderColor='blackAlpha.200'
-            borderWidth={1}
-            borderRadius='8px'
+            layerStyle='card'
             width={{ base: '156px', lg: '278px', xl: '322px' }}
             flexShrink={0}
             display='flex'

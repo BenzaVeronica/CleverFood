@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router';
 
 import { PageRoutes } from '~/routes/PageRoutes.constants';
 import { masProfiles } from '~/store/blog/blog.constants';
+import { HEIGHT_FOOTER } from '~/theme/ui.constants';
 
 import { IconHomeCircle } from '../../Icons/IconHomeCircle';
 import { IconSearchCircle } from '../../Icons/IconSearchCircle';
@@ -47,7 +48,7 @@ function Footer() {
             bottom='0'
             left='0'
             right='0'
-            height='84px'
+            height={HEIGHT_FOOTER}
             display={{ base: 'grid', lg: 'none' }}
             zIndex={7}
         >

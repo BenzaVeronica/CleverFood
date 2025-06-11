@@ -11,6 +11,7 @@ import {
 import { useState } from 'react';
 import { FieldError, FieldErrors, FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
+import { ACCESSIBILITY } from '~/app/accessibility.constants';
 import { TEST_ID } from '~/test/test.constant';
 
 import CustomFormInput from '../CustomFormInput';
@@ -63,6 +64,9 @@ function CustomFormField<T extends FieldValues>({
         inputProps.onBlur?.(e);
     };
     const fieldError = errors?.[name] as FieldError | undefined;
+    const accessibilityPsw = showPassword
+        ? ACCESSIBILITY.forms.psw_hide
+        : ACCESSIBILITY.forms.psw_show;
 
     return (
         <FormControl mb={mb} isInvalid={!!fieldError} isRequired={isRequired}>
@@ -88,7 +92,7 @@ function CustomFormField<T extends FieldValues>({
                     <InputRightElement w={12} h={12}>
                         <IconButton
                             data-test-id={TEST_ID.Button.PasswordVisibility}
-                            aria-label={showPassword ? 'Скрыть пароль' : 'Показать пароль'}
+                            aria-label={accessibilityPsw}
                             icon={showPassword ? <ViewOffIcon /> : <ViewIcon />}
                             variant='ghost'
                             onMouseDown={showPsw}

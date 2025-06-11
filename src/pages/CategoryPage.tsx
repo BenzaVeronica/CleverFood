@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 
 import { ContainerGridLayout } from '~/app/ContainerAppLayout';
-import CardListPaginated from '~/components/CardList/CardListPaginated';
+import CardListQueryPaginated from '~/components/CardList/CardListQueryPaginated';
 import CardListWithFilter from '~/components/CardList/CardListWithFilter';
 import CategoryTopFilter from '~/components/CategoryTopFilter';
 import SectionAbout from '~/components/SectionAbout';
@@ -148,7 +148,7 @@ function CategoryPage() {
                                     key={`CategoryPage_TabPanel_${el._id}`}
                                 >
                                     {currentSubcategory && (
-                                        <CardListPaginated
+                                        <CardListQueryPaginated
                                             queryHook={useGetRecipesBySubcategoryIdQuery}
                                             queryParams={{
                                                 id: currentSubcategory._id,
