@@ -6,4 +6,5 @@ export enum ApiGroupNames {
     AUTH = 'auth',
     USERS = 'users',
     MEASURE_UNITS = 'measure-units',
+    BLOGGERS = 'bloggers',
 }

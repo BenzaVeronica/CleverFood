@@ -6,8 +6,8 @@ import { useForm } from 'react-hook-form';
 import img from '~/assets/modals/recoveryDesk.png';
 import { usePostForgetPswByEmailMutation } from '~/query/auth/auth.api';
 import { TOAST_MESSAGE } from '~/query/errors/error.constants';
+import { CustomErrorResponse } from '~/query/errors/error.type';
 import { isServerError } from '~/query/errors/error.utils';
-import { CustomErrorResponse } from '~/query/types';
 import { setEmail } from '~/store/auth/auth-slice';
 import { useAppDispatch } from '~/store/hooks';
 import { TEST_ID } from '~/test/test.constant';
@@ -56,7 +56,6 @@ export function ModalRecoveryFormEmail({ isOpen, onClose, onSuccess }: Props) {
     const [postForgetPswByEmail, { isLoading }] = usePostForgetPswByEmailMutation();
     const onSubmit = async (data: FormDataModalRecoveryForm) => {
         try {
-            // await SchemaModalRecoveryForm.validate(data, { abortEarly: false });
             dispatch(setEmail(data.email));
             await postForgetPswByEmail(data).unwrap();
             onSuccess();
@@ -99,7 +98,6 @@ export function ModalRecoveryFormEmail({ isOpen, onClose, onSuccess }: Props) {
                             register={register}
                             onFieldChange={handleChange}
                             errors={errors}
-                            //   {...register("login")}
                         />
                     </VStack>
 

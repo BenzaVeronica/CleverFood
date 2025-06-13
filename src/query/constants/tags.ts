@@ -5,5 +5,6 @@ export enum Tags {
     FILE = 'file',
     AUTH = 'auth',
     USERS = 'users',
+    BLOGGER = 'blogger',
     MEASURE_UNITS = 'measure-units',
 }

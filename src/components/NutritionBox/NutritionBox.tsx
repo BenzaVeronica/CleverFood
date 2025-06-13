@@ -6,7 +6,7 @@ type Props = {
     text: string;
 };
 
-function NutritionBox(props: Props) {
+export function NutritionBox(props: Props) {
     return (
         <Flex
             w='100%'
@@ -42,5 +42,3 @@ function NutritionBox(props: Props) {
         </Flex>
     );
 }
-
-export default NutritionBox;

@@ -7,7 +7,7 @@ export enum EndpointNames {
     CREATE_RECIPE_DRAFT = 'createRecipeDraft',
     UPDATE_RECIPE = 'updateRecipe',
     DELETE_RECIPE = 'deleteRecipe',
-    // GET_RECIPES_BY_USER = 'getRecipeByUserId',
+    GET_RECIPES_BY_USER = 'getRecipeByUserId',
     LIKE_RECIPE = 'likeRecipeBy',
     BOOKMARK_RECIPE = 'bookmarkRecipeBy',
 
@@ -25,5 +25,9 @@ export enum EndpointNames {
     RESET_PASSWORD = 'resetPassword',
 
     // USERS = 'users',
+    USERS_TOGGLE_SUBSCRIPTION = 'toggleSubscription',
     GET_MEASURE_UNITS = 'getAllMeasureUnits',
+
+    GET_BLOGGERS = 'getAllBloggers',
+    GET_BLOGGER_BY_ID = 'getBloggerById',
 }

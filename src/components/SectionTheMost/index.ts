@@ -1,2 +1,2 @@
-import SectionTheMost from './SectionTheMost';
+import { SectionTheMost } from './SectionTheMost';
 export default SectionTheMost;

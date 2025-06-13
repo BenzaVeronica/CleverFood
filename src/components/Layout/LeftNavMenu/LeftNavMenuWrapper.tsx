@@ -8,7 +8,7 @@ type Props = {
     children: ReactNode | ReactNode[];
 };
 
-function LeftNavMenuWrapper({ isMobile, children }: Props) {
+export function LeftNavMenuWrapper({ isMobile, children }: Props) {
     const { isOpen, closeMenu } = useMobileMenu();
     useEffect(() => {
         if (isMobile && isOpen) {
@@ -66,5 +66,3 @@ function LeftNavMenuWrapper({ isMobile, children }: Props) {
         </Flex>
     );
 }
-
-export default LeftNavMenuWrapper;

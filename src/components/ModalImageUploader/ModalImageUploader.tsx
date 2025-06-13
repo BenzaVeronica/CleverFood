@@ -14,6 +14,7 @@ type Props = {
     uploadFor: string | null;
     currentImage?: string;
     dataTestId?: string;
+    isEditCrop?: boolean;
 };
 
 export function ModalImageUploader({
@@ -23,6 +24,7 @@ export function ModalImageUploader({
     uploadFor,
     dataTestId,
     currentImage,
+    isEditCrop = false,
 }: Props) {
     const [tempImage, setTempImage] = useState<string | null>(currentImage || null);
     useEffect(() => {
@@ -79,6 +81,16 @@ export function ModalImageUploader({
         onClose();
     };
 
+    const titleObj = isEditCrop
+        ? {
+              title: 'Изменить\n изображение профиля',
+              btn: 'Кадрировать и сохранить',
+          }
+        : {
+              title: 'Изображение',
+              btn: 'Сохранить',
+          };
+
     return (
         <CustomModal
             dataTestId={TEST_ID.Modal.RecipeImageModal}
@@ -86,8 +98,8 @@ export function ModalImageUploader({
             onClose={handleClose}
         >
             <VStack spacing={8}>
-                <Text fontSize='2xl' fontWeight='700'>
-                    Изображение
+                <Text fontSize='2xl' fontWeight='700' textAlign='center'>
+                    {titleObj.title}
                 </Text>
 
                 <Box h='206px' w='206px'>
@@ -96,6 +108,7 @@ export function ModalImageUploader({
                         dataTestIdPreview={TEST_ID.Modal.RecipeImageModalPreviewImage}
                         image={tempImage}
                         onClick={() => document.getElementById('image-upload')?.click()}
+                        isEditCrop
                     />
 
                     <Input
@@ -115,17 +128,19 @@ export function ModalImageUploader({
                             disabled={isLoading}
                             w='full'
                         >
-                            Сохранить
+                            {titleObj.btn}
                         </Button>
-                        <Button
-                            onClick={handleRemove}
-                            bg='transparent'
-                            size='lg'
-                            fontWeight={600}
-                            w='full'
-                        >
-                            Удалить
-                        </Button>
+                        {!isEditCrop && (
+                            <Button
+                                onClick={handleRemove}
+                                bg='transparent'
+                                size='lg'
+                                fontWeight={600}
+                                w='full'
+                            >
+                                Удалить
+                            </Button>
+                        )}
                     </VStack>
                 )}
             </VStack>

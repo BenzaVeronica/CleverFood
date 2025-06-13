@@ -2,6 +2,7 @@ import { Box, GridItem, Image, Text } from '@chakra-ui/react';
 
 import { ContainerGridLayout } from '~/app/ContainerAppLayout';
 import errorImage from '~/assets/errorImage.png';
+import { HEIGHT_HEADER } from '~/theme/ui.constants';
 
 type Props = {
     status: number;
@@ -12,7 +13,7 @@ function ErrorPage(_props: Partial<Props>) {
         <ContainerGridLayout>
             <GridItem
                 colSpan={{ base: 4, md: 12 }}
-                h={{ base: 'calc(100vh - 64px )', lg: 'calc(100vh - 80px)' }}
+                h={{ base: 'calc(100vh - 64px )', lg: `calc(100vh - ${HEIGHT_HEADER})` }}
             >
                 <Box
                     display='flex'

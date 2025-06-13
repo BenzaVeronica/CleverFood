@@ -5,8 +5,8 @@ import { FormRegistryStep1 } from '~/components/FormRegistry/FormRegistryStep1/F
 import { FormRegistryStep2 } from '~/components/FormRegistry/FormRegistryStep2/FormRegistryStep2';
 import { useRegisterUserMutation } from '~/query/auth/auth.api';
 import { TOAST_MESSAGE } from '~/query/errors/error.constants';
+import { CustomErrorResponse } from '~/query/errors/error.type';
 import { isServerError } from '~/query/errors/error.utils';
-import { CustomErrorResponse } from '~/query/types';
 import { setEmail } from '~/store/auth/auth-slice';
 import { useAppDispatch } from '~/store/hooks';
 import { TEST_ID } from '~/test/test.constant';

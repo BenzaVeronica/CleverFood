@@ -6,14 +6,15 @@ import type { Swiper as SwiperType } from 'swiper';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import { ACCESSIBILITY } from '~/app/accessibility.constants';
 import { useGetRecipesQuery } from '~/query/recipe/recipe.api';
 import { SLIDER_PARAMS } from '~/query/recipe/recipe.constants';
 
 import ArrowLongRight from '../../assets/iconArrowLongRight.svg?react';
-import CardVertical from '../Card/CardVertical';
+import { CardVertical } from '../Card/CardVertical';
 import WithLoadingError from '../WithLoadingError';
 
-function NewRecipeSlider() {
+export function NewRecipeSlider() {
     const { data, isLoading, isError } = useGetRecipesQuery(SLIDER_PARAMS);
 
     const sliderRef = useRef<SwiperType | null>(null);
@@ -39,7 +40,7 @@ function NewRecipeSlider() {
                 <Box w={{ base: 'calc(100% + 15px)', md: 'auto' }}>
                     <IconButton
                         data-test-id='carousel-back'
-                        aria-label='prev'
+                        aria-label={ACCESSIBILITY.controls.prev}
                         bg='black'
                         color='white'
                         _hover={{ bg: 'gray.800' }}
@@ -62,24 +63,6 @@ function NewRecipeSlider() {
                         onSwiper={(swiper) => (sliderRef.current = swiper)}
                         grabCursor={true}
                         speed={0}
-                        // breakpoints={{
-                        //     320: {
-                        //         slidesPerView: 2.1,
-                        //         spaceBetween: 12,
-                        //     },
-                        //     768: {
-                        //         slidesPerView: 4.5,
-                        //         spaceBetween: 12,
-                        //     },
-                        //     1440: {
-                        //         slidesPerView: 3.1,
-                        //         spaceBetween: 12,
-                        //     },
-                        //     1920: {
-                        //         slidesPerView: 4,
-                        //         spaceBetween: 24,
-                        //     },
-                        // }}
                     >
                         {data?.data.map((recipe, i) => (
                             <SwiperSlide
@@ -93,7 +76,7 @@ function NewRecipeSlider() {
                     </Swiper>
                     <IconButton
                         data-test-id='carousel-forward'
-                        aria-label='next'
+                        aria-label={ACCESSIBILITY.controls.next}
                         bg='black'
                         color='white'
                         _hover={{ bg: 'gray.800' }}
@@ -112,5 +95,3 @@ function NewRecipeSlider() {
         </WithLoadingError>
     );
 }
-
-export default NewRecipeSlider;

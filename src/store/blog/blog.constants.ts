@@ -3,88 +3,63 @@ import profile1 from '../../assets/profile/profile1.jpg';
 import profile2 from '../../assets/profile/profile2.jpg';
 import profile3 from '../../assets/profile/profile3.jpg';
 import { addIdToArray } from '../utils';
-import { blogItem, blogItemWithoutId, profile, profileWithoutId } from './blog.types';
 
-const masProfilesWithoutId: profileWithoutId[] = [
+const masProfilesWithoutId = [
     {
-        name: 'Екатерина',
-        surname: 'Константинопольская',
-        username: '@bake_and_pie',
+        firstName: 'Екатерина',
+        lastName: 'Константинопольская',
+        login: 'bake_and_pie',
         img: profile0,
-        statistics: {
-            like: null,
-            bookmarks: null,
-            views: null,
-        },
+        totalSubscribers: 0,
     },
     {
-        name: 'Елена',
-        surname: 'Высоцкая',
-        username: '@elenapovar',
+        firstName: 'Елена',
+        lastName: 'Высоцкая',
+        login: 'elenapovar',
         img: profile1,
-        statistics: {
-            like: null,
-            bookmarks: null,
-            views: null,
-        },
+        // statistics: {
+        //     like: null,
+        //     bookmarks: null,
+        //     views: null,
+        // },
     },
     {
-        name: 'Alex',
-        surname: 'Cook',
-        username: '@funtasticooking',
+        firstName: 'Alex',
+        lastName: 'Cook',
+        login: 'funtasticooking',
         img: profile2,
-        statistics: {
-            like: null,
-            bookmarks: null,
-            views: null,
-        },
+        totalSubscribers: 0,
     },
     {
-        name: 'Екатерина',
-        surname: 'Константинопольская',
-        username: '@bake_and_pie',
+        firstName: 'Екатерина',
+        lastName: 'Константинопольская',
+        login: 'bake_and_pie',
         img: profile3,
-        statistics: {
-            like: null,
-            bookmarks: null,
-            views: null,
-        },
+        totalSubscribers: 0,
     },
     {
-        name: 'Сергей',
-        surname: 'Разумов',
-        username: '@serge25',
+        firstName: 'Сергей',
+        lastName: 'Разумов',
+        login: 'serge25',
         img: profile3,
-        statistics: {
-            like: null,
-            bookmarks: null,
-            views: 125,
-        },
+        totalSubscribers: 0,
     },
 ];
 
-export const masProfiles: profile[] = addIdToArray(masProfilesWithoutId);
-// console.log(masProfiles);
+export const masProfiles = addIdToArray(masProfilesWithoutId);
 
-const masBlogItemWithoutId: blogItemWithoutId[] = [
+const masBlogItemWithoutId = [
     {
         profile: masProfiles[1],
         text: 'Как раз после праздников, когда мясные продукты еще остались, но никто их уже не хочет, время варить солянку.',
-        // like: null,
-        // bookmarks: 1,
     },
     {
         profile: masProfiles[2],
         text: 'Как раз после праздников, когда мясные продукты еще остались, но никто их уже не хочет, время варить солянку.',
-        // like: null,
-        // bookmarks: 1,
     },
     {
         profile: masProfiles[3],
         text: 'Как раз после праздников, когда мясные продукты еще остались, но никто их уже не хочет, время варить солянку.',
-        // like: null,
-        // bookmarks: 1,
     },
 ];
-export const masBlogItems: blogItem[] = addIdToArray(masBlogItemWithoutId);
-// console.log(masProfiles);
+export const masBlogItems = addIdToArray(masBlogItemWithoutId);

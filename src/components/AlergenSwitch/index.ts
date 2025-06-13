@@ -1,2 +1,2 @@
-import AlergenSwitch from './AlergenSwitch';
+import { AlergenSwitch } from './AlergenSwitch';
 export default AlergenSwitch;

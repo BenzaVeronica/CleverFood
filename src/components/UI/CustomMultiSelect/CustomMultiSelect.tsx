@@ -29,7 +29,7 @@ type CustomMultiSelectProps = {
 const MAX_LABEL_WIDTH = 100;
 const GAP = 8;
 
-const CustomMultiSelect = ({
+export const CustomMultiSelect = ({
     value = [],
     onChange,
     options,
@@ -56,14 +56,7 @@ const CustomMultiSelect = ({
 
     const containerRef = useRef<HTMLDivElement | null>(null);
     const [visibleCount, setVisibleCount] = useState(0);
-    // useEffect(() => {
-    //     if (!containerRef.current) return;
-    //     const containerWidth = containerRef.current.offsetWidth;
-    //     // console.log(containerRef);
-    //     // console.log(containerWidth);
-    //     const visibleCount = Math.floor((containerWidth + GAP) / (maxLabelWidth + GAP));
-    //     setVisibleCount(visibleCount);
-    // }, [containerRef, selectedLabels, maxLabelWidth]);
+
     useEffect(() => {
         if (!containerRef.current) return;
         const observer = new ResizeObserver((entries) => {
@@ -166,5 +159,3 @@ const CustomMultiSelect = ({
         </Menu>
     );
 };
-
-export default CustomMultiSelect;

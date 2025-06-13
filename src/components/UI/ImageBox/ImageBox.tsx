@@ -8,6 +8,8 @@ type ImageBoxProps = {
     boxProps?: BoxProps;
     dataTestId?: string;
     dataTestIdPreview?: string;
+    isEditCrop?: boolean;
+    widthCircle?: number;
 };
 
 export const ImageBox = ({
@@ -16,10 +18,11 @@ export const ImageBox = ({
     boxProps = {},
     dataTestId,
     dataTestIdPreview,
+    isEditCrop = false,
+    widthCircle = 180,
 }: ImageBoxProps) => (
     <Box
         data-test-id={dataTestId}
-        // data-test-id={image ? dataTestIdPreview : dataTestId}
         as={onClick && 'button'}
         type={onClick && 'button'}
         onClick={onClick}
@@ -33,6 +36,14 @@ export const ImageBox = ({
         overflow='hidden'
         position='relative'
         _hover={{ bg: 'blackAlpha.300' }}
+        _before={{
+            content: isEditCrop && image ? '""' : 'none',
+            position: 'absolute',
+            inset: 0,
+            bg: 'lime.600',
+            opacity: '0.5',
+            maskImage: `radial-gradient(circle ${widthCircle / 2}px at center, transparent ${(widthCircle - 1) / 2}px, black ${widthCircle / 2}px)`,
+        }}
         {...boxProps}
     >
         {image ? (

@@ -8,11 +8,12 @@ import NutritionBox from '~/components/NutritionBox';
 import RecipeDescription from '~/components/RecipeDescription';
 import IngridientsTable from '~/components/RecipeIngridientsTable';
 import RecipeSteps from '~/components/RecipeSteps';
-import LoaderScreen from '~/components/UI/Loader/LoaderScreen';
+import { LoaderScreen } from '~/components/UI/Loader/LoaderScreen';
 import { UserCardGreen } from '~/components/UserCard/UserCardGreen';
+import { useGetBloggerByIdQuery } from '~/query/blogs/blogs.api';
 import { useGetRecipeByIdQuery } from '~/query/recipe/recipe.api';
 import { useRedirectInvalidPath } from '~/routes/useRedirectInvalidPath';
-import { masProfiles } from '~/store/blog/blog.constants';
+import { useAuth } from '~/store/auth/useAuth';
 import ErrorNotification from '~/widgets/error/ErrorNotification';
 
 function RecipePage() {
@@ -24,6 +25,17 @@ function RecipePage() {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [categoryId, subcategoryId, recipeId]);
+
+    const { user } = useAuth();
+    const { data: blogger } = useGetBloggerByIdQuery(
+        {
+            bloggerId: currentRecipe?.authorId ?? '',
+            currentUserId: user?.userId ?? '',
+        },
+        {
+            skip: !user?.userId || !currentRecipe,
+        },
+    );
 
     if (isLoading || !currentRecipe) return <LoaderScreen />;
     return (
@@ -72,7 +84,7 @@ function RecipePage() {
                 </Stack>
                 <IngridientsTable item={currentRecipe} />
                 <RecipeSteps item={currentRecipe} />
-                <UserCardGreen profile={masProfiles[4]} />
+                {blogger && <UserCardGreen profile={blogger} />}
             </GridItem>
             <GridItem colSpan={{ base: 4, md: 12 }}>
                 <NewRecipeSlider />

@@ -1,2 +1,2 @@
-import UserStat from './UserStat';
+import { UserStat } from './UserStat';
 export default UserStat;

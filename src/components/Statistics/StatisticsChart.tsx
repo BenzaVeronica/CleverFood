@@ -1,0 +1,19 @@
+import { HStack } from '@chakra-ui/react';
+import { ElementType } from 'react';
+
+import StatTitle from '../UI/StatTitle';
+
+type Props = {
+    icon: ElementType;
+    title: string;
+};
+
+export function StatisticsChart({ icon, title }: Props) {
+    // const users = ['v'];
+    return (
+        <HStack>
+            <StatTitle icon={icon}>{title}</StatTitle>
+            {/* {users.length && } */}
+        </HStack>
+    );
+}

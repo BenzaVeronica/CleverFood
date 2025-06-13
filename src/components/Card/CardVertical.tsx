@@ -13,7 +13,7 @@ type Props = {
     el: Recipe;
 };
 
-function CardVertical({ el }: Props) {
+export function CardVertical({ el }: Props) {
     const { isTablet } = useBreakpoints();
 
     const firstSubCategoryId = el.categoriesIds[0];
@@ -21,9 +21,7 @@ function CardVertical({ el }: Props) {
     return (
         <Flex
             h={{ base: '222px', lg: '474px' }}
-            borderColor='blackAlpha.200'
-            borderWidth={1}
-            borderRadius='8px'
+            layerStyle='card'
             width={{ base: '156px', lg: '278px', xl: '322px' }}
             flexShrink={0}
             display='flex'
@@ -87,5 +85,3 @@ function CardVertical({ el }: Props) {
         </Flex>
     );
 }
-
-export default CardVertical;

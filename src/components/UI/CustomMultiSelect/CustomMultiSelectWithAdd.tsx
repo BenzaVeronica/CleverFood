@@ -14,9 +14,10 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 
+import { ACCESSIBILITY } from '~/app/accessibility.constants';
 import { FilterOptionType } from '~/components/DrawerFilter/DrawerFilter.constants';
 
-import CustomAddBox from './CustomAddBox';
+import { CustomAddBox } from './CustomAddBox';
 
 type Props = {
     value: string[];
@@ -28,7 +29,7 @@ type Props = {
     isFilterDataTestId: boolean;
 };
 
-const CustomMultiSelectWithAdd = ({
+export const CustomMultiSelectWithAdd = ({
     value: selectedOptions = [],
     onChange,
     options: initialOptions,
@@ -89,7 +90,6 @@ const CustomMultiSelectWithAdd = ({
                                     alignItems='center'
                                 >
                                     <Text color='lime.600' px={2} py='2px'>
-                                        {/* {el.label} */}
                                         {el}
                                     </Text>
                                 </Flex>
@@ -102,7 +102,7 @@ const CustomMultiSelectWithAdd = ({
                 {selectedOptions.length > 0 && (
                     <InputRightElement>
                         <IconButton
-                            aria-label='clear'
+                            aria-label={ACCESSIBILITY.controls.clear}
                             icon={<CloseIcon boxSize='10px' />}
                             size='md'
                             variant='ghost'
@@ -165,5 +165,3 @@ const CustomMultiSelectWithAdd = ({
         </Menu>
     );
 };
-
-export default CustomMultiSelectWithAdd;

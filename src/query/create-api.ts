@@ -42,13 +42,8 @@ export const baseQueryWithReauth: BaseQueryFn<
     FetchBaseQueryError
 > = async (args, api, extraOptions) => {
     let result = await baseQueryWithToken(args, api, extraOptions);
-    // console.log(result);
-    // const token = getDataFromLocalStorage(localStorageData.access_token);
-    // console.log(isRefreshing);
-    // console.log(token);
 
-    // if (result.error?.status === 401 || result.error?.status === 403) {
-    if (result.error?.status === 401) {
+    if (result.error?.status === 401 || result.error?.status === 403) {
         if (isRefreshing) {
             try {
                 await new Promise<void>((resolve) => {

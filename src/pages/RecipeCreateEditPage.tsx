@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router';
 
 import FormRecipe from '~/components/FormRecipe/FormRecipe';
-import LoaderScreen from '~/components/UI/Loader/LoaderScreen';
+import { LoaderScreen } from '~/components/UI/Loader/LoaderScreen';
 import { useGetRecipeByIdQuery } from '~/query/recipe/recipe.api';
 import { useRedirectInvalidPath } from '~/routes/useRedirectInvalidPath';
 

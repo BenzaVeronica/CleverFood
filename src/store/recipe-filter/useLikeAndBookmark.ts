@@ -1,8 +1,6 @@
 import { useBookmark } from './useBookmark';
 import { useLike } from './useLike';
 
-// export function useLikeAndBookmark(recipe: Recipe) {
-//     const { _id } = recipe;
 export function useLikeAndBookmark(recipeId: string | undefined) {
     const { toggleLike } = useLike(recipeId);
     const { toggleBookmark } = useBookmark(recipeId);

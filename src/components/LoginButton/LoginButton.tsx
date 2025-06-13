@@ -4,7 +4,7 @@ import { useAuth } from '~/store/auth/useAuth';
 
 import IconLogin from '../../assets/iconLogin.svg?react';
 
-function LoginButton() {
+export function LoginButton() {
     const { isAuthenticated } = useAuth();
     const onClickLogin = () => {};
     if (isAuthenticated) return null;
@@ -20,5 +20,3 @@ function LoginButton() {
         </Button>
     );
 }
-
-export default LoginButton;

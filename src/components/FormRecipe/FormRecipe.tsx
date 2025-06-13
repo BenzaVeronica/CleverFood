@@ -5,32 +5,28 @@ import { Location, useBlocker, useNavigate } from 'react-router';
 import { BASE_IMAGE_URL } from '~/query/api.constants';
 import { getCategoryBySubCategoryId } from '~/query/category/category.utils';
 import { TOAST_MESSAGE } from '~/query/errors/error.constants';
+import { CustomErrorResponse } from '~/query/errors/error.type';
 import { isServerError } from '~/query/errors/error.utils';
 import {
     useCreateRecipeDraftMutation,
     useCreateRecipeMutation,
     useUpdateRecipeMutation,
 } from '~/query/recipe/recipe.api';
-import { CustomErrorResponse } from '~/query/types';
 import { PageRoutes } from '~/routes/PageRoutes.constants';
 import { selectCategoriesWithSubs } from '~/store/category/category-selector';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
+import { baseSchema, recipeSchema } from '~/store/recipe-form/recipe-form-schema';
 import { selectIsDirty } from '~/store/recipe-form/recipe-form-selector';
 import { TEST_ID } from '~/test/test.constant';
 import { addError, addSuccess } from '~/widgets/error/error-slice';
 import ErrorNotification from '~/widgets/error/ErrorNotification';
 
-import {
-    baseSchema,
-    RecipeFormData,
-    RecipeFormDataDraft,
-    recipeSchema,
-} from '../../store/recipe-form/recipe-form-types';
+import { RecipeFormData, RecipeFormDataDraft } from '../../store/recipe-form/recipe-form-types';
 import { IconPencil } from '../Icons/IconPencil';
 import { ModalExitSaveNavBlock } from '../ModalExitSave/ModalExitSaveNavBlock';
 import { ModalImageUploader } from '../ModalImageUploader/ModalImageUploader';
 import ImageBox from '../UI/ImageBox';
-import LoaderScreen from '../UI/Loader/LoaderScreen';
+import { LoaderScreen } from '../UI/Loader/LoaderScreen';
 import { FormRecipeIngredientsList } from './FormRecipeIngredients/FormRecipeIngredientsList';
 import { FormRecipeMainFields } from './FormRecipeMainFields/FormRecipeMainFields';
 import { FormRecipeStepsList } from './FormRecipeSteps/FormRecipeStepsList';

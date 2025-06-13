@@ -12,16 +12,11 @@ type Props = {
     colSpan: GridItemProps['colSpan'];
 };
 
-function CardWithoutImg({ el, colSpan }: Props) {
+export function CardWithoutImg({ el, colSpan }: Props) {
     const firstSubCategoryId = el.categoriesIds?.[0];
     const categs = useCategoryBySubCategoryId(firstSubCategoryId);
     return (
-        <GridItem
-            colSpan={colSpan}
-            borderColor='blackAlpha.200'
-            borderWidth='1px'
-            borderRadius='8px'
-        >
+        <GridItem colSpan={colSpan} layerStyle='card'>
             <Flex>
                 <Box
                     py={{ base: 3, lg: 5 }}
@@ -50,5 +45,3 @@ function CardWithoutImg({ el, colSpan }: Props) {
         </GridItem>
     );
 }
-
-export default CardWithoutImg;

@@ -6,12 +6,6 @@ import { HandleArrayItemFieldChange, Nullable } from '~/store/recipe-form/recipe
 import { IconPlus } from '../../Icons/IconPlus';
 import { FormRecipeStepsItem } from './FormRecipeStepsItem';
 
-// type StepNullable = {
-//     stepNumber: number;
-//     description: string | null;
-//     image?: string | null;
-// };
-
 type Props = {
     steps: Nullable<RecipeStep>[];
     setSteps: (steps: Nullable<RecipeStep>[]) => void;
@@ -29,20 +23,11 @@ export function FormRecipeStepsList({
     setImageFor,
     onArrayItemFieldChange,
 }: Props) {
-    // const [newStep, setNewStep] = useState<Nullable<RecipeStep>>({
-    //     stepNumber: steps.length + 1,
-    //     description: null,
-    //     image: null,
-    // });
-
     const onChangeNewDescription = (index: number, value: string) => {
         onArrayItemFieldChange('steps', index, 'description', value);
-        // setNewStep((prev) => ({ ...prev, description: value }));
     };
 
     const addStep = () => {
-        // if (!newStep.description) return;
-
         setSteps([
             ...steps,
             {
@@ -51,19 +36,6 @@ export function FormRecipeStepsList({
                 image: null,
             },
         ]);
-        // setSteps([
-        //     ...steps,
-        //     {
-        //         stepNumber: newStep.stepNumber,
-        //         description: newStep.description,
-        //         image: newStep.image,
-        //     },
-        // ]);
-        // setNewStep({
-        //     stepNumber: steps.length + 1,
-        //     description: null,
-        //     image: null,
-        // });
     };
 
     const onRemove = (index: number) => {
@@ -99,23 +71,12 @@ export function FormRecipeStepsList({
                         onImageClick={() => onImageClick(index)}
                     />
                 ))}
-
-                {/* <FormRecipeStepsItem
-                    index={steps.length}
-                    step={newStep}
-                    isNew
-                    descriptionValue={newStep.description || ''}
-                    onDescriptionChange={onChangeNewDescription}
-                    onImageClick={() => onImageClick(steps.length)}
-                /> */}
-
                 <Button
                     rightIcon={<IconPlus color='red' />}
                     variant='btnOutlineBlack'
                     size='sm'
                     onClick={addStep}
                     alignSelf='flex-end'
-                    // isDisabled={!newStep.description}
                 >
                     Новый шаг
                 </Button>

@@ -1,16 +1,17 @@
 import { Avatar, Flex, SimpleGrid, Text } from '@chakra-ui/react';
 import { useState } from 'react';
-import { useLocation } from 'react-router';
+import { Link, useLocation } from 'react-router';
 
 import { PageRoutes } from '~/routes/PageRoutes.constants';
 import { masProfiles } from '~/store/blog/blog.constants';
+import { HEIGHT_FOOTER } from '~/theme/ui.constants';
 
 import { IconHomeCircle } from '../../Icons/IconHomeCircle';
 import { IconSearchCircle } from '../../Icons/IconSearchCircle';
 import { IconWriteCircle } from '../../Icons/IconWriteCircle';
 import { FooterMenuItem } from './Footer.types';
 
-function Footer() {
+export function Footer() {
     const location = useLocation();
 
     const mas: FooterMenuItem[] = [
@@ -47,7 +48,7 @@ function Footer() {
             bottom='0'
             left='0'
             right='0'
-            height='84px'
+            height={HEIGHT_FOOTER}
             display={{ base: 'grid', lg: 'none' }}
             zIndex={7}
         >
@@ -56,13 +57,13 @@ function Footer() {
                 const isActive = location.pathname.startsWith(el.link) || isHovered;
                 return (
                     <Flex
-                        // data-test-id={index === 2 ?""}
+                        as={Link}
+                        to={el.link}
                         bg={isActive ? 'limeGradient.70' : ''}
                         key={`Footer_${el.text}${index}`}
                         onMouseEnter={() => setHoveredIndex(index)}
                         onMouseLeave={() => setHoveredIndex(null)}
                         transition='background-color 0.2s'
-                        _hover={{ bg: 'lime.500' }}
                         cursor='pointer'
                         direction='column'
                         alignItems='center'
@@ -77,5 +78,3 @@ function Footer() {
         </SimpleGrid>
     );
 }
-
-export default Footer;

@@ -9,12 +9,10 @@ type Props = {
     isLast: boolean;
 };
 
-function RecipeStepCard(props: Props) {
+export function RecipeStepCard(props: Props) {
     return (
         <Flex
-            borderColor='blackAlpha.200'
-            borderWidth='1px'
-            borderRadius='8px'
+            layerStyle='card'
             overflow='hidden'
             w='100%'
             display='flex'
@@ -22,7 +20,6 @@ function RecipeStepCard(props: Props) {
         >
             <Box
                 maxW={{ base: '158px', lg: '345px' }}
-                // width="55%"
                 flexShrink={0}
                 overflow='hidden'
                 position='relative'
@@ -56,5 +53,3 @@ function RecipeStepCard(props: Props) {
         </Flex>
     );
 }
-
-export default RecipeStepCard;

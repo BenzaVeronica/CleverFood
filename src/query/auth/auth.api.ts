@@ -1,5 +1,5 @@
 import { FormLoginValues } from '~/components/FormRegistry/FormRegistry.types';
-import { publicApi } from '~/query/create-api.ts';
+import { publicApi, tokenApi } from '~/query/create-api.ts';
 
 import { ApiEndpoints } from '../constants/api';
 import { ApiGroupNames } from '../constants/api-group-names';
@@ -41,29 +41,6 @@ export const authApi = publicApi.injectEndpoints({
             }),
             onQueryStarted: saveAuthTokenFromHeaders(),
             transformErrorResponse: transformErrorWithMessageResponse,
-        }),
-
-        getRefreshToken: builder.query<void, void>({
-            query: () => ({
-                apiGroupName: ApiGroupNames.AUTH,
-                name: EndpointNames.GET_REFRESH,
-                url: ApiEndpoints.AUTH_GET_REFRESH,
-                method: 'GET',
-                credentials: 'include',
-            }),
-            onQueryStarted: saveAuthTokenFromHeaders(),
-            transformErrorResponse,
-        }),
-
-        getCheckAuth: builder.query<void, void>({
-            query: () => ({
-                apiGroupName: ApiGroupNames.AUTH,
-                name: EndpointNames.GET_CHECK_AUTH,
-                url: ApiEndpoints.AUTH_GET_CHECK_AUTH,
-                method: 'GET',
-                credentials: 'include',
-            }),
-            transformErrorResponse,
         }),
 
         getVerify: builder.query<void, string>({
@@ -109,13 +86,41 @@ export const authApi = publicApi.injectEndpoints({
     }),
 });
 
+export const authTokenApi = tokenApi.injectEndpoints({
+    endpoints: (builder) => ({
+        getRefreshToken: builder.query<void, void>({
+            query: () => ({
+                apiGroupName: ApiGroupNames.AUTH,
+                name: EndpointNames.GET_REFRESH,
+                url: ApiEndpoints.AUTH_GET_REFRESH,
+                method: 'GET',
+                credentials: 'include',
+            }),
+            onQueryStarted: saveAuthTokenFromHeaders(),
+            transformErrorResponse,
+        }),
+
+        getCheckAuth: builder.query<void, void>({
+            query: () => ({
+                apiGroupName: ApiGroupNames.AUTH,
+                name: EndpointNames.GET_CHECK_AUTH,
+                url: ApiEndpoints.AUTH_GET_CHECK_AUTH,
+                method: 'GET',
+                credentials: 'include',
+            }),
+            transformErrorResponse,
+        }),
+    }),
+});
+
 export const {
     useRegisterUserMutation,
     useLoginMutation,
-    useGetRefreshTokenQuery,
-    useGetCheckAuthQuery,
     useGetVerifyQuery,
     usePostForgetPswByEmailMutation,
     useVerifyOtpMutation,
     useResetPasswordMutation,
 } = authApi;
+
+export const { useGetRefreshTokenQuery, useGetCheckAuthQuery, useLazyGetCheckAuthQuery } =
+    authTokenApi;

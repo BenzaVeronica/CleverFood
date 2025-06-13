@@ -1,2 +1,2 @@
-import SectionBlog from './SectionBlog';
+import { SectionBlog } from './SectionBlog';
 export default SectionBlog;

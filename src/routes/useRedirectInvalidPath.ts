@@ -26,7 +26,6 @@ export function useRedirectInvalidPath() {
         const isNotValidCat = categoryId && !category;
         const isNotValidSub = subcategoryId && !subcategory;
         const isNotValidRecipe = subcategoryId && !subcategory;
-        // debugger;
         if (isNotValidCat || isNotValidSub || isNotValidRecipe) {
             navigate(PageRoutes.NOT_FOUND, { replace: true });
         }

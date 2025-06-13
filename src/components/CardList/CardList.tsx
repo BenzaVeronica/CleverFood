@@ -1,47 +1,52 @@
-import { Button, Grid, GridItem, GridProps } from '@chakra-ui/react';
+import { Box, Button, Grid, GridProps } from '@chakra-ui/react';
 
 import { Recipe } from '~/store/recipe-filter/recipe.types';
 
-import CardHorizontal from '../Card/CardHorizontal';
+import { CardHorizontal } from '../Card/CardHorizontal';
+
 type Props = {
+    list: Recipe[];
+    dataTestIdGrid?: string;
     dataTestId?: string;
     withButton?: boolean;
-    list: Recipe[];
     isLoading?: boolean;
     isEnd?: boolean;
     onLoadMore?: () => void;
 } & GridProps;
 
-function CardList({
+export function CardList({
+    list,
+    dataTestIdGrid,
     dataTestId,
     withButton,
-    list,
     isLoading = false,
     isEnd = false,
     onLoadMore,
     ...gridProps
 }: Props) {
     return (
-        <Grid
-            rowGap={4}
-            columnGap={6}
-            templateColumns={{
-                base: 'repeat(4, 1fr)',
-                md: 'repeat(12, 1fr)',
-            }}
-            {...gridProps}
-        >
-            {list.map((el, index) => (
-                <CardHorizontal
-                    key={`CardList_CardHorizontal_${el._id}_${el.title}`}
-                    el={el}
-                    index={index}
-                    colSpan={{ base: 4, md: 6, lg: 12, xl: 6 }}
-                />
-            ))}
-
+        <>
+            <Grid
+                data-test-id={dataTestIdGrid}
+                rowGap={4}
+                columnGap={6}
+                templateColumns={{
+                    base: 'repeat(4, 1fr)',
+                    md: 'repeat(12, 1fr)',
+                }}
+                {...gridProps}
+            >
+                {list.map((el, index) => (
+                    <CardHorizontal
+                        key={`CardList_CardHorizontal_${el._id}_${el.title}`}
+                        el={el}
+                        index={index}
+                        colSpan={{ base: 4, md: 6, lg: 12, xl: 6 }}
+                    />
+                ))}
+            </Grid>
             {!!list.length && withButton && !isEnd && (
-                <GridItem colSpan={{ base: 4, md: 12 }}>
+                <Box w='full' mb={10}>
                     <Button
                         data-test-id={dataTestId}
                         onClick={onLoadMore}
@@ -62,10 +67,8 @@ function CardList({
                     >
                         {isLoading ? 'Загрузка...' : 'Загрузить еще'}
                     </Button>
-                </GridItem>
+                </Box>
             )}
-        </Grid>
+        </>
     );
 }
-
-export default CardList;

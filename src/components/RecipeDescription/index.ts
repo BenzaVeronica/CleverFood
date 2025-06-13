@@ -1,2 +1,2 @@
-import RecipeDescription from './RecipeDescription';
+import { RecipeDescription } from './RecipeDescription';
 export default RecipeDescription;

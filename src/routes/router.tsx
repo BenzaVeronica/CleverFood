@@ -1,9 +1,13 @@
 import { createBrowserRouter, Navigate } from 'react-router';
 
+import { BloggerPage } from '~/pages/BloggerPage.tsx';
+import { BlogsPage } from '~/pages/BlogsPage.tsx';
 import LoginPage from '~/pages/LoginPage';
 import NotFoundPage from '~/pages/NotFoundPage';
+import { ProfilePage } from '~/pages/ProfilePage.tsx';
 import { RecipeCreateEditPage } from '~/pages/RecipeCreateEditPage.tsx';
 import { RegisterPage } from '~/pages/RegisterPage';
+import { SettingsPage } from '~/pages/SettingsPage.tsx';
 import TheMostPage from '~/pages/TheMostPage';
 
 import AppLayout from '../app/App';
@@ -28,9 +32,9 @@ export const router = createBrowserRouter([
             {
                 index: true,
                 element: (
-                    // <ProtectedRoute requiredRole='admin'>
-                    <HomePage />
-                    // </ProtectedRoute>
+                    <ProtectedRoute requiredRole='admin'>
+                        <HomePage />
+                    </ProtectedRoute>
                 ),
             },
             {
@@ -59,6 +63,22 @@ export const router = createBrowserRouter([
             {
                 path: PageRoutes.RECIPE_CREATE,
                 element: <RecipeCreateEditPage />,
+            },
+            {
+                path: PageRoutes.BLOGS,
+                element: <BlogsPage />,
+            },
+            {
+                path: `${PageRoutes.BLOGS}/:bloggerId`,
+                element: <BloggerPage />,
+            },
+            {
+                path: PageRoutes.PROFILE,
+                element: <ProfilePage />,
+            },
+            {
+                path: PageRoutes.SETTINGS,
+                element: <SettingsPage />,
             },
         ],
     },

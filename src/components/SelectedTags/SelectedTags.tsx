@@ -19,7 +19,7 @@ const getFilterLabels = (values: string[], options: FilterOptionType[]) =>
         return option ? option.label : value;
     });
 
-const SelectedTags = <Key extends keyof FormValues>({
+export const SelectedTags = <Key extends keyof FormValues>({
     isFromTopFilterBox = false,
     selectedValuesMap,
     removeHandlers,
@@ -57,4 +57,3 @@ const SelectedTags = <Key extends keyof FormValues>({
         </Flex>
     );
 };
-export default SelectedTags;

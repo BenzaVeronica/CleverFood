@@ -8,7 +8,7 @@ import { FormRecipeIngredientItem } from './FormRecipeIngredientItem';
 type Props = {
     ingredients: Nullable<RecipeIngredients>[];
     setIngredients: (list: Nullable<RecipeIngredients>[]) => void;
-    errors?: Record<string, string>;
+    errors: Record<string, string>;
 };
 
 const initIngredient: Nullable<RecipeIngredients> = {
@@ -18,22 +18,6 @@ const initIngredient: Nullable<RecipeIngredients> = {
 };
 
 export const FormRecipeIngredientsList = ({ ingredients, setIngredients, errors }: Props) => {
-    // const [newIngredient, setNewIngredient] = useState(initIngredient);
-
-    // const handleIngredientChange: onChangeIndexIngredient = (index, field, value) => {
-    //     if (index === ingredients.length) {
-    //         if (field === 'submit') {
-    //             setIngredients([...ingredients, newIngredient]);
-    //             setNewIngredient(initIngredient);
-    //         }
-    //         setNewIngredient((prev) => ({ ...prev, [field]: value }));
-    //     } else {
-    //         const updatedIngredients = [...ingredients];
-    //         updatedIngredients[index] = { ...updatedIngredients[index], [field]: value };
-    //         setIngredients(updatedIngredients);
-    //     }
-    // };
-
     const handleIngredientChange: onChangeIndexIngredient = (index, field, value) => {
         const updated = [...ingredients];
         updated[index] = { ...updated[index], [field]: value };
@@ -44,7 +28,6 @@ export const FormRecipeIngredientsList = ({ ingredients, setIngredients, errors 
         setIngredients(ingredients.filter((_, i) => i !== index));
     };
     const handleAdd = () => {
-        // setIngredients([...ingredients, { ...newIngredient }]);
         setIngredients([...ingredients, { ...initIngredient }]);
     };
 
@@ -87,14 +70,6 @@ export const FormRecipeIngredientsList = ({ ingredients, setIngredients, errors 
                     isNew={index + 1 === ingredients.length}
                 />
             ))}
-            {/* <FormRecipeIngredientItem
-                index={ingredients.length}
-                ingredient={newIngredient}
-                isNew
-                onChangeIngredient={(field, value) =>
-                    handleIngredientChange(ingredients.length, field, value)
-                }
-            /> */}
         </VStack>
     );
 };

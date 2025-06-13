@@ -1,2 +1,2 @@
-import NewRecipeSlider from './NewRecipeSlider';
+import { NewRecipeSlider } from './NewRecipeSlider';
 export default NewRecipeSlider;

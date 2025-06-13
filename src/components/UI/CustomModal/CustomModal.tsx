@@ -4,7 +4,7 @@ import { ReactNode } from 'react';
 import { TEST_ID } from '~/test/test.constant';
 
 import BsXCircle from '../../../assets/BsXCircle.svg?react';
-import LoaderScreen from '../Loader/LoaderScreen';
+import { LoaderScreen } from '../Loader/LoaderScreen';
 
 type Props = {
     isOpen: boolean;

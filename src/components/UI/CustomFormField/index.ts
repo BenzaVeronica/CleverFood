@@ -1,2 +1,2 @@
-import CustomFormField from './CustomFormField';
+import { CustomFormField } from './CustomFormField';
 export default CustomFormField;

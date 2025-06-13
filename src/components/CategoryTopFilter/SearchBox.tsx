@@ -8,6 +8,7 @@ import {
 } from '@chakra-ui/react';
 import { KeyboardEvent, useState } from 'react';
 
+import { ACCESSIBILITY } from '~/app/accessibility.constants';
 import { useAppSelector } from '~/store/hooks';
 import { selectAllergens, selectRecipeFilter } from '~/store/recipe-filter/recipe-filter-selector';
 
@@ -20,7 +21,7 @@ type Props = {
     onClear: () => void;
     initValue?: string;
 };
-function SearchBox(props: Props) {
+export function SearchBox(props: Props) {
     const [inputValue, setInputValue] = useState(props.initValue || '');
     const allergens = useAppSelector(selectAllergens);
     const isSearchDisabled = inputValue.length < 3 && allergens.length === 0;
@@ -68,10 +69,15 @@ function SearchBox(props: Props) {
                 borderColor={isFilter ? (isExistResult ? 'green.500' : 'red.500') : 'gray.200'}
             />
             <InputRightElement w={{ base: '64px', lg: '76px' }} h={{ base: 8, lg: 12 }}>
-                <CloseButton size='sm' onClick={handleClear} mr={1} aria-label='Очистить поиск' />
+                <CloseButton
+                    size='sm'
+                    onClick={handleClear}
+                    mr={1}
+                    aria-label={ACCESSIBILITY.controls.search_clear}
+                />
                 <IconButton
                     data-test-id='search-button'
-                    aria-label='IconSearch'
+                    aria-label={ACCESSIBILITY.controls.search}
                     bg='transparent'
                     icon={
                         <Icon
@@ -88,5 +94,3 @@ function SearchBox(props: Props) {
         </InputGroup>
     );
 }
-
-export default SearchBox;

@@ -1,2 +1,2 @@
-import SelectedTags from './SelectedTags';
+import { SelectedTags } from './SelectedTags';
 export default SelectedTags;

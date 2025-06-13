@@ -1,12 +1,17 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 
 import { localStorageData } from '~/localStorage/constants';
 import { getDataFromLocalStorage } from '~/localStorage/localStorage';
-import { useGetCheckAuthQuery } from '~/query/auth/auth.api';
+import { useLazyGetCheckAuthQuery } from '~/query/auth/auth.api';
 import { getUserFromJWT } from '~/query/user/getUserFromJWT';
 import { User } from '~/query/user/user.types';
 import { PageRoutes } from '~/routes/PageRoutes.constants';
+
+import { useAppDispatch } from '../hooks';
+import { selectAuthWasLoggedIn } from './auth-selector';
+import { setWasLoggedIn } from './auth-slice';
 
 type UseAuthReturn = {
     user: User | null;
@@ -16,14 +21,19 @@ type UseAuthReturn = {
 
 export function useAuth(): UseAuthReturn {
     const navigate = useNavigate();
+    const wasLoggedIn = useSelector(selectAuthWasLoggedIn);
 
     const [user, setUser] = useState<User | null>(null);
     const accessToken = getDataFromLocalStorage(localStorageData.access_token);
     const [isAuthenticated, setIsAuthenticated] = useState(Boolean(accessToken));
 
-    const { data, error } = useGetCheckAuthQuery(undefined, {
-        skip: !accessToken,
-    });
+    const [triggerGetAuth, { error }] = useLazyGetCheckAuthQuery();
+
+    useEffect(() => {
+        if (!accessToken && wasLoggedIn === false) {
+            triggerGetAuth();
+        }
+    }, [accessToken, wasLoggedIn]);
 
     const logout = useCallback(() => {
         localStorage.removeItem(localStorageData.access_token);
@@ -32,6 +42,13 @@ export function useAuth(): UseAuthReturn {
         navigate(PageRoutes.LOGIN);
     }, [navigate]);
 
+    const dispatch = useAppDispatch();
+    useEffect(() => {
+        if (wasLoggedIn) {
+            dispatch(setWasLoggedIn(false));
+        }
+    }, []);
+
     useEffect(() => {
         if (!accessToken) {
             logout();
@@ -39,10 +56,10 @@ export function useAuth(): UseAuthReturn {
         }
 
         // if (isTokenExpired(accessToken)) {
-        // if (error) {
-        // logout();
-        //     return;
-        // }
+        if (error) {
+            logout();
+            return;
+        }
 
         // if (data) {
         if (accessToken) {
@@ -50,7 +67,7 @@ export function useAuth(): UseAuthReturn {
             const user = getUserFromJWT(accessToken);
             setUser(user);
         }
-    }, [data, error, logout, accessToken]);
+    }, [error, logout, accessToken]);
 
     return {
         user,

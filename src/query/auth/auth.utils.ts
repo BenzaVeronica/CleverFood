@@ -2,18 +2,19 @@ import { FetchBaseQueryMeta } from '@reduxjs/toolkit/query';
 
 import { localStorageData } from '~/localStorage/constants';
 import { setDataToLocalStorage } from '~/localStorage/localStorage';
-
 type QueryFulfilled = {
     data: unknown;
-    meta?: FetchBaseQueryMeta;
+    meta?: { response?: Response } | FetchBaseQueryMeta;
 };
-
+type PromiseQueryFulfilled = {
+    queryFulfilled: Promise<QueryFulfilled>;
+};
 export const saveAuthTokenFromHeaders =
     () =>
-    async (_: unknown, { queryFulfilled }: { queryFulfilled: Promise<QueryFulfilled> }) => {
+    async (_: unknown, { queryFulfilled }: PromiseQueryFulfilled) => {
         try {
-            const response = await queryFulfilled;
-            const token = response?.meta?.response?.headers.get('Authentication-Access');
+            const result = await queryFulfilled;
+            const token = result.meta?.response?.headers.get('Authentication-Access');
             if (token) {
                 setDataToLocalStorage(localStorageData.access_token, token);
             }

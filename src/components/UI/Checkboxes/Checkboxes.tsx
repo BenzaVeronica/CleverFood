@@ -9,7 +9,7 @@ type CheckboxesProps = {
     list: FilterOptionType[];
     disabledItems?: string[];
 };
-function Checkboxes({ value, onChange, title, list, disabledItems }: CheckboxesProps) {
+export function Checkboxes({ value, onChange, title, list, disabledItems }: CheckboxesProps) {
     return (
         <Box>
             {title && (
@@ -37,4 +37,3 @@ function Checkboxes({ value, onChange, title, list, disabledItems }: CheckboxesP
         </Box>
     );
 }
-export default Checkboxes;

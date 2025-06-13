@@ -1,6 +1,7 @@
 import { Box, Flex, Icon, IconButton, Text } from '@chakra-ui/react';
 import { useParams } from 'react-router';
 
+import { ACCESSIBILITY } from '~/app/accessibility.constants';
 import { useDrawers } from '~/context/DrawerContext';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { selectAllergens, selectRecipeFilter } from '~/store/recipe-filter/recipe-filter-selector';
@@ -10,17 +11,17 @@ import IconFilter from '../../assets/iconfilter.svg?react';
 import AlergenSwitch from '../AlergenSwitch';
 import DrawerFilterForm from '../DrawerFilter';
 import { filterAlergens } from '../DrawerFilter/DrawerFilter.constants';
-import SelectedTagsFromStore from '../SelectedTags/SelectedTagsFromStore';
+import { SelectedTagsFromStore } from '../SelectedTags/SelectedTagsFromStore';
 import Loader from '../UI/Loader';
-import SearchBox from './SearchBox';
-import useSearchFilter from './useSearchFilter';
+import { SearchBox } from './SearchBox';
+import { useSearchFilter } from './useSearchFilter';
 
 type Props = {
     title: string;
     text?: string;
 };
 
-function CategoryTopFilter({ title, text }: Props) {
+export function CategoryTopFilter({ title, text }: Props) {
     const { categoryId } = useParams();
     const { formDrawer } = useDrawers();
 
@@ -76,7 +77,7 @@ function CategoryTopFilter({ title, text }: Props) {
                         <IconButton
                             data-test-id='filter-button'
                             variant='outline'
-                            aria-label='Фильтр'
+                            aria-label={ACCESSIBILITY.controls.filter}
                             size={{ base: '32px', lg: '48px' }}
                             p={{ base: 2, lg: '11px' }}
                             icon={<Icon as={IconFilter} boxSize={{ base: '14px', lg: '24px' }} />}
@@ -113,5 +114,3 @@ function CategoryTopFilter({ title, text }: Props) {
         </Box>
     );
 }
-
-export default CategoryTopFilter;

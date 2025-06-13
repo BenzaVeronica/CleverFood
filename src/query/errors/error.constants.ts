@@ -9,22 +9,26 @@ export enum ErrorEnum {
     RELEVANT_KITCHEN = 'Ошибка загрузки блока рекомендованная кухня',
     EMAIL = 'Такого e-mail нет',
 }
-export const ErrorStatusMap: Record<number, string> = {
-    0: 'Неизвестная ошибка',
-    404: 'Ошибка сервера',
-    500: 'Ошибка сервера',
-};
 export const ErrorStringStatusMap: Record<string, string> = {
-    FETCH_ERROR: 'Ошибка сервера',
-    PARSING_ERROR: 'Ошибка pars запроса',
-    TIMEOUT_ERROR: 'Ошибка timeout запроса',
-    CUSTOM_ERROR: 'Ошибка запроса',
+    FETCH_ERROR: 'Не удалось загрузить данные',
+    PARSING_ERROR: 'Ошибка обработки ответа сервера',
+    TIMEOUT_ERROR: 'Сервер не ответил вовремя',
+    CUSTOM_ERROR: 'Неизвестная ошибка',
+    CLIENT_ERROR: 'Клиентская ошибка',
 };
 // export enum ImageText {
 // ERROR = 'Упс! Такой страницы нет',
 // }
 
 export const TOAST_MESSAGE = {
+    ClientErrorToast: {
+        title: 'Клиентская ошибка',
+        description: 'Ошибка при выполнении запроса',
+    },
+    ServerErrorToast: {
+        title: 'Ошибка сервера',
+        description: 'Попробуйте немного позже.',
+    },
     SignInToast: {
         [401]: {
             title: 'Неверный логин или пароль',
@@ -52,10 +56,6 @@ export const TOAST_MESSAGE = {
             title: 'Восстановление данных успешно',
             description: '',
         },
-    },
-    ServerErrorToast: {
-        title: 'Ошибка сервера',
-        description: 'Попробуйте немного позже',
     },
     RecipeDraftCreate: {
         [200]: {

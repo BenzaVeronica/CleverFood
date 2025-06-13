@@ -2,13 +2,13 @@ import { Flex, Text } from '@chakra-ui/react';
 
 import { Recipe } from '~/store/recipe-filter/recipe.types';
 
-import RecipeStepCard from './RecipeStepCard';
+import { RecipeStepCard } from './RecipeStepCard';
 
 type Props = {
     item: Recipe;
 };
 
-function RecipeSteps(props: Props) {
+export function RecipeSteps(props: Props) {
     return (
         <Flex direction='column' gap={5} justifyContent='space-between'>
             <Text fontSize={{ base: '2xl', xl: '5xl' }} fontWeight={600}>
@@ -24,5 +24,3 @@ function RecipeSteps(props: Props) {
         </Flex>
     );
 }
-
-export default RecipeSteps;

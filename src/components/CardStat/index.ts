@@ -1,2 +1,2 @@
-import CardStat from './CardStat';
+import { CardStat } from './CardStat';
 export default CardStat;

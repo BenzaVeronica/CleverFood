@@ -11,6 +11,7 @@ import {
 } from '@chakra-ui/react';
 import { Link } from 'react-router';
 
+import { ACCESSIBILITY } from '~/app/accessibility.constants';
 import { useCategoryBySubCategoryId } from '~/query/category/category.utils';
 import { useAppSelector } from '~/store/hooks';
 import { Recipe } from '~/store/recipe-filter/recipe.types';
@@ -30,19 +31,17 @@ type Props = {
     colSpan: GridItemProps['colSpan'];
 };
 
-function CardHorizontal({ el, index, colSpan }: Props) {
+export function CardHorizontal({ el, index, colSpan }: Props) {
     const { isTablet } = useBreakpoints();
     const { isSearchActive, searchQuery } = useAppSelector(selectSearch);
     const firstSubCategoryId = el.categoriesIds[0];
     const categs = useCategoryBySubCategoryId(firstSubCategoryId);
-    const { toggleBookmark } = useLikeAndBookmark(el);
+    const { toggleBookmark } = useLikeAndBookmark(el._id);
     return (
         <GridItem
             data-test-id={`food-card-${index}`}
             colSpan={colSpan}
-            borderColor='blackAlpha.200'
-            borderWidth='1px'
-            borderRadius='8px'
+            layerStyle='card'
             overflow='hidden'
             display='flex'
             height='fit-content'
@@ -136,36 +135,53 @@ function CardHorizontal({ el, index, colSpan }: Props) {
                         onClick={toggleBookmark}
                         display={{ base: 'none', lg: 'flex' }}
                         size='sm'
-                        variant='outline'
-                        colorScheme='black'
-                        color='blackAlpha.800'
+                        variant='btnOutlineBlack'
                         leftIcon={<Icon as={Bookmark} />}
+                        aria-label={ACCESSIBILITY.recipe.bookmark}
                     >
                         Сохранить
                     </Button>
                     <IconButton
-                        aria-label='Bookmark'
-                        variant='outline'
-                        colorScheme='black'
-                        color='blackAlpha.800'
+                        onClick={toggleBookmark}
+                        variant='btnOutlineBlack'
                         size='xs'
                         icon={<Icon as={Bookmark} boxSize={3} />}
                         display={{ base: 'flex', lg: 'none' }}
+                        aria-label={ACCESSIBILITY.recipe.bookmark}
                     />
                     <Button
                         data-test-id={`card-link-${index}`}
                         size={{ base: 'xs', lg: 'sm' }}
-                        colorScheme='black'
-                        color='white'
+                        variant='btnMain'
                         as={Link}
                         to={`/${categs?.category?.category}/${categs?.subCategory?.category}/${el._id}`}
+                        aria-label={ACCESSIBILITY.nav.recipe}
                     >
                         Готовить
                     </Button>
+                    {/* <Button
+                        // data-test-id={`card-link-${index}`}
+                        size={{ base: 'xs', lg: 'sm' }}
+                        variant='btnMain'
+                        as={Link}
+                        // to={`/${categs?.category?.category}/${categs?.subCategory?.category}/${el._id}`}
+                        // aria-label={ACCESSIBILITY.nav.recipe}
+                    >
+                        Редактировать
+                    </Button> */}
+                    {/* <Button
+                        // data-test-id={`card-link-${index}`}
+                        // onClick={toggleBookmark}
+                        display={{ base: 'none', lg: 'flex' }}
+                        size='sm'
+                        variant='btnOutlineBlack'
+                        leftIcon={<Icon as={BookmarkFilled} />}
+                        aria-label={ACCESSIBILITY.recipe.bookmark}
+                    >
+                        Убрать из сохраненных
+                    </Button> */}
                 </Flex>
             </Flex>
         </GridItem>
     );
 }
-
-export default CardHorizontal;

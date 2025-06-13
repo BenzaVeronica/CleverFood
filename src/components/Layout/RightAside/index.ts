@@ -1,2 +1,2 @@
-import RightAside from './RightAside';
+import { RightAside } from './RightAside';
 export default RightAside;

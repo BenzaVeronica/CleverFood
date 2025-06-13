@@ -3,16 +3,16 @@ import { skipToken } from '@reduxjs/toolkit/query';
 import { useEffect, useMemo } from 'react';
 
 import { ContainerBoxLayout } from '~/app/ContainerAppLayout';
-import CardListPaginated from '~/components/CardList/CardListPaginated';
+import { CardListQueryPaginated } from '~/components/CardList/CardListQueryPaginated';
 import CategoryTopFilter from '~/components/CategoryTopFilter';
 import SectionAbout from '~/components/SectionAbout';
-import LoaderScreen from '~/components/UI/Loader/LoaderScreen';
+import { LoaderScreen } from '~/components/UI/Loader/LoaderScreen';
 import WithLoadingError from '~/components/WithLoadingError';
 import { useGetNavTreeQuery } from '~/query/category/category.api';
 import { getRandomSubCategoryId } from '~/query/category/category.utils';
+import { CustomErrorResponse } from '~/query/errors/error.type';
 import { useGetRecipesBySubcategoryIdQuery, useGetRecipesQuery } from '~/query/recipe/recipe.api';
 import { ABOUT_PARAMS, POPULAR_PARAMS } from '~/query/recipe/recipe.constants';
-import { CustomErrorResponse } from '~/query/types';
 import { selectCategoriesWithSubs } from '~/store/category/category-selector';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { useAllQueriesFinished } from '~/utils/useAllQueriesFinished';
@@ -58,7 +58,7 @@ function TheMostPage() {
             <Flex direction='column' alignItems='center'>
                 <CategoryTopFilter title='Самое сочное' />
             </Flex>
-            <CardListPaginated
+            <CardListQueryPaginated
                 queryHook={useGetRecipesQuery}
                 queryParams={POPULAR_PARAMS}
                 dataTestId='load-more-button'
