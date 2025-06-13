@@ -104,11 +104,10 @@ export function ModalImageUploader({
 
                 <Box h='206px' w='206px'>
                     <ImageBox
-                        // dataTestId={TEST_ID.Modal.RecipeImageModal}
                         dataTestIdPreview={TEST_ID.Modal.RecipeImageModalPreviewImage}
                         image={tempImage}
                         onClick={() => document.getElementById('image-upload')?.click()}
-                        isEditCrop
+                        isEditCrop={isEditCrop}
                     />
 
                     <Input

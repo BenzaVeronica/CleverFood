@@ -42,7 +42,6 @@ type Props = {
 export function RecipeDescription(props: Props) {
     const { recipeId } = useParams();
 
-    // const { toggleLike, toggleBookmark } = useLikeAndBookmark(props.item);
     const { toggleLike, toggleBookmark } = useLikeAndBookmark(recipeId);
     const { user } = useAuth();
 

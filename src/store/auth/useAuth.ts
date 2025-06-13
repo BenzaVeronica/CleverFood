@@ -55,13 +55,11 @@ export function useAuth(): UseAuthReturn {
             return;
         }
 
-        // if (isTokenExpired(accessToken)) {
         if (error) {
             logout();
             return;
         }
 
-        // if (data) {
         if (accessToken) {
             setIsAuthenticated(true);
             const user = getUserFromJWT(accessToken);

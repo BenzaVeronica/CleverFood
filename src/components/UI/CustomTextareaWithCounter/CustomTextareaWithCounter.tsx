@@ -29,7 +29,6 @@ export function CustomTextareaWithCounter({
                 ref={textareaRef}
                 value={value}
                 onChange={(e) => {
-                    // if (e.target.value.length <= maxLength)
                     onChange(e);
                 }}
                 placeholder={placeholder}

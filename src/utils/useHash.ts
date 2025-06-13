@@ -13,7 +13,6 @@ export function scrollToHash(hash: string, offset: number = 0) {
             if (el) {
                 const top = el.getBoundingClientRect().top + window.pageYOffset;
                 window.scrollTo({ top: top - offset - 20, behavior: 'smooth' });
-                // el.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         });
     }

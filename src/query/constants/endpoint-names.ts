@@ -1,5 +1,4 @@
 export enum EndpointNames {
-    // HEALTH = 'health',
     GET_RECIPES = 'getRecipes',
     GET_RECIPE = 'getRecipeById',
     GET_RECIPES_BY_SUBCATEGORY = 'getRecipesBySubcategoryId',
@@ -24,8 +23,8 @@ export enum EndpointNames {
     VERIFY_OTP = 'verifyOtp',
     RESET_PASSWORD = 'resetPassword',
 
-    // USERS = 'users',
     USERS_TOGGLE_SUBSCRIPTION = 'toggleSubscription',
+
     GET_MEASURE_UNITS = 'getAllMeasureUnits',
 
     GET_BLOGGERS = 'getAllBloggers',

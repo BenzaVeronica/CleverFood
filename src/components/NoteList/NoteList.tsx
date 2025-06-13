@@ -16,7 +16,6 @@ export function NoteList({ notes }: Props) {
     const textBtn = showAll ? 'Свернуть' : 'Показать больше';
     const { isMobile } = useBreakpoints();
     const initialCount = isMobile ? 2 : 3;
-    // const visibleNotes = showAll ? notes : notes.slice(0, initialCount);
     return (
         <>
             <Flex gap={4} flexWrap='wrap' data-test-id={TEST_ID.Bloggers.BloggerUserNotesGrid}>

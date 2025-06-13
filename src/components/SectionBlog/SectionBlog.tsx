@@ -26,7 +26,6 @@ export function SectionBlog({
     const { user } = useAuth();
     const { data: bloggers, error } = useGetAllBloggersQuery(
         {
-            // limit: '3',
             currentUserId: user?.userId || '',
             limit: '',
         },

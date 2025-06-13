@@ -12,7 +12,6 @@ type Props = {
 };
 
 export function UserCardGreen(props: Props) {
-    // const transformBlogger = transformBloggerToProfile(props.profile);
     const [isLoadingSubscribe, setIsLoadingSubscribe] = useState(false);
     return (
         <Flex

@@ -18,7 +18,7 @@ export function LoaderScreen() {
             display='flex'
             alignItems='center'
             justifyContent='center'
-            zIndex={10}
+            zIndex={30}
         >
             <Loader />
         </Box>
