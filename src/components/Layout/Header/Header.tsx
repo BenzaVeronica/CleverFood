@@ -1,19 +1,20 @@
-import { Button, Flex, Icon, useMediaQuery } from '@chakra-ui/react';
+import { Button, Flex, Icon } from '@chakra-ui/react';
 
 import IconClose from '~/assets/iconClose.svg?react';
 import IconMenu from '~/assets/iconMenu.svg?react';
 import LeftNavMenu from '~/components/Layout/LeftNavMenu';
 import LoginButton from '~/components/LoginButton';
-import Logo from '~/components/Logo';
-import CustomBreadcrumb from '~/components/UI/Breadcrumb';
+import Logo from '~/components/UI/Logo';
 import UserProfile from '~/components/UserProfile';
 import UserStat from '~/components/UserStat';
 import { useMobileMenu } from '~/context/MobileMenuContext';
+import CustomBreadcrumb from '~/routes/Breadcrumb';
 import { useAuth } from '~/store/auth/useAuth';
 import { masProfiles } from '~/store/blog/blog.constants';
+import useBreakpoints from '~/utils/useBreakpoints';
 
-function Header() {
-    const [isTablet] = useMediaQuery('(max-width: 1439px)');
+export function Header() {
+    const { isSmallDesktop } = useBreakpoints();
     const { isAuthenticated } = useAuth();
     const { isOpen, toggleMenu } = useMobileMenu();
 
@@ -32,13 +33,13 @@ function Header() {
             left={0}
             zIndex={11}
             w='100%'
-            bg={isOpen && isTablet ? 'white' : 'lime.50'}
+            bg={isOpen && isSmallDesktop ? 'white' : 'lime.50'}
             alignItems='center'
             justifyContent='space-between'
         >
             <Logo withHiding />
 
-            {!isTablet && (
+            {!isSmallDesktop && (
                 <CustomBreadcrumb
                     breadcrumbProps={{
                         display: { base: 'none', lg: 'inline' },
@@ -47,7 +48,7 @@ function Header() {
                 />
             )}
 
-            {isAuthenticated && !isTablet ? (
+            {isAuthenticated && !isSmallDesktop ? (
                 <UserProfile profile={masProfiles[0]} mr={14} w='432px' />
             ) : (
                 <LoginButton />
@@ -56,8 +57,8 @@ function Header() {
                 mr={5}
                 alignItems='center'
                 style={{
-                    visibility: isTablet ? 'visible' : 'hidden',
-                    width: isTablet ? 'auto' : '0px',
+                    visibility: isSmallDesktop ? 'visible' : 'hidden',
+                    width: isSmallDesktop ? 'auto' : '0px',
                 }}
                 // display={{ base: 'flex', lg: 'none' }}
             >
@@ -72,9 +73,7 @@ function Header() {
                     p={0}
                 />
             </Flex>
-            {isTablet && isOpen && <LeftNavMenu />}
+            {isSmallDesktop && isOpen && <LeftNavMenu />}
         </Flex>
     );
 }
-
-export default Header;

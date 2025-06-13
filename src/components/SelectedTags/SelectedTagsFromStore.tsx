@@ -8,9 +8,9 @@ import {
     removeMeatType,
     removeSideDish,
 } from '../../store/recipe-filter/recipe-filter-slice';
-import SelectedTags from './SelectedTags';
+import { SelectedTags } from './SelectedTags';
 
-const SelectedTagsFromStore = () => {
+export const SelectedTagsFromStore = () => {
     const dispatch = useAppDispatch();
     const filters = useAppSelector(selectRecipeFilter);
 
@@ -36,4 +36,3 @@ const SelectedTagsFromStore = () => {
         />
     );
 };
-export default SelectedTagsFromStore;

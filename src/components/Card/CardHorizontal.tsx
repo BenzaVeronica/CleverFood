@@ -31,7 +31,7 @@ type Props = {
     colSpan: GridItemProps['colSpan'];
 };
 
-function CardHorizontal({ el, index, colSpan }: Props) {
+export function CardHorizontal({ el, index, colSpan }: Props) {
     const { isTablet } = useBreakpoints();
     const { isSearchActive, searchQuery } = useAppSelector(selectSearch);
     const firstSubCategoryId = el.categoriesIds[0];
@@ -159,10 +159,29 @@ function CardHorizontal({ el, index, colSpan }: Props) {
                     >
                         Готовить
                     </Button>
+                    {/* <Button
+                        // data-test-id={`card-link-${index}`}
+                        size={{ base: 'xs', lg: 'sm' }}
+                        variant='btnMain'
+                        as={Link}
+                        // to={`/${categs?.category?.category}/${categs?.subCategory?.category}/${el._id}`}
+                        // aria-label={ACCESSIBILITY.nav.recipe}
+                    >
+                        Редактировать
+                    </Button> */}
+                    {/* <Button
+                        // data-test-id={`card-link-${index}`}
+                        // onClick={toggleBookmark}
+                        display={{ base: 'none', lg: 'flex' }}
+                        size='sm'
+                        variant='btnOutlineBlack'
+                        leftIcon={<Icon as={BookmarkFilled} />}
+                        aria-label={ACCESSIBILITY.recipe.bookmark}
+                    >
+                        Убрать из сохраненных
+                    </Button> */}
                 </Flex>
             </Flex>
         </GridItem>
     );
 }
-
-export default CardHorizontal;

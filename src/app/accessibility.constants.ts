@@ -1,6 +1,7 @@
 export const ACCESSIBILITY = {
     nav: {
         recipe: 'Перейти на страницу рецепта',
+        settings: 'Перейти на страницу настроек',
     },
     notes: {
         delete: 'Удалить заметку',
@@ -17,6 +18,11 @@ export const ACCESSIBILITY = {
         // add: 'Добавить рецепт',
         bookmark: 'Добавить в закладки рецепт',
         like: 'Оценить рецепт',
+    },
+    image: {
+        // delete: 'Удалить фото',
+        edit: 'Редактировать фото',
+        // add: 'Добавить фото',
     },
     forms: {
         psw_show: 'Показать пароль',

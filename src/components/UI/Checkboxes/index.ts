@@ -1,2 +1,2 @@
-import Checkboxes from './Checkboxes';
+import { Checkboxes } from './Checkboxes';
 export default Checkboxes;

@@ -15,7 +15,7 @@ type CustomSelectProps = {
     hasError: boolean;
 } & ChakraSelectProps;
 
-const CustomSelect = ({
+export const CustomSelect = ({
     value,
     handleChange,
     options,
@@ -45,5 +45,3 @@ const CustomSelect = ({
         ))}
     </ChakraSelect>
 );
-
-export default CustomSelect;

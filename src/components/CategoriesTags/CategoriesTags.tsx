@@ -15,7 +15,7 @@ type Props = {
     subCategoriesIds: string[];
 } & FlexProps;
 
-function CategoriesTags({
+export function CategoriesTags({
     subCategoriesIds,
     keyId,
     isPosition = false,
@@ -68,5 +68,3 @@ function CategoriesTags({
         </Flex>
     );
 }
-
-export default CategoriesTags;

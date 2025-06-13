@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router';
 
 import Footer from '~/components/Layout/Footer';
-import Header from '~/components/Layout/Header/Header';
+import Header from '~/components/Layout/Header';
 import LeftNavMenu from '~/components/Layout/LeftNavMenu';
 import RightAside from '~/components/Layout/RightAside';
 import { AppProviders } from '~/context/AppContext';
@@ -40,10 +40,10 @@ function App() {
                     w={64}
                     overflow='auto'
                     height={`calc(100vh - ${HEIGHT_HEADER})`}
-                    zIndex={1}
                     pt={6}
                     boxShadow='0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12)'
                     display={{ base: 'none', lg: 'block' }}
+                    zIndex={10}
                 >
                     {!isTablet && <LeftNavMenu />}
                 </Box>
@@ -67,6 +67,7 @@ function App() {
                         position='fixed'
                         right={0}
                         top={20}
+                        zIndex={10}
                     >
                         <RightAside />
                     </Box>

@@ -9,9 +9,11 @@ type Props = {
 };
 
 export function StatisticsChart({ icon, title }: Props) {
+    // const users = ['v'];
     return (
         <HStack>
             <StatTitle icon={icon}>{title}</StatTitle>
+            {/* {users.length && } */}
         </HStack>
     );
 }

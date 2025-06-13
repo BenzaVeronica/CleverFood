@@ -15,12 +15,7 @@ type Props = {
     withTooltip?: boolean;
 };
 
-export function CustomSubscribeButton({
-    isSubscribe,
-    userId,
-    onLoadingChange,
-    withTooltip,
-}: Props) {
+export function UserSubscribeButton({ isSubscribe, userId, onLoadingChange, withTooltip }: Props) {
     const [isSubscribeState, setIsSubscribeState] = useState(isSubscribe);
 
     const [toggleSubscription] = useToggleSubscriptionMutation();

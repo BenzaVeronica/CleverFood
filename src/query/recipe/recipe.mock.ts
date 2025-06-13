@@ -1,10 +1,10 @@
-import imgMain from '../../assets/imgRecipes/image.jpg';
-import recipeStepimg1 from '../../assets/recipeSteps/image.jpg';
-import recipeStepimg2 from '../../assets/recipeSteps/image1.jpg';
-import recipeStepimg3 from '../../assets/recipeSteps/image2.jpg';
-import recipeStepimg4 from '../../assets/recipeSteps/image3.jpg';
-import recipeStepimg5 from '../../assets/recipeSteps/image4.jpg';
-import recipeStepimg6 from '../../assets/recipeSteps/image5.jpg';
+import imgMain from '~/test/imgRecipes/image.jpg';
+import recipeStepimg1 from '~/test/recipeSteps/image.jpg';
+import recipeStepimg2 from '~/test/recipeSteps/image1.jpg';
+import recipeStepimg3 from '~/test/recipeSteps/image2.jpg';
+import recipeStepimg4 from '~/test/recipeSteps/image3.jpg';
+import recipeStepimg5 from '~/test/recipeSteps/image4.jpg';
+import recipeStepimg6 from '~/test/recipeSteps/image5.jpg';
 
 export const MAS_RECIPES = [
     {

@@ -11,7 +11,7 @@ import { IconSearchCircle } from '../../Icons/IconSearchCircle';
 import { IconWriteCircle } from '../../Icons/IconWriteCircle';
 import { FooterMenuItem } from './Footer.types';
 
-function Footer() {
+export function Footer() {
     const location = useLocation();
 
     const mas: FooterMenuItem[] = [
@@ -78,5 +78,3 @@ function Footer() {
         </SimpleGrid>
     );
 }
-
-export default Footer;

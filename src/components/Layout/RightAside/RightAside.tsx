@@ -9,7 +9,7 @@ import { HEIGHT_HEADER, WIDTH_RIGHT_ASIDE } from '~/theme/ui.constants';
 import { IconWriteCircle } from '../../Icons/IconWriteCircle';
 import UserStat from '../../UserStat';
 
-function RightAside() {
+export function RightAside() {
     const { isAuthenticated } = useAuth();
 
     const currentPath = window.location.pathname;
@@ -51,5 +51,3 @@ function RightAside() {
         </Flex>
     );
 }
-
-export default RightAside;

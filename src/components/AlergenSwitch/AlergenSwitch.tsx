@@ -5,7 +5,7 @@ import { selectDisabledAllergenSwitch } from '~/store/recipe-filter/recipe-filte
 import { toggleSearchDisabledAllergenSwitch } from '~/store/recipe-filter/recipe-filter-slice';
 
 import { filterAlergens, FilterOptionType } from '../DrawerFilter/DrawerFilter.constants';
-import CustomMultiSelectWithAdd from '../UI/CustomMultiSelect/CustomMultiSelectWithAdd';
+import { CustomMultiSelectWithAdd } from '../UI/CustomMultiSelect/CustomMultiSelectWithAdd';
 
 type Props = {
     value: string[];
@@ -18,7 +18,7 @@ type Props = {
     isFilterDataTestId: boolean;
 } & FormControlProps;
 
-function AlergenSwitch({
+export function AlergenSwitch({
     text = 'Исключить аллергены',
     isDrawer = false,
     value = [],
@@ -72,5 +72,3 @@ function AlergenSwitch({
         </>
     );
 }
-
-export default AlergenSwitch;

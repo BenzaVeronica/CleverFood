@@ -21,7 +21,7 @@ type Props = {
     onClear: () => void;
     initValue?: string;
 };
-function SearchBox(props: Props) {
+export function SearchBox(props: Props) {
     const [inputValue, setInputValue] = useState(props.initValue || '');
     const allergens = useAppSelector(selectAllergens);
     const isSearchDisabled = inputValue.length < 3 && allergens.length === 0;
@@ -94,5 +94,3 @@ function SearchBox(props: Props) {
         </InputGroup>
     );
 }
-
-export default SearchBox;

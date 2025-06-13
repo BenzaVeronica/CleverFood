@@ -2,7 +2,8 @@ import { Box, Button, Grid, GridProps } from '@chakra-ui/react';
 
 import { Recipe } from '~/store/recipe-filter/recipe.types';
 
-import CardHorizontal from '../Card/CardHorizontal';
+import { CardHorizontal } from '../Card/CardHorizontal';
+
 type Props = {
     list: Recipe[];
     dataTestIdGrid?: string;
@@ -13,7 +14,7 @@ type Props = {
     onLoadMore?: () => void;
 } & GridProps;
 
-function CardList({
+export function CardList({
     list,
     dataTestIdGrid,
     dataTestId,
@@ -71,5 +72,3 @@ function CardList({
         </>
     );
 }
-
-export default CardList;

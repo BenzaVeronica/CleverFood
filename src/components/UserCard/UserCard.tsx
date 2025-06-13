@@ -7,10 +7,10 @@ import { PageRoutes, PageRoutesHash } from '~/routes/PageRoutes.constants';
 import { TEST_ID } from '~/test/test.constant';
 import { pluralizeRecipes } from '~/utils/pluralizeRecipes';
 
-import CustomSubscribeButton from '../../widgets/CustomSubscribeButton';
 import CardStat from '../CardStat';
 import Loader from '../UI/Loader';
 import UserProfile from '../UserProfile';
+import CustomSubscribeButton from '../UserSubscribeButton';
 
 type Props = {
     item: BloggerShortInfo;

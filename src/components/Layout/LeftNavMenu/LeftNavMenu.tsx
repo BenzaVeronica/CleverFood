@@ -19,12 +19,12 @@ import { selectCategoriesWithSubs } from '~/store/category/category-selector';
 import { useAppSelector } from '~/store/hooks';
 import useBreakpoints from '~/utils/useBreakpoints';
 
+import CustomBreadcrumb from '../../../routes/Breadcrumb';
 import { IconExit } from '../../Icons/IconExit';
-import CustomBreadcrumb from '../../UI/Breadcrumb';
-import LeftNavMenuWrapper from './LeftNavMenuWrapper';
+import { LeftNavMenuWrapper } from './LeftNavMenuWrapper';
 import { SubCategoryListItem } from './SubCategoryListItem';
 
-function LeftNavMenu() {
+export function LeftNavMenu() {
     const navigate = useNavigate();
     const { closeMenu } = useMobileMenu();
 
@@ -144,5 +144,3 @@ function LeftNavMenu() {
         </LeftNavMenuWrapper>
     );
 }
-
-export default LeftNavMenu;

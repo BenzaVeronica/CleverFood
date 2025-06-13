@@ -2,9 +2,9 @@ import { Box } from '@chakra-ui/react';
 
 import { TEST_ID } from '~/test/test.constant';
 
-import Loader from './Loader';
+import { Loader } from './Loader';
 
-function LoaderScreen() {
+export function LoaderScreen() {
     return (
         <Box
             data-test-id={TEST_ID.AppLoader}
@@ -24,5 +24,3 @@ function LoaderScreen() {
         </Box>
     );
 }
-
-export default LoaderScreen;

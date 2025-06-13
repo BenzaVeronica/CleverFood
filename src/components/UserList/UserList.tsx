@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Grid, GridItem, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, GridItem, SimpleGrid, Text } from '@chakra-ui/react';
 
 import { BloggerShortInfo } from '~/query/blogs/blogs.type';
 import { TEST_ID } from '~/test/test.constant';
@@ -45,12 +45,9 @@ export function UserList({
                     </Text>
                 </Flex>
             )}
-            <Grid
-                templateColumns={{
-                    base: 'repeat(4, 1fr)',
-                    md: 'repeat(12, 1fr)',
-                }}
-                gap={{ base: 3, lg: 4 }}
+            <SimpleGrid
+                columns={{ base: 4, md: 12 }}
+                spacing={{ base: 3, lg: 4 }}
                 borderRadius='16px'
                 data-test-id={
                     isFavBlock
@@ -70,7 +67,7 @@ export function UserList({
                         />
                     </GridItem>
                 ))}
-            </Grid>
+            </SimpleGrid>
             {handleToggle && (
                 <Button
                     data-test-id={TEST_ID.Bloggers.BlogsOthersButton}

@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { GetBloggerByIdResponse } from '~/query/blogs/blogs.type';
 
 import PeopleOutline from '../../assets/users.svg?react';
-import CustomSubscribeButton from '../../widgets/CustomSubscribeButton';
 import Loader from '../UI/Loader';
+import CustomSubscribeButton from '../UserSubscribeButton';
 
 type Props = {
     profile: GetBloggerByIdResponse;

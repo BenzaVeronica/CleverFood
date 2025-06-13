@@ -8,7 +8,7 @@ import NutritionBox from '~/components/NutritionBox';
 import RecipeDescription from '~/components/RecipeDescription';
 import IngridientsTable from '~/components/RecipeIngridientsTable';
 import RecipeSteps from '~/components/RecipeSteps';
-import LoaderScreen from '~/components/UI/Loader/LoaderScreen';
+import { LoaderScreen } from '~/components/UI/Loader/LoaderScreen';
 import { UserCardGreen } from '~/components/UserCard/UserCardGreen';
 import { useGetBloggerByIdQuery } from '~/query/blogs/blogs.api';
 import { useGetRecipeByIdQuery } from '~/query/recipe/recipe.api';

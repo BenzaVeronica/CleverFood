@@ -1,2 +1,2 @@
-import CategoryTopFilter from './CategoryTopFilter';
+import { CategoryTopFilter } from './CategoryTopFilter';
 export default CategoryTopFilter;

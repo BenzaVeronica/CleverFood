@@ -1,10 +1,10 @@
-import { Box, Button, Flex, Grid, GridItem, Stack, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, GridItem, SimpleGrid, Stack, Text } from '@chakra-ui/react';
 
 import { selectCategoryBySubCategoryId } from '~/store/category/category-selector';
 import { useAppSelector } from '~/store/hooks';
 import { Recipe } from '~/store/recipe-filter/recipe.types';
 
-import CardWithoutImg from '../Card/CardWithoutImg';
+import { CardWithoutImg } from '../Card/CardWithoutImg';
 import { CustomImage } from '../UI/CustomImage/CustomImage';
 
 type Props = {
@@ -12,22 +12,18 @@ type Props = {
     randomSubCategoryId: string | null;
 };
 
-function SectionAbout({ items, randomSubCategoryId }: Props) {
+export function SectionAbout({ items, randomSubCategoryId }: Props) {
     const category = useAppSelector(selectCategoryBySubCategoryId(randomSubCategoryId));
     if (!category) return null;
     return (
         <Box pt={{ base: 8, lg: 10 }}>
-            <Grid
-                templateColumns={{
-                    base: 'repeat(4, 1fr)',
-                    md: 'repeat(12, 1fr)',
-                }}
-                gap={{ base: 3, lg: 4, xl: 6 }}
+            <SimpleGrid
+                columns={{ base: 4, md: 12 }}
+                spacing={{ base: 3, lg: 4, xl: 6 }}
                 mt={{ base: 1, lg: 0 }}
                 pt={{ base: 1, lg: 6 }}
                 pb={6}
-                borderColor='blackAlpha.200'
-                borderTopWidth='1px'
+                layerStyle='card'
             >
                 <GridItem colSpan={{ base: 12, lg: 4, xl: 6 }}>
                     <Text as='h2' fontSize={['2xl', '2xl', '2xl', '3xl', '4xl']} fontWeight='500'>
@@ -45,15 +41,8 @@ function SectionAbout({ items, randomSubCategoryId }: Props) {
                         {category.description}
                     </Text>
                 </GridItem>
-            </Grid>
-            <Grid
-                templateColumns={{
-                    base: 'repeat(4, 1fr)',
-                    md: 'repeat(12, 1fr)',
-                }}
-                gap={{ base: 3, lg: 4, xl: 6 }}
-                mb={4}
-            >
+            </SimpleGrid>
+            <SimpleGrid columns={{ base: 4, md: 12 }} spacing={{ base: 3, lg: 4, xl: 6 }} mb={4}>
                 {items.slice(0, 2).map((el) => (
                     <CardWithoutImg
                         key={`card_${el._id}`}
@@ -66,9 +55,7 @@ function SectionAbout({ items, randomSubCategoryId }: Props) {
                         {items.slice(2, 5).map((el) => (
                             <Flex
                                 key={`SectionAbout_${el._id}`}
-                                borderColor='blackAlpha.200'
-                                borderWidth='1px'
-                                borderRadius='8px'
+                                layerStyle='card'
                                 px={{ base: 3 }}
                                 py={{ base: 3 }}
                                 gap={1}
@@ -98,9 +85,7 @@ function SectionAbout({ items, randomSubCategoryId }: Props) {
                         ))}
                     </Stack>
                 </GridItem>
-            </Grid>
+            </SimpleGrid>
         </Box>
     );
 }
-
-export default SectionAbout;

@@ -29,7 +29,7 @@ type CustomMultiSelectProps = {
 const MAX_LABEL_WIDTH = 100;
 const GAP = 8;
 
-const CustomMultiSelect = ({
+export const CustomMultiSelect = ({
     value = [],
     onChange,
     options,
@@ -159,5 +159,3 @@ const CustomMultiSelect = ({
         </Menu>
     );
 };
-
-export default CustomMultiSelect;

@@ -1,2 +1,2 @@
-import SectionAbout from './SectionAbout';
+import { SectionAbout } from './SectionAbout';
 export default SectionAbout;

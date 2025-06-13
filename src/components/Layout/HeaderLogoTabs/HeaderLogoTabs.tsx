@@ -1,7 +1,7 @@
 import { Tab, TabList, Tabs } from '@chakra-ui/react';
 import { useNavigate } from 'react-router';
 
-import Logo from '~/components/Logo';
+import Logo from '~/components/UI/Logo';
 import { PageRoutes } from '~/routes/PageRoutes.constants';
 
 type Props = {

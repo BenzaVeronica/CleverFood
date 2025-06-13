@@ -4,19 +4,19 @@ import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 
 import { ContainerGridLayout } from '~/app/ContainerAppLayout';
-import CardListQueryPaginated from '~/components/CardList/CardListQueryPaginated';
-import CardListWithFilter from '~/components/CardList/CardListWithFilter';
+import { CardListQueryPaginated } from '~/components/CardList/CardListQueryPaginated';
+import { CardListWithFilter } from '~/components/CardList/CardListWithFilter';
 import CategoryTopFilter from '~/components/CategoryTopFilter';
 import SectionAbout from '~/components/SectionAbout';
-import LoaderScreen from '~/components/UI/Loader/LoaderScreen';
+import { LoaderScreen } from '~/components/UI/Loader/LoaderScreen';
 import WithLoadingError from '~/components/WithLoadingError';
 import { useGetNavTreeQuery } from '~/query/category/category.api';
 import useCurrentCategories, {
     getRandomSubCategoryIdByCategory,
 } from '~/query/category/category.utils';
+import { CustomErrorResponse } from '~/query/errors/error.type';
 import { useGetRecipesBySubcategoryIdQuery } from '~/query/recipe/recipe.api';
 import { ABOUT_PARAMS, RECEPIES_PARAMS } from '~/query/recipe/recipe.constants';
-import { CustomErrorResponse } from '~/query/types';
 import { useRedirectInvalidPath } from '~/routes/useRedirectInvalidPath';
 import { selectCategoriesWithSubs } from '~/store/category/category-selector';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';

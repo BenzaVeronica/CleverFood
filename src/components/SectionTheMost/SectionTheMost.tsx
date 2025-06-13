@@ -11,7 +11,7 @@ type Props = {
     items: Recipe[];
 };
 
-function SectionTheMost({ items }: Props) {
+export function SectionTheMost({ items }: Props) {
     return (
         <Box as='section'>
             <Flex mb={6} justifyContent='space-between'>
@@ -65,5 +65,3 @@ function SectionTheMost({ items }: Props) {
         </Box>
     );
 }
-
-export default SectionTheMost;

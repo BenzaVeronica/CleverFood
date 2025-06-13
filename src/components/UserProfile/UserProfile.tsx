@@ -7,7 +7,7 @@ type Props = {
     profile: BloggerShortInfo;
 } & FlexProps;
 
-function UserProfile({ profile, ...flexProps }: Props) {
+export function UserProfile({ profile, ...flexProps }: Props) {
     return (
         <Flex gap={3} display='flex' alignItems='center' {...flexProps} minW={0}>
             <Avatar
@@ -36,4 +36,3 @@ function UserProfile({ profile, ...flexProps }: Props) {
         </Flex>
     );
 }
-export default UserProfile;

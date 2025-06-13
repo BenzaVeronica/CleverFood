@@ -3,13 +3,13 @@ import { skipToken } from '@reduxjs/toolkit/query';
 import { useEffect, useMemo } from 'react';
 
 import { ContainerBoxLayout } from '~/app/ContainerAppLayout';
-import CardListWithFilter from '~/components/CardList/CardListWithFilter';
+import { CardListWithFilter } from '~/components/CardList/CardListWithFilter';
 import CategoryTopFilter from '~/components/CategoryTopFilter';
 import NewRecipeSlider from '~/components/NewRecipeSlider';
 import SectionAbout from '~/components/SectionAbout';
 import SectionBlog from '~/components/SectionBlog';
 import SectionTheMost from '~/components/SectionTheMost';
-import LoaderScreen from '~/components/UI/Loader/LoaderScreen';
+import { LoaderScreen } from '~/components/UI/Loader/LoaderScreen';
 import WithLoadingError from '~/components/WithLoadingError';
 import { useGetNavTreeQuery } from '~/query/category/category.api';
 import { getRandomSubCategoryId } from '~/query/category/category.utils';

@@ -10,7 +10,7 @@ import { Recipe } from '~/store/recipe-filter/recipe.types';
 import { addError } from '~/widgets/error/error-slice';
 import ErrorNotification from '~/widgets/error/ErrorNotification';
 
-import CardList from './CardList';
+import { CardList } from './CardList';
 
 type CardListPaginatedProps<P extends ResponseParams | ResponseParamsWithId> = {
     queryHook: (params: P) => {
@@ -24,7 +24,7 @@ type CardListPaginatedProps<P extends ResponseParams | ResponseParamsWithId> = {
     shouldReset?: boolean;
 } & GridProps;
 
-function CardListQueryPaginated<P extends ResponseParams | ResponseParamsWithId>({
+export function CardListQueryPaginated<P extends ResponseParams | ResponseParamsWithId>({
     queryHook,
     queryParams,
     dataTestId,
@@ -87,5 +87,3 @@ function CardListQueryPaginated<P extends ResponseParams | ResponseParamsWithId>
         />
     );
 }
-
-export default CardListQueryPaginated;

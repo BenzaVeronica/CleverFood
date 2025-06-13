@@ -13,7 +13,7 @@ type Props = {
     dataTestIdbookmarks?: string;
 };
 
-function CardStat(props: Props) {
+export function CardStat(props: Props) {
     return (
         <Flex gap={{ base: 0, lg: 2 }} flexShrink={0}>
             {Number(props?.bookmarks) >= 0 && (
@@ -58,5 +58,3 @@ function CardStat(props: Props) {
         </Flex>
     );
 }
-
-export default CardStat;

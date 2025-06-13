@@ -8,7 +8,7 @@ type Props = {
     to?: string;
 } & FlexProps;
 
-function CustomTag({ color, text, to, leftElement, ...flexProps }: Props) {
+export function CustomTag({ color, text, to, leftElement, ...flexProps }: Props) {
     return (
         <Flex
             as={to ? Link : 'div'}
@@ -29,5 +29,3 @@ function CustomTag({ color, text, to, leftElement, ...flexProps }: Props) {
         </Flex>
     );
 }
-
-export default CustomTag;

@@ -5,7 +5,7 @@ type Props = {
     highlight: string;
 };
 
-function HighlightText(props: Props) {
+export function HighlightText(props: Props) {
     if (!props.highlight.trim()) return <>{props.text}</>;
 
     const parts = props.text.split(new RegExp(`(${props.highlight})`, 'gi'));
@@ -24,5 +24,3 @@ function HighlightText(props: Props) {
         </>
     );
 }
-
-export default HighlightText;

@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Grid, GridItem, Icon, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, GridItem, Icon, SimpleGrid, Text } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { Link } from 'react-router';
 
@@ -17,7 +17,7 @@ type Props = {
     isVisibleSubscribeBtn?: boolean;
     isVisibleStatBox?: boolean;
 };
-function SectionBlog({
+export function SectionBlog({
     title = 'Кулинарные блоги',
     colorMain = false,
     isVisibleSubscribeBtn,
@@ -105,13 +105,10 @@ function SectionBlog({
                     Всe авторы
                 </Button>
             </Flex>
-            <Grid
+            <SimpleGrid
                 data-test-id={testIds?.grid}
-                templateColumns={{
-                    base: 'repeat(4, 1fr)',
-                    md: 'repeat(12, 1fr)',
-                }}
-                gap={{ base: 3, lg: 4 }}
+                columns={{ base: 4, md: 12 }}
+                spacing={{ base: 3, lg: 4 }}
             >
                 {bloggers &&
                     bloggers.others.map((el) => (
@@ -123,9 +120,7 @@ function SectionBlog({
                             />
                         </GridItem>
                     ))}
-            </Grid>
+            </SimpleGrid>
         </Box>
     );
 }
-
-export default SectionBlog;

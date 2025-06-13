@@ -12,7 +12,7 @@ type Props = {
     colSpan: GridItemProps['colSpan'];
 };
 
-function CardWithoutImg({ el, colSpan }: Props) {
+export function CardWithoutImg({ el, colSpan }: Props) {
     const firstSubCategoryId = el.categoriesIds?.[0];
     const categs = useCategoryBySubCategoryId(firstSubCategoryId);
     return (
@@ -45,5 +45,3 @@ function CardWithoutImg({ el, colSpan }: Props) {
         </GridItem>
     );
 }
-
-export default CardWithoutImg;

@@ -13,7 +13,7 @@ type Props = {
     isFilterDataTestId: boolean;
 };
 
-const CustomAddBox = ({
+export const CustomAddBox = ({
     selectedOptions,
     options,
     setOptions,
@@ -80,5 +80,3 @@ const CustomAddBox = ({
         </Box>
     );
 };
-
-export default CustomAddBox;

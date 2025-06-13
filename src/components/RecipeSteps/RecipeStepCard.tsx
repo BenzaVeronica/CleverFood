@@ -9,7 +9,7 @@ type Props = {
     isLast: boolean;
 };
 
-function RecipeStepCard(props: Props) {
+export function RecipeStepCard(props: Props) {
     return (
         <Flex
             layerStyle='card'
@@ -53,5 +53,3 @@ function RecipeStepCard(props: Props) {
         </Flex>
     );
 }
-
-export default RecipeStepCard;

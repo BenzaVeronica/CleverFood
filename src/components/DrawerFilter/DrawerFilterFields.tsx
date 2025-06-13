@@ -5,7 +5,7 @@ import { useDrawers } from '~/context/DrawerContext';
 
 import AlergenSwitch from '../AlergenSwitch';
 import Checkboxes from '../UI/Checkboxes';
-import CustomMultiSelect from '../UI/CustomMultiSelect/CustomMultiSelect';
+import { CustomMultiSelect } from '../UI/CustomMultiSelect/CustomMultiSelect';
 import { useFilterConfig } from './DrawerFilter.config';
 import {
     filterAlergens,

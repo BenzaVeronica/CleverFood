@@ -6,6 +6,7 @@ import DrawerNewNotes from '~/components/DrawerNewNotes';
 import SectionNotes from '~/components/SectionNotes';
 import CustomTitleWithCount from '~/components/UI/CustomTitleWithCount';
 import { UserCardMain } from '~/components/UserCard/UserCardMain';
+import UserProfileTabs from '~/components/UserProfileTabs';
 import { useDrawers } from '~/context/DrawerContext';
 import { useGetBloggerByIdQuery } from '~/query/blogs/blogs.api';
 import { useGetRecipesByUserIdQuery } from '~/query/recipe/recipe.api';
@@ -32,9 +33,10 @@ export function ProfilePage() {
     return (
         <ContainerGridLayout>
             <GridItem colSpan={{ base: 4, md: 12 }}>
-                <UserCardMain profile={data} />
-                <CustomTitleWithCount title='Мои рецепты' count={0} />
-                <CustomTitleWithCount title='Черновики' count={0} />
+                <UserCardMain profile={data} isFull isMyPage />
+
+                <UserProfileTabs />
+
                 {data?.bloggerInfo.notes && (
                     <SectionNotes
                         id={PageRoutesHash.NOTES}

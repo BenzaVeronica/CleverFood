@@ -1,2 +1,2 @@
-import RecipeSteps from './RecipeSteps';
+import { RecipeSteps } from './RecipeSteps';
 export default RecipeSteps;

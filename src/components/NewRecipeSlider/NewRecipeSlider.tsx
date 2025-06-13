@@ -11,10 +11,10 @@ import { useGetRecipesQuery } from '~/query/recipe/recipe.api';
 import { SLIDER_PARAMS } from '~/query/recipe/recipe.constants';
 
 import ArrowLongRight from '../../assets/iconArrowLongRight.svg?react';
-import CardVertical from '../Card/CardVertical';
+import { CardVertical } from '../Card/CardVertical';
 import WithLoadingError from '../WithLoadingError';
 
-function NewRecipeSlider() {
+export function NewRecipeSlider() {
     const { data, isLoading, isError } = useGetRecipesQuery(SLIDER_PARAMS);
 
     const sliderRef = useRef<SwiperType | null>(null);
@@ -95,5 +95,3 @@ function NewRecipeSlider() {
         </WithLoadingError>
     );
 }
-
-export default NewRecipeSlider;

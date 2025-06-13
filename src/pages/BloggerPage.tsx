@@ -17,7 +17,7 @@ import { PageRoutes, PageRoutesHash } from '~/routes/PageRoutes.constants';
 import { useAuth } from '~/store/auth/useAuth';
 import { useAppDispatch } from '~/store/hooks';
 import { TEST_ID } from '~/test/test.constant';
-import { useHash, useScrollToHash } from '~/utils/useHash';
+import { scrollToHash, useHash } from '~/utils/useHash';
 import { addError } from '~/widgets/error/error-slice';
 
 export function BloggerPage() {
@@ -35,22 +35,16 @@ export function BloggerPage() {
     const { data: recipesRes, error: errorRecipesByUser } = useGetRecipesByUserIdQuery(
         bloggerId ? { userId: bloggerId } : skipToken,
     );
-    // console.log(recipesRes);
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
     useEffect(() => {
-        // console.log(errorBlogger);
-        console.log(errorRecipesByUser);
-
         if (!errorBlogger && !errorRecipesByUser) return;
         const errors = [errorBlogger, errorRecipesByUser]
             .map((item) => item as CustomErrorResponse)
             .filter((el) => el);
         if (errors.length > 0) {
-            console.log(errors);
-
             errors.forEach((err) => {
                 if (isServerError(err.status)) {
                     dispatch(addError(TOAST_MESSAGE.ServerErrorToast));
@@ -64,12 +58,21 @@ export function BloggerPage() {
         }
     }, [errorBlogger, errorRecipesByUser]);
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [bloggerId]);
+
     const hash = useHash();
-    useScrollToHash(hash);
+    useEffect(() => {
+        if (data && recipesRes) {
+            scrollToHash(hash, 240);
+        }
+    }, [data, recipesRes, hash]);
+
     if (!data) return;
     return (
         <ContainerGridLayout>
-            <GridItem colSpan={{ base: 4, md: 12 }}>
+            <GridItem colSpan={{ base: 4, md: 12 }} pt={40}>
                 <UserCardMain profile={data} dataTestId={TEST_ID.Bloggers.BloggerUserInfoBox} />
                 {recipesRes?.recipes && (
                     <CardListPaginated

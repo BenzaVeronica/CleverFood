@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 
 import { Recipe } from '~/store/recipe-filter/recipe.types';
 
-import CardList from './CardList';
+import { CardList } from './CardList';
 
 type Props = {
     allRecipes: Recipe[];

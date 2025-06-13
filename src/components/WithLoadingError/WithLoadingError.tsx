@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import Loader from '~/components/UI/Loader';
 import ErrorNotification from '~/widgets/error/ErrorNotification';
 
-import LoaderScreen from '../UI/Loader/LoaderScreen';
+import { LoaderScreen } from '../UI/Loader/LoaderScreen';
 
 type Props = {
     isLoading: boolean;

@@ -11,17 +11,17 @@ import IconFilter from '../../assets/iconfilter.svg?react';
 import AlergenSwitch from '../AlergenSwitch';
 import DrawerFilterForm from '../DrawerFilter';
 import { filterAlergens } from '../DrawerFilter/DrawerFilter.constants';
-import SelectedTagsFromStore from '../SelectedTags/SelectedTagsFromStore';
+import { SelectedTagsFromStore } from '../SelectedTags/SelectedTagsFromStore';
 import Loader from '../UI/Loader';
-import SearchBox from './SearchBox';
-import useSearchFilter from './useSearchFilter';
+import { SearchBox } from './SearchBox';
+import { useSearchFilter } from './useSearchFilter';
 
 type Props = {
     title: string;
     text?: string;
 };
 
-function CategoryTopFilter({ title, text }: Props) {
+export function CategoryTopFilter({ title, text }: Props) {
     const { categoryId } = useParams();
     const { formDrawer } = useDrawers();
 
@@ -114,5 +114,3 @@ function CategoryTopFilter({ title, text }: Props) {
         </Box>
     );
 }
-
-export default CategoryTopFilter;

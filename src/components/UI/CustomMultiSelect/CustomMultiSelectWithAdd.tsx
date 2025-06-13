@@ -17,7 +17,7 @@ import { useState } from 'react';
 import { ACCESSIBILITY } from '~/app/accessibility.constants';
 import { FilterOptionType } from '~/components/DrawerFilter/DrawerFilter.constants';
 
-import CustomAddBox from './CustomAddBox';
+import { CustomAddBox } from './CustomAddBox';
 
 type Props = {
     value: string[];
@@ -29,7 +29,7 @@ type Props = {
     isFilterDataTestId: boolean;
 };
 
-const CustomMultiSelectWithAdd = ({
+export const CustomMultiSelectWithAdd = ({
     value: selectedOptions = [],
     onChange,
     options: initialOptions,
@@ -165,5 +165,3 @@ const CustomMultiSelectWithAdd = ({
         </Menu>
     );
 };
-
-export default CustomMultiSelectWithAdd;

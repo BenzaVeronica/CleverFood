@@ -11,7 +11,7 @@ const spin = keyframes`
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 `;
-function Loader({ dataTestId, position }: Props) {
+export function Loader({ dataTestId, position }: Props) {
     const spinAnimation = `${spin} 1.5s linear infinite`;
     return (
         <Flex
@@ -21,6 +21,7 @@ function Loader({ dataTestId, position }: Props) {
             position={position}
             w={position && '100%'}
             inset={position ? 0 : undefined}
+            zIndex={100}
         >
             <Icon
                 data-test-id={dataTestId}
@@ -31,5 +32,3 @@ function Loader({ dataTestId, position }: Props) {
         </Flex>
     );
 }
-
-export default Loader;

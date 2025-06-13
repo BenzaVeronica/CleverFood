@@ -32,7 +32,7 @@ type FormFieldProps<T extends FieldValues> = InputProps & {
     showVisibilityToggle?: boolean;
 };
 
-function CustomFormField<T extends FieldValues>({
+export function CustomFormField<T extends FieldValues>({
     label,
     name,
     type,
@@ -117,5 +117,3 @@ function CustomFormField<T extends FieldValues>({
         </FormControl>
     );
 }
-
-export default CustomFormField;

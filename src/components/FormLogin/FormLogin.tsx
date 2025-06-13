@@ -15,7 +15,7 @@ import { addError } from '~/widgets/error/error-slice';
 
 import { ModalLogInFailed } from '../ModalLogIn/ModalLogInFailed';
 import CustomFormField from '../UI/CustomFormField';
-import LoaderScreen from '../UI/Loader/LoaderScreen';
+import { LoaderScreen } from '../UI/Loader/LoaderScreen';
 import { FormDataLogin, FormFieldsLogin, SchemaLogin } from './FormLogin.types';
 
 export const FormLogin = () => {

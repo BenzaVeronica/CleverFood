@@ -8,8 +8,8 @@ export enum PageRoutes {
     RECIPE_CREATE = '/new-recipe',
     RECIPE_EDIT = '/edit-recipe',
     BLOGS = '/blogs',
-    // PROFILE = 'profile',
-    // SETTINGS = 'settings',
+    PROFILE = '/profile',
+    SETTINGS = '/settings',
 }
 export enum PageRoutesHash {
     NOTES = 'notes',

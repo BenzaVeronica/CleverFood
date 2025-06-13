@@ -1,4 +1,5 @@
 import { Box, Textarea } from '@chakra-ui/react';
+import { useEffect, useRef } from 'react';
 
 type Props = {
     value: string;
@@ -13,14 +14,23 @@ export function CustomTextareaWithCounter({
     placeholder,
     maxLength = 160,
 }: Props) {
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
+    const counterRef = useRef<HTMLDivElement>(null);
+    useEffect(() => {
+        if (textareaRef.current && counterRef.current) {
+            const counterHeight = counterRef.current.offsetHeight;
+            textareaRef.current.style.height = counterHeight + 16 + 'px';
+        }
+    }, [value]);
+
     return (
         <Box position='relative' width='100%'>
             <Textarea
+                ref={textareaRef}
                 value={value}
                 onChange={(e) => {
-                    if (e.target.value.length <= maxLength) {
-                        onChange(e);
-                    }
+                    // if (e.target.value.length <= maxLength)
+                    onChange(e);
                 }}
                 placeholder={placeholder}
                 resize='vertical'
@@ -36,6 +46,7 @@ export function CustomTextareaWithCounter({
             />
 
             <Box
+                ref={counterRef}
                 position='absolute'
                 top='8px'
                 left='16px'
@@ -50,7 +61,7 @@ export function CustomTextareaWithCounter({
             >
                 {value}
                 {value && (
-                    <Box as='span' color={value.length === maxLength ? 'red' : 'gray'}>
+                    <Box as='span' color={value.length > maxLength ? 'red' : 'gray'}>
                         {` (${maxLength - value.length})`}
                     </Box>
                 )}

@@ -18,9 +18,9 @@ import BsAlarm from '~/assets/BsAlarm.svg?react';
 import Bookmark from '~/assets/iconSMBookmark.svg?react';
 import Like from '~/assets/iconSMLike.svg?react';
 import { TOAST_MESSAGE } from '~/query/errors/error.constants';
+import { CustomErrorResponse } from '~/query/errors/error.type';
 import { isServerError } from '~/query/errors/error.utils';
 import { useDeleteRecipeMutation } from '~/query/recipe/recipe.api';
-import { CustomErrorResponse } from '~/query/types';
 import { PageRoutes } from '~/routes/PageRoutes.constants';
 import { useAuth } from '~/store/auth/useAuth';
 import { useAppDispatch } from '~/store/hooks';
@@ -39,7 +39,7 @@ type Props = {
     item: Recipe;
 };
 
-function RecipeDescription(props: Props) {
+export function RecipeDescription(props: Props) {
     const { recipeId } = useParams();
 
     // const { toggleLike, toggleBookmark } = useLikeAndBookmark(props.item);
@@ -180,5 +180,3 @@ function RecipeDescription(props: Props) {
         </Flex>
     );
 }
-
-export default RecipeDescription;

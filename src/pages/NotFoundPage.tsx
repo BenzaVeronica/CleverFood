@@ -2,7 +2,7 @@ import { Box, Flex, Image, Text } from '@chakra-ui/react';
 import { Link } from 'react-router';
 
 import errorImage from '~/assets/errorImage.png';
-import Logo from '~/components/Logo';
+import Logo from '~/components/UI/Logo';
 
 function NotFoundPage() {
     return (

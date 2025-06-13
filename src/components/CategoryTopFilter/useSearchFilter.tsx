@@ -8,7 +8,7 @@ import {
     setSearchQuery,
 } from '~/store/recipe-filter/recipe-filter-slice';
 
-function useSearchFilter() {
+export function useSearchFilter() {
     const dispatch = useAppDispatch();
     const { isLoadingQuery, isSearchActive } = useAppSelector(selectRecipeFilter);
 
@@ -43,5 +43,3 @@ function useSearchFilter() {
         handleSubmit,
     };
 }
-
-export default useSearchFilter;
