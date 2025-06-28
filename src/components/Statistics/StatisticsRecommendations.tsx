@@ -17,7 +17,6 @@ export function StatisticsRecommendations({ length, data = [], ...rest }: Props)
         <VStack {...rest} alignItems='start' w='120%' mt={10}>
             <StatTitle icon={OkIcon}>{pluralizeRecomendationRecipes(length)}</StatTitle>
             <CardList list={data} withButton={false} mt={3} />
-            {/* <CardList list={data} withButton={false} mt={3} withRecommend={false}/> */}
         </VStack>
     );
 }

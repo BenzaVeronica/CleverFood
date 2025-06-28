@@ -11,15 +11,6 @@ type Props = {
 
 export const CustomTextareaWithCounter = forwardRef<HTMLTextAreaElement, Props>(
     ({ value, onChange, placeholder, maxLength = 160, isInvalid }, ref) => {
-        // const textareaRef = useRef<HTMLTextAreaElement>(null);
-        // const counterRef = useRef<HTMLDivElement>(null);
-        // useEffect(() => {
-        //     if (textareaRef.current && counterRef.current) {
-        //         const counterHeight = counterRef.current.offsetHeight;
-        //         textareaRef.current.style.height = counterHeight + 16 + 'px';
-        //     }
-        // }, [value]);
-
         const counterRefCallback = (counterNode: HTMLDivElement | null) => {
             if (counterNode && typeof ref === 'object' && ref?.current) {
                 const counterHeight = counterNode.offsetHeight;
@@ -30,7 +21,6 @@ export const CustomTextareaWithCounter = forwardRef<HTMLTextAreaElement, Props>(
             <Box position='relative' width='100%'>
                 <Textarea
                     ref={ref}
-                    // ref={textareaRef}
                     value={value}
                     onChange={(e) => {
                         onChange(e);
@@ -51,7 +41,6 @@ export const CustomTextareaWithCounter = forwardRef<HTMLTextAreaElement, Props>(
 
                 <Box
                     ref={counterRefCallback}
-                    // ref={counterRef}
                     position='absolute'
                     top='8px'
                     left='16px'

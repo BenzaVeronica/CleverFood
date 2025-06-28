@@ -45,19 +45,4 @@ export const groupByWeekStatistic = (data: StatisticItem[]): StatisticItem[] => 
     });
 
     return result;
-
-    // если надо каждую неделю даже если ее нет в response
-    //   let currentWeek = startOfWeek(new Date(sortedData[0].date), { weekStartsOn: 1 });
-    //   const lastWeek = startOfWeek(new Date(sortedData[sortedData.length - 1].date), { weekStartsOn: 1 });
-
-    //   while (currentWeek <= lastWeek) {
-    //     const key = currentWeek.toISOString();
-    //     result.push({
-    //       date: format(currentWeek, 'MMM d', { locale: enUS  }),
-    //       count: weekMap.get(key) || 0,
-    //     });
-    //     currentWeek = addWeeks(currentWeek, 1);
-    //   }
-
-    //   return result;
 };

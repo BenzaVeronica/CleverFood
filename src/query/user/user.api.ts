@@ -51,7 +51,6 @@ export const userApiSlice = tokenApi
                     body,
                 }),
                 transformErrorResponse,
-                // invalidatesTags: invalidateBlogerTags,
             }),
             [EndpointNames.UPDATE_USERS_UPDATE_ME_PSW]: builder.mutation<void, PasswordRequest>({
                 query: (body) => ({
@@ -62,7 +61,6 @@ export const userApiSlice = tokenApi
                     body,
                 }),
                 transformErrorResponse: transformErrorWithMessageResponse,
-                // invalidatesTags: invalidateBlogerTags,
             }),
             [EndpointNames.CREATE_USERS_PHOTO]: builder.mutation<UserPhotoResponse, FormData>({
                 query: (body) => ({
@@ -73,8 +71,6 @@ export const userApiSlice = tokenApi
                     body,
                 }),
                 transformErrorResponse,
-                // queryFn: mockPhotoUpload,
-                // invalidatesTags: invalidateBlogerTags,
             }),
             [EndpointNames.GET_USER_ME]: builder.query<BloggerInfo, void>({
                 query: () => ({
@@ -105,7 +101,6 @@ export const userApiSlice = tokenApi
                     }),
                     transformErrorResponse,
                     onQueryStarted: addNoteFromCache,
-                    // invalidatesTags: invalidateCreateNoteTags,
                 },
             ),
             [EndpointNames.DELETE_USERS_NOTES]: builder.mutation<void, string>({
@@ -125,7 +120,6 @@ export const userApiSlice = tokenApi
                     url: `${EndpointUrl.PROFILE}/${id}`,
                     method: ApiMethods.DELETE,
                 }),
-                // invalidatesTags: invalidateRecipeListTags,
             }),
             [EndpointNames.GET_USERS]: builder.query<UserAllResponse[], void>({
                 query: () => ({
@@ -139,7 +133,6 @@ export const userApiSlice = tokenApi
                         ...user,
                         photoLink: user.photo,
                     })),
-                // invalidatesTags: invalidateRecipeListTags,
             }),
         }),
     });

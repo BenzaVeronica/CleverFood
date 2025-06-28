@@ -28,8 +28,6 @@ export const providesTagsByUserId = (
         ? [...TAG_LIST_RECIPE, { type: ApiGroups.RECIPE, id: `USER_${userId}` }]
         : TAG_LIST_RECIPE;
 
-// export const invalidateRecipeTags = (_result: unknown, error: unknown, id: string) =>
-//     error ? [] : [...TAG_LIST_RECIPE, { type: ApiGroups.RECIPE, id }];
 export const invalidateRecipeTags = (
     _result: unknown,
     error: unknown,

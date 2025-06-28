@@ -67,7 +67,6 @@ export function Header() {
                     visibility: isSmallDesktop ? 'visible' : 'hidden',
                     width: isSmallDesktop ? 'auto' : '0px',
                 }}
-                // display={{ base: 'flex', lg: 'none' }}
             >
                 {isAuthenticated && !isOpen && isSmallDesktop ? <UserStat /> : <LoginButton />}
                 <Button

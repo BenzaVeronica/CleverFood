@@ -15,7 +15,6 @@ export function useUsersByListId(subscriberIds: string[]) {
         skip: subscriberIds.length === 0,
     });
     if (!users || subscriberIds.length === 0) return [];
-    // return users.filter((user) => subscriberIds.includes(user.id));
     return subscriberIds.map((id) => users.find((user) => user.id === id));
 }
 
@@ -27,17 +26,7 @@ export function useUserByUserId(userId: string | undefined) {
 }
 
 export function useGetStatFromBloggerByIdAndStat() {
-    // const { user } = useAuth();
     const { data } = useGetUserMeQuery();
-    // const { data } = useGetBloggerByIdQuery(
-    //     {
-    //         bloggerId: user?.userId ?? '',
-    //         currentUserId: user?.userId ?? '',
-    //     },
-    //     {
-    //         skip: !user?.userId,
-    //     },
-    // );
     const { data: stat } = useGetStatisticQuery();
     const totalBookmarks = stat?.bookmarks.reduce((sum, el) => sum + el.count, 0) ?? 0;
     const totalSubscribers = data?.subscribers.length ?? 0;

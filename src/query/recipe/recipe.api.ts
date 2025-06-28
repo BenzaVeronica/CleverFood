@@ -179,7 +179,6 @@ export const recipesApiSlice = tokenApi
                     method: ApiMethods.POST,
                 }),
                 onQueryStarted: toggleBookmarkFromCache,
-                // invalidatesTags: invalidateRecipeTags,
             }),
             [EndpointNames.RECOMMEND_RECIPE]: builder.mutation<void, RecipeIdAndRecipe>({
                 query: ({ recipeId }) => ({

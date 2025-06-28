@@ -26,7 +26,6 @@ export function DrawerNewNotes(props: DrawerProps) {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            // await noteSchema.validate({ text: note });
             const isValid = await noteSchema.isValid({ text: note });
             textareaRef.current?.focus();
             if (!isValid) {

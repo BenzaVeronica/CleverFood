@@ -14,9 +14,7 @@ type Props = {
 
 export function UserCardGreen(props: Props) {
     const [isLoadingSubscribe, setIsLoadingSubscribe] = useState(false);
-    console.log(props.profile.bloggerInfo);
-
-    if (!props.profile) return; // для теста где нет блогера 'should successfully publish a recipe'
+    if (!props.profile) return;
     return (
         <Flex
             bg='lime.300'

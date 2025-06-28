@@ -1,8 +1,6 @@
 export type User = {
     userId: string;
     login: string;
-    //     email: string;
-    //     role: string;
 };
 export type SubscriptionRequest = {
     fromUserId: string;
@@ -19,9 +17,6 @@ export type PasswordRequest = {
     newPassword: string;
 };
 
-// export type UserPhotoRequest = {
-// file: FormData;
-// };
 export type UserPhotoResponse = {
     photoLink: string;
 };

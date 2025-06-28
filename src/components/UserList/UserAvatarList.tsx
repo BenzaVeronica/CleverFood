@@ -29,18 +29,6 @@ export function UserAvatarList({ mas = [] }: Props) {
                     );
                 })}
             </Grid>
-            {/* {handleToggle && (
-                <Button
-                    onClick={handleToggle}
-                    mt={3}
-                    mx='auto'
-                    display='block'
-                    size='sm'
-                    variant='plain'
-                >
-                    Показать больше
-                </Button>
-            )} */}
         </>
     );
 }

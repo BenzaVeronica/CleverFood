@@ -12,6 +12,7 @@ type ModalItem = {
     btnIcon?: JSX.Element;
     btnCancel?: string;
     alt?: string;
+    extraText?: string;
 };
 
 type Props = {
@@ -50,6 +51,11 @@ export function CustomModalInfo({
                     <Text fontSize='md' color='blackAlpha.700'>
                         {item.text}
                     </Text>
+                    {item?.extraText && (
+                        <Text fontSize='md' color='blackAlpha.700'>
+                            {item?.extraText}
+                        </Text>
+                    )}
                 </VStack>
                 {item.footer && (
                     <Text fontSize='xs' color='blackAlpha.600'>

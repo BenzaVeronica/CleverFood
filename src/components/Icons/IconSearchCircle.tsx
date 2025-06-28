@@ -10,7 +10,6 @@ export const IconSearchCircle = ({
     secondaryColor = 'black',
     ...props
 }: Props): JSX.Element => (
-    // const [color] = useToken("colors", [secondaryColor]);
     <Icon viewBox='0 0 48 48' fill='none' {...props}>
         {isActive && <rect width='48' height='48' rx='24' fill={secondaryColor} />}
         <path

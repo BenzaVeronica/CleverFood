@@ -15,7 +15,6 @@ export function UserStat({ flexProps }: Props) {
     const stat = useGetStatFromBloggerByIdAndStat();
     return (
         <Flex alignItems='center' {...flexProps} data-test-id={TEST_ID.sprint7.userstatsblock}>
-            {/* {stat.isAvailableRecomend && ( */}
             <Button
                 px={[2, 4]}
                 fontSize={{ base: '12px', lg: '16px' }}
@@ -25,7 +24,6 @@ export function UserStat({ flexProps }: Props) {
             >
                 {stat.totalRecommends}
             </Button>
-            {/* )} */}
             <Button
                 px={[2, 4]}
                 fontSize={{ base: '12px', lg: '16px' }}

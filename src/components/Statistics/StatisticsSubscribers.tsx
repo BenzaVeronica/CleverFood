@@ -7,11 +7,7 @@ import { pluralizeSubscribes } from '~/utils/pluralizeRecipes';
 import StatTitle from '../UI/StatTitle';
 import { UserAvatarList } from '../UserList/UserAvatarList';
 
-type Props = {
-    // icon: ElementType;
-} & StackProps;
-
-export function StatisticsSubscribers({ ...rest }: Props) {
+export function StatisticsSubscribers({ ...rest }: StackProps) {
     const { data: me } = useGetUserMeQuery();
     return (
         <VStack {...rest} alignItems='start' w='100%'>

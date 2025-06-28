@@ -17,21 +17,3 @@ export const invalidateCreateNoteTags = (_result: unknown, error: unknown, _arg:
         ...(userId ? [{ type: ApiGroups.BLOGGER, id: userId }] : []),
     ];
 };
-
-// export const invalidateUpdateUserTags = (
-//     _result: unknown,
-//     error: unknown,
-//     _arg: unknown,
-// ) => {
-//     if (error) return [];
-//     const userId = getDataFromLocalStorage(localStorageData.userId);
-//     return [
-//         { type: ApiGroups.USERS, id: 'ME' },
-//         ...(userId
-//             ? [
-//                   { type: ApiGroups.RECIPE, id: `USER_${userId}` },
-//                   { type: ApiGroups.BLOGGER, id: userId },
-//               ]
-//             : []),
-//     ];
-// };

@@ -4,8 +4,6 @@ export type blogItem = {
     id: string;
     text: string;
     profile: profile;
-    // like: number | null,
-    // bookmarks: number | null,
 };
 export type profile = {
     id: string;

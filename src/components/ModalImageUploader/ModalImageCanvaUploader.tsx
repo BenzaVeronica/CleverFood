@@ -159,15 +159,6 @@ export function ModalImageCanvaUploader({
                         <Button variant='btnMain' onClick={handleSave} w='full'>
                             {titleObj.btn}
                         </Button>
-                        {/* <Button
-                                onClick={handleClose}
-                                bg='transparent'
-                                size='lg'
-                                fontWeight={600}
-                                w='full'
-                            >
-                                Удалить
-                            </Button> */}
                     </VStack>
                 )}
             </VStack>

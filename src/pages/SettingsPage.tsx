@@ -53,7 +53,6 @@ export default function SettingsPage() {
                                 <StatisticsChart
                                     icon={Bookmark}
                                     title={pluralizeBookmark(data?.bookmarks.length)}
-                                    // data={MOCK_TEST_BOOKMARK_CHART}
                                     data={data?.bookmarks}
                                 />
                                 <StatisticsChart
@@ -75,8 +74,6 @@ export default function SettingsPage() {
                 </Box>
             </GridItem>
 
-            {/* <GridItem colSpan={{ base: 4, md: 12 }}>
-            </GridItem> */}
             <GridItem colSpan={{ base: 4, md: 10 }} mb={{ base: 4, lg: 10 }}>
                 <VStack spacing={10}>
                     <InfoTitleButton
