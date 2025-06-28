@@ -1,4 +1,4 @@
-import { Box, Button, HStack } from '@chakra-ui/react';
+import { Box, BoxProps, Button, HStack } from '@chakra-ui/react';
 
 import { ACCESSIBILITY } from '~/app/accessibility.constants';
 import IconPencil from '~/assets/pensil_without.svg?react';
@@ -8,12 +8,13 @@ import { TEST_ID } from '~/test/test.constant';
 import NoteList from '../NoteList';
 import CustomTitleWithCount from '../UI/CustomTitleWithCount';
 
-type Props = {
+type Props = BoxProps & {
     id: string;
     notes: BloggerNote[];
     handleAddNote?: () => void;
+    onRemove?: (id: string) => void;
 };
-export function SectionNotes({ id, notes, handleAddNote }: Props) {
+export function SectionNotes({ id, notes, handleAddNote, onRemove, ...props }: Props) {
     return (
         <Box
             id={id}
@@ -22,6 +23,7 @@ export function SectionNotes({ id, notes, handleAddNote }: Props) {
             bg='blackAlpha.50'
             borderRadius='8px'
             p={{ base: 3, lg: 6 }}
+            {...props}
         >
             <HStack mb={4} justifyContent='space-between'>
                 <HStack>
@@ -43,7 +45,7 @@ export function SectionNotes({ id, notes, handleAddNote }: Props) {
                     </Button>
                 )}
             </HStack>
-            <NoteList notes={notes} />
+            <NoteList notes={notes} onRemove={onRemove} />
         </Box>
     );
 }

@@ -1,14 +1,16 @@
 import { useLikeRecipeByMutation } from '~/query/recipe/recipe.api';
-import { useGeneralServerError } from '~/utils/useGeneralServerError';
+import { useToastNotifications } from '~/utils/useToastNotifications';
 
-export function useLike(recipeId: string | undefined) {
+import { Recipe } from './recipe.types';
+
+export function useLike(recipeId: string | undefined, recipe: Recipe) {
     const [likeRecipeBy] = useLikeRecipeByMutation();
 
-    const { handleServerError } = useGeneralServerError();
+    const { handleServerError } = useToastNotifications();
     const toggleLike = async () => {
         if (!recipeId) return;
         try {
-            await likeRecipeBy(recipeId).unwrap();
+            await likeRecipeBy({ recipeId, recipe }).unwrap();
         } catch (error) {
             handleServerError(error);
         }

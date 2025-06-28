@@ -9,9 +9,10 @@ import { Note } from './Note';
 
 type Props = {
     notes: BloggerNote[];
+    onRemove?: (id: string) => void;
 };
 
-export function NoteList({ notes }: Props) {
+export function NoteList({ notes, onRemove }: Props) {
     const [showAll, setShowAll] = useState(false);
     const textBtn = showAll ? 'Свернуть' : 'Показать больше';
     const { isMobile } = useBreakpoints();
@@ -36,7 +37,7 @@ export function NoteList({ notes }: Props) {
                             }
                             display={isHidden ? 'none' : 'block'}
                         >
-                            <Note el={el} />
+                            <Note el={el} onRemove={onRemove} />
                         </Box>
                     );
                 })}

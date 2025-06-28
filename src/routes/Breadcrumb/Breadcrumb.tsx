@@ -6,6 +6,7 @@ import { useGetBloggerByIdQuery } from '~/query/blogs/blogs.api';
 import useCurrentCategories from '~/query/category/category.utils';
 import { PageRoutes } from '~/routes/PageRoutes.constants';
 import { useAuth } from '~/store/auth/useAuth';
+import { getCurrentDraft } from '~/store/recipe-filter/recipe.utils';
 import { TEST_ID } from '~/test/test.constant';
 
 type Props = {
@@ -15,7 +16,7 @@ type Props = {
 
 export function CustomBreadcrumb({ closeMenu = () => {}, breadcrumbProps }: Props) {
     const location = useLocation();
-    const { recipeId, bloggerId } = useParams();
+    const { recipeId, bloggerId, draftId } = useParams();
     const { currentCategory, currentSubcategory, currentRecipe } = useCurrentCategories();
     const hasNewRecipePath = location.pathname.includes('/new-recipe');
 
@@ -29,7 +30,9 @@ export function CustomBreadcrumb({ closeMenu = () => {}, breadcrumbProps }: Prop
             skip: !user?.userId || !bloggerId,
         },
     );
+    const isSettings = location.pathname === PageRoutes.SETTINGS;
 
+    const currentDraft = getCurrentDraft(draftId);
     return (
         <Breadcrumb
             data-test-id='breadcrumbs'
@@ -64,16 +67,18 @@ export function CustomBreadcrumb({ closeMenu = () => {}, breadcrumbProps }: Prop
                     <BreadcrumbLink as='span'>Блоги</BreadcrumbLink>
                 </BreadcrumbItem>
             )}
-            {/* {user?.userId && (
-                <BreadcrumbItem isCurrentPage={bloggerId === user?.userId}>
-                    <BreadcrumbLink as='span'>Мой профиль</BreadcrumbLink>
+            {(isSettings || location.pathname === PageRoutes.PROFILE) && (
+                <BreadcrumbItem isCurrentPage={!isSettings}>
+                    <BreadcrumbLink as={Link} to={PageRoutes.PROFILE}>
+                        Мой профиль
+                    </BreadcrumbLink>
                 </BreadcrumbItem>
-            )} */}
-            {/* { && (
-                <BreadcrumbItem>
+            )}
+            {isSettings && (
+                <BreadcrumbItem isCurrentPage>
                     <BreadcrumbLink as='span'>Настройки</BreadcrumbLink>
                 </BreadcrumbItem>
-            )} */}
+            )}
             {bloggerId && data && (
                 <BreadcrumbItem
                     isCurrentPage
@@ -111,6 +116,11 @@ export function CustomBreadcrumb({ closeMenu = () => {}, breadcrumbProps }: Prop
             {recipeId && currentRecipe && (
                 <BreadcrumbItem isCurrentPage>
                     <BreadcrumbLink as='span'>{currentRecipe.title}</BreadcrumbLink>
+                </BreadcrumbItem>
+            )}
+            {draftId && currentDraft && (
+                <BreadcrumbItem isCurrentPage>
+                    <BreadcrumbLink as='span'>{currentDraft.title}</BreadcrumbLink>
                 </BreadcrumbItem>
             )}
             {hasNewRecipePath && (

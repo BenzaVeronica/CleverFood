@@ -1,25 +1,18 @@
 import { GridItem, Text } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
 
 import { ContainerGridLayout } from '~/app/ContainerAppLayout';
 import UserList from '~/components/UserList';
 import { useLazyGetAllBloggersQuery } from '~/query/blogs/blogs.api';
-import { TOAST_MESSAGE } from '~/query/errors/error.constants';
-import { CustomErrorResponse } from '~/query/errors/error.type';
-import { isServerError } from '~/query/errors/error.utils';
 import { useAuth } from '~/store/auth/useAuth';
-import { useAppDispatch } from '~/store/hooks';
 import useBreakpoints from '~/utils/useBreakpoints';
-import { addError } from '~/widgets/error/error-slice';
+import { useToastNotifications } from '~/utils/useToastNotifications';
 
-export function BlogsPage() {
+export default function BlogsPage() {
     const { user } = useAuth();
     const [expanded, setExpanded] = useState(false);
 
     const [fetchAllBloggers, { data, error }] = useLazyGetAllBloggersQuery();
-    const dispatch = useAppDispatch();
-    const navigate = useNavigate();
 
     useEffect(() => {
         if (!user?.userId) return;
@@ -30,13 +23,10 @@ export function BlogsPage() {
         });
     }, [user?.userId]);
 
+    const { handleServerError } = useToastNotifications();
     useEffect(() => {
         if (!error) return;
-        const customError = error as CustomErrorResponse;
-        if (isServerError(customError.status)) {
-            navigate('/');
-            dispatch(addError(TOAST_MESSAGE.ServerErrorToast));
-        }
+        handleServerError(error, { redirectPath: '/' });
     }, [error]);
 
     const handleToggle = () => {

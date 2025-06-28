@@ -1,56 +1,60 @@
 import { GridItem } from '@chakra-ui/react';
 import { skipToken } from '@reduxjs/toolkit/query';
+import { useEffect } from 'react';
 
 import { ContainerGridLayout } from '~/app/ContainerAppLayout';
-import DrawerNewNotes from '~/components/DrawerNewNotes';
-import SectionNotes from '~/components/SectionNotes';
+import { CardListPaginated } from '~/components/CardList/CardListPaginated';
+import { SectionNotesWithAddRemove } from '~/components/SectionNotes/SectionNotesWithAddRemove';
 import CustomTitleWithCount from '~/components/UI/CustomTitleWithCount';
 import { UserCardMain } from '~/components/UserCard/UserCardMain';
 import UserProfileTabs from '~/components/UserProfileTabs';
-import { useDrawers } from '~/context/DrawerContext';
-import { useGetBloggerByIdQuery } from '~/query/blogs/blogs.api';
+import { localStorageData } from '~/localStorage/constants';
+import { setDataToLocalStorage } from '~/localStorage/localStorage';
 import { useGetRecipesByUserIdQuery } from '~/query/recipe/recipe.api';
-import { PageRoutesHash } from '~/routes/PageRoutes.constants';
-import { useAuth } from '~/store/auth/useAuth';
+import { useGetStatFromBloggerByIdAndStat } from '~/query/user/user.utils';
+import { TEST_ID } from '~/test/test.constant';
+import ErrorNotification from '~/widgets/error/ErrorNotification';
 
-export function ProfilePage() {
-    const { user } = useAuth();
-    const { data } = useGetBloggerByIdQuery(
-        {
-            bloggerId: user?.userId ?? '',
-            currentUserId: user?.userId ?? '',
-        },
-        {
-            skip: !user?.userId,
-        },
-    );
+export default function ProfilePage() {
+    const blogger = useGetStatFromBloggerByIdAndStat();
+
     const { data: recipesRes } = useGetRecipesByUserIdQuery(
-        user?.userId ? { userId: user?.userId } : skipToken,
+        blogger.bloggerInfo?._id ? { userId: blogger.bloggerInfo?._id } : skipToken,
     );
-    console.log(recipesRes);
-    const { newRecipeDrawer } = useDrawers();
-    if (!data) return;
+
+    const countBookmarks = recipesRes?.myBookmarks?.length ?? 0;
+
+    useEffect(() => {
+        if (recipesRes) {
+            setDataToLocalStorage(localStorageData.userIdForBookmarkTest, recipesRes?.userId);
+        }
+    }, [recipesRes]);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [blogger]);
+
+    if (!blogger) return;
     return (
         <ContainerGridLayout>
-            <GridItem colSpan={{ base: 4, md: 12 }}>
-                <UserCardMain profile={data} isFull isMyPage />
+            <ErrorNotification />
+            <GridItem colSpan={{ base: 4, md: 12 }} pt={40}>
+                <UserCardMain profile={blogger} isMyPage dataTestId={TEST_ID.sprint7.userprofile} />
 
-                <UserProfileTabs />
+                <UserProfileTabs
+                    drafts={blogger.bloggerInfo?.drafts}
+                    recipes={recipesRes?.recipes}
+                />
 
-                {data?.bloggerInfo.notes && (
-                    <SectionNotes
-                        id={PageRoutesHash.NOTES}
-                        notes={data?.bloggerInfo.notes ?? []}
-                        handleAddNote={newRecipeDrawer.onOpen}
+                <SectionNotesWithAddRemove data={recipesRes?.notes ?? []} my={10} />
+                <div data-test-id={TEST_ID.sprint7.userprofilebookmarks}>
+                    <CustomTitleWithCount title='Мои закладки' count={countBookmarks} />
+                    <CardListPaginated
+                        my={6}
+                        allRecipes={recipesRes?.myBookmarks ?? []}
+                        config={{ bookmark: true }}
                     />
-                )}
-                <CustomTitleWithCount title='Мои закладки' count={0} />
-                {newRecipeDrawer.isOpen && (
-                    <DrawerNewNotes
-                        isOpen={newRecipeDrawer.isOpen}
-                        onClose={newRecipeDrawer.onClose}
-                    />
-                )}
+                </div>
             </GridItem>
         </ContainerGridLayout>
     );

@@ -6,11 +6,11 @@ import Subscribe from '~/assets/user-plus.svg?react';
 import { useToggleSubscriptionMutation } from '~/query/user/user.api';
 import { useAuth } from '~/store/auth/useAuth';
 import { TEST_ID } from '~/test/test.constant';
-import { useGeneralServerError } from '~/utils/useGeneralServerError';
+import { useToastNotifications } from '~/utils/useToastNotifications';
 
 type Props = {
     isSubscribe: boolean;
-    userId: string;
+    userId?: string;
     onLoadingChange?: (loading: boolean) => void;
     withTooltip?: boolean;
 };
@@ -20,8 +20,9 @@ export function UserSubscribeButton({ isSubscribe, userId, onLoadingChange, with
 
     const [toggleSubscription] = useToggleSubscriptionMutation();
     const { user } = useAuth();
-    const { handleServerError } = useGeneralServerError();
+    const { handleServerError } = useToastNotifications();
     const handleSubscribe = async () => {
+        if (!userId) return;
         try {
             onLoadingChange?.(true);
             await toggleSubscription({

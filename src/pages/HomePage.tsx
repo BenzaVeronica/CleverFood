@@ -60,8 +60,6 @@ function HomePage() {
             });
         }
     }, [isAllLoaded, navTree, slider, popular, about]);
-    // const location = useLocation();
-    // const showNotification = location.state?.showNotification;
 
     if (!isAllLoaded) {
         return <LoaderScreen />;
@@ -69,7 +67,6 @@ function HomePage() {
 
     return (
         <ContainerBoxLayout>
-            {/* {showNotification && <ErrorNotification />} */}
             <ErrorNotification />
             <Flex direction='column' alignItems='center'>
                 <CategoryTopFilter title='Приятного аппетита!' />

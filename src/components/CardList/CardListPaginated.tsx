@@ -1,7 +1,7 @@
 import { GridProps } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 
-import { Recipe } from '~/store/recipe-filter/recipe.types';
+import { Recipe, RecipeConfigBtnCard } from '~/store/recipe-filter/recipe.types';
 
 import { CardList } from './CardList';
 
@@ -10,6 +10,7 @@ type Props = {
     dataTestId?: string;
     dataTestIdGrid?: string;
     itemPerPage?: number;
+    config?: RecipeConfigBtnCard;
 } & GridProps;
 
 export function CardListPaginated({
@@ -17,6 +18,7 @@ export function CardListPaginated({
     dataTestId,
     dataTestIdGrid,
     itemPerPage = 8,
+    config,
     ...gridProps
 }: Props) {
     const [visibleCount, setVisibleCount] = useState(itemPerPage);
@@ -41,6 +43,7 @@ export function CardListPaginated({
             withButton={true}
             dataTestId={dataTestId}
             dataTestIdGrid={dataTestIdGrid}
+            config={config}
             {...gridProps}
         />
     );

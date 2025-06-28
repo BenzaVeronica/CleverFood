@@ -2,8 +2,12 @@ import { Box, Button, Text } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 
+import { ErrorDescEnum, TOAST_MESSAGE } from '~/query/errors/error.constants';
+import { CustomErrorResponse } from '~/query/errors/error.type';
+import { useUpdateUserPasswordMutation } from '~/query/user/user.api';
 import { TEST_ID } from '~/test/test.constant';
-import { useGeneralServerError } from '~/utils/useGeneralServerError';
+import { cmpString } from '~/utils/cmpString';
+import { useToastNotifications } from '~/utils/useToastNotifications';
 
 import CustomFormField from '../UI/CustomFormField';
 import CustomModal from '../UI/CustomModal';
@@ -11,7 +15,7 @@ import {
     FormDataFormModalChangePsw,
     FormFieldsFormModalChangePsw,
     SchemaFormModalChangePsw,
-} from './ModalChangePswFormSettings.types';
+} from './ModalChangePswFormSettings.schema';
 
 type Props = {
     isOpen: boolean;
@@ -23,38 +27,56 @@ export function ModalChangePswFormSettings({ isOpen, onClose, onSuccess }: Props
         register,
         handleSubmit,
         trigger,
+        setError,
         formState: { errors, isSubmitting },
+        reset,
     } = useForm<FormDataFormModalChangePsw>({
         resolver: yupResolver(SchemaFormModalChangePsw),
         mode: 'onBlur',
     });
+
     const handleChange = async (fieldName: keyof FormFieldsFormModalChangePsw) => {
         await trigger(fieldName);
     };
-    // const dispatch = useAppDispatch();
-    // const [resetPswProfile, { isLoading }] = useResetPasswordMutation();
+    const [updatePswProfile] = useUpdateUserPasswordMutation();
 
-    const { handleServerError } = useGeneralServerError();
+    const { handleServerError, showSuccessReduxMessage, showErrorReduxMessage } =
+        useToastNotifications();
     const onSubmit = async (data: FormDataFormModalChangePsw) => {
         try {
-            console.log(data);
-            // await resetPswProfile({
-
-            //     email,
-            //     ...data,
-            // }).unwrap();
+            const { passwordConfirm, ...serverData } = data;
+            await updatePswProfile(serverData).unwrap();
             onSuccess?.();
-            // dispatch(addSuccess(TOAST_MESSAGE.RestoreCredentials[200]));
+            showSuccessReduxMessage(TOAST_MESSAGE.RestorePsw[200]);
         } catch (error) {
+            const err = error as CustomErrorResponse;
             handleServerError(error);
+            if (err.status === 400) {
+                showErrorReduxMessage({ title: err.title, description: ErrorDescEnum.AGAIN });
+                if (cmpString(err.title, TOAST_MESSAGE.RestorePsw.inccorect.title)) {
+                    setError('password', {
+                        type: 'server',
+                        message: '',
+                    });
+                } else {
+                    setError('passwordConfirm', {
+                        type: 'server',
+                        message: '',
+                    });
+                }
+            }
         }
+    };
+
+    const handleClose = () => {
+        reset();
+        onClose();
     };
     return (
         <CustomModal
             isOpen={isOpen}
-            onClose={onClose}
+            onClose={handleClose}
             dataTestId={TEST_ID.Modal.ResetCredentialsModal}
-            // isLoading={isLoading}
         >
             <Box as='form' onSubmit={handleSubmit(onSubmit)} noValidate>
                 <Text
@@ -70,7 +92,7 @@ export function ModalChangePswFormSettings({ isOpen, onClose, onSuccess }: Props
                 <CustomFormField
                     dataTestId={TEST_ID.Input.Login}
                     label='Введите старый пароль'
-                    name='oldpassword'
+                    name='password'
                     type='text'
                     register={register}
                     onFieldChange={handleChange}
@@ -79,7 +101,7 @@ export function ModalChangePswFormSettings({ isOpen, onClose, onSuccess }: Props
                 <CustomFormField
                     dataTestId={TEST_ID.Input.Password}
                     label='Введите новый пароль'
-                    name='password'
+                    name='newPassword'
                     type='password'
                     register={register}
                     onFieldChange={handleChange}

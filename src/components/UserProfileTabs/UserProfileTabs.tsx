@@ -1,23 +1,29 @@
 import { Box, HStack } from '@chakra-ui/react';
 
-import { MAS_RECIPES } from '~/query/recipe/recipe.mock';
+import { BloggerDraft } from '~/query/blogs/blogs.type';
+import { Recipe } from '~/store/recipe-filter/recipe.types';
+import { TEST_ID } from '~/test/test.constant';
 
-import CardList from '../CardList';
+import { CardMixedListPaginated } from '../CardList/CardMixedListPaginated';
 import CustomTitleWithCount from '../UI/CustomTitleWithCount';
 
-export function UserProfileTabs() {
-    const recipesCount = 1,
-        draftsCount = 1;
+type Props = {
+    drafts?: BloggerDraft[];
+    recipes?: Recipe[];
+};
+export function UserProfileTabs({ drafts, recipes }: Props) {
+    const recipesCount = recipes?.length ?? 0;
+    const draftsCount = drafts?.length ?? 0;
+
+    const allRecipes = [...(drafts ?? []), ...(recipes ?? [])];
+
     return (
-        <Box mt={4}>
+        <Box mt={4} data-test-id={TEST_ID.sprint7.userprofilerecipes}>
             <HStack spacing={8}>
                 <CustomTitleWithCount title='Мои рецепты' count={recipesCount} />
                 {draftsCount > 0 && <CustomTitleWithCount title='Черновики' count={draftsCount} />}
             </HStack>
-            {draftsCount > 0 && (
-                <CardList list={MAS_RECIPES.slice(0, 4)} withButton={false} mt={3} />
-            )}
-            <CardList list={MAS_RECIPES.slice(0, 4)} withButton={false} mt={3} />
+            <CardMixedListPaginated mt={6} allRecipes={allRecipes} />
         </Box>
     );
 }

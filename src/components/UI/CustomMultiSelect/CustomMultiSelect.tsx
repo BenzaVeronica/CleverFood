@@ -9,6 +9,7 @@ import {
     MenuItem,
     MenuList as ChakraMenuList,
     Text,
+    useDisclosure,
 } from '@chakra-ui/react';
 import { useEffect, useRef, useState } from 'react';
 
@@ -40,7 +41,7 @@ export const CustomMultiSelect = ({
     hasError,
     maxLabelWidth = MAX_LABEL_WIDTH,
 }: CustomMultiSelectProps) => {
-    const [isOpen, setIsOpen] = useState(false);
+    const { isOpen, onOpen, onClose } = useDisclosure();
 
     const toggleOption = (optionValue: string): void => {
         if (disabledItems.includes(optionValue)) return;
@@ -76,7 +77,7 @@ export const CustomMultiSelect = ({
     const hiddenCount = selectedLabels.length - visibleCount;
 
     return (
-        <Menu isOpen={isOpen} onOpen={() => setIsOpen(true)} onClose={() => setIsOpen(false)}>
+        <Menu isOpen={isOpen} onOpen={onOpen} onClose={onClose}>
             <MenuButton
                 data-test-id={dataTestId && dataTestId}
                 as={Button}

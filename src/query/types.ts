@@ -1,3 +1,5 @@
+import { AppDispatch } from '~/store/app.types';
+
 export type ResponseData = {
     statusCode: number;
     message: string;
@@ -46,3 +48,17 @@ export type ResponseParamsWithOptionalId = {
 export type RequestParamsUserId = {
     userId: string;
 };
+
+export type MutationApi<Result> = {
+    dispatch: AppDispatch;
+    queryFulfilled: Promise<{ data: Result }>;
+    // getState: () => RootState;
+};
+
+// const endpoint = recipesApiSlice.endpoints.getRecipesByUserId.select(userId)(getState() as any);
+//     recipesApiSlice.util.updateQueryData(
+//         EndpointNames.GET_RECIPES_BY_USER,
+//         { userId },
+//         (draft) => {
+// const state = getState();
+// console.log('state:', state);

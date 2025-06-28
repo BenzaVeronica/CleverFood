@@ -1,6 +1,7 @@
 import { Avatar, Box, Button, Flex, Icon, Stack, Text } from '@chakra-ui/react';
 import { useState } from 'react';
 
+import { getImagePath } from '~/query/api.constants';
 import { GetBloggerByIdResponse } from '~/query/blogs/blogs.type';
 
 import PeopleOutline from '../../assets/users.svg?react';
@@ -13,6 +14,9 @@ type Props = {
 
 export function UserCardGreen(props: Props) {
     const [isLoadingSubscribe, setIsLoadingSubscribe] = useState(false);
+    console.log(props.profile.bloggerInfo);
+
+    if (!props.profile) return; // для теста где нет блогера 'should successfully publish a recipe'
     return (
         <Flex
             bg='lime.300'
@@ -26,18 +30,18 @@ export function UserCardGreen(props: Props) {
             {isLoadingSubscribe && <Loader />}
             <Avatar
                 size='xl'
-                // src={props.profile.img}
-                name={`${props.profile.bloggerInfo.firstName} ${props.profile.bloggerInfo.lastName}`}
+                src={getImagePath(props.profile.bloggerInfo?.photoLink)}
+                name={`${props.profile.bloggerInfo?.firstName} ${props.profile.bloggerInfo?.lastName}`}
             />
             <Stack flex='1'>
                 <Flex justifyContent='space-between' alignItems='start'>
                     <Box>
                         <Text fontSize={{ base: 'lg', xl: '2xl' }} fontWeight={600} isTruncated>
-                            {props.profile.bloggerInfo.firstName}{' '}
-                            {props.profile.bloggerInfo.lastName}
+                            {props.profile.bloggerInfo?.firstName}{' '}
+                            {props.profile.bloggerInfo?.lastName}
                         </Text>
                         <Text fontSize='sm' color='blackAlpha.700'>
-                            @{props.profile.bloggerInfo.login}
+                            @{props.profile.bloggerInfo?.login}
                         </Text>
                     </Box>
                     <Text
@@ -52,7 +56,7 @@ export function UserCardGreen(props: Props) {
                 <Flex justifyContent='space-between' alignItems='center'>
                     <CustomSubscribeButton
                         isSubscribe={props.profile.isFavorite}
-                        userId={props.profile.bloggerInfo._id}
+                        userId={props.profile.bloggerInfo?._id}
                         onLoadingChange={setIsLoadingSubscribe}
                     />
                     <Button

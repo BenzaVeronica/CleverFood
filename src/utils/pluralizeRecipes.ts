@@ -1,36 +1,48 @@
-export function pluralizeRecipes(count: number) {
-    const lastTwo = count % 100;
-    const lastOne = count % 10;
+import pluralize from 'pluralize-ru';
 
-    if (lastTwo >= 11 && lastTwo <= 19) {
-        return `${count} новых рецептов`;
+export function declinePhrase(count: number, nounForms: string[], adjectiveForms?: string[]) {
+    if (adjectiveForms) {
+        return pluralize(
+            count,
+            `%d ${adjectiveForms[0]} ${nounForms[0]}`,
+            `%d ${adjectiveForms[1]} ${nounForms[1]}`,
+            `%d ${adjectiveForms[2]} ${nounForms[2]}`,
+            `%d ${adjectiveForms[3]} ${nounForms[3]}`,
+        );
+    } else {
+        return pluralize(
+            count,
+            `%d ${nounForms[0]}`,
+            `%d ${nounForms[1]}`,
+            `%d ${nounForms[2]}`,
+            `%d ${nounForms[3]}`,
+        );
     }
-
-    if (lastOne === 1) {
-        return `${count} новый рецепт`;
-    }
-
-    if (lastOne >= 2 && lastOne <= 4) {
-        return `${count} новых рецепта`;
-    }
-
-    return `${count} новых рецептов`;
 }
+
+const PLURALIZE = {
+    RECIPE: ['рецептов', 'рецепт', 'рецепта', 'рецептов'],
+    NEW: ['новых', 'новый', 'новых', 'новых'],
+    RECOMMEND: ['рекомендованных', 'рекомендованный', 'рекомендованных', 'рекомендованных'],
+    SUBCRIBE: ['подписчиков', 'подписчик', 'подписчика', 'подписчиков'],
+    BOOKMARK: ['сохранений', 'сохранение', 'сохранений', 'сохранений'],
+    LIKE: ['лайков', 'лайк', 'лайка', 'лайков'],
+};
+
+export function pluralizeRecipes(count: number) {
+    return declinePhrase(count ?? 0, PLURALIZE.RECIPE, PLURALIZE.NEW);
+}
+
 export function pluralizeRecomendationRecipes(count: number) {
-    const lastTwo = count % 100;
-    const lastOne = count % 10;
+    return declinePhrase(count ?? 0, PLURALIZE.RECIPE, PLURALIZE.RECOMMEND);
+}
 
-    if (lastTwo >= 11 && lastTwo <= 19) {
-        return `${count} рекомендованных рецептов`;
-    }
-
-    if (lastOne === 1) {
-        return `${count} рекомендованный рецепт`;
-    }
-
-    if (lastOne >= 2 && lastOne <= 4) {
-        return `${count} рекомендованных рецепта`;
-    }
-
-    return `${count} рекомендованных рецептов`;
+export function pluralizeSubscribes(count: number | undefined) {
+    return declinePhrase(count ?? 0, PLURALIZE.SUBCRIBE);
+}
+export function pluralizeBookmark(count: number) {
+    return declinePhrase(count ?? 0, PLURALIZE.BOOKMARK);
+}
+export function pluralizeLikes(count: number) {
+    return declinePhrase(count ?? 0, PLURALIZE.LIKE);
 }

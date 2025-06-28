@@ -1,59 +1,98 @@
-import { Box, GridItem, VStack } from '@chakra-ui/react';
+import { Box, GridItem, useDisclosure, VStack } from '@chakra-ui/react';
 
 import { ContainerGridLayout } from '~/app/ContainerAppLayout';
 import Bookmark from '~/assets/bookmark-filled-black.svg?react';
 import Like from '~/assets/like-filled-black.svg?react';
-import OkIcon from '~/assets/ok-filled.svg?react';
-import Users from '~/assets/users-filled.svg?react';
-import CardList from '~/components/CardList';
 import FormSettings from '~/components/FormSettings';
+import ModalConfirmDelete from '~/components/ModalConfirmDelete';
 import RecomendationBanner from '~/components/RecomendationBanner';
+import StatisticsSubscribers from '~/components/Statistics';
 import { StatisticsChart } from '~/components/Statistics/StatisticsChart';
+import { StatisticsRecommendations } from '~/components/Statistics/StatisticsRecommendations';
 import InfoTitleButton from '~/components/UI/InfoTitleButton';
-import StatTitle from '~/components/UI/StatTitle';
 import Title from '~/components/UI/Title';
-import { UserAvatarList } from '~/components/UserList/UserAvatarList';
-import { MAS_RECIPES } from '~/query/recipe/recipe.mock';
-import { pluralizeRecomendationRecipes } from '~/utils/pluralizeRecipes';
+import { useGetStatisticQuery } from '~/query/statistic/statistic.api';
+import { useDeleteProfileMutation } from '~/query/user/user.api';
+import { useAuth } from '~/store/auth/useAuth';
+import { TEST_ID } from '~/test/test.constant';
+import { pluralizeBookmark, pluralizeLikes } from '~/utils/pluralizeRecipes';
+import { useToastNotifications } from '~/utils/useToastNotifications';
+import ErrorNotification from '~/widgets/error/ErrorNotification';
 
-export function SettingsPage() {
-    // const isAvailableRecomend = bookmark === 200 && subcribers === 100;
-    const isAvailableRecomend = true;
-    const users = ['v'];
+export default function SettingsPage() {
+    const { data } = useGetStatisticQuery();
+
+    const [deleteProfile] = useDeleteProfileMutation();
+    const { handleServerError } = useToastNotifications();
+    const { logout } = useAuth();
+    const handleDelete = async () => {
+        try {
+            await deleteProfile().unwrap();
+            logout();
+        } catch (error) {
+            handleServerError(error);
+        }
+    };
+
+    const { isOpen, onOpen, onClose } = useDisclosure();
+
     return (
         <ContainerGridLayout gap={{ base: 4, lg: 10 }}>
+            <ErrorNotification />
             <GridItem colSpan={{ base: 4, md: 12 }} mt={6}>
                 <FormSettings />
             </GridItem>
 
             <GridItem colSpan={{ base: 4, md: 12, xl: 10 }}>
-                <Box w={{ base: 'full', xl: '120%' }}>
+                <Box w={{ base: '120%', xl: '100%' }}>
                     <Title>Статистика</Title>
                     <VStack spacing={4} alignItems='start'>
-                        <StatTitle icon={Users}>{users.length} подписчика</StatTitle>
-                        {users.length && <UserAvatarList />}
-                        <StatisticsChart icon={Bookmark} title='87 сохранений' />
-                        <StatisticsChart icon={Like} title='124 лайка' />
+                        <StatisticsSubscribers />
+                        {data && (
+                            <>
+                                <StatisticsChart
+                                    icon={Bookmark}
+                                    title={pluralizeBookmark(data?.bookmarks.length)}
+                                    // data={MOCK_TEST_BOOKMARK_CHART}
+                                    data={data?.bookmarks}
+                                />
+                                <StatisticsChart
+                                    icon={Like}
+                                    title={pluralizeLikes(data.likes.length)}
+                                    data={data?.likes}
+                                    color='#8884d8'
+                                />
+                            </>
+                        )}
                     </VStack>
                 </Box>
-                {isAvailableRecomend && <RecomendationBanner flexProp={{ mt: 10 }} />}
+                <Box data-test-id={TEST_ID.sprint7.settingsrecommendationinfo}>
+                    <RecomendationBanner flexProp={{ mt: 10 }} />
+                    <StatisticsRecommendations
+                        length={data?.recommendationsCount ?? 0}
+                        data={data?.recipesWithRecommendations}
+                    />
+                </Box>
             </GridItem>
 
-            <GridItem colSpan={{ base: 4, md: 12 }}>
-                <StatTitle icon={OkIcon}>{pluralizeRecomendationRecipes(3)}</StatTitle>
-                <CardList list={MAS_RECIPES.slice(0, 4)} withButton={false} mt={3} />
-            </GridItem>
+            {/* <GridItem colSpan={{ base: 4, md: 12 }}>
+            </GridItem> */}
             <GridItem colSpan={{ base: 4, md: 10 }} mb={{ base: 4, lg: 10 }}>
                 <VStack spacing={10}>
                     <InfoTitleButton
                         title='О проекте'
-                        btn='Связаться с'
-                        linkText='разработчиками'
-                        link='#'
+                        btn='Связаться с '
+                        linkText=' разработчиками'
+                        link='https://clevertec.ru/'
                     />
-                    <InfoTitleButton title='Удаление аккаунта' btn='Удалить мой аккаунт' />
+                    <InfoTitleButton
+                        title='Удаление аккаунта'
+                        btn='Удалить мой аккаунт'
+                        onClick={onOpen}
+                    />
                 </VStack>
             </GridItem>
+            <ModalConfirmDelete isOpen={isOpen} onClose={onClose} onSuccess={handleDelete} />
         </ContainerGridLayout>
     );
 }

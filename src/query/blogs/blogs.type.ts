@@ -39,18 +39,19 @@ export type BloggerShortInfo = {
     isFavorite: boolean;
     notes: BloggerNote[];
     newRecipesCount: number;
+    photoLink: string;
 };
 
 export type BloggerDraft = {
     _id: string;
+    categoriesIds: string[];
+    image: string;
     title: string;
     description: string;
-    time: number;
-    image: string;
     portions: number;
-    categoriesIds: string[];
-    steps: RecipeStep[];
+    time: number;
     ingredients: RecipeIngredients[];
+    steps: RecipeStep[];
 };
 
 export type BloggerInfo = {
@@ -59,6 +60,8 @@ export type BloggerInfo = {
     login: string;
     firstName: string;
     lastName: string;
+    photoLink: string;
+
     recipesIds: string[];
     drafts: BloggerDraft[];
     subscriptions: string[];
@@ -85,4 +88,14 @@ export type GetBloggerByIdResponse = {
     totalSubscribers: number;
     totalBookmarks: number;
     isFavorite: boolean;
+};
+
+export type GetBloggerInfoForCard = {
+    totalSubscribers: number;
+    totalBookmarks: number;
+    bloggerInfo?: BloggerInfo;
+    isFavorite?: boolean;
+    totalLikes?: number;
+    totalRecommends?: number;
+    isAvailableRecomend?: boolean;
 };

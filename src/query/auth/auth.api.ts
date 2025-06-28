@@ -1,9 +1,10 @@
 import { FormLoginValues } from '~/components/FormRegistry/FormRegistry.types';
 import { publicApi, tokenApi } from '~/query/create-api.ts';
 
-import { ApiEndpoints } from '../constants/api';
-import { ApiGroupNames } from '../constants/api-group-names';
+import { ApiGroups } from '../constants/api-group-names';
+import { ApiMethods } from '../constants/api-methods';
 import { EndpointNames } from '../constants/endpoint-names';
+import { EndpointUrl } from '../constants/enpoint-url';
 import {
     transformErrorResponse,
     transformErrorWithMessageResponse,
@@ -20,22 +21,22 @@ import { saveAuthTokenFromHeaders } from './auth.utils';
 
 export const authApi = publicApi.injectEndpoints({
     endpoints: (builder) => ({
-        registerUser: builder.mutation<registerUserResponse, registerUserRequest>({
+        [EndpointNames.SIGH_UP]: builder.mutation<registerUserResponse, registerUserRequest>({
             query: (body) => ({
-                apiGroupName: ApiGroupNames.AUTH,
+                apiGroupName: ApiGroups.AUTH,
                 name: EndpointNames.SIGH_UP,
-                url: ApiEndpoints.AUTH_SIGH_UP,
-                method: 'POST',
+                url: EndpointUrl.AUTH_SIGH_UP,
+                method: ApiMethods.POST,
                 body,
             }),
             transformErrorResponse: transformErrorWithMessageResponse,
         }),
-        login: builder.mutation<registerUserResponse, FormLoginValues>({
+        [EndpointNames.LOGIN]: builder.mutation<registerUserResponse, FormLoginValues>({
             query: (body) => ({
-                apiGroupName: ApiGroupNames.AUTH,
+                apiGroupName: ApiGroups.AUTH,
                 name: EndpointNames.LOGIN,
-                url: ApiEndpoints.AUTH_LOGIN,
-                method: 'POST',
+                url: EndpointUrl.AUTH_LOGIN,
+                method: ApiMethods.POST,
                 body,
                 credentials: 'include',
             }),
@@ -43,42 +44,42 @@ export const authApi = publicApi.injectEndpoints({
             transformErrorResponse: transformErrorWithMessageResponse,
         }),
 
-        getVerify: builder.query<void, string>({
+        [EndpointNames.GET_VERIFY]: builder.query<void, string>({
             query: (token) => ({
-                apiGroupName: ApiGroupNames.AUTH,
+                apiGroupName: ApiGroups.AUTH,
                 name: EndpointNames.GET_VERIFY,
-                url: `${ApiEndpoints.AUTH_GET_VERIFY}/${token}`,
-                method: 'GET',
+                url: `${EndpointUrl.AUTH_GET_VERIFY}/${token}`,
+                method: ApiMethods.GET,
             }),
             transformErrorResponse,
         }),
 
-        postForgetPswByEmail: builder.mutation<authServerResponse, forgetPswRequest>({
+        [EndpointNames.FORGOT_PASSWORD]: builder.mutation<authServerResponse, forgetPswRequest>({
             query: (body) => ({
-                apiGroupName: ApiGroupNames.AUTH,
+                apiGroupName: ApiGroups.AUTH,
                 name: EndpointNames.FORGOT_PASSWORD,
-                url: ApiEndpoints.AUTH_FORGOT_PASSWORD,
-                method: 'POST',
+                url: EndpointUrl.AUTH_FORGOT_PASSWORD,
+                method: ApiMethods.POST,
                 body,
             }),
             transformErrorResponse: transformErrorWithMessageResponse,
         }),
-        verifyOtp: builder.mutation<authServerResponse, verifyOtpRequest>({
+        [EndpointNames.VERIFY_OTP]: builder.mutation<authServerResponse, verifyOtpRequest>({
             query: (body) => ({
-                apiGroupName: ApiGroupNames.AUTH,
+                apiGroupName: ApiGroups.AUTH,
                 name: EndpointNames.VERIFY_OTP,
-                url: ApiEndpoints.AUTH_VERIFY_OTP,
-                method: 'POST',
+                url: EndpointUrl.AUTH_VERIFY_OTP,
+                method: ApiMethods.POST,
                 body,
             }),
             transformErrorResponse: transformErrorWithMessageResponse,
         }),
-        resetPassword: builder.mutation<authServerResponse, resetRequest>({
+        [EndpointNames.RESET_PASSWORD]: builder.mutation<authServerResponse, resetRequest>({
             query: (body) => ({
-                apiGroupName: ApiGroupNames.AUTH,
+                apiGroupName: ApiGroups.AUTH,
                 name: EndpointNames.RESET_PASSWORD,
-                url: ApiEndpoints.AUTH_RESET_PASSWORD,
-                method: 'POST',
+                url: EndpointUrl.AUTH_RESET_PASSWORD,
+                method: ApiMethods.POST,
                 body,
             }),
             transformErrorResponse,
@@ -88,24 +89,24 @@ export const authApi = publicApi.injectEndpoints({
 
 export const authTokenApi = tokenApi.injectEndpoints({
     endpoints: (builder) => ({
-        getRefreshToken: builder.query<void, void>({
+        [EndpointNames.GET_REFRESH]: builder.query<void, void>({
             query: () => ({
-                apiGroupName: ApiGroupNames.AUTH,
+                apiGroupName: ApiGroups.AUTH,
                 name: EndpointNames.GET_REFRESH,
-                url: ApiEndpoints.AUTH_GET_REFRESH,
-                method: 'GET',
+                url: EndpointUrl.AUTH_GET_REFRESH,
+                method: ApiMethods.GET,
                 credentials: 'include',
             }),
             onQueryStarted: saveAuthTokenFromHeaders(),
             transformErrorResponse,
         }),
 
-        getCheckAuth: builder.query<void, void>({
+        [EndpointNames.GET_CHECK_AUTH]: builder.query<void, void>({
             query: () => ({
-                apiGroupName: ApiGroupNames.AUTH,
+                apiGroupName: ApiGroups.AUTH,
                 name: EndpointNames.GET_CHECK_AUTH,
-                url: ApiEndpoints.AUTH_GET_CHECK_AUTH,
-                method: 'GET',
+                url: EndpointUrl.AUTH_GET_CHECK_AUTH,
+                method: ApiMethods.GET,
                 credentials: 'include',
             }),
             transformErrorResponse,

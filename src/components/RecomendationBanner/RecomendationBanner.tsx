@@ -2,15 +2,17 @@ import { Button, Flex, FlexProps, Icon, Image, Text, VStack } from '@chakra-ui/r
 
 import OkIcon from '~/assets/ok-filled.svg?react';
 import ImageRecomendation from '~/assets/recomendation-banner.png';
+import { useGetStatFromBloggerByIdAndStat } from '~/query/user/user.utils';
 
 import CardStat from '../CardStat';
 
 type Props = {
-    // keyId: string;
     flexProp?: FlexProps;
 };
 
 export function RecomendationBanner({ flexProp }: Props) {
+    const stat = useGetStatFromBloggerByIdAndStat();
+    if (!stat.isAvailableRecomend) return;
     return (
         <Flex
             justifyContent='space-between'
@@ -53,8 +55,9 @@ export function RecomendationBanner({ flexProp }: Props) {
                             Это можно будет сделать с помощью кнопки
                         </Text>
                         <Button
+                            as='div'
                             variant='btnMain'
-                            size='sm'
+                            size={{ base: 'xs', md: 'sm' }}
                             leftIcon={<Icon as={OkIcon} filter='invert(1)' />}
                         >
                             Рекомендовать рецепт
@@ -62,7 +65,7 @@ export function RecomendationBanner({ flexProp }: Props) {
                     </Flex>
                 </VStack>
             </Flex>
-            <CardStat bookmarks={251} subscribes={102} />
+            <CardStat bookmarks={stat.totalBookmarks} subscribes={stat.totalSubscribers} />
         </Flex>
     );
 }

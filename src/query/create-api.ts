@@ -10,7 +10,7 @@ import { localStorageData } from '~/localStorage/constants';
 import { getDataFromLocalStorage, setDataToLocalStorage } from '~/localStorage/localStorage';
 
 import { BASE_URL } from './api.constants';
-import { ApiEndpoints } from './constants/api';
+import { EndpointUrl } from './constants/enpoint-url';
 
 export const publicApi = createApi({
     reducerPath: 'publicApi',
@@ -59,7 +59,7 @@ export const baseQueryWithReauth: BaseQueryFn<
 
         try {
             const refreshResult = await baseQueryWithToken(
-                ApiEndpoints.AUTH_GET_REFRESH,
+                EndpointUrl.AUTH_GET_REFRESH,
                 api,
                 extraOptions,
             );

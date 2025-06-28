@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 
 import { localStorageData } from '~/localStorage/constants';
-import { getDataFromLocalStorage } from '~/localStorage/localStorage';
+import { getDataFromLocalStorage, setDataToLocalStorage } from '~/localStorage/localStorage';
 import { useLazyGetCheckAuthQuery } from '~/query/auth/auth.api';
 import { getUserFromJWT } from '~/query/user/getUserFromJWT';
 import { User } from '~/query/user/user.types';
@@ -38,6 +38,7 @@ export function useAuth(): UseAuthReturn {
     const logout = useCallback(() => {
         localStorage.removeItem(localStorageData.access_token);
         setUser(null);
+        localStorage.removeItem(localStorageData.userId);
         setIsAuthenticated(false);
         navigate(PageRoutes.LOGIN);
     }, [navigate]);
@@ -50,12 +51,7 @@ export function useAuth(): UseAuthReturn {
     }, []);
 
     useEffect(() => {
-        if (!accessToken) {
-            logout();
-            return;
-        }
-
-        if (error) {
+        if (!accessToken || error) {
             logout();
             return;
         }
@@ -64,6 +60,7 @@ export function useAuth(): UseAuthReturn {
             setIsAuthenticated(true);
             const user = getUserFromJWT(accessToken);
             setUser(user);
+            setDataToLocalStorage(localStorageData.userId, user?.userId);
         }
     }, [error, logout, accessToken]);
 

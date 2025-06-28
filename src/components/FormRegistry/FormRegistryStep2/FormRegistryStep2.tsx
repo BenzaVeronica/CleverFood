@@ -9,7 +9,7 @@ import {
     FormDataFormRegistryStep2,
     FormFieldsFormRegistryStep2,
     SchemaFormRegistryStep2,
-} from './FormRegistryStep2.types';
+} from './FormRegistryStep2.schema';
 
 type Props = {
     handleSubmitStep: () => void;

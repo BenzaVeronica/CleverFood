@@ -10,4 +10,5 @@ export type FooterMenuItem = {
     text: string;
     link: string;
     icon: (props: FooterIconProps) => JSX.Element;
+    dataTestId?: string;
 };

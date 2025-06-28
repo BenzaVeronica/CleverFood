@@ -1,22 +1,25 @@
+import { lazy } from 'react';
 import { createBrowserRouter, Navigate } from 'react-router';
 
-import { BloggerPage } from '~/pages/BloggerPage.tsx';
-import { BlogsPage } from '~/pages/BlogsPage.tsx';
-import LoginPage from '~/pages/LoginPage';
-import NotFoundPage from '~/pages/NotFoundPage';
-import { ProfilePage } from '~/pages/ProfilePage.tsx';
-import { RecipeCreateEditPage } from '~/pages/RecipeCreateEditPage.tsx';
-import { RegisterPage } from '~/pages/RegisterPage';
-import { SettingsPage } from '~/pages/SettingsPage.tsx';
-import TheMostPage from '~/pages/TheMostPage';
+import BloggerPage from '~/pages/BloggerPage.tsx';
+import CategoryPage from '~/pages/CategoryPage';
+import RecipeCreateEditPage from '~/pages/RecipeCreateEditPage.tsx';
 
 import AppLayout from '../app/App';
-import CategoryPage from '../pages/CategoryPage';
-import HomePage from '../pages/HomePage';
-import RecipePage from '../pages/RecipePage';
 import { PageRoutes } from './PageRoutes.constants';
 import ProtectedRoute from './ProtectedRoute.tsx';
 
+const HomePage = lazy(() => import('~/pages/HomePage'));
+const LoginPage = lazy(() => import('~/pages/LoginPage'));
+const NotFoundPage = lazy(() => import('~/pages/NotFoundPage'));
+const TheMostPage = lazy(() => import('~/pages/TheMostPage'));
+const RecipePage = lazy(() => import('~/pages/RecipePage'));
+// const BloggerPage = lazy(() => import('~/pages/BloggerPage'));
+const BlogsPage = lazy(() => import('~/pages/BlogsPage'));
+const ProfilePage = lazy(() => import('~/pages/ProfilePage'));
+// const RecipeCreateEditPage = lazy(() => import('~/pages/RecipeCreateEditPage'));
+const RegisterPage = lazy(() => import('~/pages/RegisterPage'));
+const SettingsPage = lazy(() => import('~/pages/SettingsPage'));
 export const serverParameter = 'emailVerified';
 
 export const router = createBrowserRouter([
@@ -79,6 +82,10 @@ export const router = createBrowserRouter([
             {
                 path: PageRoutes.SETTINGS,
                 element: <SettingsPage />,
+            },
+            {
+                path: `${PageRoutes.DRAFT_EDIT}/:draftId`,
+                element: <RecipeCreateEditPage />,
             },
         ],
     },

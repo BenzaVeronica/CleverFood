@@ -8,6 +8,7 @@ type Props = {
     bookmarks: number | null;
     like?: number | null;
     subscribes?: number | null;
+    dataTestId?: string;
     dataTestIdsubscribes?: string;
     dataTestIdlike?: string;
     dataTestIdbookmarks?: string;
@@ -15,7 +16,7 @@ type Props = {
 
 export function CardStat(props: Props) {
     return (
-        <Flex gap={{ base: 0, lg: 2 }} flexShrink={0}>
+        <Flex gap={{ base: 0, lg: 2 }} flexShrink={0} data-test-id={props.dataTestId}>
             {Number(props?.bookmarks) >= 0 && (
                 <Button
                     data-test-id={props.dataTestIdbookmarks}

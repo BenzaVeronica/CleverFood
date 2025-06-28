@@ -1,31 +1,46 @@
 import { RecipeFormData } from '~/store/recipe-form/recipe-form-types';
 
-import { Tags } from '../constants/tags';
-import { RecipesResponse } from './recipe.types';
+import { ApiGroups } from '../constants/api-group-names';
+import { RequestParamsUserId } from '../types';
+import { RecipeIdAndRecipe, RecipesResponse } from './recipe.types';
 
-export const LIST_TAG = [{ type: Tags.RECIPE as const, id: 'LIST' }];
+export const TAG_LIST_RECIPE = [{ type: ApiGroups.RECIPE, id: 'LIST' }];
 
 export const providesRecipeTags = (result?: RecipesResponse) =>
     result?.data
         ? [
-              ...LIST_TAG,
+              ...TAG_LIST_RECIPE,
               ...result.data.map((r) => ({
-                  type: Tags.RECIPE as const,
+                  type: ApiGroups.RECIPE,
                   id: r._id,
               })),
           ]
-        : LIST_TAG;
+        : TAG_LIST_RECIPE;
 export const providesRecipeTagById = (_result: unknown, _error: unknown, id?: string) =>
-    id ? [{ type: Tags.RECIPE as const, id }] : [{ type: Tags.RECIPE as const, id: 'LIST' }];
+    id ? [{ type: ApiGroups.RECIPE, id }] : TAG_LIST_RECIPE;
 
-export const invalidateRecipeTags = (_result: unknown, error: unknown, id: string) =>
-    error ? [] : [...LIST_TAG, { type: Tags.RECIPE as const, id }];
+export const providesTagsByUserId = (
+    _result: unknown,
+    _error: unknown,
+    { userId }: RequestParamsUserId,
+) =>
+    userId
+        ? [...TAG_LIST_RECIPE, { type: ApiGroups.RECIPE, id: `USER_${userId}` }]
+        : TAG_LIST_RECIPE;
+
+// export const invalidateRecipeTags = (_result: unknown, error: unknown, id: string) =>
+//     error ? [] : [...TAG_LIST_RECIPE, { type: ApiGroups.RECIPE, id }];
+export const invalidateRecipeTags = (
+    _result: unknown,
+    error: unknown,
+    requestParam: RecipeIdAndRecipe,
+) => (error ? [] : [...TAG_LIST_RECIPE, { type: ApiGroups.RECIPE, id: requestParam.recipeId }]);
 
 export const invalidateRecipeTagsFromBody = (
     _result: unknown,
     error: unknown,
     obj: { id: string; data: RecipeFormData },
-) => (error ? [] : [...LIST_TAG, { type: Tags.RECIPE as const, id: obj.id }]);
+) => (error ? [] : [...TAG_LIST_RECIPE, { type: ApiGroups.RECIPE, id: obj.id }]);
 
 export const invalidateRecipeListTags = (_result: unknown, error: unknown) =>
-    error ? [] : LIST_TAG;
+    error ? [] : TAG_LIST_RECIPE;

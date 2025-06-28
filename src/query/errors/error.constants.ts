@@ -29,6 +29,10 @@ export const TOAST_MESSAGE = {
         title: 'Ошибка сервера',
         description: 'Попробуйте немного позже.',
     },
+    ShortServerErrorToast: {
+        title: 'Ошибка сервера',
+        description: 'Попробуйте позже.',
+    },
     SignInToast: {
         [401]: {
             title: 'Неверный логин или пароль',
@@ -54,6 +58,44 @@ export const TOAST_MESSAGE = {
     RestoreCredentials: {
         [200]: {
             title: 'Восстановление данных успешно',
+            description: '',
+        },
+    },
+    RestorePsw: {
+        [200]: {
+            title: 'Смена пароля успешна',
+            description: '',
+        },
+        inccorect: {
+            title: 'Не верный пароль',
+            description: '',
+        },
+        match: {
+            title: 'Новый и старый пароль совпадают',
+            description: '',
+        },
+    },
+    NoteCreate: {
+        [200]: {
+            title: 'Заметка опубликована',
+            description: '',
+        },
+    },
+    NoteDelete: {
+        [200]: {
+            title: 'Заметка удалена',
+            description: '',
+        },
+    },
+    UpdateProfileInfo: {
+        [200]: {
+            title: 'Обновлено!',
+            description: '',
+        },
+    },
+    ProfilePhotoUpdate: {
+        [200]: {
+            title: 'Фото загружено',
             description: '',
         },
     },

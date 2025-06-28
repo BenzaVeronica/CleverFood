@@ -1,6 +1,6 @@
 import { Box, Button, Grid, GridProps } from '@chakra-ui/react';
 
-import { Recipe } from '~/store/recipe-filter/recipe.types';
+import { Recipe, RecipeConfigBtnCard } from '~/store/recipe-filter/recipe.types';
 
 import { CardHorizontal } from '../Card/CardHorizontal';
 
@@ -12,6 +12,8 @@ type Props = {
     isLoading?: boolean;
     isEnd?: boolean;
     onLoadMore?: () => void;
+    withRecommend?: boolean;
+    config?: RecipeConfigBtnCard;
 } & GridProps;
 
 export function CardList({
@@ -22,6 +24,8 @@ export function CardList({
     isLoading = false,
     isEnd = false,
     onLoadMore,
+    withRecommend,
+    config,
     ...gridProps
 }: Props) {
     return (
@@ -42,6 +46,8 @@ export function CardList({
                         el={el}
                         index={index}
                         colSpan={{ base: 4, md: 6, lg: 12, xl: 6 }}
+                        withRecommend={withRecommend}
+                        config={config}
                     />
                 ))}
             </Grid>
