@@ -2,8 +2,10 @@ import { Avatar, Flex, SimpleGrid, Text } from '@chakra-ui/react';
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router';
 
+import { getImagePath } from '~/query/api.constants';
+import { useGetUserMeQuery } from '~/query/user/user.api';
 import { PageRoutes } from '~/routes/PageRoutes.constants';
-import { masProfiles } from '~/store/blog/blog.constants';
+import { TEST_ID } from '~/test/test.constant';
 import { HEIGHT_FOOTER } from '~/theme/ui.constants';
 
 import { IconHomeCircle } from '../../Icons/IconHomeCircle';
@@ -14,6 +16,7 @@ import { FooterMenuItem } from './Footer.types';
 export function Footer() {
     const location = useLocation();
 
+    const { data } = useGetUserMeQuery();
     const mas: FooterMenuItem[] = [
         {
             text: 'Главная',
@@ -31,9 +34,10 @@ export function Footer() {
             icon: (props) => <IconWriteCircle {...props} />,
         },
         {
+            dataTestId: TEST_ID.sprint7.footerprofilebutton,
             text: 'Мой профиль',
-            link: '/profile',
-            icon: () => <Avatar boxSize='40px' src={masProfiles[0].img} />,
+            link: PageRoutes.PROFILE,
+            icon: () => <Avatar boxSize='40px' src={getImagePath(data?.photoLink)} />,
         },
     ];
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -54,9 +58,10 @@ export function Footer() {
         >
             {mas.map((el, index) => {
                 const isHovered = hoveredIndex === index;
-                const isActive = location.pathname.startsWith(el.link) || isHovered;
+                const isActive = location.pathname === el.link || isHovered;
                 return (
                     <Flex
+                        data-test-id={el?.dataTestId}
                         as={Link}
                         to={el.link}
                         bg={isActive ? 'limeGradient.70' : ''}

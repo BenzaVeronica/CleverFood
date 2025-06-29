@@ -9,14 +9,14 @@ import { Note } from './Note';
 
 type Props = {
     notes: BloggerNote[];
+    onRemove?: (id: string) => void;
 };
 
-export function NoteList({ notes }: Props) {
+export function NoteList({ notes, onRemove }: Props) {
     const [showAll, setShowAll] = useState(false);
     const textBtn = showAll ? 'Свернуть' : 'Показать больше';
     const { isMobile } = useBreakpoints();
     const initialCount = isMobile ? 2 : 3;
-    // const visibleNotes = showAll ? notes : notes.slice(0, initialCount);
     return (
         <>
             <Flex gap={4} flexWrap='wrap' data-test-id={TEST_ID.Bloggers.BloggerUserNotesGrid}>
@@ -37,7 +37,7 @@ export function NoteList({ notes }: Props) {
                             }
                             display={isHidden ? 'none' : 'block'}
                         >
-                            <Note el={el} />
+                            <Note el={el} onRemove={onRemove} />
                         </Box>
                     );
                 })}

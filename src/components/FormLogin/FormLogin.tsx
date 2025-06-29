@@ -1,6 +1,5 @@
-import { Box, Button } from '@chakra-ui/react';
+import { Box, Button, useDisclosure } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 
@@ -11,12 +10,12 @@ import { isServerError } from '~/query/errors/error.utils';
 import { setWasLoggedIn } from '~/store/auth/auth-slice';
 import { useAppDispatch } from '~/store/hooks';
 import { TEST_ID } from '~/test/test.constant';
-import { addError } from '~/widgets/error/error-slice';
+import { useToastNotifications } from '~/utils/useToastNotifications';
 
 import { ModalLogInFailed } from '../ModalLogIn/ModalLogInFailed';
 import CustomFormField from '../UI/CustomFormField';
 import { LoaderScreen } from '../UI/Loader/LoaderScreen';
-import { FormDataLogin, FormFieldsLogin, SchemaLogin } from './FormLogin.types';
+import { FormDataLogin, FormFieldsLogin, SchemaLogin } from './FormLogin.schema';
 
 export const FormLogin = () => {
     const {
@@ -34,15 +33,13 @@ export const FormLogin = () => {
         await trigger(fieldName);
     };
 
-    const [isOpen, setIsOpen] = useState(false);
-    const onClose = () => {
-        setIsOpen(false);
-    };
+    const { isOpen, onOpen, onClose } = useDisclosure();
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const [login, { isLoading }] = useLoginMutation();
 
+    const { showErrorReduxMessage } = useToastNotifications();
     const onSubmit = async (data: FormDataLogin) => {
         try {
             await login(data).unwrap();
@@ -51,10 +48,10 @@ export const FormLogin = () => {
         } catch (error) {
             const err = error as CustomErrorResponse;
             if (isServerError(err.status)) {
-                setIsOpen(true);
+                onOpen();
             }
             if (err.status === 401 || err.status === 403) {
-                dispatch(addError(TOAST_MESSAGE.SignInToast[err.status]));
+                showErrorReduxMessage(TOAST_MESSAGE.SignInToast[err.status]);
             }
         }
     };

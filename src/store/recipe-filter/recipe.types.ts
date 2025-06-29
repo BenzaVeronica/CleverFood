@@ -39,4 +39,14 @@ export type Recipe = MongoEntity &
         nutritionValue: RecipeNutritionValue;
         meat?: string;
         garnish?: string;
+
+        recommendedByUserId?: string[];
     };
+
+export type RecipeConfigBtnCard = {
+    edit?: boolean;
+    editdraft?: boolean;
+    bookmark?: boolean;
+    save?: boolean;
+    read?: boolean;
+};

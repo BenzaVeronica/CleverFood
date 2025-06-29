@@ -4,10 +4,16 @@ import { Link } from 'react-router';
 
 import { ACCESSIBILITY } from '~/app/accessibility.constants';
 import Settings from '~/assets/BsGearFill.svg?react';
-import { GetBloggerByIdResponse } from '~/query/blogs/blogs.type';
+import { getImagePath } from '~/query/api.constants';
+import { GetBloggerInfoForCard } from '~/query/blogs/blogs.type';
 import { PageRoutes } from '~/routes/PageRoutes.constants';
 import { TEST_ID } from '~/test/test.constant';
-import { HEIGHT_HEADER, HEIGHT_HEADER_TABLET } from '~/theme/ui.constants';
+import {
+    HEIGHT_HEADER,
+    HEIGHT_HEADER_TABLET,
+    WIDTH_LEFT_MENU,
+    WIDTH_RIGHT_ASIDE,
+} from '~/theme/ui.constants';
 import useBreakpoints from '~/utils/useBreakpoints';
 
 import CardStat from '../CardStat';
@@ -15,36 +21,37 @@ import Loader from '../UI/Loader';
 import CustomSubscribeButton from '../UserSubscribeButton';
 
 type Props = {
-    profile: GetBloggerByIdResponse;
+    profile: GetBloggerInfoForCard;
     isMyPage?: boolean;
-    dataTestId?: string;
+    dataTestId?: {
+        box: string;
+        name: string;
+        login: string;
+    };
     isFull?: boolean;
 };
 
-export function UserCardMain({ profile, dataTestId, isFull, isMyPage = false }: Props) {
-    const { isTablet } = useBreakpoints();
+export function UserCardMain({ profile, dataTestId, isFull = true, isMyPage = false }: Props) {
+    const { isSmallDesktop } = useBreakpoints();
     const [isLoadingSubscribe, setIsLoadingSubscribe] = useState(false);
-    const styleFixed: FlexProps = useMemo(() => {
-        if (!isMyPage) {
-            return {
-                position: 'fixed',
-                //   top: { base: HEIGHT_HEADER_TABLET, md: HEIGHT_HEADER },
-                top: isTablet ? HEIGHT_HEADER_TABLET : HEIGHT_HEADER,
-                left: 0,
-                right: 0,
-                zIndex: 1,
-            };
-        }
-        return {};
-    }, [isMyPage, isTablet]);
+    const styleFixed: FlexProps = useMemo(
+        () => ({
+            position: 'fixed',
+            top: !isSmallDesktop ? HEIGHT_HEADER : HEIGHT_HEADER_TABLET,
+            left: !isSmallDesktop ? WIDTH_LEFT_MENU : 0,
+            right: !isSmallDesktop ? WIDTH_RIGHT_ASIDE : 0,
+            zIndex: 10,
+        }),
+        [isSmallDesktop],
+    );
 
     return (
         <Flex
             p={{ base: 4 }}
             justifyContent='center'
-            zIndex={1}
+            zIndex={5}
             bg='white'
-            data-test-id={dataTestId && dataTestId}
+            data-test-id={dataTestId?.box}
             {...styleFixed}
         >
             <Flex
@@ -56,7 +63,7 @@ export function UserCardMain({ profile, dataTestId, isFull, isMyPage = false }: 
             >
                 {isMyPage && (
                     <IconButton
-                        // data-test-id='search-button'
+                        data-test-id={TEST_ID.sprint7.settingsbutton}
                         aria-label={ACCESSIBILITY.nav.settings}
                         position='absolute'
                         right={0}
@@ -69,8 +76,8 @@ export function UserCardMain({ profile, dataTestId, isFull, isMyPage = false }: 
                 )}
                 <Avatar
                     size='2xl'
-                    // src={profile.img}
-                    name={`${profile.bloggerInfo.firstName} ${profile.bloggerInfo.lastName}`}
+                    src={getImagePath(profile.bloggerInfo?.photoLink)}
+                    name={`${profile.bloggerInfo?.firstName} ${profile.bloggerInfo?.lastName}`}
                 />
                 <Stack flex='1'>
                     <Flex
@@ -87,22 +94,18 @@ export function UserCardMain({ profile, dataTestId, isFull, isMyPage = false }: 
                             fontWeight={600}
                             width='100%'
                             isTruncated
-                            data-test-id={TEST_ID.Bloggers.BloggerUserInfoName}
+                            data-test-id={dataTestId?.name}
                         >
-                            {profile.bloggerInfo.firstName} {profile.bloggerInfo.lastName}
+                            {profile.bloggerInfo?.firstName} {profile.bloggerInfo?.lastName}
                         </Text>
-                        <Text
-                            data-test-id={TEST_ID.Bloggers.BloggerUserInfoLogin}
-                            fontSize='sm'
-                            color='blackAlpha.700'
-                        >
-                            @{profile.bloggerInfo.login}
+                        <Text data-test-id={dataTestId?.login} fontSize='sm' color='blackAlpha.700'>
+                            @{profile.bloggerInfo?.login}
                         </Text>
                         <Flex justifyContent='space-between' alignItems='center' w='100%'>
-                            {!isMyPage && (
+                            {!isMyPage && profile.isFavorite && (
                                 <CustomSubscribeButton
                                     isSubscribe={profile.isFavorite}
-                                    userId={profile.bloggerInfo._id}
+                                    userId={profile.bloggerInfo?._id}
                                     onLoadingChange={setIsLoadingSubscribe}
                                     withTooltip
                                 />
@@ -110,6 +113,7 @@ export function UserCardMain({ profile, dataTestId, isFull, isMyPage = false }: 
                             <CardStat
                                 bookmarks={profile.totalBookmarks}
                                 subscribes={profile.totalSubscribers}
+                                dataTestId={TEST_ID.sprint7.userprofile.statsblock}
                                 dataTestIdbookmarks={TEST_ID.Bloggers.BloggerFollowersBookmarks}
                                 dataTestIdsubscribes={TEST_ID.Bloggers.BloggerFollowersCount}
                             />

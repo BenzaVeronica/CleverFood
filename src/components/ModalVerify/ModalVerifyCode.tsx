@@ -4,13 +4,11 @@ import { useSelector } from 'react-redux';
 
 import img from '~/assets/modals/emptyDesk.png';
 import { useVerifyOtpMutation } from '~/query/auth/auth.api';
-import { TOAST_MESSAGE } from '~/query/errors/error.constants';
 import { CustomErrorResponse } from '~/query/errors/error.type';
-import { isCustomErrorResponse, isServerError } from '~/query/errors/error.utils';
+import { isCustomErrorResponse } from '~/query/errors/error.utils';
 import { selectAuthEmail } from '~/store/auth/auth-selector';
-import { useAppDispatch } from '~/store/hooks';
 import { TEST_ID } from '~/test/test.constant';
-import { addError } from '~/widgets/error/error-slice';
+import { useToastNotifications } from '~/utils/useToastNotifications';
 
 import CustomModal from '../UI/CustomModal';
 
@@ -31,7 +29,8 @@ export function ModalVerifyCode({ isOpen, onClose, onSuccess }: Props) {
     }, [code]);
 
     const email = useSelector(selectAuthEmail);
-    const dispatch = useAppDispatch();
+
+    const { handleServerError } = useToastNotifications();
     const handleVerify = async () => {
         if (!email) return;
         try {
@@ -43,14 +42,9 @@ export function ModalVerifyCode({ isOpen, onClose, onSuccess }: Props) {
             onSuccess();
         } catch (error) {
             const err = error as CustomErrorResponse;
-            if (err.status === 403) {
-                setIsInvalid(true);
-                setCode('');
-            }
-            if (isServerError(err.status)) {
-                dispatch(addError(TOAST_MESSAGE.ServerErrorToast));
-                setCode('');
-            }
+            if (err.status === 403) setIsInvalid(true);
+            handleServerError(error);
+            setCode('');
         }
     };
 

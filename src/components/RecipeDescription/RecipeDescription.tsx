@@ -23,11 +23,10 @@ import { isServerError } from '~/query/errors/error.utils';
 import { useDeleteRecipeMutation } from '~/query/recipe/recipe.api';
 import { PageRoutes } from '~/routes/PageRoutes.constants';
 import { useAuth } from '~/store/auth/useAuth';
-import { useAppDispatch } from '~/store/hooks';
 import { Recipe } from '~/store/recipe-filter/recipe.types';
 import { useLikeAndBookmark } from '~/store/recipe-filter/useLikeAndBookmark';
 import { TEST_ID } from '~/test/test.constant';
-import { addError, addSuccess } from '~/widgets/error/error-slice';
+import { useToastNotifications } from '~/utils/useToastNotifications';
 
 import CardStat from '../CardStat';
 import CategoriesTags from '../CategoriesTags';
@@ -42,24 +41,23 @@ type Props = {
 export function RecipeDescription(props: Props) {
     const { recipeId } = useParams();
 
-    // const { toggleLike, toggleBookmark } = useLikeAndBookmark(props.item);
-    const { toggleLike, toggleBookmark } = useLikeAndBookmark(recipeId);
+    const { toggleLike, toggleBookmark } = useLikeAndBookmark(recipeId, props.item);
     const { user } = useAuth();
 
-    const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const [deleteRecipe] = useDeleteRecipeMutation();
 
+    const { showSuccessReduxMessage, showErrorReduxMessage } = useToastNotifications();
     const handleDeleteRecipe = async () => {
         if (!recipeId) return;
         try {
             await deleteRecipe(recipeId).unwrap();
-            dispatch(addSuccess(TOAST_MESSAGE.RecipeDelete[200]));
+            showSuccessReduxMessage(TOAST_MESSAGE.RecipeDelete[200]);
             navigate('/');
         } catch (error) {
             const err = error as CustomErrorResponse;
             if (isServerError(err.status)) {
-                dispatch(addError(TOAST_MESSAGE.RecipeDelete[500]));
+                showErrorReduxMessage(TOAST_MESSAGE.RecipeDelete[500]);
             }
         }
     };

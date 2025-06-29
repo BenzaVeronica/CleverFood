@@ -11,15 +11,20 @@ export type RecipeLikeResponse = {
 };
 
 export type RecipeBookmarksResponse = {
-    bookmarks: number;
+    count: number;
     message: string;
 };
 
 export type RecipesByUserIdResponse = {
-    data: [];
-    notes: BloggerNote[];
     recipes: Recipe[];
+    myBookmarks: Recipe[];
     totalBookmarks: number;
     totalSubscribers: number;
     userId: string;
+    notes: BloggerNote[];
+};
+
+export type RecipeIdAndRecipe = {
+    recipeId: string;
+    recipe: Recipe;
 };

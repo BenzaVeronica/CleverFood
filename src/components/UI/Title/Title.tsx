@@ -6,7 +6,7 @@ type Props = {
 };
 export function Title({ children }: Props) {
     return (
-        <Text fontSize='xl' fontWeight={700} mb={4}>
+        <Text fontSize='lg' fontWeight={700} mb={4}>
             {children}
         </Text>
     );

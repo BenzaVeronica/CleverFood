@@ -9,7 +9,7 @@ import {
     FormDataFormRegistryStep1,
     FormFieldsFormRegistryStep1,
     SchemaFormRegistryStep1,
-} from './FormRegistryStep1.types';
+} from './FormRegistryStep1.schema';
 
 type Props = {
     onFieldsChange?: (values: Partial<FormFieldsFormRegistryStep1>) => void;

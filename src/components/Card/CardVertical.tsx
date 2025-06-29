@@ -20,7 +20,7 @@ export function CardVertical({ el }: Props) {
     const categs = useCategoryBySubCategoryId(firstSubCategoryId);
     return (
         <Flex
-            h={{ base: '222px', lg: '474px' }}
+            minH={{ base: '290px', lg: '425px' }}
             layerStyle='card'
             width={{ base: '156px', lg: '278px', xl: '322px' }}
             flexShrink={0}

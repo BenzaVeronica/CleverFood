@@ -6,10 +6,8 @@ import { useSelector } from 'react-redux';
 import { useResetPasswordMutation } from '~/query/auth/auth.api';
 import { TOAST_MESSAGE } from '~/query/errors/error.constants';
 import { selectAuthEmail } from '~/store/auth/auth-selector';
-import { useAppDispatch } from '~/store/hooks';
 import { TEST_ID } from '~/test/test.constant';
-import { useGeneralServerError } from '~/utils/useGeneralServerError';
-import { addSuccess } from '~/widgets/error/error-slice';
+import { useToastNotifications } from '~/utils/useToastNotifications';
 
 import CustomFormField from '../UI/CustomFormField';
 import CustomModal from '../UI/CustomModal';
@@ -17,7 +15,7 @@ import {
     FormDataFormModalRecovery,
     FormFieldsFormModalRecovery,
     SchemaFormModalRecovery,
-} from './ModalRecoveryForm.types';
+} from './ModalRecoveryForm.schema';
 
 type Props = {
     isOpen: boolean;
@@ -37,11 +35,10 @@ export function ModalRecoveryForm({ isOpen, onClose, onSuccess }: Props) {
     const handleChange = async (fieldName: keyof FormFieldsFormModalRecovery) => {
         await trigger(fieldName);
     };
-    const dispatch = useAppDispatch();
     const email = useSelector(selectAuthEmail);
     const [resetPswProfile, { isLoading }] = useResetPasswordMutation();
 
-    const { handleServerError } = useGeneralServerError();
+    const { handleServerError, showSuccessReduxMessage } = useToastNotifications();
     const onSubmit = async (data: FormDataFormModalRecovery) => {
         try {
             await resetPswProfile({
@@ -49,7 +46,7 @@ export function ModalRecoveryForm({ isOpen, onClose, onSuccess }: Props) {
                 ...data,
             }).unwrap();
             onSuccess();
-            dispatch(addSuccess(TOAST_MESSAGE.RestoreCredentials[200]));
+            showSuccessReduxMessage(TOAST_MESSAGE.RestoreCredentials[200]);
         } catch (error) {
             handleServerError(error);
         }

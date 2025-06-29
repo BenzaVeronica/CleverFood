@@ -26,6 +26,7 @@ export type RecipeFormDataDraft = {
     title: string;
     categoriesIds: string[];
 } & Nullable<Omit<RecipeFormData, 'title' | 'categoriesIds'>>;
+export type DraftWithId = RecipeFormDataDraft & { _id: string };
 
 export type onChangeNewIngredient = (
     field: keyof RecipeIngredients | 'submit',

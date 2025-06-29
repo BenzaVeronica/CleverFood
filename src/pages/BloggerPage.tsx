@@ -15,12 +15,15 @@ import { isServerError } from '~/query/errors/error.utils';
 import { useGetRecipesByUserIdQuery } from '~/query/recipe/recipe.api';
 import { PageRoutes, PageRoutesHash } from '~/routes/PageRoutes.constants';
 import { useAuth } from '~/store/auth/useAuth';
-import { useAppDispatch } from '~/store/hooks';
 import { TEST_ID } from '~/test/test.constant';
 import { scrollToHash, useHash } from '~/utils/useHash';
-import { addError } from '~/widgets/error/error-slice';
-
-export function BloggerPage() {
+import { useToastNotifications } from '~/utils/useToastNotifications';
+const TEST_ID_MAIN_BLOGGER = {
+    box: TEST_ID.Bloggers.BloggerUserInfoBox,
+    name: TEST_ID.Bloggers.BloggerUserInfoName,
+    login: TEST_ID.Bloggers.BloggerUserInfoLogin,
+};
+export default function BloggerPage() {
     const { user } = useAuth();
     const { bloggerId } = useParams();
     const { data, error: errorBlogger } = useGetBloggerByIdQuery(
@@ -36,9 +39,9 @@ export function BloggerPage() {
         bloggerId ? { userId: bloggerId } : skipToken,
     );
 
-    const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
+    const { showErrorReduxMessage } = useToastNotifications();
     useEffect(() => {
         if (!errorBlogger && !errorRecipesByUser) return;
         const errors = [errorBlogger, errorRecipesByUser]
@@ -47,12 +50,12 @@ export function BloggerPage() {
         if (errors.length > 0) {
             errors.forEach((err) => {
                 if (isServerError(err.status)) {
-                    dispatch(addError(TOAST_MESSAGE.ServerErrorToast));
+                    showErrorReduxMessage(TOAST_MESSAGE.ServerErrorToast);
                     navigate('/');
                 } else if (err.status === 404) {
                     navigate(PageRoutes.NOT_FOUND);
                 } else {
-                    dispatch(addError(err));
+                    showErrorReduxMessage({ title: err.title, description: '' });
                 }
             });
         }
@@ -73,7 +76,7 @@ export function BloggerPage() {
     return (
         <ContainerGridLayout>
             <GridItem colSpan={{ base: 4, md: 12 }} pt={40}>
-                <UserCardMain profile={data} dataTestId={TEST_ID.Bloggers.BloggerUserInfoBox} />
+                <UserCardMain profile={data} dataTestId={TEST_ID_MAIN_BLOGGER} />
                 {recipesRes?.recipes && (
                     <CardListPaginated
                         mt={6}

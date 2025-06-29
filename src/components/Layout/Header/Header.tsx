@@ -1,4 +1,5 @@
 import { Button, Flex, Icon } from '@chakra-ui/react';
+import { Link } from 'react-router';
 
 import IconClose from '~/assets/iconClose.svg?react';
 import IconMenu from '~/assets/iconMenu.svg?react';
@@ -8,15 +9,19 @@ import Logo from '~/components/UI/Logo';
 import UserProfile from '~/components/UserProfile';
 import UserStat from '~/components/UserStat';
 import { useMobileMenu } from '~/context/MobileMenuContext';
+import { useGetUserMeQuery } from '~/query/user/user.api';
 import CustomBreadcrumb from '~/routes/Breadcrumb';
+import { PageRoutes } from '~/routes/PageRoutes.constants';
 import { useAuth } from '~/store/auth/useAuth';
-import { masProfiles } from '~/store/blog/blog.constants';
+import { TEST_ID } from '~/test/test.constant';
 import useBreakpoints from '~/utils/useBreakpoints';
 
 export function Header() {
     const { isSmallDesktop } = useBreakpoints();
     const { isAuthenticated } = useAuth();
     const { isOpen, toggleMenu } = useMobileMenu();
+
+    const { data } = useGetUserMeQuery();
 
     const buttonTestId = isOpen ? 'close-icon' : 'hamburger-icon';
     const ButtonIcon = isOpen ? (
@@ -31,7 +36,7 @@ export function Header() {
             position='fixed'
             top={0}
             left={0}
-            zIndex={11}
+            zIndex={31}
             w='100%'
             bg={isOpen && isSmallDesktop ? 'white' : 'lime.50'}
             alignItems='center'
@@ -49,7 +54,9 @@ export function Header() {
             )}
 
             {isAuthenticated && !isSmallDesktop ? (
-                <UserProfile profile={masProfiles[0]} mr={14} w='432px' />
+                <Link to={PageRoutes.PROFILE} data-test-id={TEST_ID.sprint7.headerprofilebutton}>
+                    <UserProfile profile={data} mr={14} maxW='432px' />
+                </Link>
             ) : (
                 <LoginButton />
             )}
@@ -60,9 +67,8 @@ export function Header() {
                     visibility: isSmallDesktop ? 'visible' : 'hidden',
                     width: isSmallDesktop ? 'auto' : '0px',
                 }}
-                // display={{ base: 'flex', lg: 'none' }}
             >
-                {isAuthenticated && !isOpen ? <UserStat /> : <LoginButton />}
+                {isAuthenticated && !isOpen && isSmallDesktop ? <UserStat /> : <LoginButton />}
                 <Button
                     data-test-id={buttonTestId}
                     onClick={toggleMenu}

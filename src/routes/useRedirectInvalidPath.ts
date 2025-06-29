@@ -10,7 +10,7 @@ import { useAppSelector } from '~/store/hooks';
 import { PageRoutes } from './PageRoutes.constants';
 
 export function useRedirectInvalidPath() {
-    const { categoryId, subcategoryId, recipeId } = useParams();
+    const { categoryId, subcategoryId, recipeId, draftId } = useParams();
     const navigate = useNavigate();
 
     const { isLoading } = useGetNavTreeQuery();
@@ -22,7 +22,8 @@ export function useRedirectInvalidPath() {
     );
 
     useEffect(() => {
-        if (isLoading) return;
+        if (isLoading || draftId) return;
+
         const isNotValidCat = categoryId && !category;
         const isNotValidSub = subcategoryId && !subcategory;
         const isNotValidRecipe = subcategoryId && !subcategory;

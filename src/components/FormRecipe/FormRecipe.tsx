@@ -10,15 +10,16 @@ import { isServerError } from '~/query/errors/error.utils';
 import {
     useCreateRecipeDraftMutation,
     useCreateRecipeMutation,
+    useUpdateRecipeDraftMutation,
     useUpdateRecipeMutation,
 } from '~/query/recipe/recipe.api';
 import { PageRoutes } from '~/routes/PageRoutes.constants';
 import { selectCategoriesWithSubs } from '~/store/category/category-selector';
-import { useAppDispatch, useAppSelector } from '~/store/hooks';
+import { useAppSelector } from '~/store/hooks';
 import { baseSchema, recipeSchema } from '~/store/recipe-form/recipe-form-schema';
 import { selectIsDirty } from '~/store/recipe-form/recipe-form-selector';
 import { TEST_ID } from '~/test/test.constant';
-import { addError, addSuccess } from '~/widgets/error/error-slice';
+import { useToastNotifications } from '~/utils/useToastNotifications';
 import ErrorNotification from '~/widgets/error/ErrorNotification';
 
 import { RecipeFormData, RecipeFormDataDraft } from '../../store/recipe-form/recipe-form-types';
@@ -35,10 +36,9 @@ import { useRecipeForm } from './useRecipeForm';
 type Props = {
     recipeId?: string;
     initialData?: RecipeFormDataDraft | null;
+    draftId?: string;
 };
-const FormRecipe = ({ initialData, recipeId }: Props) => {
-    const dispatch = useAppDispatch();
-
+const FormRecipe = ({ initialData, recipeId, draftId }: Props) => {
     const {
         formData,
         errors,
@@ -81,6 +81,7 @@ const FormRecipe = ({ initialData, recipeId }: Props) => {
         return false;
     });
 
+    const { showSuccessReduxMessage, showErrorReduxMessage } = useToastNotifications();
     const onSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         const isValid = await validateWithSchema(recipeSchema, formData);
@@ -88,7 +89,7 @@ const FormRecipe = ({ initialData, recipeId }: Props) => {
         if (!recipeId) {
             try {
                 const result = await createRecipe(formData as RecipeFormData).unwrap();
-                dispatch(addSuccess(TOAST_MESSAGE.RecipeCreate[200]));
+                showSuccessReduxMessage(TOAST_MESSAGE.RecipeCreate[200]);
                 const tree = getCategoryBySubCategoryId({
                     categories,
                     subCategories,
@@ -100,7 +101,7 @@ const FormRecipe = ({ initialData, recipeId }: Props) => {
             } catch (error) {
                 const err = error as CustomErrorResponse;
                 if (err.status === 409 || err.status === 500) {
-                    dispatch(addError(TOAST_MESSAGE.RecipeCreate[err.status]));
+                    showErrorReduxMessage(TOAST_MESSAGE.RecipeCreate[err.status]);
                 }
             }
         } else {
@@ -111,14 +112,46 @@ const FormRecipe = ({ initialData, recipeId }: Props) => {
                 }).unwrap();
                 resetForm();
                 setIsAllowNavigation(true);
-                dispatch(addSuccess(TOAST_MESSAGE.RecipeCreate[200]));
+                showSuccessReduxMessage(TOAST_MESSAGE.RecipeCreate[200]);
                 navigate(window.location.pathname.replace(`${PageRoutes.RECIPE_EDIT}`, ''));
             } catch (error) {
                 const err = error as CustomErrorResponse;
                 if (err.status === 409 || err.status === 500) {
-                    dispatch(addError(TOAST_MESSAGE.RecipeCreate[err.status]));
+                    showErrorReduxMessage(TOAST_MESSAGE.RecipeCreate[err.status]);
                 }
             }
+        }
+    };
+
+    const [updateRecipeDraft, { isLoading: isUpdatingDraft }] = useUpdateRecipeDraftMutation();
+    const onUpdateDraft = async () => {
+        if (!draftId) return;
+        try {
+            const isValid = await validateWithSchema(baseSchema, formData);
+            if (!isValid) {
+                throw {
+                    title: 'Validation failed',
+                    message: 'Проверьте правильность заполнения формы',
+                };
+            }
+            await updateRecipeDraft({
+                id: draftId,
+                data: formData as RecipeFormData,
+            }).unwrap();
+            setIsAllowNavigation(true);
+            showSuccessReduxMessage(TOAST_MESSAGE.RecipeDraftCreate[200]);
+            navigate('/', { state: { showNotification: true } });
+            return true;
+        } catch (error) {
+            setIsAllowNavigation(false);
+            const err = error as CustomErrorResponse;
+            if (isServerError(err.status)) {
+                showErrorReduxMessage(TOAST_MESSAGE.RecipeDraftCreate[500]);
+            }
+            if (err.status === 409) {
+                showErrorReduxMessage(TOAST_MESSAGE.RecipeCreate[err.status]);
+            }
+            throw error;
         }
     };
 
@@ -133,17 +166,17 @@ const FormRecipe = ({ initialData, recipeId }: Props) => {
             }
             await createRecipeDraft(formData).unwrap();
             setIsAllowNavigation(true);
-            dispatch(addSuccess(TOAST_MESSAGE.RecipeDraftCreate[200]));
+            showSuccessReduxMessage(TOAST_MESSAGE.RecipeDraftCreate[200]);
             navigate('/', { state: { showNotification: true } });
             return true;
         } catch (error) {
             setIsAllowNavigation(false);
             const err = error as CustomErrorResponse;
             if (isServerError(err.status)) {
-                dispatch(addError(TOAST_MESSAGE.RecipeDraftCreate[500]));
+                showErrorReduxMessage(TOAST_MESSAGE.RecipeDraftCreate[500]);
             }
             if (err.status === 409) {
-                dispatch(addError(TOAST_MESSAGE.RecipeCreate[err.status]));
+                showErrorReduxMessage(TOAST_MESSAGE.RecipeCreate[err.status]);
             }
             throw error;
         }
@@ -167,7 +200,7 @@ const FormRecipe = ({ initialData, recipeId }: Props) => {
 
     return (
         <>
-            {(isCreating || isSavingDraft || isUpdating) && <LoaderScreen />}
+            {(isCreating || isSavingDraft || isUpdating || isUpdatingDraft) && <LoaderScreen />}
             <Box
                 as='form'
                 onSubmit={onSubmit}
@@ -256,7 +289,7 @@ const FormRecipe = ({ initialData, recipeId }: Props) => {
                         >
                             <Button
                                 data-test-id={TEST_ID.Recipe.SaveDraftButton}
-                                onClick={onSaveDraft}
+                                onClick={draftId ? onUpdateDraft : onSaveDraft}
                                 w={{ base: 'full', md: 'auto' }}
                                 variant='btnOutlineBlack'
                                 leftIcon={<IconPencil fill='black' />}

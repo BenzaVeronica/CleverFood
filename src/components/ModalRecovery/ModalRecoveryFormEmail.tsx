@@ -11,7 +11,7 @@ import { isServerError } from '~/query/errors/error.utils';
 import { setEmail } from '~/store/auth/auth-slice';
 import { useAppDispatch } from '~/store/hooks';
 import { TEST_ID } from '~/test/test.constant';
-import { addError } from '~/widgets/error/error-slice';
+import { useToastNotifications } from '~/utils/useToastNotifications';
 
 import CustomFormField from '../UI/CustomFormField';
 import CustomModal from '../UI/CustomModal';
@@ -19,7 +19,7 @@ import {
     FormDataModalRecoveryForm,
     FormFieldsModalRecoveryForm,
     SchemaModalRecoveryForm,
-} from './ModalRecoveryFormEmail.types';
+} from './ModalRecoveryFormEmail.schema';
 
 type Props = {
     isOpen: boolean;
@@ -54,6 +54,7 @@ export function ModalRecoveryFormEmail({ isOpen, onClose, onSuccess }: Props) {
 
     const dispatch = useAppDispatch();
     const [postForgetPswByEmail, { isLoading }] = usePostForgetPswByEmailMutation();
+    const { showErrorReduxMessage } = useToastNotifications();
     const onSubmit = async (data: FormDataModalRecoveryForm) => {
         try {
             dispatch(setEmail(data.email));
@@ -63,10 +64,10 @@ export function ModalRecoveryFormEmail({ isOpen, onClose, onSuccess }: Props) {
         } catch (err) {
             const customError = err as CustomErrorResponse;
             if (isServerError(customError.status)) {
-                dispatch(addError(TOAST_MESSAGE.ServerErrorToast));
+                showErrorReduxMessage(TOAST_MESSAGE.ServerErrorToast);
             }
             if (customError.status === 403) {
-                dispatch(addError(TOAST_MESSAGE.SendVerificationCodeToast[403]));
+                showErrorReduxMessage(TOAST_MESSAGE.SendVerificationCodeToast[403]);
                 setError('email', {});
             }
             setValue('email', '');

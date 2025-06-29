@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 
 import { useUploadFileMutation } from '~/query/file/file.api';
 import { TEST_ID } from '~/test/test.constant';
+import { useToastNotifications } from '~/utils/useToastNotifications';
 
 import CustomModal from '../UI/CustomModal';
 import { ImageBox } from '../UI/ImageBox/ImageBox';
@@ -37,22 +38,20 @@ export function ModalImageUploader({
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
     const [uploadFile, { isLoading }] = useUploadFileMutation();
+    const { handleServerError } = useToastNotifications();
 
     const handleUpload = async () => {
-        // console.log('handleUpload');
         if (!selectedFile) return;
         const formData = new FormData();
         formData.append('file', selectedFile);
         try {
             const response = await uploadFile(formData).unwrap();
-            // console.log('Файл загружен:', response);
-            // console.log(uploadFor);
             if (uploadFor) {
                 onSuccess(response.url, uploadFor);
             }
             handleClose();
         } catch (error) {
-            console.error('Ошибка загрузки:', error);
+            handleServerError(error);
         }
     };
 
@@ -104,11 +103,10 @@ export function ModalImageUploader({
 
                 <Box h='206px' w='206px'>
                     <ImageBox
-                        // dataTestId={TEST_ID.Modal.RecipeImageModal}
                         dataTestIdPreview={TEST_ID.Modal.RecipeImageModalPreviewImage}
                         image={tempImage}
                         onClick={() => document.getElementById('image-upload')?.click()}
-                        isEditCrop
+                        isEditCrop={isEditCrop}
                     />
 
                     <Input

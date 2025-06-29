@@ -6,7 +6,7 @@ import { useGetAllBloggersQuery } from '~/query/blogs/blogs.api';
 import { PageRoutes } from '~/routes/PageRoutes.constants';
 import { useAuth } from '~/store/auth/useAuth';
 import { TEST_ID } from '~/test/test.constant';
-import { useGeneralServerError } from '~/utils/useGeneralServerError';
+import { useToastNotifications } from '~/utils/useToastNotifications';
 
 import ArrowLongRight from '../../assets/iconArrowLongRight.svg?react';
 import UserCard from '../UserCard';
@@ -26,7 +26,6 @@ export function SectionBlog({
     const { user } = useAuth();
     const { data: bloggers, error } = useGetAllBloggersQuery(
         {
-            // limit: '3',
             currentUserId: user?.userId || '',
             limit: '',
         },
@@ -56,7 +55,7 @@ export function SectionBlog({
               grid: TEST_ID.Bloggers.BloggerUserOtherBlogsGrid,
           };
 
-    const { handleServerError } = useGeneralServerError();
+    const { handleServerError } = useToastNotifications();
     useEffect(() => {
         if (!error) return;
         handleServerError(error);

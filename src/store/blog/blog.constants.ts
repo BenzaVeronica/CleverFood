@@ -17,11 +17,7 @@ const masProfilesWithoutId = [
         lastName: 'Высоцкая',
         login: 'elenapovar',
         img: profile1,
-        // statistics: {
-        //     like: null,
-        //     bookmarks: null,
-        //     views: null,
-        // },
+        totalSubscribers: 0,
     },
     {
         firstName: 'Alex',

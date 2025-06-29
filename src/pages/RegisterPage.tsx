@@ -11,7 +11,7 @@ import { ModalsIdEnum } from '~/store/modals/modals.constants';
 import { useEmailVerificationRedirect } from '~/utils/useEmailVerificationRedirect';
 
 type ModalVariant = ModalsIdEnum | null;
-export function RegisterPage() {
+export default function RegisterPage() {
     const [currentModal, setCurrentModal] = useState<ModalVariant>(null);
 
     const navigate = useNavigate();

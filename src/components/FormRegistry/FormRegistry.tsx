@@ -10,7 +10,7 @@ import { isServerError } from '~/query/errors/error.utils';
 import { setEmail } from '~/store/auth/auth-slice';
 import { useAppDispatch } from '~/store/hooks';
 import { TEST_ID } from '~/test/test.constant';
-import { addError } from '~/widgets/error/error-slice';
+import { useToastNotifications } from '~/utils/useToastNotifications';
 
 import { LoadingScreenError } from '../WithLoadingError/WithLoadingError';
 import { FormRegistryValues } from './FormRegistry.types';
@@ -53,6 +53,7 @@ export function FormRegistry({ onSuccess }: Props) {
 
     const dispatch = useAppDispatch();
     const [registerUser, { isLoading, isError }] = useRegisterUserMutation();
+    const { showErrorReduxMessage } = useToastNotifications();
     const handleSubmit = async () => {
         try {
             const { repeatPassword, ...requestData } = formValues;
@@ -62,11 +63,11 @@ export function FormRegistry({ onSuccess }: Props) {
         } catch (error) {
             const err = error as CustomErrorResponse;
             if (isServerError(err.status)) {
-                dispatch(addError(TOAST_MESSAGE.ServerErrorToast));
+                showErrorReduxMessage(TOAST_MESSAGE.ServerErrorToast);
             }
 
             if (err.status === 400) {
-                dispatch(addError({ title: err.title, description: '' }));
+                showErrorReduxMessage({ title: err.title, description: '' });
             }
         }
     };

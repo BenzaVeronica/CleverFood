@@ -1,18 +1,18 @@
-import { HStack, Icon, StackProps, Text } from '@chakra-ui/react';
-import { ElementType } from 'react';
+import { StackProps, VStack } from '@chakra-ui/react';
 
-type Props = {
-    icon: ElementType;
-    children: React.ReactNode;
-} & StackProps;
+import Users from '~/assets/users-filled.svg?react';
+import { useGetUserMeQuery } from '~/query/user/user.api';
+import { pluralizeSubscribes } from '~/utils/pluralizeRecipes';
 
-export function StatisticsSubscribers({ icon, children, ...rest }: Props) {
+import StatTitle from '../UI/StatTitle';
+import { UserAvatarList } from '../UserList/UserAvatarList';
+
+export function StatisticsSubscribers({ ...rest }: StackProps) {
+    const { data: me } = useGetUserMeQuery();
     return (
-        <HStack p={1} spacing='6px' {...rest}>
-            <Icon as={icon} boxSize={3} />
-            <Text fontSize='xs' color='lime.600'>
-                {children}
-            </Text>
-        </HStack>
+        <VStack {...rest} alignItems='start' w='100%'>
+            <StatTitle icon={Users}>{pluralizeSubscribes(me?.subscribers.length)}</StatTitle>
+            <UserAvatarList mas={me?.subscribers} />
+        </VStack>
     );
 }

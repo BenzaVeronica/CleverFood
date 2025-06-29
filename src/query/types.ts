@@ -1,3 +1,5 @@
+import { AppDispatch } from '~/store/app.types';
+
 export type ResponseData = {
     statusCode: number;
     message: string;
@@ -45,4 +47,9 @@ export type ResponseParamsWithOptionalId = {
 
 export type RequestParamsUserId = {
     userId: string;
+};
+
+export type MutationApi<Result> = {
+    dispatch: AppDispatch;
+    queryFulfilled: Promise<{ data: Result }>;
 };

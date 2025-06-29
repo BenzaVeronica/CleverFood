@@ -20,8 +20,7 @@ export function ModalExitSaveNavBlock({
             await onSaveDraft();
             onConfirmNavigation();
         } catch (error) {
-            console.log(error);
-
+            console.error(error);
             onClose();
         }
     };

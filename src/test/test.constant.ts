@@ -1,3 +1,15 @@
+export const mockError = () => ({ error: { status: 500, data: 'Server error' } });
+export const mockFileUpload = async () => ({
+    name: 'bd9e706e-6d6a-4123-9641-7ea69f7b5c53.jpg',
+    url: '/media/images/bd9e706e-6d6a-4123-9641-7ea69f7b5c53.jpg',
+    _id: '68323b06b7cf34db7212e244',
+});
+export const mockPhotoUpload = () => ({
+    data: {
+        photoLink: '/media/images/438b296e-c994-4a70-9d25-a8fab7b61a16',
+    },
+});
+
 export const TEST_ID = {
     Header: 'header',
     Footer: 'footer',
@@ -148,6 +160,23 @@ export const TEST_ID = {
     Error: {
         title: 'error-notification-title',
         description: 'error-notification-description',
+    },
+    sprint7: {
+        headerprofilebutton: 'header-profile-button',
+        footerprofilebutton: 'footer-profile-button',
+        userstatsblock: 'user-stats-block',
+        userprofile: {
+            box: 'user-profile-box',
+            name: 'user-profile-name',
+            login: 'user-profile-login',
+            statsblock: 'user-profile-stats-block',
+        },
+        settingsbutton: 'settings-button',
+        userprofilerecipes: 'user-profile-recipes',
+        userprofilebookmarks: 'user-profile-bookmarks',
+        profileeditbutton: 'profile-edit-button',
+        notedeletebutton: 'note-delete-button',
+        settingsrecommendationinfo: 'settings-recommendation-info-block',
     },
 } as const;
 // 682b5e30b7cf34db7212d8c4

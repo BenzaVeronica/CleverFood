@@ -10,7 +10,7 @@ import recipeFilterReducer, { recipeFilterSlice } from './recipe-filter/recipe-f
 import recipeFormReducer, { recipeFormSlice } from './recipe-form/recipe-form-slice';
 const isProduction = false;
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
     [appSlice.name]: appReducer,
     [recipeFilterSlice.name]: recipeFilterReducer,
     [categorySlice.name]: categoryReducer,
@@ -20,8 +20,6 @@ const rootReducer = combineReducers({
     [tokenApi.reducerPath]: tokenApi.reducer,
     [recipeFormSlice.name]: recipeFormReducer,
 });
-
-export type ApplicationState = ReturnType<typeof rootReducer>;
 
 export const store = configureStore({
     reducer: rootReducer,

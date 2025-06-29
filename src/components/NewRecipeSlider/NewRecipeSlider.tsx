@@ -50,7 +50,6 @@ export function NewRecipeSlider() {
                         position='absolute'
                         left='-8px'
                         top='50%'
-                        transform='translateY(-50%)'
                         zIndex={3}
                         display={{ base: 'none', lg: 'flex' }}
                     />
@@ -67,7 +66,7 @@ export function NewRecipeSlider() {
                         {data?.data.map((recipe, i) => (
                             <SwiperSlide
                                 key={`new-recipe-${recipe._id}`}
-                                style={{ width: 'auto' }}
+                                style={{ width: 'auto', maxHeight: '425px' }}
                                 data-test-id={`carousel-card-${i}`}
                             >
                                 <CardVertical el={recipe} />
@@ -86,7 +85,6 @@ export function NewRecipeSlider() {
                         position='absolute'
                         right='-8px'
                         top='50%'
-                        transform='translateY(-50%)'
                         zIndex={3}
                         display={{ base: 'none', lg: 'flex' }}
                     />

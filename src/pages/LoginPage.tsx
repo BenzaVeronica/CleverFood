@@ -9,10 +9,9 @@ import { ModalRecoveryForm } from '~/components/ModalRecovery/ModalRecoveryForm'
 import { ModalRecoveryFormEmail } from '~/components/ModalRecovery/ModalRecoveryFormEmail';
 import { ModalVerifyCode } from '~/components/ModalVerify/ModalVerifyCode';
 import { TOAST_MESSAGE } from '~/query/errors/error.constants';
-import { useAppDispatch } from '~/store/hooks';
 import { ModalsIdEnum } from '~/store/modals/modals.constants';
 import { TEST_ID } from '~/test/test.constant';
-import { addSuccess } from '~/widgets/error/error-slice';
+import { useToastNotifications } from '~/utils/useToastNotifications';
 import ErrorNotification from '~/widgets/error/ErrorNotification';
 
 type ModalVariant = ModalsIdEnum | null;
@@ -32,13 +31,13 @@ function LoginPage() {
         setCurrentModal(null);
     };
 
-    const dispatch = useAppDispatch();
     const location = useLocation();
+    const { showSuccessReduxMessage } = useToastNotifications();
     useEffect(() => {
         if (location.state?.verifiedSuccess) {
-            dispatch(addSuccess(TOAST_MESSAGE.EmailVerificationToast[200]));
+            showSuccessReduxMessage(TOAST_MESSAGE.EmailVerificationToast[200]);
         }
-    }, [location.state, dispatch]);
+    }, [location.state]);
 
     return (
         <LayoutFormWithImg>

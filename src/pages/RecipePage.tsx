@@ -10,8 +10,10 @@ import IngridientsTable from '~/components/RecipeIngridientsTable';
 import RecipeSteps from '~/components/RecipeSteps';
 import { LoaderScreen } from '~/components/UI/Loader/LoaderScreen';
 import { UserCardGreen } from '~/components/UserCard/UserCardGreen';
+import UserRecommendButton from '~/components/UserRecommendButton';
 import { useGetBloggerByIdQuery } from '~/query/blogs/blogs.api';
 import { useGetRecipeByIdQuery } from '~/query/recipe/recipe.api';
+import { useGetStatFromBloggerByIdAndStat } from '~/query/user/user.utils';
 import { useRedirectInvalidPath } from '~/routes/useRedirectInvalidPath';
 import { useAuth } from '~/store/auth/useAuth';
 import ErrorNotification from '~/widgets/error/ErrorNotification';
@@ -36,6 +38,9 @@ function RecipePage() {
             skip: !user?.userId || !currentRecipe,
         },
     );
+
+    const { isAvailableRecomend } = useGetStatFromBloggerByIdAndStat();
+    const isMyRecipe = currentRecipe?.authorId == user?.userId;
 
     if (isLoading || !currentRecipe) return <LoaderScreen />;
     return (
@@ -85,6 +90,12 @@ function RecipePage() {
                 <IngridientsTable item={currentRecipe} />
                 <RecipeSteps item={currentRecipe} />
                 {blogger && <UserCardGreen profile={blogger} />}
+                {isAvailableRecomend && !isMyRecipe && (
+                    <UserRecommendButton
+                        recipe={currentRecipe}
+                        masRecommendedByUserId={currentRecipe?.recommendedByUserId}
+                    />
+                )}
             </GridItem>
             <GridItem colSpan={{ base: 4, md: 12 }}>
                 <NewRecipeSlider />

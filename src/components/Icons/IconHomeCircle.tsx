@@ -9,7 +9,6 @@ export const IconHomeCircle = ({
     _secondaryColor = 'black',
     ...props
 }: Props) => (
-    // const [color] = useToken("colors", [secondaryColor]);
     <Icon viewBox='0 0 40 40' fill='none' {...props}>
         {isActive && <rect width='40' height='40' rx='20' fill='black' />}
         <path

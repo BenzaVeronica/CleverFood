@@ -1,18 +1,21 @@
 import { Avatar, Box, Flex, FlexProps, Text } from '@chakra-ui/react';
 
-import { BloggerShortInfo } from '~/query/blogs/blogs.type';
+import { getImagePath } from '~/query/api.constants';
+import { BloggerInfo, BloggerShortInfo } from '~/query/blogs/blogs.type';
+import { UserInfo } from '~/query/user/user.types';
 import { TEST_ID } from '~/test/test.constant';
 
 type Props = {
-    profile: BloggerShortInfo;
+    profile: BloggerShortInfo | BloggerInfo | UserInfo | undefined;
 } & FlexProps;
 
 export function UserProfile({ profile, ...flexProps }: Props) {
+    if (!profile) return;
     return (
         <Flex gap={3} display='flex' alignItems='center' {...flexProps} minW={0}>
             <Avatar
                 size='md'
-                // src={profile.img}
+                src={getImagePath(profile?.photoLink)}
                 name={`${profile.firstName} ${profile.lastName}`}
             />
             <Box flex='1' minW={0}>
