@@ -4,7 +4,7 @@ import { defineConfig } from 'vite';
 import svgr from 'vite-plugin-svgr';
 
 export default defineConfig(({ command }) => ({
-    base: command === 'build' ? '/BenzaVeronica/' : '/',
+    base: command === 'build' ? '/CleverFood/' : '/',
     plugins: [react(), svgr()],
     server: {
         host: true,
